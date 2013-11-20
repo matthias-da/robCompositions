@@ -1,0 +1,32 @@
+\ProvidesPackage{CoDaWork}
+
+\usepackage[hmargin=2cm,top=2cm,bottom=2cm,footskip=0.25in,headsep=0.25in]{geometry}
+% \usepackage{titlesec}
+\usepackage[hang,footnotesize]{caption}
+
+%\usepackage[latin1]{inputenc}
+%\usepackage{fontenc}
+\usepackage{xcolor,graphicx}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{natbib}
+
+\usepackage{fancyhdr}
+\pagestyle{empty}
+
+\def\blue#1{\textcolor[rgb]{0.00,0.00,1.00}{#1}}
+\newcommand{\email}[1]{\blue{\underline{#1}}} 
+
+\def\@maketitle{
+\begin{centering}
+    {\large \textbf{\@title}}
+    \vskip 0.5cm
+{    %\addtolength{\parskip}{-.75\parskip}
+    {\normalsize \@authors \\[0.30cm] }
+     \footnotesize \@affiliation \par
+%      \footnotesize Corresponding author: \@correspmail \par}
+% \setcounter{page}{\@startingpage}
+    }
+\end{centering} \vspace{0.5cm}}
+\newcommand{\authors}[1]{\newcommand{\@authors}{#1}}
+\newcommand{\affiliation}[1]{\newcommand{\@affiliation}{#1}}
+

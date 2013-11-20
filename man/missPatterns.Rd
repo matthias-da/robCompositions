@@ -1,0 +1,43 @@
+\name{missPatterns}
+\alias{missPatterns}
+\alias{zeroPatterns}
+\title{
+missing or zero pattern structure.
+}
+\description{
+Analysis of the missing or zero patterns structure of a data set.
+}
+\usage{
+missPatterns(x)
+zeroPatterns(x)
+}
+\arguments{
+  \item{x}{
+a data frame or matrix.
+}
+}
+\details{
+Here, one pattern defines those observations that have the same structure regarding their 
+missingness or zeros. For all patterns a summary is calculated. 
+}
+\value{
+\item{groups }{List of the different patterns and the observation numbers for each pattern}
+\item{cn }{the names of the patterns coded as vectors of 0-1's}
+\item{tabcomb}{the pattern structure - all combinations of zeros or missings in the variables}
+\item{tabcombPlus}{the pattern structure - all combinations of zeros or missings in the variables  including the size of those combinations/patterns, i.e. the number of observations that belongs to each pattern.}
+\item{rsum}{the number of zeros or missing values in each row of the data set}
+}
+\author{
+Matthias Templ. The code is based on a previous version from Andreas Alfons and Matthias Templ from package VIM
+}
+\seealso{
+\code{\link[VIM]{aggr}}
+}
+\examples{
+data(expenditures)
+## set NA's artificial:
+expenditures[expenditures < 300] <- NA
+## detect the NA structure:
+missPatterns(expenditures)
+}
+\keyword{ multivariate }

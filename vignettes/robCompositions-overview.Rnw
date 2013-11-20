@@ -1,0 +1,451 @@
+%\VignetteIndexEntry{Overview of the robCompostions package}
+\documentclass[a4paper,11pt]{scrartcl}
+\usepackage[pdftex]{hyperref}
+\usepackage{subfigure}
+
+
+\usepackage{CoDaWork}
+\hypersetup{colorlinks,
+        citecolor=blue,
+        linkcolor=blue,
+        urlcolor=blue
+}
+\newcommand{\R}[1]{\texttt{#1}}
+
+%\usepackage{CoDaWork}
+
+%opening
+\title{Overview of the robCompositons package. Compositional Data Analysis using Robust Methods.}
+\authors{M. TEMPL$^{1,3}$, P. FILZMOSER$^1$ and K. HRON$^2$}
+\affiliation{$^1$Department of Statistics and Probability Theory -  
+Vienna University of Technology, Austria \email{templ@tuwien.ac.at}\\
+$^2$Department of Mathematical Analysis and Applications of Mathematics -  
+Palack\'y University, Czech Republic\\
+$^3$Statistics Austria, Vienna, Austria}
+
+
+\begin{document}
+\maketitle
+
+
+
+\section{Few Words about R and CoDa}
+
+
+The free and open-source programming language and software environment
+\texttt{R} \citep{R} is currently both, the most widely used and most popular
+software for statistics and data analysis. In addition, \texttt{R} becomes
+quite popular as a (programming) language, ranked
+currently (February 2011) on place 25 at the TIOBE Programming Community Index 
+(e.g., Matlab: 29, SAS: 30, see 
+\href{http://www.tiobe.com}{http://www.tiobe.com}).
+
+The basic \texttt{R} environment can be downloaded from the
+comprehensive \texttt{R} archive network
+(\href{http://cran.r-project.org}{http://cran.r-project.org}). \texttt{R} is
+enhanceable via \textit{packages} which consist of code and structured standard
+documentation including code application examples and possible further documents
+(so called \textit{vignettes}) showing further applications of the
+packages. \\    
+
+Two contributed packages for compositional data analysis comes with 
+\texttt{R}, version~2.12.1.: 
+the package  \texttt{compositions} \citep{Boo10} and the
+package \texttt{robCompositions} \citep{Templ11R}.
+
+Package \texttt{compositions} provides functions for the consistent 
+analysis of compositional data and positive
+numbers in the way proposed originally by John Aitchison 
+\citep[see][]{Boo10}.  
+
+In addition to the basic functionality and estimation procedures
+in package \texttt{compositions}, package \texttt{robCompositions} provides
+tools for a (classical) and robust multivariate statistical analysis of
+compositional data together with corresponding graphical tools. In addition,
+several data sets are provided as well as useful utility functions.
+
+\section{Motivation to Robust Statistics}
+
+Both measurement errors and population outliers can have a high influence on classical estimators. 
+Arbitrary results may be the consequence, because outliers may have a large
+influence and wrong interpretation of estimations may result. In addition, 
+checking model assumptions is then often not possible since 
+outliers may disturb the applied model itself. All these problems may be avoided
+when applying methods based on robust estimators. \\
+
+To be more specific, a simple analysis is done in the following by applying
+principal component analysis - using function \texttt{pcaCoDa()} of package
+\texttt{robCompositions} - to the \textit{Arctic Lake sediment data set}
+\citep{Ait86}. We show the effect of outliers on a \textbf{simplyfied example for
+demostration purposes}. However, the same problems occur in higher dimensions
+where usually principal component analysis is applied mostly for dimension
+reduction purposes. 
+
+\begin{figure}[ht]
+ \centering
+ \subfigure[Ternary diagram of the arcticLake data]{
+  \includegraphics[scale=0.3]{ternary}
+   \label{fig:ternary}
+   }
+ \subfigure[Ilr transformed arcticLake data]{
+  \includegraphics[scale=0.3]{ilr}
+   \label{fig:ilr}
+   }
+ \subfigure[First principal component for ilr transformed data.]{
+  \includegraphics[scale=0.3]{pca1}
+   \label{fig:pca1}
+   }
+ \subfigure[First principal component back-transformed to original scale.]{
+  \includegraphics[scale=0.3]{pcaOrig}
+   \label{fig:pca2}
+   }
+ \label{fig:pca}
+ \caption[]{%
+  The upper left graphic  \subref{fig:ternary} shows a ternary diagram of the
+  \textit{Arctic Lake Sediment Data}. In the upper right graphic
+  \subref{fig:ilr}, the ilr-transformed data are shown and the first principal component is displayed
+  in Figure~\subref{fig:pca1} while the first principal
+  component is shown in the ternary diagram in Figure~\subref{fig:pca2}.}
+\end{figure}
+
+Figure~\ref{fig:ternary} shows the 3-part compositions of the Arctic Lake
+Sedimanet Data in a ternary diagram. Few outliers are clearly visible, like the
+two ones with higher percentages in the \textit{silc}-part.
+After transforming the parts by using the isometric log-ratio transformation
+\citep{EPMB03}, outliers are still visible (see Figure~\ref{fig:ilr}).
+For obtaining the principal components, the eigenvalues of the 
+covariance matrix need to be derived. A robust estimation of the underlying
+covariance matrix leads to robust principal components. 
+Figure~\ref{fig:pca1} shows the direction of the first principal component
+when using different covariance estimators:
+classical estimation (black solid line), and robust estimation using
+the MM estimator \citep[see, e.g.,][]{MMY06} (dotted line in grey),
+and the (fast) MCD estimator \citep{Rousseeuw99} (black coloured dashed line)
+with high degree of robustness. 
+It is easy to see that the first principal component is attracted by the few
+outliers in the lower right plot, while the principal
+components obtained from robust estimates are not. Finally, in Figure~\ref{fig:pca2}
+the first principal components of the classical and the robust estimators are
+shown in the ternary diagram. Again, it is easy to see that the first principal
+component from classical estimation is highly influenced, especially by the
+two outliers having higher concentration in silt. The line does not follow
+the main part of the data. \\     
+
+
+This example shows that robust estimation is important to get reliable estimates
+for multivariate analysis of compositional data, especially when using more
+complex data than this simple 3-part composition.
+
+
+\section{Available Functionality}
+
+In the following the data sets and most important functions of package
+\texttt{robCompositions} are briefly described. Note, that almost all print and
+summary functions are not listed here, but their description is available in 
+\cite{Templ11R}.
+
+
+
+\subsection{Data sets}
+
+Several compositional data sets are included in the package, like:\\
+
+
+\begin{tabular}{p{4.5cm}p{11cm}}
+%\begin{description}
+  \texttt{arcticLake} & The Artic Lake Sediment Data from the Aitchison book
+  \citep{Ait86}. \\
+  \hline
+  \texttt{coffee} & The Coffee Data contain 27 commercially available coffee
+  samples of different origins \citep[see][]{Kor09}. \\
+  \hline
+  \texttt{expenditures} & The Household Expenditures Data on five commodity
+     groups of 20 single men from the Aitchison book \citep{Ait86}. \\
+  \hline  
+  \texttt{expendituresEU} & Mean consumption expenditure of households at
+     EU-level (2005) provided by Eurostat.\\
+  \hline
+  \texttt{haplogroups} &   Distribution of European Y-chromosome DNA (Y-DNA)
+  haplogroups by region in percentages, from Eupedia. \\
+  \hline
+  \texttt{machineOperators} & This data set from \cite[][p. 382]{Ait86}
+  contains compositions of eight-hour shifts of 27 machine operators. \\
+  \hline  
+  \texttt{phd} &  PhD students in Europe based on the standard classification
+  system splitted by different kind of studies (given as percentages), provided by
+     Eurostat 2009. \\
+  \hline
+  \texttt{skyeLavas} & AFM compositions of 23 aphyric Skye lavas 
+                    \citep[][p. 360]{Ait86}.
+%\end{description}
+\end{tabular}
+
+
+\subsection{Basic functions}
+
+Basic utility functions like log-ratio transformations but also functions
+which specially written in \texttt{C} (for e.g. to compute distances between
+compositions) are implemented in the package. The most important are:\\
+
+%\begin{table}[ht]
+\begin{tabular}{p{4.5cm}p{11cm}}
+%\begin{description}
+  \texttt{aDist(x, y)} & Computes the Aitchison distance between two
+  observations or between two data sets. The underlying code is written in
+  \texttt{C} and allows a fast computation also for large data sets. \\ 
+  \hline
+  \texttt{constSum(x, const=1)} & Closes compositions to sum up to a given
+  constant (default 1). \\
+    \hline
+  \texttt{robVariation(x, robust=TRUE)} & Estimates the variation matrix
+  with robust or classical methods. \\ 
+      \hline
+  \texttt{ternaryDiag(x, \ldots)} & Ternary diagram, optionally with grid. \\
+    \hline
+  \texttt{alr(x, ivar=ncol(x))} & The alr transformation moves $D$-part
+  compositional data from the simplex into a ($D-1$)-dimensional real space. \\ 
+    \hline
+  \texttt{invalr(x, \ldots)} & Inverse
+  additive log-ratio transformation, often called additive logistic transform.
+  The function allows also to preserve absolute values when parameter class info
+  is provided. \\
+    \hline
+  \texttt{clr(x)} & The clr transformation moves $D$-part compositional
+  data from the simplex into a $D$-dimensional real space. \\ 
+    \hline
+  \texttt{invclr(x, useClassInfo = TRUE)} &  The inverse clr
+  transformation. Absolute values are preserved optionally. \\
+    \hline
+  \texttt{ilr(x)}  & An isometric log-ratio transformation with a special
+  choice of the balances according to \cite{hron10}. \\ 
+    \hline
+  \texttt{invilr(x.ilr)} & The inverse transformation of \texttt{ilr()}.
+%\end{description}
+\end{tabular}
+%\end{table}
+
+
+\subsection{Exploratory Tools}
+
+Multivariate outlier detection can give a first impression about the
+general data structure and quality \citep{MMY06}. This is also true
+for compositional data. The compositions are firstly transformed to
+the real space before robust methods are applied for outlier detection \citep{FH08}.
+
+The (robust) compositional biplot displays both samples and variables of a data
+matrix graphically in the form of scores and loadings of a principal component
+analysis, preferably - because of interpretation of the biplot - after clr
+transformation of the data \citep{FHR09}. 
+
+The package comes with the following functionality for exploratory compositional
+data analysis: \\
+
+\begin{tabular}{p{4.5cm}p{11cm}}
+\texttt{outCoDa(x, \ldots)} & Outlier
+detection for compositional data using classical and robust statistical methods
+\citep{FH08}.
+\\
+\hline
+\texttt{plot.outCoDa} or \texttt{plot()} & Plots the Mahalanobis distances to detect potential outliers.
+\\
+\hline
+\texttt{pcaCoDa(x, method = "robust")} & 
+This function applies robust principal component analysis for compositional 
+data \citep{FHR09}. \\
+\hline
+\texttt{plot.pcaCoDa()} or \texttt{plot()} & Provides robust compositional
+biplots.
+\end{tabular}
+
+
+\subsection{Model-based Multivariate Estimation and Tests}
+
+Outliers may lead to model misspecification, biased parameter
+estimation and incorrect results. 
+
+The main functionality of package \texttt{robCompositions} is provided on
+model-based estimations, namely factor analysis \citep{FHRG09}, discriminant
+analysis \citep{FHT09} and imputation of rounded zeros \citep{Palarea08} or
+missing values \citep{hron10}.
+
+The package provides the following functions:\\
+
+\begin{tabular}{p{4.5cm}p{11cm}}
+\texttt{adtest(x, R = 1000, locscatt = "standard")} & This function provides
+three kinds of Anderson-Darling normality Tests.  \\
+\hline
+\texttt{adtestWrapper(x, alpha = 0.05, R = 1000, robustEst = FALSE)} & A set of
+Anderson-Darling tests are applied as proposed by \cite{Ait86}. \\
+\hline
+\texttt{summary.adtestWrapper} or \texttt{summary()}  & Summary of the
+adtestWrapper results.\\
+\hline
+\texttt{alrEM(x, pos = ncol(x), dl = \ldots)} & A
+modified EM alr-algorithm for replacing rounded zeros in compositional data sets \citep{Palarea08}. \\
+\hline
+ \texttt{daFisher(x, grp, \ldots)} &
+ Discriminant analysis by Fishers rule \citep[as described in][]{FHT09}. \\
+\hline
+\texttt{impCoda(x, method = "ltsReg", \ldots)} & Iterative model-based 
+ imputation of missing values using special balances \citep{hron10}.
+\\
+\hline 
+\texttt{impKNNa(x, method = "knn", k = 3, \ldots)} &
+    This function offers several k-nearest neighbor methods for the imputation
+        of missing values in compositional data \citep{hron10}. \\
+\hline
+\texttt{plot.imp()} or \texttt{plot()} & This function provides several
+diagnostic plots for the imputed data set in order to see how the imputed values are distributed in comparison with
+the original data values \citep{Templ09}. \\
+\hline
+\texttt{pfa(x, factors, \ldots)}
+ & Computes the principal factor analysis of the input data which are
+ clr transformed first.
+ \\
+\end{tabular}
+
+
+\section{Conclusion and Outline}
+
+In this contribution we started with a short motivation why robustness is of
+major concern in compositional data analysis.
+
+We then briefly introduced and listed the methods implemented in package
+\texttt{robCompositions}.
+More details about each function can be found in the manual of the package
+\cite{Templ11R} and in the book chapter about
+\texttt{robCompositions} in the forthcoming book \textit{Compositional Data
+Analysis: Theory and Applications} \citep{Vera11}. \\
+
+The package comes with the \textit{General Public Licence, version 2}, and can
+simple be downloaded at
+\href{http://cran.r-project.org/package=robCompositions}{http://cran.r-project.org/package=robCompositions}
+\ .\\
+
+
+Future developments include further methods on replacing rounded zeros in the
+data as well as to handle structural zeros. Furthermore, a graphical user
+interface is currently developed. 
+
+Comments and collaborations regarding the development of the package
+are warmly welcome.
+
+\bibliographystyle{chicago}   % name your BibTeX data base
+
+\begin{thebibliography}{}
+
+\bibitem[\protect\citeauthoryear{Aitchison}{Aitchison}{1986}]{Ait86}
+Aitchison, J. (1986).
+\newblock {\em {T}he {S}tatistical {A}nalysis of {C}ompositional {D}ata}.
+\newblock Monographs on {S}tatistics and {A}pplied {P}robability. Chapman \&
+  Hall Ltd., London (UK). (Reprinted in 2003 with additional material by The
+  Blackburn Press).
+\newblock 416 p.
+
+\bibitem[\protect\citeauthoryear{van~den Boogaart, Tolosana, and Bren}{van~den
+  Boogaart et~al.}{2010}]{Boo10}
+van~den Boogaart, K.~G., R.~Tolosana, and M.~Bren (2010).
+\newblock {\em compositions: Compositional Data Analysis}.
+\newblock R package version 1.10-1.
+
+\bibitem[\protect\citeauthoryear{Egozcue, Pawlowsky-Glahn, Mateu-Figueras,
+and Barcel\'o-Vidal}{Egozcue et~al.}{2003}]{EPMB03}
+Egozcue, J.J., V.~Pawlowsky-Glahn, G.~Mateu-Figueras, and C.~Barcel\'o-Vidal.
+\newblock Isometric logratio transformations for compositional data analysis.
+\newblock {\em Mathematical Geology\/}~{\em 35\/}(3), 279--300.
+
+\bibitem[\protect\citeauthoryear{Filzmoser and Hron}{Filzmoser and Hron}
+{2008}]{FH08}
+Filzmoser, P., and K.~Hron (2008).
+\newblock Outlier detection for compositional data using robust methods. 
+\newblock {\em Mathematical Geosciences\/}~{\em 40\/}(3), 233--248.
+
+\bibitem[\protect\citeauthoryear{Filzmoser, Hron, and Reimann}{Filzmoser et~al.}
+{2009}a]{FHR09}
+Filzmoser, P., K.~Hron, and C.~Reimann (2009a). 
+\newblock Principal component analysis for
+compositional data with outliers. 
+\newblock {\em Environmetrics\/}~{\em 20\/}(6), 621--632.
+
+
+
+\bibitem[\protect\citeauthoryear{Filzmoser, Hron, Reimann, and Garrett}{Filzmoser et~al.}
+{2009}b]{FHRG09}
+Filzmoser, P., K.~Hron, C.~Reimann, and R.G.~Garrett (2009b). 
+\newblock Robust factor analysis for compositional data.
+\newblock {\em Computers and Geosciences\/}~{\em 35}, 1854--1861.
+
+\bibitem[\protect\citeauthoryear{Filzmoser, Hron, and Templ}{Filzmoser et~al.}
+{2009}c]{FHT09}
+Filzmoser, P., K.~Hron, and M.~Templ (2009c). 
+\newblock Discriminant analysis for compositional data and robust parameter estimation.
+\newblock Technical Report SM-2009-3, Vienna University of Technology, Austria.
+Submitted for publication.
+
+\bibitem[\protect\citeauthoryear{Hron, Templ, and Filzmoser}{Hron
+  et~al.}{2010}]{hron10}
+Hron, K., M.~Templ, and P.~Filzmoser (2010).
+\newblock Imputation of missing values for compositional data using classical
+  and robust methods.
+\newblock {\em Computational Statistics and Data Analysis\/}~{\em 54\/}(12),
+3095--3107. 
+\newblock DOI:10.1016/j.csda.2009.11.023.
+
+\bibitem[\protect\citeauthoryear{Korho\v{n}ov\'a, Hron, Klim\v{c}\'ikov\'a, Muller,
+  Bedn\'ar, and Bart\'ak}{Korhonov\'a et~al.}{2009}]{Kor09}
+Korho\v{n}ov\'a, M., K.~Hron, D.~Klim\v{c}\'ikov\'a, L.~M\"uller, P.~Bedn\'a\v{r}, and
+  P.~Bart\'ak (2009).
+\newblock Coffee aroma - statistical analysis of compositional data.
+\newblock {\em Talanta\/}~{\em 80\/}(82), 710--715.
+
+\bibitem[\protect\citeauthoryear{Maronna, Martin, and Yohai}{Maronna et~al.}
+{2006}]{MMY06}
+Maronna, R., D.~Martin, and V.~Yohai (2006).
+\newblock {\em Robust {S}tatistics: {T}heory and {M}ethods}.
+John Wiley {\&} Sons Canada Ltd., Toronto, ON.
+
+\bibitem[Palarea-Albaladejo, and Martin-Fernandez (2008)]{Palarea08} 
+Palarea-Albaladejo, J., and J.A. Mart\'{i}n-Fern\'{a}ndez (2008). 
+\newblock A modified EM alr-algorithm for replacing rounded zeros in
+compositional data sets. 
+\newblock {\em Computers and Geosciences}, 34:\penalty0 902--917.
+
+
+\bibitem[Pawlowsky-Glahn, and Buccianti (2011)]{Vera11}
+Pawlowsky-Glahn, V., and A. Buccianti (2011).
+\newblock {\em Compositional Data Analysis: Theory and Applications}. John Wiley
+{\&} Sons Canada Ltd., Toronto, ON. Accepted for publication.
+
+
+
+\bibitem[\protect\citeauthoryear{{R Development Core Team}}{{R Development Core
+  Team}}{2010}]{R}
+{R Development Core Team} (2010).
+\newblock {\em R: A Language and Environment for Statistical Computing}.
+\newblock Vienna, Austria: R Foundation for Statistical Computing.
+\newblock {ISBN} 3-900051-07-0.
+
+\bibitem[Rousseeuw and von Driessen(1999)]{Rousseeuw99}
+Rousseeuw, P.J., and K. von Driessen (1999).
+\newblock A fast algorithm for the minimum covariance determinant estimator.
+\newblock \emph{Technometrics}, 41:\penalty0 212--223, 1999.
+
+\bibitem[\protect\citeauthoryear{Templ, Hron, and Filzmoser}{Templ
+  et~al.}{2011}]{Templ11R}
+Templ, M., K.~Hron, and P.~Filzmoser (2011).
+\newblock {\em robCompositions: Robust Estimation for Compositional Data}.
+\newblock Manual and package, version 1.4.4.
+
+\bibitem[Templ, Filzmoser, and Hron (2009)]{Templ09}
+Templ, M., P.~Filzmoser, and K.~Hron (2009).
+\newblock Imputation of item non-responses in compositional data using robust
+methods. 
+\newblock  \emph{Work Session on Statistical Data Editing}, 
+Neuchatel, Switzerland, 11 pages.
+
+
+\end{thebibliography}
+
+
+\end{document}
+

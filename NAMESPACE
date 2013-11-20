@@ -1,0 +1,51 @@
+useDynLib(robCompositions)
+importFrom(robustbase, ltsReg)
+importFrom(rrcov, CovMcd, getCenter, getCov)
+importFrom(car, scatterplotMatrix)
+importFrom(MASS, parcoord, mvrnorm)
+importFrom(utils, citation)
+
+export(adjust, 
+       aDist, 
+       adtest, 
+       adtestWrapper, 
+       addLR, addLRinv,          
+       impRZalr, 
+       cenLR, cenLRinv,
+       constSum, 
+       daFisher,  
+       gm, 
+       isomLR, isomLRinv,
+       impAll,
+       impCoda, 
+       impKNNa,
+       impRZilr, 
+       lmCoDaX,
+       missPatterns,
+       zeroPatterns,
+       orthbasis,
+       outCoDa,
+       pcaCoDa,
+       pfa,
+       robVariation,
+       ternaryDiag,
+       ternaryDiagPoints,
+       ternaryDiagLines,
+       ternaryDiagAbline,
+       ternaryDiagEllipse,
+       # deprecated functions
+       alr, ilr, clr, invalr, invclr, invilr
+       ) 
+
+S3method(plot, imp)
+S3method(plot, outCoDa)
+S3method(plot, pcaCoDa)
+S3method(print, adtestWrapper)
+S3method(print, daFisher)
+S3method(print, imp)
+S3method(print, outCoDa)
+S3method(print, pcaCoDa)
+S3method(summary, adtestWrapper)
+S3method(summary, imp)
+          
+       

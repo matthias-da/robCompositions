@@ -1,0 +1,40 @@
+Changes in robCompositions version 1.6.3
+
+	+ function impAll included.
+	+ robGUI excluded (is now put in the compositionsGUI package)
+
+Changes in robCompositions version 1.6.2
+
+	+ alr, clr, ilr, invalr, invclr, invilr are now deprecated. The new functions are called
+	  addLR, cenLR, isomLR, addLRinv, cenLRinv, isomLRinv
+	+ new functions gm, orthbasis, missPatterns and zeroPatterns
+	+ return instead of invisible return for all log-ratio transformations
+
+
+Changes in robCompositions version 1.5.0
+    
+    + variable names in expendiure data corrected
+    + graphical user interface added    
+    + vignette about an overview of the package added
+    + alrEM() function now renamed in impRZalr() to be consistent with notation
+
+Changes in robCompositions version 1.4.6
+    
+    + correct transformation of the detection limit in impRZilr when having not constant sum 1.
+
+Changes in robCompositions version 1.4.5
+
+    + Bug in alrEM fixed.
+    
+    + impRZilr included, but without documentation.
+
+Changes in robCompositions version 1.4.4
+
+    + Description for the Expenditures data changed. Wrong variable description fixed.
+    
+    + Wrong formula in robVariation method robust=FALSE fixed after an comment 
+      from from Mark Engle (thanks!).
+
+    + Improved code in 'CITATION' file.
+    
+ 
