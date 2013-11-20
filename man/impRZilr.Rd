@@ -21,7 +21,7 @@ maximum number of iterations
 convergency criteria 
 }
   \item{method}{
-either \dQuote{roundedZeor} or \dQuote{roundedZeroRobust}
+either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
 }
   \item{dl}{
 Detection limit for each variable
@@ -29,6 +29,18 @@ Detection limit for each variable
   \item{bruteforce}{
 sets imputed values above the detection limit to the detection limit. Replacement above the detection limit are only exeptionally occur due to numerical instabilities. The default is FALSE!
 }
+  \item{noisemethod}{
+  adding noise to imputed values. Experimental
+  }
+  \item{noise}{
+  TRUE to activate noise (experimental)
+  }
+  \item{R}{
+  number of bootstrap samples for the determination of pls components. Only important for method \dQuote{pls}.
+  }
+  \item{verbose}{
+  additional print output during calculations.
+  }
 }
 \details{
 Statistical analysis of compositional data including zeros runs into problems, because log-ratios cannot be applied. 
@@ -40,7 +52,7 @@ The algorithm iteratively imputes parts with rounded zeros whereas in each step 
 \value{
   \item{xOrig }{Original data frame or matrix}
   \item{xImp }{Imputed data}
-  \item{wind }{Index of the missing values in the data}
+  \item{wind }{Index of the missing values / values below detection limit in the data}
   \item{iter }{Number of iterations}
   \item{eps }{eps}
 }
