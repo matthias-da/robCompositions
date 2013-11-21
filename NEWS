@@ -1,3 +1,8 @@
+Changes in robCompositions version 1.6.4
+  + deprecated functions alr, ilr, clr, invalr, invilr, invclr deleted
+  + bugfix and enhancement of impRZilr.R
+  + improvement of isomLR for high-dimensional data
+
 Changes in robCompositions version 1.6.3
 
 	+ function impAll included.

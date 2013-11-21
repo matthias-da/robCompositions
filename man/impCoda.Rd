@@ -7,7 +7,9 @@
   Then iterative algorithms try to find better estimations for the former missing values.
 }
 \usage{
-impCoda(x, maxit = 10, eps = 0.5, method = "ltsReg", closed = FALSE, init = "KNN", k = 5, dl = rep(0.05, ncol(x)), noise=0.1, bruteforce=FALSE)
+impCoda(x, maxit = 10, eps = 0.5, method = "ltsReg", closed = FALSE, 
+  init = "KNN", k = 5, dl = rep(0.05, ncol(x)), 
+  noise=0.1, bruteforce=FALSE)
 }
 \arguments{
   \item{x}{ data frame or matrix }

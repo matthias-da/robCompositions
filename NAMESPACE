@@ -32,9 +32,9 @@ export(adjust,
        ternaryDiagPoints,
        ternaryDiagLines,
        ternaryDiagAbline,
-       ternaryDiagEllipse,
+       ternaryDiagEllipse#,
        # deprecated functions
-       alr, ilr, clr, invalr, invclr, invilr
+       #alr, ilr, clr, invalr, invclr, invilr
        ) 
 
 S3method(plot, imp)

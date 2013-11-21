@@ -6,7 +6,8 @@
 compositional data sets.
 }
 \usage{
-impRZalr(x, pos = ncol(x), dl = rep(0.05, ncol(x) - 1), eps = 1e-04, maxit = 50, bruteforce=FALSE, method="lm", step=FALSE)
+impRZalr(x, pos = ncol(x), dl = rep(0.05, ncol(x) - 1), eps = 1e-04, 
+   maxit = 50, bruteforce=FALSE, method="lm", step=FALSE)
 }
 \arguments{
   \item{x}{ Compositional data }

@@ -8,7 +8,9 @@ Parametric replacement of rounded zeros for compositional data using
 classical and robust methods based on ilr-transformations with special choice of balances.
 }
 \usage{
-impRZilr(x, maxit = 10, eps = 0.1, method = "roundedZero", dl = rep(0.05, ncol(x)), bruteforce = FALSE)
+impRZilr(x, maxit = 10, eps = 0.1, method = "roundedZero", 
+   dl = rep(0.05, ncol(x)), bruteforce = FALSE,
+   noisemethod="residuals", noise=FALSE, R=10, verbose=FALSE)
 }
 \arguments{
   \item{x}{
@@ -68,7 +70,7 @@ x <- arcticLake
 ## generate rounded zeros artificially:
 x[x[,1] < 5, 1] <- 0
 x[x[,2] < 47, 2] <- 0
-xia <- impRZilr(x, dl=c(5,47,9999), eps=0.05)
+xia <- impRZilr(x, dl=c(5,47,9999), eps=0.05, method="lm")
 xia$xImp
 }
 \keyword{ manip }

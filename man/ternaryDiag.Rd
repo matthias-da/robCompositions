@@ -6,7 +6,9 @@
   Before plotting, the data are scaled.
 }
 \usage{
-ternaryDiag(x, name = colnames(x), grid = TRUE, gridCol=grey(0.6), mcex = 1.2, line = "none", robust = TRUE, group = NULL, tol = 0.975, ...)
+ternaryDiag(x, name = colnames(x), grid = TRUE, gridCol=grey(0.6), 
+  mcex = 1.2, line = "none", robust = TRUE, 
+  group = NULL, tol = 0.975, ...)
 }
 \arguments{
   \item{x}{ matrix or data.frame with 3 columns }
