@@ -275,7 +275,7 @@ genData <- function(n=1000, out=0.05,
     if(out > 0){
       z[(n1+1):N, ] <- mvrnorm(floor(n*out), mu=c(0,6), Sigma=Sigma) ## erste Ausreissergruppe (Euclidean+Aitchison)
     }
-    z <- invilr(z) #ilr.inv(z)
+    z <- isomLRinv(z) #ilr.inv(z)
     sum=runif(n1,0,1)  #rnorm(n1,10,1)
     z[1:n1, ] <- z[1:n1,] * sum
     if(out > 0){ 
@@ -305,7 +305,7 @@ genData <- function(n=1000, out=0.05,
     if(out > 0){
       z[(n1+1):N, ] <- mvrnorm(floor(n*out), mu=c(0,6), Sigma=Sigma) ## erste Ausreissergruppe (Euclidean+Aitchison)
     }
-    z <- invilr(z) #ilr.inv(z)
+    z <- isomLRinv(z) #ilr.inv(z)
     sum=runif(n1,0,1)  #rnorm(n1,10,1)
     z[1:n1, ] <- z[1:n1,] * sum
     if(out > 0){ 
