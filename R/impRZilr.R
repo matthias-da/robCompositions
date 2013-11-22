@@ -97,14 +97,14 @@
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="MM"){
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
-          yhat <- predict(reg1, new.data=data.fram(predictors))
+          yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & !pre){ ## evaluate ncomp.
             nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
           }
           if(verbose) cat("   ;   ncomp:",nComp[i])
           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
-          yhat <- predict(reg1, new.data=data.fram(predictors), ncomp=nComp[i])
+          yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nComp[i])
         }
         
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()

@@ -3,7 +3,6 @@ robilrregression <- function(X,y){
 # PF, Aug 18, 2010
 #
 # classical regression
-require(robustbase)
 d <- data.frame(y=y,X=X)
 lmcla <- ltsReg(y~.,data=d)
 lmcla.sum <- summary(lmcla)
