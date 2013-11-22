@@ -4,6 +4,7 @@ importFrom(rrcov, CovMcd, getCenter, getCov)
 importFrom(car, scatterplotMatrix)
 importFrom(MASS, parcoord, mvrnorm)
 importFrom(utils, citation)
+importFrom(pls, mvr)
 
 export(adjust, 
        aDist, 

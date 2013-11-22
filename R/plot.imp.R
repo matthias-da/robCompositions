@@ -6,7 +6,8 @@ function (x, ..., which=1, ord=1:ncol(x),
           las = 3, interactive = TRUE,  pch = c(1, 3),
           smooth = FALSE, reg.line = FALSE,
           legend.plot = FALSE,  ask = prod(par("mfcol")) <
-        length(which) && dev.interactive(), center = FALSE, scale=FALSE, id=FALSE,
+        length(which) && dev.interactive(), center = FALSE, 
+          scale=FALSE, id=FALSE,
           seg.l=0.02, seg1=TRUE)
 {
 	if (class(x) != "imp") 

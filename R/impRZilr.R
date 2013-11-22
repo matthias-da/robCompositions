@@ -94,7 +94,7 @@
         predictors <- as.matrix(xilr[,-1,drop=FALSE])
         if(method=="lm"){ 
           reg1 <- lm(response ~ predictors)
-          yhat <- predict(reg1, new.data=data.fram(predictors))
+          yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="MM"){
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.fram(predictors))
@@ -144,7 +144,7 @@
         if(verbose) cat("\n add noise on variable", i)
         
         # add error terms
-        inderr <<- w[,i]
+        inderr <- w[,i]
         if(noisemethod == "residuals") {
           error <- sample(residuals( reg1 )[inderr], 
                           size=wcol[i], replace=TRUE)
@@ -210,7 +210,7 @@
     invisible(res)
   }
 
-bootnComp <- function(X,y, R=99, plotting=FLASE){
+bootnComp <- function(X,y, R=99, plotting=FALSE){
   ind <- 1:nrow(X)
   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
   for(i in 1:R){

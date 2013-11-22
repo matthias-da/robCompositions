@@ -9,7 +9,6 @@ lmCoDaX <- function(y, X, method = "robust"){
 		lmcla <- lm(y~.,data=d)
 		lmcla.sum <- summary(lmcla)
 	# ilr regressions:
-		require(robCompositions)
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
 			Zj <- -robCompositions::isomLR(cbind(X[,j],X[,-j]))
@@ -36,12 +35,10 @@ lmCoDaX <- function(y, X, method = "robust"){
 	# PF, Aug 18, 2010
 	#
 	# classical regression
-		require(robustbase)
 		d <- data.frame(y=y,X=X)
 		lmcla <- ltsReg(y~.,data=d)
 		lmcla.sum <- summary(lmcla)
 	# ilr regressions:
-		require(robCompositions)
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
 			Zj <- -robCompositions::isomLR(cbind(X[,j],X[,-j]))

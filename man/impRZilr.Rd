@@ -8,8 +8,8 @@ Parametric replacement of rounded zeros for compositional data using
 classical and robust methods based on ilr-transformations with special choice of balances.
 }
 \usage{
-impRZilr(x, maxit = 10, eps = 0.1, method = "roundedZero", 
-   dl = rep(0.05, ncol(x)), bruteforce = FALSE,
+impRZilr(x, maxit = 10, eps = 0.1, method = "pls", 
+   dl = rep(0.05, ncol(x)), nComp=NULL, bruteforce = FALSE,
    noisemethod="residuals", noise=FALSE, R=10, verbose=FALSE)
 }
 \arguments{
@@ -27,6 +27,9 @@ either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
 }
   \item{dl}{
 Detection limit for each variable
+}
+  \item{nComp}{
+if determined, it fixes the number of pls components. If NULL, the number of pls components are estimated.
 }
   \item{bruteforce}{
 sets imputed values above the detection limit to the detection limit. Replacement above the detection limit are only exeptionally occur due to numerical instabilities. The default is FALSE!
@@ -70,8 +73,8 @@ x <- arcticLake
 ## generate rounded zeros artificially:
 x[x[,1] < 5, 1] <- 0
 x[x[,2] < 47, 2] <- 0
-xia <- impRZilr(x, dl=c(5,47,9999), eps=0.05, method="lm")
-xia$xImp
+#xia <- impRZilr(x, dl=c(5,47,9999), eps=0.05, method="lm")
+#xia$xImp
 }
 \keyword{ manip }
 \keyword{ multivariate }

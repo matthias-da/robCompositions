@@ -114,7 +114,6 @@ function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE,
 		## first step - replace all NAs with values with 'nearest neighbour' algorithm
 		
 		#if(init=="NN"){
-		#  library(templdistC)
 		#  x <- templdist.C(x)
 		#}
 		if(init=="KNN"){
@@ -147,7 +146,6 @@ function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE,
 		###########################################
 		###  start the iteration
 		
-		##require(StatDA)
 		##ternary(acomp(x))
 		#plot(ilr(x[w2==0,]), xlim=c(-5,5), ylim=c(-8,0.5))
 		#points(ilr(x[w2>0,]), col=gray(0.9), pch=3)
