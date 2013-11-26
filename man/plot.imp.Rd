@@ -6,11 +6,16 @@
   how the imputated values are distributed in comparison with the original data values.
 }
 \usage{
-\method{plot}{imp}(x, ..., which = 1, ord = 1:ncol(x), colcomb = "missnonmiss", plotvars = NULL, 
-  col = c("skyblue", "red"), alpha = NULL, lty = par("lty"), xaxt = "s", xaxlabels = NULL, 
-  las = 3, interactive = TRUE, pch = c(1, 3), smooth = FALSE, reg.line = FALSE, 
-  legend.plot = FALSE, ask = prod(par("mfcol")) < length(which) && dev.interactive(), 
-  center = FALSE, scale = FALSE, id = FALSE, seg.l = 0.02, seg1 = TRUE)
+\method{plot}{imp}(x, ..., which = 1, ord = 1:ncol(x), 
+  colcomb = "missnonmiss", plotvars = NULL, 
+  col = c("skyblue", "red"), alpha = NULL, 
+  lty = par("lty"), xaxt = "s", xaxlabels = NULL, 
+  las = 3, interactive = TRUE, pch = c(1, 3), 
+  smooth = FALSE, reg.line = FALSE, 
+  legend.plot = FALSE, 
+  ask = prod(par("mfcol")) < length(which) && dev.interactive(), 
+  center = FALSE, scale = FALSE, id = FALSE, 
+  seg.l = 0.02, seg1 = TRUE)
 }
 \arguments{
   \item{x}{ object of class \sQuote{imp} }
