@@ -34,8 +34,6 @@ export(adjust,
        ternaryDiagLines,
        ternaryDiagAbline,
        ternaryDiagEllipse#,
-       # deprecated functions
-       #alr, ilr, clr, invalr, invclr, invilr
        ) 
 
 S3method(plot, imp)

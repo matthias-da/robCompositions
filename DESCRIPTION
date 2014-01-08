@@ -2,7 +2,7 @@ Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data.
 Version: 1.6.4
-Date: 2013-11-24
+Date: 2013-11-26
 Depends: R (>= 2.10), utils, robustbase, rrcov, car (>= 2.0-0), MASS, pls
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
@@ -13,7 +13,8 @@ Description: The package includes methods for imputation
              analysis for compositional data, (robust) factor analysis for compositional 
              data, (robust) discriminant analysis for compositional data (Fisher rule), robust regression with compositional predictors and (robust) 
              Anderson-Darling normality tests
-             for compositional data as well as popular log-ratio transformations (alr, clr, ilr, and their inverse transformations).
+             for compositional data as well as popular log-ratio transformations (addLR, cenLR, isomLR, 
+             and their inverse transformations).
              In addition, visualisation and diagnostic tools are implemented as well as high and low-level plot functions for the 
              ternary diagram. 
 License: GPL-2 
