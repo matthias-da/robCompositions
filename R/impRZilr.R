@@ -38,6 +38,7 @@
     ################
     ## sort variables of x based on 
     ## decreasing number of missings in the variables
+    cn <- colnames(x)
     wcol <- - abs(apply(x, 2, function(x) sum(is.na(x))))
     o <- order(wcol)
     x <- x[,o]
@@ -55,7 +56,6 @@
     ## sort the columns of the data according to the amount of missings in the variables
     wcol <- apply(x, 2, function(x) length(which(is.na(x))))
     indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
-    cn <- colnames(x)
     xcheck <- x
     w2 <- is.na(x)
     
@@ -100,7 +100,7 @@
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & !pre){ ## evaluate ncomp.
-            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
+            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res #$res2
           }
           if(verbose) cat("   ;   ncomp:",nComp[i])
           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
@@ -185,10 +185,13 @@
       }
     }
     ### end add random error ###
+    testx <<- x
+    testxOrig <<- xOrig
+    testw <<- w
     x <- adjust3(x, xOrig, w)
     x[!w] <- xOrig[!w] 
     x <- x[,order(o)] ## checked: reordering is OK!
-    colnames(x) <- colnames(xcheck)
+    colnames(x) <- cn
     
     #   ## recover abs values with rs
     #   xtest <<- x
@@ -305,7 +308,7 @@ adjust3 <- function(xImp, xOrig, wind){
   xOrigSum <- rowSums(xOrig)
   # sum imputed without former zeros:
   xImpSum <- numeric(ncol(xOrig))
-  for(i in 1:ncol(xOrig)){
+  for(i in 1:nrow(xOrig)){
     xImpSum[i] <- sum(xImp[i,!wind[i,]])
     fac <- xOrigSum[i] / xImpSum[i]
     xImp[i,wind[i,]] <- xImp[i,wind[i,]]  * fac
