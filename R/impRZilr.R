@@ -1,7 +1,8 @@
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), 	nComp = NULL, 
-           bruteforce=FALSE,  noisemethod="residuals", noise=FALSE, R=10,
+           bruteforce=FALSE,  noisemethod="residuals", 
+           noise=FALSE, R=10,
            verbose=FALSE){
     
     
@@ -19,7 +20,7 @@
     
     #################
     ## store rowSums
-    rs <- rowSums(x)
+    rs <- rowSums(x, na.rm=TRUE)
     
     #################
     ## zeros to NA:
@@ -38,6 +39,7 @@
     ################
     ## sort variables of x based on 
     ## decreasing number of missings in the variables
+    cn <- colnames(x)
     wcol <- - abs(apply(x, 2, function(x) sum(is.na(x))))
     o <- order(wcol)
     x <- x[,o]
@@ -53,12 +55,13 @@
     
     #################
     ## sort the columns of the data according to the amount of missings in the variables
+#    wcol <- apply(x, 2, function(x) length(which(is.na(x))))
+#    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
     wcol <- apply(x, 2, function(x) length(which(is.na(x))))
     indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
-    cn <- colnames(x)
+
     xcheck <- x
     w2 <- is.na(x)
-    
     
     ################
     ## initialisation
@@ -84,6 +87,7 @@
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
         ## detection limit in ilr-space
+#        a <<- cbind(rep(dl[i], n), x[,-i,drop=FALSE])
         phi <- -isomLR(cbind(rep(dl[i], n), x[,-i,drop=FALSE]))[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
@@ -110,11 +114,17 @@
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
         ex <- (phi - yhat)/s 
+        if(any(is.na(yhat)) | any(yhat == "NaN")) stop("here NA - yhat")
+        if(any(is.na(phi)) | any(phi == "NaN")) stop("here NA - phi")
+        if(any(is.na(ex)) | any(ex == "NaN")) stop("here NA - ex")
+        
         yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
                            yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
                            yhat[w[, i]])
         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
         # check if we are under the DL:
+#        yhat2seltest <<- yhat2sel
+#        phitest <<- phi[w[,i]]
         if(any(yhat2sel >= phi[w[, i]])){
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
@@ -188,7 +198,7 @@
     x <- adjust3(x, xOrig, w)
     x[!w] <- xOrig[!w] 
     x <- x[,order(o)] ## checked: reordering is OK!
-    colnames(x) <- colnames(xcheck)
+    colnames(x) <- cn
     
     #   ## recover abs values with rs
     #   xtest <<- x
@@ -891,3 +901,264 @@ adjust3 <- function(xImp, xOrig, wind){
 # 	invisible(res)
 # }
 # 
+
+# 
+#   `impRZilr2` <-
+#   function(x, maxit=10, eps=0.1, method="pls", 
+#            dl=rep(0.05, ncol(x)), 	nComp = NULL, 
+#            bruteforce=FALSE,  noisemethod="residuals", noise=TRUE, R=10,
+#            verbose=FALSE){
+#     
+#     
+#     if( is.vector(x) ) stop("x must be a matrix or data frame")
+#     stopifnot((method %in% c("lm", "MM", "pls")))
+#     if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
+#     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
+#     if(!is.null(nComp)){
+#       pre <- TRUE
+#       if(length(nComp) != ncol(x)) stop("nComp mmmmmust be NULL or of length ncol(x)")
+#     } else pre <- FALSE
+#     
+#     #################
+#     ## zeros to NA:
+#     x[x==0] <- NA
+#     
+#     ################
+#     ## sort variables of x based on 
+#     ## decreasing number of missings in the variables
+#     wcol <- - abs(apply(x, 2, function(x) sum(is.na(x))))
+#     o <- order(wcol)
+#     x <- x[,o]
+#     if(verbose) cat("variables with decreasing number of missings:", o)
+#     
+#     
+#     #################
+#     ## index of missings / non-missings
+#     w <- is.na(x)
+#     wn <- !is.na(x)
+#     w2 <- apply(x, 1, function(x){ sum(is.na(x)) })
+#     #	indNA <- apply(x, 2, function(x){any(is.na(x))})
+#     
+#     #################
+#     ## sort the columns of the data according to the amount of missings in the variables
+#     wcol <- apply(x, 2, function(x) length(which(is.na(x))))
+#     indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
+#     cn <- colnames(x)
+#     xcheck <- x
+#     
+#     
+#     ################
+#     ## initialisation
+#     indNA <- apply(x, 2, function(x){any(is.na(x))})
+#     for(i in 1:length(dl)){
+#       ind <- is.na(x[,i])
+#       if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
+#     }
+#     
+#     xOrig <- x
+#     
+#     ################
+#     ## detection limit in ilr-space
+#     n <- nrow(x) 
+#     d <- ncol(x)
+#     ###  start the iteration
+#     if(verbose) cat("\n start the iteration:")
+#     it <- 1; criteria <- 99999999
+#     
+#     while(it <= maxit & criteria >= eps){
+#       if(verbose) cat("\n iteration", it, "; criteria =", criteria)	
+#       xold <- x  
+#       for(i in which(indNA)){
+#         if(verbose) cat("\n replacement on part", i)
+#         test <<- cbind(rep(dl[i], n), x[,-i,drop=FALSE])
+#         phi <- -isomLR(cbind(rep(dl[i], n), x[,-i,drop=FALSE]))[,1] 
+#         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
+#         x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
+#         xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
+#         c1 <- colnames(xilr)[1]					
+#         colnames(xilr)[1] <- "V1"	
+#         xilr <<- xilr
+#         response <- as.matrix(xilr[,1,drop=FALSE])
+#         predictors <- as.matrix(xilr[,-1,drop=FALSE])
+#         if(method=="lm"){ 
+#           reg1 <- lm(response ~ predictors)
+#           yhat <- predict(reg1, new.data=data.fram(predictors))
+#         } else if(method=="MM"){
+#           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
+#           yhat <- predict(reg1, new.data=data.fram(predictors))
+#         } else if(method=="pls"){
+#           if(it == 1 & !pre){ ## evaluate ncomp.
+#             nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
+#           }
+#           if(verbose) cat("   ;   ncomp:",nComp[i])
+#           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
+#           yhat <- predict(reg1, new.data=data.fram(predictors), ncomp=nComp[i])
+#         }
+#         
+#         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
+#         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) ## quick and dirty: abs()
+#         ex <- (phi - yhat)/s 
+#         yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
+#                            yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
+#                            yhat[w[, i]])
+#         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
+#         # check if we are under the DL:
+#         if(any(yhat2sel >= phi[w[, i]])){
+#           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
+#         }
+#         xilr[w[, i], 1] <- yhat2sel
+#         xinv <- isomLRinv(-xilr)
+#         ## reordering of xOrig
+#         if(i %in% 2:(d-1)){
+#           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])
+#         }
+#         if(i == d){
+#           xinv <- cbind(xinv[,2:d], xinv[,1])
+#         }
+#         
+#         x <- adjust2(xinv, xOrig, w) 
+#       }
+#       
+#       it <- it + 1
+#       criteria <- sum( ((xold - x)/x)^2, na.rm=TRUE) ## DIRTY: (na.rm=TRUE)
+#       if(verbose & criteria != 0) cat("\n iteration", it, "; criteria =", criteria)
+#     }
+#     
+#     #### add random error ###
+#     if(noise){
+#       for(i in which(indNA)){
+#         if(verbose) cat("\n add noise on variable", i)
+#         
+#         # add error terms
+#         inderr <<- w[,i]
+#         if(noisemethod == "residuals") {
+#           error <- sample(residuals( reg1 )[inderr], 
+#                           size=wcol[i], replace=TRUE)
+#           reg1$res[inderr] <- error
+#         } else {
+#           mu <- median(residuals( reg1 )[inderr])
+#           sigma <- mad(residuals( reg1 )[inderr])
+#           error <- rnorm(wcol[i], mean=mu, sd=sigma)
+#           reg1$res[inderr] <- error		   
+#         }
+#         # return realizations
+#         yhat[inderr] <- yhat[inderr] + error
+#         
+#         
+#         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) ## quick and dirty: abs()
+#         ex <- (phi - yhat)/s 
+#         yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
+#                            yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
+#                            yhat[w[, i]])
+#         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
+#         # check if we are under the DL:
+#         if(any(yhat2sel >= phi[w[, i]])){
+#           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
+#         }
+#         xilr[w[, i], 1] <- yhat2sel
+#         xinv <- isomLRinv(-xilr)
+#         ## reordering of xOrig
+#         if(i %in% 2:(d-1)){
+#           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])
+#         }
+#         if(i == d){
+#           xinv <- cbind(xinv[,2:d], xinv[,1])
+#         }
+#         
+#         x <- adjust2(xinv, xOrig, w) 
+#       }
+#     }
+#     ### end add random error ###
+#     
+#     x <- x[,order(o)] ## checked: reordering is OK!
+#     colnames(x) <- colnames(xcheck)
+#     res <- list(x=x, criteria=criteria, iter=it, 
+#                 maxit=maxit, wind=w, nComp=nComp, method=method)
+#     class(res) <- "replaced"
+#     invisible(res)
+#   }
+# 
+# bootnComp <- function(X,y, R=99, plotting=FLASE){
+#   ind <- 1:nrow(X)
+#   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
+#   for(i in 1:R){
+#     bootind <- sample(ind)
+#     XX <- X
+#     yy <- y
+#     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
+#     colnames(ds)[ncol(ds)] <- "V1"
+#     reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
+#     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+#   }
+#   d <- na.omit(d)
+#   sdev <- apply(d, 1, sd, na.rm=TRUE)
+#   means <- apply(d, 1, mean, na.rm=TRUE)
+#   mi <- which.min(means)
+#   r <- round(ncol(X)/20)
+#   mi2 <- which.min(means[r:length(means)])+r-1
+#   minsd <- means - sdev > means[mi]
+#   check <- means
+#   check[!minsd] <- 99999999
+#   if(plotting) plot(means, type="l")
+#   res <- which.min(check)
+#   list(res=res, res2=mi2)
+# }
+# 
+# 
+# bootnCompHD <- function(X,y, R=99, plotting=FALSE){
+#   ind <- 1:nrow(X)
+#   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
+#   for(i in 1:R){
+#     bootind <- sample(ind)
+#     XX <- X
+#     yy <- y
+#     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
+#     colnames(ds)[ncol(ds)] <- "V1"
+#     reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
+#     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+#   }
+#   d <- na.omit(d)
+#   sdev <- apply(d, 1, mad, na.rm=TRUE)
+#   means <- apply(d, 1, median, na.rm=TRUE)
+#   mi <- which.min(means)
+#   if(plotting) plot(means, type="l", col="blue", ylab="squared total prediction error", xlab="number of components")
+#   themean <- mean(means)
+#   thesd <- sd(means)
+#   abovethreshold <- themean - sdev > means
+#   check <- means
+#   check[!abovethreshold] <- 9999999999
+#   res <- which.min(check)
+#   #	minsd <- means - sdev > means[mi]
+#   #	check <- means
+#   #	check[!minsd] <- 99999999
+#   #	res <- which.min(check)
+#   if(plotting){
+#     abline(v=res, lwd=3)
+#     abline(h=mi, col="red")
+#     #		abline(h=means-sdev, lty=3)
+#   }
+#   list(res=res, mean=means)
+# }
+# 
+# 
+# 
+# ## test adjust2:
+# 
+# adjust2 <- function (xImp, xOrig, wind){
+#   xneu = xImp
+#   s1 <- rowSums(xOrig, na.rm = TRUE)
+#   for (i in 1:nrow(xImp)) {
+#     if(any(wind[i,])) s <- sum(xImp[i, !wind[i, ]]) else s <- 1
+#     if(any(wind[i,])) s2 <- sum(xImp[i, wind[i, ]]) else s2 <- 0
+#     fac <- s/(s + s2)
+#     s1[i] <- s1[i]/fac
+#   }
+#   impS <- s1/rowSums(xImp)
+#   for (i in 1:ncol(xImp)) {
+#     xneu[, i] <- xImp[, i] * impS
+#   }
+#   xImp <- xneu
+#   return(xImp)
+# }
+
+

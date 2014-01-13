@@ -72,9 +72,9 @@ data(arcticLake)
 x <- arcticLake
 ## generate rounded zeros artificially:
 x[x[,1] < 5, 1] <- 0
-x[x[,2] < 47, 2] <- 0
-#xia <- impRZilr(x, dl=c(5,47,9999), eps=0.05, method="lm")
-#xia$xImp
+x[x[,2] < 44, 2] <- 0
+xia <- impRZilr(x, dl=c(5,44,9999), eps=0.05, method="lm")
+xia$x
 }
 \keyword{ manip }
 \keyword{ multivariate }
