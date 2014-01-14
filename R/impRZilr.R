@@ -77,6 +77,12 @@
     ################
     n <- nrow(x) 
     d <- ncol(x)
+    
+    ### create progress bar
+    pb <- txtProgressBar(min = 0, max = maxit, style = 3,
+                         title=paste("maximal time for ", maxit, "iterations"))
+    ii <- 1
+    
     ###  start the iteration
     if(verbose) cat("\n start the iteration:")
     it <- 1; criteria <- 99999999
@@ -138,6 +144,7 @@
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
         x <- adjust2(xinv, xOrig, w2)
+        setTxtProgressBar(pb, ii); ii <- ii + 1
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
         #		x[!w] <- xOrig[!w]
