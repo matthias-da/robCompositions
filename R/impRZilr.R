@@ -50,29 +50,29 @@
     ## index of missings / non-missings
     w <- is.na(x)
     wn <- !is.na(x)
-    w2 <- apply(x, 1, function(x){ sum(is.na(x)) })
-    #	indNA <- apply(x, 2, function(x){any(is.na(x))})
+	## lines with RZ:
+    # w2 <- apply(x, 1, function(x){ sum(is.na(x)) })
+    # indNA <- apply(x, 2, function(x){any(is.na(x))})
     
     #################
-    ## sort the columns of the data according to the amount of missings in the variables
 #    wcol <- apply(x, 2, function(x) length(which(is.na(x))))
 #    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
-    wcol <- apply(x, 2, function(x) length(which(is.na(x))))
-    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
-
-    xcheck <- x
-    w2 <- is.na(x)
-    
+	# number of RZ in each sorted variable
+     nwcol <- apply(x, 2, function(x) length(which(is.na(x))))
+#    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
+	
+	## save orig data for later use:    
+	xOrig <- x
+     
     ################
     ## initialisation
+	# cols with RZ's:
     indNA <- apply(x, 2, function(x){any(is.na(x))})
-    for(i in 1:length(dl)){
-      ind <- is.na(x[,i])
-      #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
-      if(length(ind) > 0) x[ind,i] <- dl[i]
+	# initialize RZ's with 2/3 dl per column
+    for(i in which(indNA)){
+      x[w[,i],i] <- dl[i]*2/3 #*runif(sum(ind),1/3,2/3)
     }
-    
-    xOrig <- x
+
     
     ################
     n <- nrow(x) 
@@ -89,19 +89,25 @@
     
     while(it <= maxit & criteria >= eps){
       if(verbose) cat("\n iteration", it, "; criteria =", criteria)	
+	  ## for criteria used:
       xold <- x  
+	  ## inner loop:
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
-        ## detection limit in ilr-space
-#        a <<- cbind(rep(dl[i], n), x[,-i,drop=FALSE])
+		## ensure that imputed values are not too close to zero:
+		x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
+        ## transformation of the detection limit:
         phi <- -isomLR(cbind(rep(dl[i], n), x[,-i,drop=FALSE]))[,1] 
-        #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
-        x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
+        ## transformation of the data, variable i on first column:
         xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
-        c1 <- colnames(xilr)[1]					
-        colnames(xilr)[1] <- "V1"	
+		## ensure that first variable is fixed:
+        # c1 <- colnames(xilr)[1]					
+        # colnames(xilr)[1] <- "V1"	
+		## response:
         response <- as.matrix(xilr[,1,drop=FALSE])
+		## predictors (everything except response):
         predictors <- as.matrix(xilr[,-1,drop=FALSE])
+		## fit and prediction:
         if(method=="lm"){ 
           reg1 <- lm(response ~ predictors)
           yhat <- predict(reg1, new.data=data.frame(predictors))
@@ -109,8 +115,10 @@
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
-          if(it == 1 & !pre){ ## evaluate ncomp.
-            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
+          if(it == 1 & !pre){ 
+			## evaluate ncomp in the first run:
+			nComp[i] <- bootnComp(predictors,response, R, plotting=TRUE)$res2
+ #           nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
           }
           if(verbose) cat("   ;   ncomp:",nComp[i])
           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
@@ -136,14 +144,14 @@
         }
         xilr[w[, i], 1] <- yhat2sel
         xinv <- isomLRinv(-xilr)
-        ## reordering of xOrig
+        ## reordering to previous order 
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])
         }
         if(i == d){
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
-        x <- adjust2(xinv, xOrig, w2)
+        x <- adjust2(xinv, xOrig, w)
         setTxtProgressBar(pb, ii); ii <- ii + 1
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
@@ -164,12 +172,12 @@
         inderr <- w[,i]
         if(noisemethod == "residuals") {
           error <- sample(residuals( reg1 )[inderr], 
-                          size=wcol[i], replace=TRUE)
+                          size=nwcol[i], replace=TRUE)
           reg1$res[inderr] <- error
         } else {
           mu <- median(residuals( reg1 )[inderr])
           sigma <- mad(residuals( reg1 )[inderr])
-          error <- rnorm(wcol[i], mean=mu, sd=sigma)
+          error <- rnorm(nwcol[i], mean=mu, sd=sigma)
           reg1$res[inderr] <- error		   
         }
         # return realizations
@@ -202,8 +210,8 @@
       }
     }
     ### end add random error ###
-    x <- adjust3(x, xOrig, w)
-    x[!w] <- xOrig[!w] 
+#    x <- adjust3(x, xOrig, w)
+    if(!all.equal(x[!w], xOrig[!w])) stop("adjust problems - revise algorithm") 
     x <- x[,order(o)] ## checked: reordering is OK!
     colnames(x) <- cn
     
@@ -243,7 +251,7 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
   sdev <- apply(d, 1, sd, na.rm=TRUE)
   means <- apply(d, 1, mean, na.rm=TRUE)
   mi <- which.min(means)
-  r <- round(ncol(X)/20)
+  r <- ceiling(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
   minsd <- means - sdev > means[mi]
   check <- means
@@ -317,6 +325,38 @@ adjust2 <- function (xImp, xOrig, wind){
   return(xImp)
 }
 
+#x <- matrix(1:100, ncol=5)
+#x <- x[,c(2,1,3:5)]
+#colnames(x) <- c("eins","zwei","drei","vier","fuenf")
+#x[x< 10] <- 0
+#x[11,3] <- 0
+#x[20,3] <- 0
+#dl <- rep(10,5)
+#
+#set.seed(123)
+#x <- xorig <- constSum(genVarsSmall(mvrnorm(20, mu=rep(1,3), Sigma=diag(3)), 15)[,1:5],100)
+#x <- xorig <- x[order(x[,1]), ]
+#dl <- apply(x, 2, quantile, 0.1)
+#dl[1] <- 7.32
+#for(i in 1:5){
+#	x[x[,i] < dl[i], i] <- 0
+#}
+#colnames(x) <- c("eins","zwei","drei","vier","fuenf")
+#imp <- impRZilr(x, dl=dl, method="pls", eps=0.00001, maxit=100)
+#imp$x
+## ausfuerhen des codes der fkt
+#y <- x
+#x <- xOrig
+#adjust2(xinv, xOrig, w) ## OK
+#
+#
+#
+#y <- x+rnorm(100, 0, 0.05)
+#y[1,3] <- 8
+#a <- adjust2(y, x, wind)
+#x[1,1]/x[2,2]
+#a[1,1]/a[2,2]
+#res <- impRZilr(x)
 
 adjust3 <- function(xImp, xOrig, wind){
   xOrigSum <- rowSums(xOrig)
