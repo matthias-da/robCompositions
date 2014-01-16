@@ -152,12 +152,12 @@
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
         x <- adjust2(xinv, xOrig, w)
-        setTxtProgressBar(pb, ii); ii <- ii + 1
+
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
         #		x[!w] <- xOrig[!w]
       }
-      
+	  setTxtProgressBar(pb, ii); ii <- ii + 1      
       it <- it + 1
       criteria <- sum( ((xold - x)/x)^2, na.rm=TRUE) ## DIRTY: (na.rm=TRUE)
       if(verbose & criteria != 0) cat("\n iteration", it, "; criteria =", criteria)
