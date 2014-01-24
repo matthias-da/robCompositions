@@ -248,18 +248,22 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
   }
   d <- na.omit(d)
-  sdev <- apply(d, 1, sd, na.rm=TRUE)
-  means <- apply(d, 1, mean, na.rm=TRUE)
+  sdev <- apply(d, 1, quantile, probs=0.5, na.rm=TRUE)
+  sdev2 <- apply(d, 1, quantile, probs=0.25, na.rm=TRUE)
+  sdevs <- sdev -sdev2
+  means <- apply(d, 1, median, na.rm=TRUE)
   mi <- which.min(means)
   r <- ceiling(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
-  minsd <- means - sdev > means[mi]
+  minsd <- means - sdevs > means[mi]
   check <- means
-  check[!minsd] <- 99999999
+  check[!minsd] <- 999999999999999
   if(plotting) plot(means, type="l")
   res <- which.min(check)
   list(res=res, res2=mi2)
 }
+
+
 
 
 bootnCompHD <- function(X,y, R=99, plotting=FALSE){
