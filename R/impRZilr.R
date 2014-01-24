@@ -235,17 +235,33 @@
     invisible(res)
   }
 
+cvnComp <- function(X,y, R=99, plotting=FALSE){
+	
+	
+}
+  
 bootnComp <- function(X,y, R=99, plotting=FALSE){
   ind <- 1:nrow(X)
   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
   for(i in 1:R){
-    bootind <- sample(ind)
-    XX <- X
-    yy <- y
+    bootind <- sample(ind, replace=TRUE)
+	## "paired" bootstrap sample:
     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
     colnames(ds)[ncol(ds)] <- "V1"
-    reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
-    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+    ## regression on bootstrap sample, in validation 
+	## the predictions and so called PRESS values are then stored:
+    reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="none")#, validation="CV")
+	## prediction error criteria is wrong
+	## (even the results looks fine), since we
+	## compare original values of response (y) from predictions
+	## based on bootstrap samples:
+#    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+		
+	## better? To use the coefficients from reg1 and predict 
+	## based on original data --> prediction error
+	ppp <- predict(reg1, X)
+	## However, ppp looks always the same independently how reg1 look like!
+	d[1:reg1$ncomp,i] <- as.numeric(apply(ppp, 3, function(x) sum(abs(y - x)) ))	
   }
   d <- na.omit(d)
   sdev <- apply(d, 1, quantile, probs=0.5, na.rm=TRUE)
@@ -253,8 +269,10 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
   sdevs <- sdev -sdev2
   means <- apply(d, 1, median, na.rm=TRUE)
   mi <- which.min(means)
+  ## mi2 is nonsense, delete it:
   r <- ceiling(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
+  
   minsd <- means - sdevs > means[mi]
   check <- means
   check[!minsd] <- 999999999999999
