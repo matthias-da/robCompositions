@@ -13,14 +13,11 @@
     stopifnot((method %in% c("lm", "MM", "pls")))
     if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
-    if(!is.null(nComp) & nComp != "cv"){
+    if(!is.null(nComp)){
       pre <- TRUE
+      if(nComp =="cv") cv <- TRUE
       if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
-    } else if(!is.null(nComp) & nComp == "cv") {
-      pre <- TRUE
-      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
-      cv <- TRUE      
-    }
+    } 
     #################
     ## store rowSums
     rs <- rowSums(x, na.rm=TRUE)
