@@ -1,6 +1,6 @@
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
-           dl=rep(0.05, ncol(x)), 	nComp = NULL, 
+           dl=rep(0.05, ncol(x)), nComp = NULL, 
            bruteforce=FALSE,  noisemethod="residuals", 
            noise=FALSE, R=10,
            verbose=FALSE){
@@ -13,11 +13,14 @@
     stopifnot((method %in% c("lm", "MM", "pls")))
     if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
-    if(!is.null(nComp)){
+    if(!is.null(nComp) & nComp != "cv"){
       pre <- TRUE
-      if(length(nComp) != ncol(x)) stop("nComp mmmmmust be NULL or of length ncol(x)")
-    } else pre <- FALSE
-    
+      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
+    } else if(!is.null(nComp) & nComp == "cv") {
+      pre <- TRUE
+      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
+      cv <- TRUE      
+    }
     #################
     ## store rowSums
     rs <- rowSums(x, na.rm=TRUE)
@@ -94,20 +97,20 @@
 	  ## inner loop:
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
-		## ensure that imputed values are not too close to zero:
-		x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
+    		## ensure that imputed values are not too close to zero:
+    		x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
         ## transformation of the detection limit:
         phi <- -isomLR(cbind(rep(dl[i], n), x[,-i,drop=FALSE]))[,1] 
         ## transformation of the data, variable i on first column:
         xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
-		## ensure that first variable is fixed:
+    		## ensure that first variable is fixed:
         # c1 <- colnames(xilr)[1]					
         # colnames(xilr)[1] <- "V1"	
-		## response:
+    		## response:
         response <- as.matrix(xilr[,1,drop=FALSE])
-		## predictors (everything except response):
+    		## predictors (everything except response):
         predictors <- as.matrix(xilr[,-1,drop=FALSE])
-		## fit and prediction:
+    		## fit and prediction:
         if(method=="lm"){ 
           reg1 <- lm(response ~ predictors)
           yhat <- predict(reg1, new.data=data.frame(predictors))
@@ -115,11 +118,16 @@
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
-          if(it == 1 & !pre){ 
-			## evaluate ncomp in the first run:
-			nComp[i] <- bootnComp(predictors,response, R, plotting=TRUE)$res2
- #           nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
+          if(it == 1 & !pre & nComp != "cv"){ 
+        			## evaluate ncomp in the first run:
+        			nComp[i] <- bootnComp(predictors,response, R, plotting=TRUE)$res2
+ #            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
           }
+          if(it == 1 & !pre & nComp == "cv"){ 
+            ## evaluate ncomp in the first run:
+            nComp[i] <- mvr(as.matrix(response) ~ as.matrix(predictors), 
+                            method="simpls")
+          }          
           if(verbose) cat("   ;   ncomp:",nComp[i])
           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
           yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nComp[i])
@@ -236,8 +244,9 @@
   }
 
 cvnComp <- function(X,y, R=99, plotting=FALSE){
-	
-	
+  rr <- mvr(as.matrix(y) ~ as.matrix(X), 
+      method="simpls", validation="CV")$validation$PRESS
+  return(which.max(as.numeric(rr)))
 }
   
 bootnComp <- function(X,y, R=99, plotting=FALSE){
@@ -258,26 +267,24 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
 #    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
 		
 	## better? To use the coefficients from reg1 and predict 
-	## based on original data --> prediction error
+	## based on original data --> prediction error:
 	ppp <- predict(reg1, X)
-	## However, ppp looks always the same independently how reg1 look like!
-	d[1:reg1$ncomp,i] <- as.numeric(apply(ppp, 3, function(x) sum(abs(y - x)) ))	
+	d[1:reg1$ncomp,i] <- as.numeric(apply(ppp, 3, function(x) mean(abs(y - x)) ))	
   }
   d <- na.omit(d)
   sdev <- apply(d, 1, quantile, probs=0.5, na.rm=TRUE)
   sdev2 <- apply(d, 1, quantile, probs=0.25, na.rm=TRUE)
   sdevs <- sdev -sdev2
   means <- apply(d, 1, median, na.rm=TRUE)
+  sdev3 <- apply(d, 1, mad)
   mi <- which.min(means)
-  ## mi2 is nonsense, delete it:
-  r <- ceiling(ncol(X)/20)
-  mi2 <- which.min(means[r:length(means)])+r-1
-  
+  threshold <- means + 2*sdev3
+  res <- which.min(!(means < threshold[mi]) )
   minsd <- means - sdevs > means[mi]
   check <- means
   check[!minsd] <- 999999999999999
   if(plotting) plot(means, type="l")
-  res <- which.min(check)
+  res2 <- which.min(check)
   list(res=res, res2=mi2)
 }
 
