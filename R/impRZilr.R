@@ -1,11 +1,10 @@
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
-           dl=rep(0.05, ncol(x)), nComp = NULL, 
+           dl=rep(0.05, ncol(x)), nComp = "boot", 
            bruteforce=FALSE,  noisemethod="residuals", 
            noise=FALSE, R=10,
            verbose=FALSE){
-    
-    
+
     if( is.vector(x) ) stop("x must be a matrix or data frame")
     ## check if only numeric variables are in x:
     cl <- lapply(x, class)
@@ -13,11 +12,10 @@
     stopifnot((method %in% c("lm", "MM", "pls")))
     if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
-    if(!is.null(nComp)){
-      pre <- TRUE
-      if(nComp =="cv") cv <- TRUE
-      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
-    } 
+    if(!(nComp[1] %in% c("boot","cv"))){
+      if(length(nComp) != ncol(x)) stop("nComp must be numeric of length ncol(x) or boot or cv")
+    }
+
     #################
     ## store rowSums
     rs <- rowSums(x, na.rm=TRUE)
@@ -86,6 +84,8 @@
     ###  start the iteration
     if(verbose) cat("\n start the iteration:")
     it <- 1; criteria <- 99999999
+    if(length(nComp) > 1) nC <- nComp else nC <- integer(length(which(indNA)))
+    
     
     while(it <= maxit & criteria >= eps){
       if(verbose) cat("\n iteration", it, "; criteria =", criteria)	
@@ -115,19 +115,22 @@
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
-          if(it == 1 & !pre & nComp != "cv"){ 
+          if(it == 1 & nComp[1] =="boot"){ 
         			## evaluate ncomp in the first run:
-        			nComp[i] <- bootnComp(predictors,response, R, plotting=TRUE)$res2
- #            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
+        			nC[i] <- bootnComp(predictors,response, R, plotting=TRUE)$res
+ #            nC[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=TRUE)$res2
           }
-          if(it == 1 & !pre & nComp == "cv"){ 
+          if(it == 1 & nComp[1] == "cv"){ 
             ## evaluate ncomp in the first run:
-            nComp[i] <- mvr(as.matrix(response) ~ as.matrix(predictors), 
+            stop("implement method cv")
+            nC[i] <- mvr(as.matrix(response) ~ as.matrix(predictors), 
                             method="simpls")
           }          
-          if(verbose) cat("   ;   ncomp:",nComp[i])
-          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
-          yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nComp[i])
+          if(verbose) cat("   ;   ncomp:",nC[i])
+          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), 
+                      ncomp=nC[i], method="simpls")
+          yhat <- predict(reg1, new.data=data.frame(predictors), 
+                          ncomp=nC[i])
         }
         
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
@@ -235,7 +238,7 @@
     #  x[!w] <- xorig[!w] 
     
     res <- list(x=x, criteria=criteria, iter=it, 
-                maxit=maxit, wind=w, nComp=nComp, method=method)
+                maxit=maxit, wind=w, nComp=nC, method=method)
     class(res) <- "replaced"
     invisible(res)
   }
@@ -282,7 +285,7 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
   check[!minsd] <- 999999999999999
   if(plotting) plot(means, type="l")
   res2 <- which.min(check)
-  list(res=res, res2=mi2)
+  list(res=res, res2=NULL)
 }
 
 
