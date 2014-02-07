@@ -9,7 +9,7 @@ classical and robust methods based on ilr-transformations with special choice of
 }
 \usage{
 impRZilr(x, maxit = 10, eps = 0.1, method = "pls", 
-   dl = rep(0.05, ncol(x)), nComp=NULL, bruteforce = FALSE,
+   dl = rep(0.05, ncol(x)), nComp="boot", bruteforce = FALSE,
    noisemethod="residuals", noise=FALSE, R=10, verbose=FALSE)
 }
 \arguments{
@@ -55,11 +55,13 @@ The algorithm iteratively imputes parts with rounded zeros whereas in each step 
 (4) the corresponding inverse ilr transformation is applied. After all parts are imputed, the algorithm starts again until the imputations do not change.
 }
 \value{
-  \item{xOrig }{Original data frame or matrix}
-  \item{xImp }{Imputed data}
-  \item{wind }{Index of the missing values / values below detection limit in the data}
-  \item{iter }{Number of iterations}
-  \item{eps }{eps}
+  \item{x }{imputed data}
+  \item{criteria }{change between last and second last iteration}
+  \item{iter }{number of iterations}
+  \item{maxit }{maximum number of iterations}
+  \item{wind}{index of zeros}
+  \item{nComp}{number of components for method pls}
+  \item{method}{chosen method}
 }
 \author{
 Matthias Templ and Peter Filzmoser
