@@ -10,14 +10,15 @@ sigGen <- function(p, d){
 }
 set.seed(1234)
 x <- crnorm(50, rep(10,10), Sigma=sigGen(10,0.9))
-lim <- 0.075
+x <- x+rnorm(ncol(x)*nrow(x), 10, 1)
+lim <- quantile(as.numeric(as.matrix(x)), 0.05)
 x[x < lim] <- 0
 w <- x==0
 dl <- rep(lim, ncol(x))
 
 res1 <- impRZilr(x, dl=dl, method="lm")
 res2 <- impRZilr(x, dl=dl, method="MM")
-res3 <- impRZilr(x, dl=dl, method="pls", nComp=NULL, verbose=TRUE)
+res3 <- impRZilr(x, dl=dl, method="pls", nComp="boot", verbose=TRUE)
 res4 <- impRZilr(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE)
 
 epsilon <- 55*.Machine$double.eps

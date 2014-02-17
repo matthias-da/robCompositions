@@ -287,14 +287,29 @@ bootnCompHD <- function(X,y, R=99, plotting=FALSE){
 ## test adjust2:
 
 adjust2 <- function (xImp, xOrig, wind){
+  ## aim: do not change original values
+  ## adapt imputations
   xneu = xImp
   s1 <- rowSums(xOrig, na.rm = TRUE)
+  ## per row: consider rowsums of imputed data
+  ## example: 
+  ## wind: F F T F F
+  ## ganz orig:  3 5 NA 8 10   (sum=26)
+  ## orig(init): 3 5 6.5 8 10  (sum=32.5)
+  ## imp:        3 5 7 8 10    (sum=33)
+  ## s: 26
+  ## s2: 7
+  ## fac: 26/(26+7)
+  ## s1: 32.5/(26/(26+7)) =  41.25
   for (i in 1:nrow(xImp)) {
     if(any(wind[i,])) s <- sum(xImp[i, !wind[i, ]]) else s <- 1
     if(any(wind[i,])) s2 <- sum(xImp[i, wind[i, ]]) else s2 <- 0
+    # how much is rowsum increased by imputation:
     fac <- s/(s + s2)
+    # decrese rowsums of orig.
     s1[i] <- s1[i]/fac
   }
+  ## impS: 41.25/33
   impS <- s1/rowSums(xImp)
   for (i in 1:ncol(xImp)) {
     xneu[, i] <- xImp[, i] * impS
