@@ -35,6 +35,7 @@
     if(check2){warning("values below 0 set have been set to zero and will be imputed")}
     x[x == 0] <- NA
     x[x < 0] <- NA
+    indexFinalCheck <- is.na(x)
     
     ################
     ## sort variables of x based on 
@@ -71,7 +72,6 @@
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
       if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
-    browser()
     xOrig <- x
     
     ################
@@ -194,15 +194,20 @@
     colnames(x) <- cn
     ## check if all is fine:
     # check if values are in (0, dl[i]):
-    check <- logical(ncol(x))
-    for(i in 1:ncol(x)){
-      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
-      if(check[i]) x[which(x[,i] < dl[i]),] <- dl[i]
-      x[x[,i] < dl[i],i] <- 0
+    checkDL <- function(x, dl, indexNA){
+      check <- logical(ncol(x))
+      for(i in 1:ncol(x)){
+         check[i] <- any(x[indexNA[,i],i] > dl[i])
+         if(check[i]){ 
+           x[which(x[indexNA[,i],i] > dl[i]),i] <- dl[i]
+         }
+      }
+      if(any(check)){
+        message("few imputed values have been corrected")      
+      }
+      return(x)
     }
-    if(any(check)){
-      message("few imputed values have been corrected")      
-    }
+    x <- checkDL(x, dl, indexFinalCheck)
     
   
     
