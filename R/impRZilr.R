@@ -1,7 +1,8 @@
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), 	nComp = NULL, 
-           bruteforce=FALSE,  noisemethod="residuals", noise=FALSE, R=10,
+           bruteforce=FALSE,  noisemethod="residuals", 
+           noise=FALSE, R=10,
            verbose=FALSE){
     
     
@@ -14,7 +15,7 @@
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
     if(!is.null(nComp)){
       pre <- TRUE
-      if(length(nComp) != ncol(x)) stop("nComp mmmmmust be NULL or of length ncol(x)")
+      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
     } else pre <- FALSE
     
     #################
@@ -43,19 +44,21 @@
     o <- order(wcol)
     x <- x[,o]
     if(verbose) cat("variables with decreasing number of missings:", o)
-    
+    ## --> now work in revised order of variables
+    ## dl must also be in correct order
+    dlordered <- dl[o]
     
     #################
     ## index of missings / non-missings
     w <- is.na(x)
     wn <- !is.na(x)
-    w2 <- apply(x, 1, function(x){ sum(is.na(x)) })
+#    w2 <- apply(x, 1, function(x){ sum(is.na(x)) })
     #	indNA <- apply(x, 2, function(x){any(is.na(x))})
     
     #################
     ## sort the columns of the data according to the amount of missings in the variables
-    wcol <- apply(x, 2, function(x) length(which(is.na(x))))
-    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
+#    wcol <- apply(x, 2, function(x) length(which(is.na(x))))
+#    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
     xcheck <- x
     w2 <- is.na(x)
     
@@ -66,9 +69,9 @@
     for(i in 1:length(dl)){
       ind <- is.na(x[,i])
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
-      if(length(ind) > 0) x[ind,i] <- dl[i]
+      if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
-    
+    browser()
     xOrig <- x
     
     ################
@@ -84,7 +87,7 @@
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
         ## detection limit in ilr-space
-        phi <- -isomLR(cbind(rep(dl[i], n), x[,-i,drop=FALSE]))[,1] 
+        phi <- -isomLR(cbind(rep(dlordered[i], n), x[,-i,drop=FALSE]))[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
         xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
@@ -127,7 +130,7 @@
         if(i == d){
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
-        x <- adjust2(xinv, xOrig, w2)
+        x <- adjustImputed(xinv, xOrig, w2)
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
         #		x[!w] <- xOrig[!w]
@@ -185,27 +188,23 @@
       }
     }
     ### end add random error ###
-    testx <<- x
-    testxOrig <<- xOrig
-    testw <<- w
-    x <- adjust3(x, xOrig, w)
-    x[!w] <- xOrig[!w] 
+ #   x <- adjust3(x, xOrig, w)
+ #   x[!w] <- xOrig[!w] 
     x <- x[,order(o)] ## checked: reordering is OK!
     colnames(x) <- cn
+    ## check if all is fine:
+    # check if values are in (0, dl[i]):
+    check <- logical(ncol(x))
+    for(i in 1:ncol(x)){
+      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
+      if(check[i]) x[which(x[,i] < dl[i]),] <- dl[i]
+      x[x[,i] < dl[i],i] <- 0
+    }
+    if(any(check)){
+      message("few imputed values have been corrected")      
+    }
     
-    #   ## recover abs values with rs
-    #   xtest <<- x
-    #   w <<- w
-    #   x_0 <- x
-    #   x_0[w] <- 0
-    #   rs_imp <- rowSums(x_0)
-    #   fac <- rs/rs_imp
-    #   for(i in 1:ncol(x)){
-    #	   x[,i] <- x[,i] * fac[i]
-    #   }
-    
-    #  # quick and dirty: (preserve absolute values)
-    #  x[!w] <- xorig[!w] 
+  
     
     res <- list(x=x, criteria=criteria, iter=it, 
                 maxit=maxit, wind=w, nComp=nComp, method=method)

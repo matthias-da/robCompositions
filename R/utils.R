@@ -66,6 +66,62 @@ impAll <-
 	return(x)
 }
 
+genTest <- function(){
+  wind <- matrix(c(F, F, T, F, F, T, F, 
+                   F, T, F, F, F, T, F,
+                   T, T, F, F, F, F, F), ncol=7, byrow=TRUE)
+  orig <- matrix(c(3, 5, NA, 8, 10, NA, 6,
+                   34,NA,99, 4, 32, NA, 77,
+                   NA,NA,3,4,5,6,7), ncol=7, byrow=TRUE)   
+  xOrig <- matrix(c(3, 5, 6.5, 8, 10, 7, 6,
+                   34,44.3,99,4,32,11.3,77,
+                   0.75,1.25,3,4,5,6,7), ncol=7, byrow=TRUE)  
+  xImp <- matrix(c(3, 5, 7, 8, 10, 7.77, 6,
+                  36.2,44.8,100,4.5,33,12,78.8,
+                  0.11,0.2,0.4,0.6,0.8,0.95,1.2), ncol=7, byrow=TRUE)
+  result <- matrix(c(3, 5, 7, 8, 10, 7.77, 6,
+                     36.2,44.8,100,4.5,33,12,78.8,
+                     34,44.8*246/252.5,99,4,32,12*246/252.5,77), ncol=7, byrow=TRUE)
+  list(wind=wind, orig=orig, xOrig=xOrig, xImp=xImp, result=result)
+}
+
+adjustImputed <- function(xImp, xOrig, wind){
+  ## aim: 
+  ## (1) ratios must be preserved
+  ## (2) do not change original values
+  ## (3) adapt imputations
+  xneu  <- xImp
+  s1 <- rowSums(xOrig, na.rm = TRUE)
+  ## per row: consider rowsums of imputed data
+  sumPrevious <- sumAfter <- numeric(nrow(xImp))
+  for (i in 1:nrow(xImp)) {
+    if(any(wind[i,])){
+      sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
+      sumAfter[i] <- sum(xImp[i, !wind[i,]])
+    } else{ 
+      s <- 1
+    }
+    # how much is rowsum increased by imputation:
+    fac <- sumPrevious/(sumAfter)
+    
+#    # decrese rowsums of orig.
+#    s1[i] <- s1[i]/fac
+  }
+  ## for non-zeros overwrite them:
+  xneu[!wind] <- xOrig[!wind]
+  ## adjust zeros:
+  for(i in 1:nrow(xImp)){
+    xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
+  }
+  return(xneu)
+}
+
+
+x <- genTest()
+adjustImputed(x$xImp, x$xOrig, x$wind)
+xImp <- x$xImp
+xOrig <- x$xOrig
+wind <- x$wind
 
 adjustImps <- function (xImp, xOrig, wind){
   ## aim: 
@@ -76,10 +132,10 @@ adjustImps <- function (xImp, xOrig, wind){
   s1 <- rowSums(xOrig, na.rm = TRUE)
   ## per row: consider rowsums of imputed data
   ## example: 
-  ## wind: wind <- c(F, F, T, F, F, T, F)
-  ## ganz orig:  orig <- c(3, 5, NA, 8, 10, NA, 6)   (sum=26)
-  ## orig(init): xOrig <- c(3, 5, 6.5, 8, 10, 7, 6)  (sum=32.5)
-  ## imp:        xImp <- c(3, 5, 7, 8, 10, 7.77, 6)    (sum=33)
+  ## wind: wind <- matrix(c(F, F, T, F, F, T, F), ncol=7)
+  ## ganz orig:  orig <- matrix(c(3, 5, NA, 8, 10, NA, 6), ncol=7)   (sum=26)
+  ## orig(init): xOrig <- matrix(c(3, 5, 6.5, 8, 10, 7, 6), ncol=7)  (sum=32.5)
+  ## imp:        xImp <- matrix(c(3, 5, 7, 8, 10, 7.77, 6), ncol=7)    (sum=33)
   ## s: 26
   ## s2: 7
   ## fac: 26/(26+7)
