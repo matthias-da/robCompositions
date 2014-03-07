@@ -13,10 +13,25 @@
     stopifnot((method %in% c("lm", "MM", "pls")))
     if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
-    if(!is.null(nComp)){
-      pre <- TRUE
-      if(length(nComp) != ncol(x)) stop("nComp must be NULL or of length ncol(x)")
-    } else pre <- FALSE
+    if(is.null(nComp)){
+	  pre <- FALSE
+	  nC <- NULL
+    } else if(nComp=="boot"){
+	  nC <- integer(ncol(x))
+	  pre <- TRUE
+	} else if(length(nComp) == ncol(x)){
+	  nC <- nComp
+	  pre <- FALSE
+	} else  {
+	  pre <- fALSE	
+	}
+#     pre <- TRUE
+#      if(length(nComp) != ncol(x) & nComp!="boot") stop("nComp must be NULL, boot or of length ncol(x)")
+#    } else if(nComp == "boot"){#
+#		pre <- TRUE
+#	} else {
+#		pre <- FALSE
+#	}
     
     #################
     ## store rowSums
@@ -102,12 +117,13 @@
           reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
-          if(it == 1 & !pre){ ## evaluate ncomp.
-            nComp[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, plotting=FALSE)$res #$res2
+          if(it == 1 & pre){ ## evaluate ncomp.
+            nC[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, 
+					      plotting=FALSE)$res #$res2
           }
           if(verbose) cat("   ;   ncomp:",nComp[i])
-          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nComp[i], method="simpls")
-          yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nComp[i])
+          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nC[i], method="simpls")
+          yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nC[i])
         }
         
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
@@ -212,7 +228,7 @@
   
     
     res <- list(x=x, criteria=criteria, iter=it, 
-                maxit=maxit, wind=w, nComp=nComp, method=method)
+                maxit=maxit, wind=w, nComp=nC, method=method)
     class(res) <- "replaced"
     invisible(res)
   }
