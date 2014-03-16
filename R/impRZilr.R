@@ -1,6 +1,6 @@
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
-           dl=rep(0.05, ncol(x)), 	nComp = NULL, 
+           dl=rep(0.05, ncol(x)), 	nComp = "boot", 
            bruteforce=FALSE,  noisemethod="residuals", 
            noise=FALSE, R=10,
            verbose=FALSE){
