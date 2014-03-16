@@ -87,7 +87,7 @@
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
       if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
-    xOrig <<- x
+    xOrig <- x
     
     ################
     n <- nrow(x) 
