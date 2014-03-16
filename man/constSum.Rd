@@ -27,9 +27,6 @@ The data for which the row sums are equal to \code{const}.
 \author{
 Matthias Templ
 }
-\seealso{
-\code{\link[compositions]{clo}}
-}
 \examples{
 data(expenditures)
 constSum(expenditures)

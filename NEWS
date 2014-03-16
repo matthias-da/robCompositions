@@ -1,3 +1,7 @@
+Changes in robCompositions version 1.8.0
+  + critical bug in function impRZilr solved (did worked only correct
+       for constant sum data)
+
 Changes in robCompositions version 1.7.0
   + bug in function impRZilr solved
   + new bootstrap procedure for estimating the number of components within impRZilr

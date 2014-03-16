@@ -16,8 +16,7 @@
   }
 }
 \details{
- The rows sum up to 100, except for rounding errors. The full data set including the water depth can be found in package
- compositions, for example.
+ The rows sum up to 100, except for rounding errors. 
 }
 \source{
 Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional

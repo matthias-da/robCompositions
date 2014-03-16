@@ -17,9 +17,7 @@ aDist(x, y)
   are vectors and evaluate sum of the distances between \code{x} and \code{y} for each row of \code{x} and \code{y} if
   \code{x} and \code{y} are matrices or data frames.
   
-  It is not designed to apply it on one matrix, 
-  such as function \sQuote{acomp()} in package \sQuote{compositions}, 
-  but it is designed to compare different matrices.
+  It is to compare two matrices.
   
   The underlying code is written in C and allows a fast computation also for large data sets.
 }

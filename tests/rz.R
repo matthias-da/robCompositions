@@ -59,8 +59,17 @@ x[x < lim] <- 0
 w <- x==0
 dl <- rep(lim, ncol(x))
 
-resHD1 <- impRZilr(x, dl=dl, method="pls", nComp=NULL, verbose=TRUE)
+resHD1 <- impRZilr(x, dl=dl, method="pls", nComp="boot", verbose=TRUE)
 resHD2 <- impRZilr(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE, maxit=2)
+
+
+data(arcticLake)
+x <- arcticLake
+## generate rounded zeros artificially:
+x[x[,1] < 10, 1] <- 0
+xia <- impRZilr(x, dl=c(10,44,0), eps=0.01, method="MM")
+xia$x
+
 
 #data(expenditures)
 #xOrig <- x <- expenditures

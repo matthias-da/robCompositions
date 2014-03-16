@@ -23,9 +23,6 @@ The geometric mean.
 \author{
 Matthias Templ
 }
-\seealso{
-\code{\link[compositions]{geometricmean}}
-}
 \examples{
 gm(runif(100))
 }

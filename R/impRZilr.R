@@ -23,7 +23,7 @@
 	  nC <- nComp
 	  pre <- FALSE
 	} else  {
-	  pre <- fALSE	
+	  pre <- FALSE	
 	}
 #     pre <- TRUE
 #      if(length(nComp) != ncol(x) & nComp!="boot") stop("nComp must be NULL, boot or of length ncol(x)")
@@ -42,10 +42,10 @@
     # check if values are in (0, dl[i]):
     check <- logical(ncol(x))
     for(i in 1:ncol(x)){
-      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
+#      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
       x[x[,i] < dl[i],i] <- 0
     }
-    if(any(check)){warning("values below detection limit have been set to zero and will be imputed")}
+#    if(any(check)){warning("values below detection limit have been set to zero and will be imputed")}
     check2 <- any(x < 0)
     if(check2){warning("values below 0 set have been set to zero and will be imputed")}
     x[x == 0] <- NA
@@ -87,7 +87,7 @@
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
       if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
-    xOrig <- x
+    xOrig <<- x
     
     ################
     n <- nrow(x) 
@@ -146,6 +146,7 @@
         if(i == d){
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
+ #       browser()
         x <- adjustImputed(xinv, xOrig, w2)
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
@@ -228,7 +229,7 @@
   
     
     res <- list(x=x, criteria=criteria, iter=it, 
-                maxit=maxit, wind=w, nComp=nC, method=method)
+                maxit=maxit, wind=w, nComp=nC, method=method, dl=dl)
     class(res) <- "replaced"
     invisible(res)
   }

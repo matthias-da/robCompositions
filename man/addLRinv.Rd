@@ -39,8 +39,7 @@ Hall Ltd., London (UK). 416p.
 Matthias Templ
 }
 \seealso{
-\code{\link{isomLRinv}}, \code{\link{cenLRinv}}, \code{\link{cenLR}}, \code{\link{addLR}}, 
-\code{\link[compositions]{ilrInv}}
+\code{\link{isomLRinv}}, \code{\link{cenLRinv}}, \code{\link{cenLR}}, \code{\link{addLR}}
 }
 \examples{
 data(arcticLake)

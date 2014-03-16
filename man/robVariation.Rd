@@ -22,7 +22,6 @@ robVariation(x, robust=TRUE)
 Data} Monographs on Statistics and Applied Probability. Chapman \&
 Hall Ltd., London (UK). 416p. }
 \author{ Matthias Templ }
-\seealso{ \code{\link[compositions]{variation}} }
 \examples{
 data(expenditures)
 robVariation(expenditures)
