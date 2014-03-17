@@ -54,7 +54,7 @@ Installion of `robCompositions` is really easy for registered users (when the R-
 Examples
 --------
 
-### k nearest neighbor imputation
+#### k nearest neighbor imputation
 data(expenditures)
 expenditures[1,3]
 expenditures[1,3] <- NA
@@ -78,19 +78,19 @@ plot(xi, which=1)
 plot(xi, which=2)
 plot(xi, which=3)
 
-## pca
+#### pca
 data(expenditures)
 p1 <- pcaCoDa(expenditures)
 p1
 plot(p1)
 
-## outlier detection
+#### outlier detection
 data(expenditures)
 oD <- outCoDa(expenditures)
 oD
 plot(oD)
 
-## transformations
+#### transformations
 data(arcticLake)
 x <- arcticLake
 x.alr <- addLR(x, 2)
