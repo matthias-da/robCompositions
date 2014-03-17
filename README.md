@@ -9,9 +9,9 @@ data(expenditures)
 
 p1 <- pcaCoDa(expenditures)
 
-p1
-
 plot(p1)
+
+![Image](https://f.cloud.github.com/assets/5263685/2436199/8ef8f856-add7-11e3-84d7-88fdac4fdbe3.png?raw=true)
 
 
 What is it?
