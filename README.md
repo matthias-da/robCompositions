@@ -5,10 +5,10 @@ Robust Methods for Compositional Data
 
     using robCompositions
 
-  data(expenditures)
-  p1 <- pcaCoDa(expenditures)
-  p1
-  plot(p1)
+data(expenditures)
+p1 <- pcaCoDa(expenditures)
+p1
+plot(p1)
 
 
 What is it?
