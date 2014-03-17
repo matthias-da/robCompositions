@@ -54,13 +54,13 @@ Installion of `robCompositions` is really easy for registered users (when the R-
 Examples
 --------
 
-# k nearest neighbor imputation
+### k nearest neighbor imputation
 data(expenditures)
 expenditures[1,3]
 expenditures[1,3] <- NA
 impKNNa(expenditures)$xImp[1,3]
 
-## iterative model based imputation
+#### iterative model based imputation
 data(expenditures)
 x <- expenditures
 x[1,3]
