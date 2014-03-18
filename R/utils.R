@@ -117,11 +117,7 @@ adjustImputed <- function(xImp, xOrig, wind){
 }
 
 
-x <- genTest()
-adjustImputed(x$xImp, x$xOrig, x$wind)
-xImp <- x$xImp
-xOrig <- x$xOrig
-wind <- x$wind
+
 
 adjustImps <- function (xImp, xOrig, wind){
   ## aim: 

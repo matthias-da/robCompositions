@@ -237,14 +237,19 @@
 bootnComp <- function(X,y, R=99, plotting=FALSE){
   ind <- 1:nrow(X)
   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
+  nc <- integer(R)
   for(i in 1:R){
     bootind <- sample(ind)
-    XX <- X
-    yy <- y
+#    XX <- X
+#    yy <- y
     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
     colnames(ds)[ncol(ds)] <- "V1"
-    reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
-    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+    res1 <- mvr(V1~., data=data.frame(ds), method="simpls", 
+                  validation="CV")
+    d[1:res1$ncomp, i] <- res1$validation$PRESS
+    nc[i] <- which.min(res1$validation$PRESS)
+#    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, 
+#                                  function(x) sum(((y - x)^2)) ) )
   }
   d <- na.omit(d)
   sdev <- apply(d, 1, sd, na.rm=TRUE)
@@ -252,11 +257,15 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
   mi <- which.min(means)
   r <- round(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
-  minsd <- means - sdev > means[mi]
-  check <- means
-  check[!minsd] <- 99999999
+  w <- means < min(means) + sdev[mi]
+  means2 <- means
+  means2[!w] <- 999999999999999
+  res <- which.min(means2)
+#  minsd <- means - sdev > means[mi]
+#  check <- means
+#  check[!minsd] <- 99999999
   if(plotting) plot(means, type="l")
-  res <- which.min(check)
+#  res <- which.min(check)
   list(res=res, res2=mi2)
 }
 
@@ -273,7 +282,7 @@ bootnCompHD <- function(X,y, R=99, plotting=FALSE){
     reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
   }
-  d <- na.omit(d)
+  d <<- na.omit(d)
   sdev <- apply(d, 1, mad, na.rm=TRUE)
   means <- apply(d, 1, median, na.rm=TRUE)
   mi <- which.min(means)
