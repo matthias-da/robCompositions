@@ -121,7 +121,7 @@
             nC[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, 
 					      plotting=FALSE)$res #$res2
           }
-          if(verbose) cat("   ;   ncomp:",nComp[i])
+          if(verbose) cat("   ;   ncomp:",nC[i])
           reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nC[i], method="simpls")
           yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nC[i])
         }
