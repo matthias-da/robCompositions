@@ -5,11 +5,12 @@
 This function applies robust principal component analysis for compositional data.
 }
 \usage{
-pcaCoDa(x, method = "robust")
+pcaCoDa(x, method = "robust",mult_comp=NULL)
 }
 \arguments{
   \item{x}{ compositional data }
   \item{method}{ either \dQuote{robust} (default) or \dQuote{standard}}
+  \item{mult_comp}{a list of numeric vectors holding the indices of linked compositions}
 }
 \details{
 The compositional data set is transformed using the ilr tranformation. 
@@ -35,5 +36,8 @@ data(expenditures)
 p1 <- pcaCoDa(expenditures)
 p1
 plot(p1)
+
+p1 <- pcaCoDa(expenditures,mult_comp=list(c(1,2,3),c(4,5)))
+
 }
 \keyword{ multivariate }
