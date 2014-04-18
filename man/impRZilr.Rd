@@ -26,10 +26,11 @@ convergency criteria
 either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
 }
   \item{dl}{
-Detection limit for each variable
+Detection limit for each variable. zero for variables with variables that have no detection limit problems.
 }
   \item{nComp}{
-if determined, it fixes the number of pls components. If NULL, the number of pls components are estimated.
+if determined, it fixes the number of pls components. If \dQuote{boot}, the number of pls components are estimated using
+a bootstraped cross validation approach.
 }
   \item{bruteforce}{
 sets imputed values above the detection limit to the detection limit. Replacement above the detection limit are only exeptionally occur due to numerical instabilities. The default is FALSE!
