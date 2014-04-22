@@ -118,6 +118,7 @@
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & pre){ ## evaluate ncomp.
+            browser()
             nC[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, 
 					      plotting=FALSE)$res #$res2
           }
@@ -258,6 +259,10 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
   r <- round(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
   w <- means < min(means) + sdev[mi]
+  threshold <<- min(means) + sdev[mi]
+  sdev <<- sdev
+  means <<- means
+  mi <<- mi
   means2 <- means
   means2[!w] <- 999999999999999
   res <- which.min(means2)
@@ -267,7 +272,7 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
 #  check[!minsd] <- 99999999
   if(plotting) plot(means, type="l")
 #  res <- which.min(check)
-  list(res=mi3, res2=mi2, res=res)
+  list(res3=mi3, res2=mi2, res=res, means=means)
 }
 
 
