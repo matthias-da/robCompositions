@@ -118,7 +118,6 @@
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & pre){ ## evaluate ncomp.
-            browser()
             nC[i] <- bootnComp(xilr[,!(colnames(xilr) == "V1"),drop=FALSE],y=xilr[,"V1"], R, 
 					      plotting=FALSE)$res #$res2
           }
