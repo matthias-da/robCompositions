@@ -11,8 +11,6 @@
   col = c("skyblue", "red"), alpha = NULL, 
   lty = par("lty"), xaxt = "s", xaxlabels = NULL, 
   las = 3, interactive = TRUE, pch = c(1, 3), 
-  smooth = FALSE, reg.line = FALSE, 
-  legend.plot = FALSE, 
   ask = prod(par("mfcol")) < length(which) && dev.interactive(), 
   center = FALSE, scale = FALSE, id = FALSE, 
   seg.l = 0.02, seg1 = TRUE)
@@ -45,13 +43,6 @@
     The symbol will be used for the highlighted observations. 
     If a single value is supplied, 
     it will be used for both non-highlighted and highlighted observations. }
-  \item{smooth}{ if TRUE a lowess smooth is plotted in each off-diagonal panel of
-    the multiple scatterplot. Further detail can be found in package car.}
-  \item{reg.line}{ if not FALSE a line is plotted using the function given by this argument; 
-    e.g., using rlm in package MASS plots a robust-regression line within the 
-     multiple scatterplot. }
-  \item{legend.plot}{ if TRUE then a legend for the groups is plotted in the bottom-right cell
-    of the multiple scatterplot. }
   \item{ask}{ logical; if TRUE, the user is asked before each plot, see \code{\link{par}}(ask=.). }
   \item{center}{ logical, indicates if the data should be centered prior plotting the ternary plot.  }
   \item{scale}{ logical, indicates if the data should be centered prior plotting the ternary plot. }
@@ -63,7 +54,7 @@
 }
 \details{
   The first plot (which \eqn{== 1}) is a multiple scatterplot where for the imputed values 
-  another plot symbol and color is used in order to highlight them.
+  another plot symbol and color is used in order to highlight them. Currently, the ggpairs functions from the GGally package is used.
   
   Plot 2 is a parallel coordinate plot in which imputed values 
   in certain variables are highlighted. 
@@ -102,7 +93,7 @@ expenditures[1,3] <- NA
 xi <- impKNNa(expenditures)
 xi
 summary(xi)
-plot(xi, which=1)
+\dontrun{plot(xi, which=1)}
 plot(xi, which=2)
 plot(xi, which=3)
 plot(xi, which=3, seg1=FALSE)

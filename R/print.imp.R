@@ -1,9 +1,9 @@
 print.imp <- function(x, ...){
   cat("\n --------------------------------------- \n")
   if( x$w > 1 ){
-    print(paste(x$w, "missing vales were imputed"))
+    print(paste(x$w, "missing values were imputed"))
   } else{
-    print(paste(x$w, "missing vale was imputed"))
+    print(paste(x$w, "missing value was imputed"))
   }
 
   if( length(x$criteria) > 0 ){

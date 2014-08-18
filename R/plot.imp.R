@@ -5,14 +5,17 @@ function (x, ..., which=1, ord=1:ncol(x),
           lty = par("lty"), xaxt = "s", 
           xaxlabels = NULL,
           las = 3, interactive = TRUE,  pch = c(1, 3),
-          smooth = FALSE, reg.line = FALSE,
-          legend.plot = FALSE,  
+#          smooth = FALSE, reg.line = FALSE,
+#          legend.plot = FALSE,  
           ask = prod(par("mfcol")) < 
             length(which) && dev.interactive(), 
           center = FALSE, 
           scale=FALSE, id=FALSE,
           seg.l=0.02, seg1=TRUE)
 {
+  smooth=FALSE
+  reg.line=FALSE
+  legend.plot=FALSE
 	if (class(x) != "imp") 
 		stop("use only with objects of class \"imp\" ")
 	wind <- x$wind
@@ -212,7 +215,11 @@ function (x, ..., which=1, ord=1:ncol(x),
     }
     args$col <- c(args$col[1], args$col[3], args$col[2])
     args$pch <- args$pch[2:1]
-    do.call(scatterplotMatrix, args)
+    args$diagonal <- "histogram"
+    ## new in GGally:
+    x <- cbind(x, miss=args$group)
+    print(ggpairs(x, colour='miss', alpha=0.4, shape='miss'))
+#    do.call(scatterplotMatrix, args)
     invisible()
   }
   #########################################################################

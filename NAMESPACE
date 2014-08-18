@@ -1,13 +1,12 @@
 useDynLib(robCompositions)
-importFrom(robustbase, ltsReg)
+importFrom(robustbase, ltsReg, covMcd, lmrob)
 importFrom(rrcov, CovMcd, getCenter, getCov)
-importFrom(car, scatterplotMatrix)
-importFrom(MASS, parcoord, mvrnorm)
+importFrom(MASS, parcoord, mvrnorm, stepAIC, rlm, cov.mve, ginv)
 importFrom(utils, citation)
 importFrom(pls, mvr)
+importFrom(GGally, ggpairs)
 
 export(adjust, 
-       adjustImputed,
        aDist, 
        adtest, 
        adtestWrapper, 

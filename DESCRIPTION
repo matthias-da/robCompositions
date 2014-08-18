@@ -1,21 +1,27 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data.
-Version: 1.8.1
-Date: 2014-03-20
-Depends: R (>= 2.10), utils, robustbase, rrcov, car (>= 2.0-0), MASS, pls
+Version: 1.9.0
+Date: 2014-08-18
+Depends:
+    R (>= 2.10),
+    utils,
+    robustbase,
+    rrcov,
+    GGally,
+    MASS,
+    pls
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
-Description: The package includes methods for imputation 
-             of compositional data including robust methods, methods to impute rounded zeros, 
-             (robust) outlier detection for compositional data, 
-             (robust) principal component
-             analysis for compositional data, (robust) factor analysis for compositional 
-             data, (robust) discriminant analysis for compositional data (Fisher rule), robust regression with compositional predictors and (robust) 
-             Anderson-Darling normality tests
-             for compositional data as well as popular log-ratio transformations (addLR, cenLR, isomLR, 
-             and their inverse transformations).
-             In addition, visualisation and diagnostic tools are implemented as well as high and low-level plot functions for the 
-             ternary diagram. 
-License: GPL-2 
+Description: The package includes methods for imputation of compositional data
+    including robust methods, methods to impute rounded zeros, (robust) outlier
+    detection for compositional data, (robust) principal component analysis for
+    compositional data, (robust) factor analysis for compositional data,
+    (robust) discriminant analysis for compositional data (Fisher rule), robust
+    regression with compositional predictors and (robust) Anderson-Darling
+    normality tests for compositional data as well as popular log-ratio
+    transformations (addLR, cenLR, isomLR, and their inverse transformations).
+    In addition, visualisation and diagnostic tools are implemented as well as
+    high and low-level plot functions for the ternary diagram.
+License: GPL-2
 LazyLoad: yes

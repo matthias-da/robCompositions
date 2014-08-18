@@ -251,17 +251,17 @@ bootnComp <- function(X,y, R=99, plotting=FALSE){
 #    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, 
 #                                  function(x) sum(((y - x)^2)) ) )
   }
-  d <<- na.omit(d)
+  d <- na.omit(d)
   sdev <- apply(d, 1, sd, na.rm=TRUE)
   means <- apply(d, 1, mean, na.rm=TRUE)
   mi <- which.min(means)
   r <- round(ncol(X)/20)
   mi2 <- which.min(means[r:length(means)])+r-1
   w <- means < min(means) + sdev[mi]
-  threshold <<- min(means) + sdev[mi]
-  sdev <<- sdev
-  means <<- means
-  mi <<- mi
+  threshold <- min(means) + sdev[mi]
+  sdev <- sdev
+  means <- means
+  mi <- mi
   means2 <- means
   means2[!w] <- 999999999999999
   res <- which.min(means2)

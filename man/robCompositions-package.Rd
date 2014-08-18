@@ -74,7 +74,7 @@ xi[,3] * s1/impS
 xi <- impKNNa(expenditures)
 xi
 summary(xi)
-plot(xi, which=1)
+\dontrun{plot(xi, which=1)}
 plot(xi, which=2)
 plot(xi, which=3)
 
