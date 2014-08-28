@@ -5,11 +5,12 @@
   An isometric log-ratio transformation with a special choice of the balances according to Hron et al. (2010).
 }
 \usage{
-isomLR(x)
+isomLR(x, fast=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{ object of class data.frame or matrix with positive entries}
+  \item{fast}{ if TRUE, approx. 10 times faster but with numerical problems for high-dimensional data.}
 }
 \details{
 The isomLR transformation moves D-part compositional data from the simplex into a (D-1)-dimensional real space isometrically.
@@ -37,5 +38,10 @@ z <- isomLRinv(mvrnorm(100, mu=c(0,2), Sigma=Sigma))
 
 data(expenditures)
 isomLR(expenditures)
+
+x <- exp(mvrnorm(2000, mu=rep(1,10), diag(10)))
+system.time(isomLR(x))
+system.time(isomLR(x, fast=TRUE))
+
 }
 \keyword{ math }
