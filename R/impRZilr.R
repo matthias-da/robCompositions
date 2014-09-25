@@ -2,7 +2,7 @@
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), 	nComp = "boot", 
            bruteforce=FALSE,  noisemethod="residuals", 
-           noise=FALSE, R=10,
+           noise=FALSE, R=10, correction="normal",
            verbose=FALSE){
     
     
@@ -25,6 +25,7 @@
 	} else  {
 	  pre <- FALSE	
 	}
+  if(!(correction %in% c("normal","density"))) stop("correction method must be normal or density")
 #     pre <- TRUE
 #      if(length(nComp) != ncol(x) & nComp!="boot") stop("nComp must be NULL, boot or of length ncol(x)")
 #    } else if(nComp == "boot"){#
@@ -129,9 +130,14 @@
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
         ex <- (phi - yhat)/s 
-        yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
-                           yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
-                           yhat[w[, i]])
+        if(correction=="normal"){
+          yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
+                             yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
+                             yhat[w[, i]])
+        } else if(correction=="density"){
+          den <- density(ex[w[,i]])
+          distr <- kCDF(ex[w,i])
+        }
         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
         # check if we are under the DL:
         if(any(yhat2sel >= phi[w[, i]])){
