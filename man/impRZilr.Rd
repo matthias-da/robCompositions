@@ -10,7 +10,7 @@ classical and robust methods based on ilr-transformations with special choice of
 \usage{
 impRZilr(x, maxit = 10, eps = 0.1, method = "pls", 
    dl = rep(0.05, ncol(x)), nComp="boot", bruteforce = FALSE,
-   noisemethod="residuals", noise=FALSE, R=10, verbose=FALSE)
+   noisemethod="residuals", noise=FALSE, R=10, correction="normal", verbose=FALSE)
 }
 \arguments{
   \item{x}{
@@ -43,6 +43,9 @@ sets imputed values above the detection limit to the detection limit. Replacemen
   }
   \item{R}{
   number of bootstrap samples for the determination of pls components. Only important for method \dQuote{pls}.
+  }
+  \item{correction}{
+  normal or density
   }
   \item{verbose}{
   additional print output during calculations.

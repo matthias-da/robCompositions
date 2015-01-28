@@ -1,8 +1,10 @@
 citHeader("To cite package 'robCompositions' in publications you might use:")
-     
-desc <- packageDescription("robCompositions")
-year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", desc$Date)
-vers <- paste("R package version", desc$Version)
+
+if(!exists("meta") || is.null(meta)){ 
+  meta <- packageDescription("robCompositions")
+}     
+year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
+vers <- paste("R package version", meta$Version)
      
 citEntry(entry="Book",
               title = "rob{C}ompositions: an R-package for robust statistical analysis of compositional data",
