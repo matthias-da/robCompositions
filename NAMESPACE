@@ -5,7 +5,6 @@ importFrom(MASS, parcoord, mvrnorm, stepAIC, rlm, cov.mve, ginv)
 importFrom(utils, citation)
 importFrom(pls, mvr)
 importFrom(GGally, ggpairs)
-importFrom(sROC, kCDF)
 
 export(adjust, 
        aDist, 
