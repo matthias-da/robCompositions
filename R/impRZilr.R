@@ -78,17 +78,35 @@
 #    indM <- sort(wcol, index.return=TRUE, decreasing=TRUE)$ix
     xcheck <- x
     w2 <- is.na(x)
-    
+
+  
     
     ################
     ## initialisation
     indNA <- apply(x, 2, function(x){any(is.na(x))})
+    print(indNA)
     for(i in 1:length(dl)){
       ind <- is.na(x[,i])
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
       if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
     xOrig <- x
+
+    ################
+    ## check if for any variable with zeros,
+    ## the detection limit should be larger than 0:
+    if(any(dlordered[indNA]==0)){
+      w <- which(dlordered[indNA]==0)
+      invalidCol <- colnames(x)[w]
+      for(i in 1:length(invalidCol)){
+        cat("-------\n")
+         cat(paste("Error: variable/part", invalidCol[i], 
+                           "has detection limit 0 but includes zeros"))
+        cat("\n-------\n")
+      }
+      stop(paste("Set detection limits larger than 0 for variables/part \n including zeros"))
+    }
+
     
     ################
     n <- nrow(x) 
@@ -96,10 +114,10 @@
     ###  start the iteration
     if(verbose) cat("\n start the iteration:")
     it <- 1; criteria <- 99999999
-    
     while(it <= maxit & criteria >= eps){
       if(verbose) cat("\n iteration", it, "; criteria =", criteria)	
       xold <- x  
+      myx <<- x
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
         ## detection limit in ilr-space
