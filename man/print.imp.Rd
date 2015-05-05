@@ -21,9 +21,11 @@ None (invisible NULL).
 data(expenditures)
 expenditures[1,3]
 expenditures[1,3] <- NA
+\dontrun{
 xi <- impCoda(expenditures)
 xi
 summary(xi)
 plot(xi, which=1:2)
+}
 }
 \keyword{ print }

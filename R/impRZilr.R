@@ -117,7 +117,6 @@
     while(it <= maxit & criteria >= eps){
       if(verbose) cat("\n iteration", it, "; criteria =", criteria)	
       xold <- x  
-      myx <<- x
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
         ## detection limit in ilr-space
@@ -311,7 +310,7 @@ bootnCompHD <- function(X,y, R=99, plotting=FALSE){
     reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
   }
-  d <<- na.omit(d)
+  d <- na.omit(d)
   sdev <- apply(d, 1, mad, na.rm=TRUE)
   means <- apply(d, 1, median, na.rm=TRUE)
   mi <- which.min(means)

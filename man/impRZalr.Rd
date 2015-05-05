@@ -7,7 +7,8 @@ compositional data sets.
 }
 \usage{
 impRZalr(x, pos = ncol(x), dl = rep(0.05, ncol(x) - 1), eps = 1e-04, 
-   maxit = 50, bruteforce=FALSE, method="lm", step=FALSE)
+   maxit = 50, bruteforce=FALSE, method="lm", step=FALSE, 
+   nComp = "boot", R = 10, verbose = FALSE)
 }
 \arguments{
   \item{x}{ Compositional data }
@@ -18,6 +19,10 @@ impRZalr(x, pos = ncol(x), dl = rep(0.05, ncol(x) - 1), eps = 1e-04,
   \item{bruteforce}{ if TRUE, imputations over dl are set to dl. If FALSE, truncated (Tobit) regression is applied.  }
   \item{method}{ either \dQuote{lm} (default) or \dQuote{MM} }
   \item{step}{ if TRUE, a stepwise (AIC) procedure is applied when fitting models }    
+  \item{nComp}{ if determined, it fixes the number of pls components. If \dQuote{boot}, the number of pls components are estimated using
+a bootstraped cross validation approach. }  
+  \item{R}{ number of bootstrap samples for the determination of pls components. Only important for method \dQuote{pls}. }  
+  \item{verbose}{ additional print output during calculations. }  
 }
 \details{
 Statistical analysis of compositional data including zeros runs into problems, because log-ratios cannot be applied. 
