@@ -1,3 +1,47 @@
+#' Ternary diagram
+#' 
+#' This plot shows the relative proportions of three variables (compositional
+#' parts) in one diagramm.  Before plotting, the data are scaled.
+#' 
+#' The relative proportions of each variable are plotted.
+#' 
+#' @param x matrix or data.frame with 3 columns
+#' @param name names of the variables
+#' @param grid if TRUE a grid is plotted additionally in the ternary diagram
+#' @param gridCol color for the grid lines
+#' @param mcex label size
+#' @param line may be set to \dQuote{none}, \dQuote{pca}, \dQuote{regression},
+#' \dQuote{regressionconf}, \dQuote{regressionpred}, \dQuote{ellipse},
+#' \dQuote{lda}
+#' @param robust if line equals TRUE, it dedicates if a robust estimation is
+#' applied or not.
+#' @param group if line equals \dQuote{da}, it determines the grouping variable
+#' @param tol if line equals \dQuote{ellipse}, it determines the parameter for
+#' the tolerance ellipse
+#' @param \dots further parameters, see, e.g., \code{par()}
+#' @author Peter Filzmoser <\email{P.Filzmoser@@tuwien.ac.at}>
+#' \url{http://www.statistik.tuwien.ac.at/public/filz/}, Matthias Templ
+#' @seealso \code{\link[StatDA]{ternary}}
+#' @references C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter:
+#' Statistical Data Analysis Explained. Applied Environmental Statistics with
+#' R. John Wiley and Sons, Chichester, 2008.
+#' @keywords multivariate aplot
+#' @examples
+#' 
+#' data(arcticLake)
+#' ternaryDiag(arcticLake)
+#' 
+#' data(coffee)
+#' x <- coffee[,1:3]
+#' grp <- as.integer(factor(coffee[,4]))
+#' ternaryDiag(x, col=grp, pch=grp)
+#' ternaryDiag(x, grid=FALSE, col=grp, pch=grp)
+#' legend("topright", legend=unique(coffee[,4]), pch=1:2, col=1:2)
+#' 
+#' ternaryDiag(x, grid=FALSE, col=grp, pch=grp, line="ellipse", tol=c(0.975,0.9), lty=2)
+#' ternaryDiag(x, grid=FALSE, line="pca")
+#' ternaryDiag(x, grid=FALSE, col=grp, pch=grp, line="pca", lty=2, lwd=2)
+#' 
 ternaryDiag <- function(x, name=colnames(x), grid=TRUE, 
 		                gridCol=grey(0.6), mcex=1.2, line="none", 
 						robust=TRUE, group=NULL, tol=0.975, ...)

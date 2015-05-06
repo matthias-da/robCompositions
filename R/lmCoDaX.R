@@ -1,3 +1,38 @@
+#' Classical and robust regression of non-compositional response on
+#' compositional predictors
+#' 
+#' Delivers appropriate inference for regression of y on a compositional matrix
+#' X.
+#' 
+#' Compositional explanatory variables should not be directly used in a linear
+#' regression model because any inference statistic can become misleading.
+#' While various approaches for this problem were proposed, here an approach
+#' based on the isometric logratio (ilr) transformation is used.
+#' 
+#' @aliases lmCoDaX ilrregression robilrregression
+#' @param y The response which should be non-compositional
+#' @param X The compositional predictors as a matrix, data.frame or numeric
+#' vector
+#' @param method If robust, LTS-regression is applied, while with method equals
+#' \dQuote{classical}, the conventional least squares regression is applied.
+#' @return An object of class \sQuote{lts} or \sQuote{lm} and two summary
+#' objects.
+#' @author Peter Filzmoser
+#' @seealso \code{\link{lm}}
+#' @references Filzmoser, P., Hron, K., Thompsonc, K. (2012) Linear regression
+#' with compositional explanatory variables.  \emph{Journal of Applied
+#' Statistics}, 39, 1115-1128.
+#' @keywords models
+#' @examples
+#' 
+#' ## How the total household expenditures in EU Member
+#' ## States depend on relative contributions of 
+#' ## single household expenditures:
+#' data(expendituresEU)
+#' y <- as.numeric(apply(expendituresEU,1,sum))
+#' lmCoDaX(y, expendituresEU, method="classical")
+#' lmCoDaX(y, expendituresEU, method="robust")
+#' 
 lmCoDaX <- function(y, X, method = "robust"){
 
 	ilrregression <- function(X,y){

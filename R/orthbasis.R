@@ -8,6 +8,29 @@
 #		return(V)
 #}
 
+
+
+#' Orthonormal basis
+#' 
+#' Orthonormal basis from cenLR transformed data to isomLR transformated data.
+#' 
+#' For the chosen balances for \dQuote{isomLR}, this is the orthonormal basis
+#' that transfers the data from centered logratio to isometric logratio.
+#' 
+#' @param D number of parts (variables)
+#' @return the orthonormal basis.
+#' @author Karel Hron, Matthias Templ
+#' @seealso \code{\link{isomLR}}, \code{\link{cenLR}}
+#' @keywords manip
+#' @examples
+#' 
+#' data(expenditures)
+#' V <- orthbasis(ncol(expenditures))
+#' xcen <- cenLR(expenditures)$x.clr
+#' xi <- as.matrix(xcen) %*% V
+#' xi2 <- isomLR(expenditures)
+#' all.equal(xi, xi2)
+#' 
 orthbasis <- function(D){
 	ilrBase <- NULL
 	gsicomp <- 

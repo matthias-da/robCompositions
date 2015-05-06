@@ -1,3 +1,49 @@
+#' Additive logistic transformaton
+#' 
+#' Inverse additive log-ratio transformation, often called additive logistic
+#' transformation.
+#' 
+#' The function allows also to preserve absolute values when class info is
+#' provided. Otherwise only the relative information is preserved.
+#' 
+#' @param x data set, object of class \dQuote{alr}, \dQuote{matrix} or
+#' \dQuote{data.frame}
+#' @param cnames column names. If the object is of class \dQuote{alr} the
+#' column names are chosen from therein.
+#' @param ivar index of the rationing part. If the object is of class
+#' \dQuote{alr} the column names are chosen from therein. If not and ivar is
+#' not provided by the user, it is assumed that the rationing part was the last
+#' column of the data in the simplex.
+#' @param useClassInfo if FALSE, the class information of object \code{x} is
+#' not used.
+#' @return the transformed data matrix
+#' @author Matthias Templ
+#' @seealso \code{\link{isomLRinv}}, \code{\link{cenLRinv}},
+#' \code{\link{cenLR}}, \code{\link{addLR}}
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
+#' Compositional Data} Monographs on Statistics and Applied Probability.
+#' Chapman \& Hall Ltd., London (UK). 416p.
+#' @keywords manip
+#' @examples
+#' 
+#' data(arcticLake)
+#' x <- arcticLake
+#' x.alr <- addLR(x, 2)
+#' y <- addLRinv(x.alr)
+#' ## This exactly fulfills:
+#' addLRinv(addLR(x, 3))
+#' data(expenditures)
+#' x <- expenditures
+#' y <- addLRinv(addLR(x, 5))
+#' head(x)
+#' head(y)
+#' ## --> absolute values are preserved as well.
+#' 
+#' ## preserve only the ratios:
+#' addLRinv(x.alr, ivar=2, useClassInfo=FALSE)
+#' 
+#' 
+#' 
 addLRinv <- function(x, cnames=NULL, ivar=NULL, useClassInfo=TRUE){
 	if(class(x) == "alr" & useClassInfo==TRUE){
 		

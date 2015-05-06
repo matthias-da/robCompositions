@@ -1,3 +1,55 @@
+#' EM-based replacement of rounded zeros in compositional data
+#' 
+#' Parametric replacement of rounded zeros for compositional data using
+#' classical and robust methods based on ilr-transformations with special
+#' choice of balances.
+#' 
+#' Statistical analysis of compositional data including zeros runs into
+#' problems, because log-ratios cannot be applied.  Usually, rounded zeros are
+#' considerer as missing not at random missing values.
+#' 
+#' The algorithm iteratively imputes parts with rounded zeros whereas in each
+#' step (1) an specific ilr transformation is applied (2) tobit regression is
+#' applied (3) the rounded zeros are replaced by the expected values (4) the
+#' corresponding inverse ilr transformation is applied. After all parts are
+#' imputed, the algorithm starts again until the imputations do not change.
+#' 
+#' @param x data.frame or matrix
+#' @param maxit maximum number of iterations
+#' @param eps convergency criteria
+#' @param method either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
+#' @param dl Detection limit for each variable. zero for variables with
+#' variables that have no detection limit problems.
+#' @param nComp if determined, it fixes the number of pls components. If
+#' \dQuote{boot}, the number of pls components are estimated using a
+#' bootstraped cross validation approach.
+#' @param bruteforce sets imputed values above the detection limit to the
+#' detection limit. Replacement above the detection limit are only exeptionally
+#' occur due to numerical instabilities. The default is FALSE!
+#' @param noisemethod adding noise to imputed values. Experimental
+#' @param noise TRUE to activate noise (experimental)
+#' @param R number of bootstrap samples for the determination of pls
+#' components. Only important for method \dQuote{pls}.
+#' @param correction normal or density
+#' @param verbose additional print output during calculations.
+#' @return \item{x }{imputed data} \item{criteria }{change between last and
+#' second last iteration} \item{iter }{number of iterations} \item{maxit
+#' }{maximum number of iterations} \item{wind}{index of zeros}
+#' \item{nComp}{number of components for method pls} \item{method}{chosen
+#' method}
+#' @author Matthias Templ and Peter Filzmoser
+#' @seealso \code{\link{impRZalr}}
+#' @keywords manip multivariate
+#' @examples
+#' 
+#' data(arcticLake)
+#' x <- arcticLake
+#' ## generate rounded zeros artificially:
+#' #x[x[,1] < 5, 1] <- 0
+#' x[x[,2] < 44, 2] <- 0
+#' xia <- impRZilr(x, dl=c(5,44,0), eps=0.01, method="lm")
+#' xia$x
+#' 
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), 	nComp = "boot", 
@@ -243,7 +295,7 @@
          }
       }
       if(any(check)){
-        message("few imputed values have been corrected")      
+        message("few replaced values have been corrected")      
       }
       return(x)
     }
@@ -257,6 +309,29 @@
     invisible(res)
   }
 
+
+
+#' Bootstrap to find optimal number of components
+#' 
+#' Combined bootstrap and cross validation procedure to find optimal number of
+#' PLS components
+#' 
+#' Heavily used internally in function impRZilr.
+#' 
+#' @param X predictors as a matrix
+#' @param y response
+#' @param R number of bootstrap samples
+#' @param plotting if TRUE, a diagnostic plot is drawn for each bootstrap
+#' replicate
+#' @return Including other information in a list, the optimal number of
+#' components
+#' @author Matthias Templ
+#' @seealso \code{\link{impRZilr}}
+#' @keywords manip
+#' @examples
+#' 
+#' ## we refer to impRZilr()
+#' 
 bootnComp <- function(X,y, R=99, plotting=FALSE){
   ind <- 1:nrow(X)
   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))

@@ -1,3 +1,25 @@
+#' Robust variation matrix
+#' 
+#' Estimates the variation matrix with robust methods.
+#' 
+#' The variation matrix is estimated for a given compositional data set.
+#' Instead of using the classical standard deviations the
+#' \code{\link[stats]{mad}} is used when parameter robust is set to TRUE.
+#' 
+#' @param x data frame or matrix with positive entries
+#' @param robust if FALSE, standard measures are used.
+#' @return The (robust) variation matrix.
+#' @author Matthias Templ
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
+#' Compositional Data} Monographs on Statistics and Applied Probability.
+#' Chapman \& Hall Ltd., London (UK). 416p.
+#' @keywords multivariate robust
+#' @examples
+#' 
+#' data(expenditures)
+#' robVariation(expenditures)
+#' robVariation(expenditures, robust=FALSE)
+#' 
 `robVariation` <-
   function(x, robust=TRUE){
     rvars <- matrix(0, ncol=ncol(x), nrow=ncol(x))

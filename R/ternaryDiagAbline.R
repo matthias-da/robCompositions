@@ -1,3 +1,23 @@
+#' Adds a line to a ternary diagram.
+#' 
+#' A low-level plot function which adds a line to a high-level ternary diagram.
+#' 
+#' This is a small utility function which helps to add a line in a ternary plot
+#' from two given points in an isometric transformed space.
+#' 
+#' @param x Two-dimensional data set in isometric log-ratio transformed space.
+#' @param \dots Additional graphical parameters passed through.
+#' @return no values are returned.
+#' @author Matthias Templ
+#' @seealso \code{\link{ternaryDiag}}
+#' @keywords aplot
+#' @examples
+#' 
+#' data(coffee)
+#' x <- coffee[,1:3]
+#' ternaryDiag(x, grid=FALSE)
+#' ternaryDiagAbline(data.frame(z1=c(0.01,0.5), z2=c(0.4,0.8)), col="red")
+#' 
 ternaryDiagAbline <- function(x, ...){
 	if(ncol(x) > 2) stop("it is assumed that the 2-dim points are provided in the transformed space.")
 #	plot(x)

@@ -1,3 +1,28 @@
+#' Adds tolerance ellipses to a ternary diagram.
+#' 
+#' Low-level plot function which add tolerance ellipses to a high-level plot of
+#' a ternary diagram.
+#' 
+#' 
+#' @param x Three-part composition. Object of class \dQuote{matrix} or
+#' \dQuote{data.frame}.
+#' @param tolerance Determines the amount of observations with Mahalanobis
+#' distance larger than the drawn ellipse, scaled to one.
+#' @param locscatt Method for estimating the mean and covariance.
+#' @param \dots Additional arguments passed trough.
+#' @return no values are returned.
+#' @author Peter Filzmoser, Matthias Templ
+#' @seealso \code{\link{ternaryDiag}}
+#' @keywords aplot
+#' @examples
+#' 
+#' data(coffee)
+#' x <- coffee[,1:3]
+#' ternaryDiag(x, grid=FALSE)
+#' ternaryDiagEllipse(x)
+#' ## or directly:
+#' ternaryDiag(x, grid=FALSE, line="ellipse")
+#' 
 ternaryDiagEllipse <- function(x, tolerance=c(0.9,0.95,0.975), locscatt="MCD", ...){
 	z <- isomLR(x)
 	if(locscatt=="MCD"){

@@ -1,3 +1,7 @@
+Changes in robCompositions version 1.9.1
+  + now with roxygen2 documentation
+  + minor modifications in impRZilr
+
 Changes in robCompositions version 1.9.0
   + bug in robVariations solved
 
