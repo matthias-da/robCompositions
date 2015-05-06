@@ -111,6 +111,7 @@
       w <- which(checkRows)
       cat("\n--------\n")
       message("Rows with only zeros are not allowed")
+      message("Remove this rows before running the algorithm")
       cat("\n--------\n")      
       stop(paste("Following rows with only zeros:", w))
     }  
