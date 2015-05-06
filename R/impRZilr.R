@@ -104,6 +104,16 @@
     x[x == 0] <- NA
     x[x < 0] <- NA
     indexFinalCheck <- is.na(x)
+
+    ## check if rows consists of only zeros:
+    checkRows <- unlist(apply(x, 1, function(x) all(is.na(x))))
+    if(any(checkRows)){ 
+      w <- which(checkRows)
+      cat("\n--------\n")
+      message("Rows with only zeros are not allowed")
+      cat("\n--------\n")      
+      stop(paste("Following rows with only zeros:", w))
+    }  
     
     ################
     ## sort variables of x based on 
@@ -172,7 +182,9 @@
       for(i in which(indNA)){
         if(verbose) cat("\n replacement on part", i)
         ## detection limit in ilr-space
-        phi <- -isomLR(cbind(rep(dlordered[i], n), x[,-i,drop=FALSE]))[,1] 
+        forphi <- cbind(rep(dlordered[i], n), x[,-i,drop=FALSE])
+        if(any(is.na(forphi))) break()
+        phi <- -isomLR(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
         xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
