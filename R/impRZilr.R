@@ -115,6 +115,18 @@
       cat("\n--------\n")      
       stop(paste("Following rows with only zeros:", w))
     }  
+
+  ## check if cols consists of only zeros:
+  checkCols <- unlist(apply(x, 2, function(x) all(is.na(x))))
+  if(any(checkCols)){ 
+    w <- which(checkCols)
+    cat("\n--------\n")
+    message("Cols with only zeros are not allowed")
+    message("Remove this columns before running the algorithm")
+    cat("\n--------\n")      
+    stop(paste("Following cols with only zeros:", colnames(x)[w]))
+  }  
+ 
     
     ################
     ## sort variables of x based on 
