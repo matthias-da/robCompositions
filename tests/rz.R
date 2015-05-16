@@ -1,5 +1,6 @@
 require(robCompositions)
-
+require(MASS)
+require(robustbase)
 crnorm <- function(n, mu, Sigma){ 
   constSum(data.frame(exp(mvrnorm(n, mu, Sigma))))
 }

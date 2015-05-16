@@ -2,11 +2,12 @@ Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
 Version: 1.9.1
-Date: 2015-05-05
+Date: 2015-05-06
 Depends:
     R (>= 2.10),
     utils,
-    robustbase,
+    robustbase
+Imports: 
     rrcov,
     GGally,
     MASS,
@@ -14,9 +15,9 @@ Depends:
     sROC
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
-Description: Methods for imputation of compositional data
-    including robust methods, methods to impute rounded zeros, (robust) outlier
-    detection for compositional data, (robust) principal component analysis for
+Description: Methods for analysis of compositional data
+    including robust methods, imputation, methods to replace rounded zeros, (robust) 
+    outlier detection for compositional data, (robust) principal component analysis for
     compositional data, (robust) factor analysis for compositional data,
     (robust) discriminant analysis for compositional data (Fisher rule), robust
     regression with compositional predictors and (robust) Anderson-Darling
