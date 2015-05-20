@@ -16,6 +16,7 @@ export(adjust,
        impRZalr, 
        cenLR, cenLRinv,
        constSum, 
+       compareMahal,
        daFisher,  
        gm, 
        isomLR, isomLRinv,
@@ -35,9 +36,11 @@ export(adjust,
        ternaryDiagPoints,
        ternaryDiagLines,
        ternaryDiagAbline,
-       ternaryDiagEllipse#,
+       ternaryDiagEllipse,
+       zeroOut
        ) 
 
+S3method(plot, mahal)
 S3method(plot, imp)
 S3method(plot, outCoDa)
 S3method(plot, pcaCoDa)
