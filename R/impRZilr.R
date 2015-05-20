@@ -135,7 +135,7 @@
     wcol <- - abs(apply(x, 2, function(x) sum(is.na(x))))
     o <- order(wcol)
     x <- x[,o]
-    if(verbose) cat("variables with decreasing number of missings:", o)
+    if(verbose) cat("variables with decreasing number of missings:\n", colnames(x))
     ## --> now work in revised order of variables
     ## dl must also be in correct order
     dlordered <- dl[o]

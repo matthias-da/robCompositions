@@ -40,7 +40,7 @@ compareMahal <- function(x, imp="KNNa"){
   p <- ncol(x)
   ind <- 1:(p-1)
   ## code zeros as NA's
-  if(any(is.na(x)) & any(x==0)) warning("the data includes NA's and zeros. \n Impute the missing values first, otherwise they are treated as zeros")
+  if(any(is.na(x)) & any(x==0, na.rm=TRUE)) warning("the data includes NA's and zeros. \n Impute the missing values first, otherwise they are treated as zeros")
   x[x == 0] <- NA
   w <- is.na(x[,ind])
   w <- apply(w, 2, as.integer)
@@ -48,6 +48,16 @@ compareMahal <- function(x, imp="KNNa"){
   xs <- split(x, s)
   names(xs) <- gsub("0", "x", names(xs))
   names(xs) <- gsub("1", "0", names(xs))
+  ## if one group is too small report an error
+  check <- as.numeric(unlist(lapply(xs, nrow)))
+  w <- which(check < 2*(ncol(x)-1) + 2)
+  if(length(w) > 0){
+    m <- missPatterns(x[,-ncol(x)])$tabcombPlus
+    cat("\n the following subgroups:\n")
+    cat(m[w,])
+    cat("\n are too small for evaluation in each subcomposition")
+    stop("subgroups must be larger than 2*ncol(x)+1")
+  }
   ## exclude NA columns:
   xs <- lapply(xs, function(x){
     x <- x[,!is.na(x[1,]),drop=FALSE]
@@ -85,15 +95,16 @@ compareMahal <- function(x, imp="KNNa"){
                    "id"=id
   )
   df <- merge(df, x, by.y="rn",by.x="id")
-  df <- merge(df, resi, by.x="id", by.y="ID")
+  df <- cbind(resi, df)
+#  df <- merge(df, resi, by.x="id", by.y="ID")
   ## rearange columns:
   ordering <- c("sub","mahcorr","outlier","group")
   df <- df[, ordering]
   colnames(df)[2] <- "imp"
   ## add number of obs to group 
-  dfg <- data.frame(table(df$group))
-  colnames(dfg) <- c("group","obs")
-  df <- merge(df, dfg, by="group")
+  df <- data.table(df)
+  df[, obs:=.N, by = list(group)]
+  df <- data.frame(df)
   df$group <- apply(df[,c("group","obs")], 1, paste, collapse=",  obs =")
   ## make text:
   outsub <- aggregate(df[,"sub",drop=FALSE], list(df$group), function(x) sum(x > 1, na.rm=TRUE))
