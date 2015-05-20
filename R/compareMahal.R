@@ -101,7 +101,7 @@ compareMahal <- function(x, imp="KNNa"){
   ordering <- c("sub","mahcorr","outlier","group")
   df <- df[, ordering]
   colnames(df)[2] <- "imp"
-  ## add number of obs to group 
+  ## add number of obs to group, easier with data.table 
   df <- data.table(df)
   df[, obs:=.N, by = list(group)]
   df <- data.frame(df)

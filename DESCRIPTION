@@ -7,7 +7,8 @@ Depends:
     R (>= 2.10),
     utils,
     robustbase,
-    ggplot2
+    ggplot2,
+    data.table
 Imports: 
     rrcov,
     GGally,
