@@ -10,7 +10,7 @@ lmcla.sum <- summary(lmcla)
 require(robCompositions)
 ilr.sum <- lmcla.sum
 for (j in 1:ncol(X)){
-  Zj <- -robCompositions::isomLR(cbind(X[,j],X[,-j]))
+  Zj <- isomLR(cbind(X[,j],X[,-j]))
   dj <- data.frame(y=y,Z=Zj)
   res <- lm(y~.,data=dj)
   res.sum <- summary(res)

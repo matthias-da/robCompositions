@@ -9,6 +9,7 @@
 #' @param x object from class \sQuote{imp}
 #' @return The object of class \sQuote{imp} but with the adjusted imputed data.
 #' @author Matthias Templ
+#' @export
 #' @seealso \code{\link{impCoda}}
 #' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 #' missing values for compositional data using classical and robust methods

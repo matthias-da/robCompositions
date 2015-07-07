@@ -17,6 +17,7 @@
 #' @param useClassInfo if FALSE, the class information of object \code{x} is
 #' not used.
 #' @return the transformed data matrix
+#' @export
 #' @author Matthias Templ
 #' @seealso \code{\link{isomLRinv}}, \code{\link{cenLRinv}},
 #' \code{\link{cenLR}}, \code{\link{addLR}}

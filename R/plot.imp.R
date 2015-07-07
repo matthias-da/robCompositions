@@ -76,6 +76,10 @@
 #' Wegman, E. J. (1990) \emph{Hyperdimensional data analysis using parallel
 #' coordinates} Journal of the American Statistical Association 85, 664--675.
 #' @keywords aplot hplot
+#' @export
+#' @importFrom GGally ggpairs
+#' @importFrom MASS parcoord
+#' @method plot imp
 #' @examples
 #' 
 #' data(expenditures)

@@ -23,6 +23,7 @@
 #' with compositional explanatory variables.  \emph{Journal of Applied
 #' Statistics}, 39, 1115-1128.
 #' @keywords models
+#' @export
 #' @examples
 #' 
 #' ## How the total household expenditures in EU Member
@@ -46,7 +47,7 @@ lmCoDaX <- function(y, X, method = "robust"){
 	# ilr regressions:
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
-			Zj <- -robCompositions::isomLR(cbind(X[,j],X[,-j]))
+			Zj <- isomLR(cbind(X[,j],X[,-j]))
 			dj <- data.frame(y=y,Z=Zj)
 			res <- lm(y~.,data=dj)
 			res.sum <- summary(res)
@@ -71,14 +72,14 @@ lmCoDaX <- function(y, X, method = "robust"){
 	#
 	# classical regression
 		d <- data.frame(y=y,X=X)
-		lmcla <- ltsReg(y~.,data=d)
+		lmcla <- robustbase::ltsReg(y~.,data=d)
 		lmcla.sum <- summary(lmcla)
 	# ilr regressions:
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
-			Zj <- -robCompositions::isomLR(cbind(X[,j],X[,-j]))
+			Zj <- isomLR(cbind(X[,j],X[,-j]))
 			dj <- data.frame(y=y,Z=Zj)
-			res <- ltsReg(y~.,data=dj)
+			res <- robustbase::ltsReg(y~.,data=dj)
 			res.sum <- summary(res)
 			if (j==1){
 				ilr.sum$coefficients[1:2,] <- res.sum$coefficients[1:2,]

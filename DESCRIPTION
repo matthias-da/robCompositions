@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 1.9.2
-Date: 2015-06-06
+Version: 1.9.3
+Date: 2015-07-07
 Depends:
     R (>= 2.10),
     utils,
@@ -16,6 +16,10 @@ Imports:
     pls,
     sROC,
     VIM
+Suggests:
+    knitr
+VignetteBuilder: 
+    knitr
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
 Description: Methods for analysis of compositional data
@@ -30,3 +34,4 @@ Description: Methods for analysis of compositional data
     high and low-level plot functions for the ternary diagram.
 License: GPL-2
 LazyLoad: yes
+LazyData: true

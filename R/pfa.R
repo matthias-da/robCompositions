@@ -47,6 +47,8 @@
 #' for Compositional Data.  \emph{Computers and Geosciences}, \bold{35} (9),
 #' 1854--1861.
 #' @keywords multivariate
+#' @export
+#' @importFrom MASS ginv
 #' @examples
 #' 
 #' data(expenditures)
@@ -64,7 +66,7 @@ function (x, factors, data = NULL, covmat = NULL, n.obs = NA,
         "Bartlett"), rotation = "varimax", maxiter = 5, control = NULL, 
     ...) 
 {
-	z <- isomLR(x)    #ilr transformed data
+	z <- -isomLR(x)    #ilr transformed data
 	## orthonormal basis:
 	V <- matrix(0,nrow=ncol(x),ncol=ncol(x)-1)
 	for (i in 1:ncol(V)){
@@ -183,8 +185,8 @@ function (x, factors, data = NULL, covmat = NULL, n.obs = NA,
             if (!is.null(Phi <- attr(Lambda, "covariance"))) 
                 sc <- sc %*% Phi
         }, Bartlett = {
-	    psiinv <- ginv(fit$psi)
-	    sc <- t(ginv(t(Lambda)%*%psiinv%*%Lambda)%*%t(Lambda)%*%psiinv%*%t(zz))
+	    psiinv <- MASS::ginv(fit$psi)
+	    sc <- t(MASS::ginv(t(Lambda)%*%psiinv%*%Lambda)%*%t(Lambda)%*%psiinv%*%t(zz))
 ###            d <- 1/fit$uniquenesses
 ###            tmp <- t(Lambda * d)
 ###            sc <- t(solve(tmp %*% Lambda, tmp %*% t(zz)))

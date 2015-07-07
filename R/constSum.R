@@ -10,6 +10,7 @@
 #' @return The data for which the row sums are equal to \code{const}.
 #' @author Matthias Templ
 #' @keywords manip
+#' @export
 #' @examples
 #' 
 #' data(expenditures)

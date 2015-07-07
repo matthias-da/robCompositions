@@ -1,4 +1,4 @@
-#' Robust variation matrix
+#' Robust and classical variation matrix
 #' 
 #' Estimates the variation matrix with robust methods.
 #' 
@@ -14,13 +14,14 @@
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.
 #' @keywords multivariate robust
+#' @export
 #' @examples
 #' 
 #' data(expenditures)
-#' robVariation(expenditures)
-#' robVariation(expenditures, robust=FALSE)
+#' variation(expenditures)
+#' variation(expenditures, robust=FALSE)
 #' 
-`robVariation` <-
+`variation` <-
   function(x, robust=TRUE){
     rvars <- matrix(0, ncol=ncol(x), nrow=ncol(x))
     if(robust){

@@ -22,6 +22,7 @@
 #' @author Karel Hron, Matthias Templ
 #' @seealso \code{\link{isomLR}}, \code{\link{cenLR}}
 #' @keywords manip
+#' @export
 #' @examples
 #' 
 #' data(expenditures)

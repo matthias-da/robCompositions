@@ -14,6 +14,7 @@
 #' Statistical Data Analysis Explained. Applied Environmental Statistics with
 #' R. John Wiley and Sons, Chichester, 2008.
 #' @keywords aplot
+#' @export
 #' @examples
 #' 
 #' data(coffee)

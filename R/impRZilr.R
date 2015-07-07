@@ -40,6 +40,10 @@
 #' @author Matthias Templ and Peter Filzmoser
 #' @seealso \code{\link{impRZalr}}
 #' @keywords manip multivariate
+#' @export
+#' @import pls
+#' @importFrom sROC kCDF
+#' @importFrom MASS rlm
 #' @examples
 #' 
 #' data(arcticLake)
@@ -197,10 +201,10 @@
         ## detection limit in ilr-space
         forphi <- cbind(rep(dlordered[i], n), x[,-i,drop=FALSE])
         if(any(is.na(forphi))) break()
-        phi <- -isomLR(forphi)[,1] 
+        phi <- isomLR(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         x[x < 2*.Machine$double.eps] <- 2*.Machine$double.eps
-        xilr <- data.frame(-isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
+        xilr <- data.frame(isomLR(cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])))
         c1 <- colnames(xilr)[1]					
         colnames(xilr)[1] <- "V1"	
         response <- as.matrix(xilr[,1,drop=FALSE])
@@ -209,7 +213,7 @@
           reg1 <- lm(response ~ predictors)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="MM"){
-          reg1 <- rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
+          reg1 <- MASS::rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & pre){ ## evaluate ncomp.
@@ -230,7 +234,7 @@
                              yhat[w[, i]])
         } else if(correction=="density"){
           den <- density(ex[w[,i]])
-          distr <- kCDF(ex[w,i])
+          distr <- sROC::kCDF(ex[w,i])
         }
         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
         # check if we are under the DL:
@@ -238,7 +242,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        xinv <- isomLRinv(-xilr)
+        xinv <- isomLRinv(xilr)
         ## reordering of xOrig
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])
@@ -290,7 +294,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        xinv <- isomLRinv(-xilr)
+        xinv <- isomLRinv(xilr)
         ## reordering of xOrig
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])

@@ -11,6 +11,8 @@
 #' @author Matthias Templ
 #' @seealso \code{\link{impCoda}}, \code{\link{impKNNa}}
 #' @keywords print
+#' @export
+#' @method summary imp
 #' @examples
 #' 
 #' data(expenditures)

@@ -40,6 +40,9 @@
 #' certain goodness-of-fit criteria based on stochastic processes. \emph{Annals
 #' of Mathematical Statistics}, \bold{23} 193-212.
 #' @keywords htest
+#' @export
+#' @importFrom MASS mvrnorm
+#' @importFrom robustbase covMcd
 #' @examples
 #' 
 #' adtest(rnorm(100))
@@ -67,7 +70,7 @@ adtest=function(x, R=1000, locscatt="standard") {
 			if( (length(dim(x)) < 1) | is.vector(x) ){
 				list(mean=median(x), varmat=mad(x)^2)
 			} else {
-				v <- covMcd(x)
+				v <- robustbase::covMcd(x)
 				list(mean=v$center, varmat=v$cov)
 			}
 		}

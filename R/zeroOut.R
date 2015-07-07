@@ -20,8 +20,8 @@ zeroOut <- function(x, impute="knn"){
     xi <- impKNNa(x)$xImp
   } else if (impute %in% c("knn", "KNN", "kNN")){
     xi <- kNN(x, imp_var = FALSE)
-  } else if (impute %in% c("fry", "Fry", "FRY")){
-    xi <- rmzero(x, minval=0.01, delta=0.01)
+#  } else if (impute %in% c("fry", "Fry", "FRY")){
+#    xi <- rmzero(x, minval=0.01, delta=0.01)
   } else if (impute %in% c("IRMI","irmi","Irmi")){
     xi <- impCoda(x, init="geometricmean")$xImp
   } else {
@@ -56,7 +56,7 @@ zeroOut <- function(x, impute="knn"){
     wf <- which(!index)
     sortedxs <- sortedxs[, c(wt,wf)]
     zneworder <- isomLR(sortedxs)
-    zcovs <- covMcd(zneworder)
+    zcovs <- robustbase::covMcd(zneworder)
     ## took only last columns of xs
     if(length(wf) == 2){
       p <- ncol(zneworder)

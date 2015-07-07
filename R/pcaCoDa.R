@@ -16,6 +16,7 @@
 #' both compositional parts. The ilr-transformation is then internally applied
 #' to each group independently whenever the \code{mult_comp} is set correctly.
 #' 
+#' @aliases pcaCoDa print.pcaCoDa
 #' @param x compositional data
 #' @param method either \dQuote{robust} (default) or \dQuote{standard}
 #' @param mult_comp a list of numeric vectors holding the indices of linked
@@ -30,6 +31,8 @@
 #' Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 #' \bold{20}, 621-632.
 #' @keywords multivariate
+#' @export
+#' @importFrom MASS cov.mve
 #' @examples
 #' 
 #' data(expenditures)
@@ -39,8 +42,7 @@
 #' 
 #' ## just for illustration how to set the mult_comp argument
 #' p1 <- pcaCoDa(expenditures, mult_comp=list(c(1,2,3),c(4,5)))
-#' 
-#' 
+#' p1
 pcaCoDa <- function(x, method="robust",mult_comp=NULL){
   
   # Closure problem with ilr transformation
@@ -58,11 +60,11 @@ pcaCoDa <- function(x, method="robust",mult_comp=NULL){
     xilr <- do.call("cbind",lapply(mult_comp,function(xx)ilrV(x[,xx])))
   }		
   if( method == "robust"){
-    cv <- covMcd(xilr, cor=FALSE)
+    cv <- robustbase::covMcd(xilr, cor=FALSE)
     pcaIlr <- suppressWarnings(princomp(xilr, covmat=cv, cor=FALSE))
     eigenvalues <- eigen(cv$cov)$values
   } else if (method =="mve"){
-    cv <- cov.mve(xilr)
+    cv <- MASS::cov.mve(xilr)
     pcaIlr <- suppressWarnings(princomp(xilr, covmat=cv, cor=FALSE))
     eigenvalues <- eigen(cv$cov)$values
   } else {
@@ -121,5 +123,18 @@ pcaCoDa <- function(x, method="robust",mult_comp=NULL){
   )
   class(res) <- "pcaCoDa"
   invisible(res)
-  
+}
+
+#' @rdname pcaCoDa
+#' @export
+#' @method print pcaCoDa
+#' @param ... additional parameters for print method passed through
+print.pcaCoDa <- function(x, ...){
+  ## percentage of explained variability for clr transformed data
+  eV <- x$eigenvalues / sum(x$eigenvalues)
+  eVcum <- cumsum(x$eigenvalues) / sum(x$eigenvalues)
+  cat("\n-------------------")
+  cat("\n Percentages of explained variability for compositional data after clr transformation \n")
+  print(eVcum)
+  cat("\n-------------------\n\n")	
 }

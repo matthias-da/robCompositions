@@ -26,6 +26,7 @@
 #' Statistical Data Analysis Explained. Applied Environmental Statistics with
 #' R. John Wiley and Sons, Chichester, 2008.
 #' @keywords multivariate aplot
+#' @export
 #' @examples
 #' 
 #' data(arcticLake)
@@ -128,7 +129,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 	  z <- data.frame(isomLR(x))
 #	  z[,2] <- z[,2]*(-1)
 	  colnames(z) <- c("x", "y")
-	  if(rob) lm1 <- rlm(y ~ x, data=z, method="MM") else lm1 <- lm(y ~ x, data=z)
+	  if(rob) lm1 <- MASS::rlm(y ~ x, data=z, method="MM") else lm1 <- lm(y ~ x, data=z)
 #	  new <- data.frame(x = seq(min(z$x), max(z$x), length=100)) 
 	  new <- data.frame(x = seq(-30, 30, length=10000)) 
 	  if(conf=="regressionpred"){
@@ -182,7 +183,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 	  a <- constSum(x,1)
 	  a <- isomLR(x)
 	  if(rob){
-		  rc <- covMcd(a)
+		  rc <- robustbase::covMcd(a)
 		  me <- rc$center
 		  acov <- rc$cov
 	  } else {

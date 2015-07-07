@@ -11,6 +11,7 @@
 #' @author Matthias Templ
 #' @seealso \code{\link{ternaryDiag}}
 #' @keywords aplot
+#' @export
 #' @examples
 #' 
 #' data(coffee)

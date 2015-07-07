@@ -13,6 +13,12 @@
 #' \dQuote{standard} is used, standard measures of location and scatter are
 #' applied during the outlier detection procedure.
 #' 
+#' plot method: the Mahalanobis distance are plotted against the index.
+#' The dashed line indicates the (1 - alpha) quantile of the Chi-squared
+#' distribution. Observations with Mahalanobis distance greater than this
+#' quantile could be considered as compositional outliers.
+#' 
+#' @aliases outCoDa print.outCoDa plot.outCoDa
 #' @param x compositional data
 #' @param quantile quantile, corresponding to a significance level, is used as
 #' a cut-off value for outlier identification: observations with larger
@@ -21,6 +27,8 @@
 #' @param h the size of the subsets for the robust covariance estimation
 #' according the MCD-estimator for which the determinant is minimized (the
 #' default is (n+p+1)/2).
+#' @param y unused second plot argument for the plot method
+#' @param ... additional parameters for print and plot method passed through
 #' @return \item{mahalDist }{resulting Mahalanobis distance} \item{limit
 #' }{quantile of the Chi-squared distribution} \item{outlierIndex }{logical
 #' vector indicating outliers and non-outliers} \item{method }{method used}
@@ -37,6 +45,7 @@
 #' Rousseeuw, P.J., Van Driessen, K. (1999) A fast algorithm for the minimum
 #' covariance determinant estimator.  \emph{Technometrics}, \bold{41} 212-223.
 #' @keywords multivariate
+#' @export
 #' @examples
 #' 
 #' data(expenditures)
@@ -51,7 +60,7 @@ outCoDa <- function(x, quantile=0.975, method="robust", h=1/2){
 				list(mean=colMeans(x, na.rm=TRUE), varmat=cov(x))  
 		}
 		robust <- function(x){
-				v <- covMcd(x)
+				v <- robustbase::covMcd(x)
 				list(mean=v$center, varmat=v$cov)
 		}
 		switch(type,
@@ -67,4 +76,28 @@ outCoDa <- function(x, quantile=0.975, method="robust", h=1/2){
 			    outlierIndex = dM > limit, method=method)
 	class(res) <- "outCoDa"
     invisible(res)
+}
+
+#' @rdname outCoDa
+#' @export
+#' @method print outCoDa
+print.outCoDa <- function(x, ...){
+  cat("\n --------------------\n")	
+  print(paste(length(which(x$outlierIndex == TRUE)), "out of", length(x$outlierIndex), "observations are detected as outliers."))
+  cat("\n --------------------\n\n")		
+}
+#' @rdname outCoDa 
+#' @export
+#' @method plot outCoDa
+plot.outCoDa <- function(x, y, ...){
+  #	plot(1:length(x$mahalDist), x$mahalDist, ylab="Mahalanobis distance", xlab="Index", type="n", ylim=c(0, max(x$mahalDist)) )
+  #	points(1:length(x$mahalDist[x$outlierIndex]), x$mahalDist[x$outlierIndex], pch=3, col="red")
+  #	points(1:length(x$mahalDist[!x$outlierIndex]), x$mahalDist[!x$outlierIndex])	
+  #	abline(h=x$limit, lty=2)
+  #	#print(x$mahalDist)
+  if(x$method =="standard") yl <- "Mahalanobis distance" else yl <- "Robust Mahalanobis distance" 
+  plot(1:length(x$mahalDist), x$mahalDist, ylab = yl,
+       xlab = "Index", ylim = c(0, max(x$mahalDist)),
+       pch = as.numeric(x$outlierIndex)*2+1)
+  abline(h=x$limit, lty=2)
 }

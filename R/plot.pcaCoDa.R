@@ -18,6 +18,8 @@
 #' Compositional Data with Outliers. \emph{Environmetrics}, \bold{20} (6),
 #' 621--632.
 #' @keywords aplot
+#' @export
+#' @method plot pcaCoDa
 #' @examples
 #' 
 #' data(expenditures)

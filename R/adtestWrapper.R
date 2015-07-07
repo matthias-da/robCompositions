@@ -15,10 +15,16 @@
 #' - the (D-1)-dimensional radius distribution is tested using the
 #' Anderson-Darling radius test for normality.
 #' 
+#' A print and a summary method are implemented. The latter one provides a similar output is proposed by (Pawlowsky-Glahn, et al. (2008). In addition
+#' to that, p-values are provided.
+#' 
+#' @aliases adtestWrapper print.adtestWrapper summary.adtestWrapper
 #' @param x compositional data of class data.frame or matrix
 #' @param alpha significance level
 #' @param R Number of Monte Carlo simulations in order to provide p-values.
 #' @param robustEst logical
+#' @param object an object of class adtestWrapper for the summary method
+#' @param ... additional parameters for print and summary passed through
 #' @return \item{res }{ a list including each test result } \item{check }{
 #' information about the rejection of the null hypothesis} \item{alpha}{ the
 #' underlying significance level } \item{info}{ further information which is
@@ -34,6 +40,7 @@
 #' Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd.,
 #' London (UK). 416p.
 #' @keywords htest
+#' @export
 #' @examples
 #' 
 #' data(machineOperators)
@@ -42,48 +49,82 @@
 #' summary(a)
 #' 
 adtestWrapper=function(x,alpha=0.05,R=1000, robustEst=FALSE){
-if(robustEst == TRUE ) robust <- "robust" else robust <- "standard"
-z=isomLR(x)
-n=ncol(z)
-if(ncol(z)==1){
-  res<-info<-list()
-  res[[1]]=adtest(z,R,locscatt=robust)
-  info[[1]]=paste(1)
-  check<- logical(1)
-}
-if(ncol(z)==2){
-  res<-info<-list()
-  res[[1]]=adtest(z[,1],R,locscatt=robust)
-  res[[2]]=adtest(z[,2],R,locscatt=robust) 
-  res[[3]]=adtest(z,R,locscatt=robust)
-  info[[1]]=paste(1)
-  info[[2]]=paste(2)
-  info[[3]]=paste(3)
-  check <- logical(3)
-}
-if(ncol(z)>2){
-  res<-info<-list()
-  for(i in 1:ncol(z)){
-    res[[i]]=adtest(z[,i],R,locscatt=robust)
-    info[[i]]=paste(i)
+  if(robustEst == TRUE ) robust <- "robust" else robust <- "standard"
+  z=isomLR(x)
+  n=ncol(z)
+  if(ncol(z)==1){
+    res<-info<-list()
+    res[[1]]=adtest(z,R,locscatt=robust)
+    info[[1]]=paste(1)
+    check<- logical(1)
   }
-  index=1
-  for(i in 1:(ncol(z)-1)){
-    for(j in (i+1):ncol(z)){     
-      res[[n+index]]=adtest(z[,c(i,j)],R,locscatt=robust)
-      info[[n+index]]=paste(i,j,collapse=":")
-      index=index+1
+  if(ncol(z)==2){
+    res<-info<-list()
+    res[[1]]=adtest(z[,1],R,locscatt=robust)
+    res[[2]]=adtest(z[,2],R,locscatt=robust) 
+    res[[3]]=adtest(z,R,locscatt=robust)
+    info[[1]]=paste(1)
+    info[[2]]=paste(2)
+    info[[3]]=paste(3)
+    check <- logical(3)
+  }
+  if(ncol(z)>2){
+    res<-info<-list()
+    for(i in 1:ncol(z)){
+      res[[i]]=adtest(z[,i],R,locscatt=robust)
+      info[[i]]=paste(i)
     }
+    index=1
+    for(i in 1:(ncol(z)-1)){
+      for(j in (i+1):ncol(z)){     
+        res[[n+index]]=adtest(z[,c(i,j)],R,locscatt=robust)
+        info[[n+index]]=paste(i,j,collapse=":")
+        index=index+1
+      }
+    }
+    res[[n+index]]=adtest(z,R,locscatt=robust)
+    info[[n+index]]=paste("all")
+    check <- logical(n+index)  
   }
-  res[[n+index]]=adtest(z,R,locscatt=robust)
-  info[[n+index]]=paste("all")
-  check <- logical(n+index)  
+  
+  for(i in 1:length(check)){  
+    check[i] <- ifelse(res[[i]]$p.value > alpha, TRUE, FALSE)
+  }
+  output=list(res=res, check=check, alpha=alpha, info=info, est=robust)
+  class(output)="adtestWrapper"
+  invisible(output)
 }
 
-for(i in 1:length(check)){  
-  check[i] <- ifelse(res[[i]]$p.value > alpha, TRUE, FALSE)
+#' @rdname adtestWrapper
+#' @export
+print.adtestWrapper <- function(x, ...){
+  if(all(x$check)){
+    print(paste("The data follow the normal distribution on the simplex (alpha =",x$alpha,")",sep=""))
+  } else { 
+    print(paste("The data do not follow the normal distribution on the simplex (alpha =",x$alpha,")",sep=""))
+    #print(x$check)
+  }
 }
-output=list(res=res, check=check, alpha=alpha, info=info, est=robust)
-class(output)="adtestWrapper"
-invisible(output)
+
+#' @rdname adtestWrapper
+#' @export
+#' @method summary adtestWrapper
+summary.adtestWrapper=function(object, ...){
+  d=data.frame(ilrVars=unlist(object$info),
+               testName=unlist(lapply(object$res,function(x) x$method)),
+               testStat=unlist(lapply(object$res,function(x) x$statistic)),
+               pvalue=unlist(lapply(object$res,function(x) x$p.value)),
+               #alpha=object$alpha,
+               check=object$check)
+  #d=lapply(res,function(x) x$info)
+  string <- paste("Anderson-Darling test results ( alpha =", object$alpha, "):")
+  string2 <- paste("--> p-values and tests are obtained from", object$est, "estimates.")
+  cat("\n  -----------------------------------------------")	
+  cat("\n ", string)
+  cat("\n  ----------------\n")
+  print(d)
+  cat("\n  -----------------------------------------------\n")
+  cat("\n ", string2)
+  cat("\n")
+  invisible(d)
 }

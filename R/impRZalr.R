@@ -31,6 +31,9 @@
 #' @author Matthias Templ and Karel Hron
 #' @seealso \code{\link{impRZilr}}
 #' @keywords manip multivariate
+#' @export
+#' @importFrom MASS stepAIC
+#' @importFrom robustbase lmrob
 #' @examples
 #' 
 #' data(arcticLake)
@@ -133,13 +136,13 @@ impRZalr <- function(x, pos=ncol(x), dl=rep(0.05, ncol(x)-1),
     }
     if(method=="lm" && step){
 	  	lm1 <- lm(response ~ predictors) 
-	    lm1 <- stepAIC(lm1, trace=FALSE)
+	    lm1 <- MASS::stepAIC(lm1, trace=FALSE)
 	  	yhat <- predict(lm1, new.data=predictors)	  
     	s <- sd(lm1$res, na.rm=TRUE)
   	#	s <- sqrt(sum(lm1$res^2)) / n2			
 	 	}
     if(method=="MM" && !step) {
-  		lm1 <- lmrob(response ~ predictors)
+  		lm1 <- robustbase::lmrob(response ~ predictors)
   		yhat <- predict(lm1, new.data=predictors)	
   		if(any(is.na(yhat))) stop("NA in yhat")
   		if(any(yhat=="Inf")) stop("Inf in yhat")	

@@ -23,7 +23,7 @@ d <- 1000000
 it=0
 while(d > eps & it <= maxit){
 it=it+1
-  if( method == "mcd" ){ xMcd <- covMcd(x)
+  if( method == "mcd" ){ xMcd <- robustbase::covMcd(x)
                             p <- princomp(x, covmat=xMcd) }
   if( method == "classical" ){ p <- princomp(x) }
   #if( method == "gridMAD" ){ p <- PCAgrid(x, method="mad", k=ncol(x)) }

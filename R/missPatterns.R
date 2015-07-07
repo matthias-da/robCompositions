@@ -20,6 +20,7 @@
 #' Alfons and Matthias Templ from package VIM
 #' @seealso \code{\link[VIM]{aggr}}
 #' @keywords multivariate
+#' @export
 #' @examples
 #' 
 #' data(expenditures)
@@ -54,6 +55,8 @@ missPatterns <- function(x){
 	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, rsum=rsum)
 }
 
+#' @rdname missPatterns
+#' @export
 zeroPatterns <- function(x){
 	# identification of the zero pattern structure 
 	# Matthias Templ, Oct 10, 2011

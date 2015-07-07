@@ -16,6 +16,7 @@
 #' @note This function is mainly used by the compositionsGUI.
 #' @author Jiri Eichler
 #' @seealso \code{\link{impCoda}}, \code{\link{impRZilr}}
+#' @export
 #' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 #' missing values for compositional data using classical and robust methods,
 #' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages

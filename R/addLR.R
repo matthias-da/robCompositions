@@ -21,6 +21,7 @@
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.
 #' @keywords manip
+#' @export
 #' @examples
 #' 
 #' data(arcticLake)

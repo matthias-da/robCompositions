@@ -8,6 +8,7 @@
 #' @return The geometric mean.
 #' @author Matthias Templ
 #' @keywords math
+#' @export
 #' @examples
 #' 
 #' gm(runif(100))

@@ -19,6 +19,7 @@
 #' @return The Aitchison distance between two compositions or between two data
 #' sets.
 #' @author Matthias Templ
+#' @export
 #' @seealso \code{\link{isomLR}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.

@@ -37,6 +37,7 @@
 #' data} \item{w }{Amount of imputed values} \item{wind }{Index of the missing
 #' values in the data} \item{metric }{Metric used}
 #' @author Matthias Templ
+#' @export
 #' @seealso \code{\link{impCoda}}
 #' @references Aitchison, J. and Barcelo-Vidal, C. and Martin-Fernandez, J.A.
 #' and Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance,

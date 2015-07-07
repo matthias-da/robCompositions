@@ -4,24 +4,23 @@
 #' Two approaches are used. The first one estimates Mahalanobis distance for observations belonging to one each zero pattern each.
 #' The second method uses a more sophisticated approach described below.
 #' @aliases getEstimates print.estimates plot.estimates
-#' @usage compareMahal(x, imp="KNNa")
-#' 
-#' print(x, ...)
-#' 
-#' plot(x, ...)
 #' @param x data frame or matrix
 #' @param imp imputation method
+#' @param y unused second argument for the plot method
+#' @param ... additional arguments for plotting passed through
 #' @return \item{df}{a data.frame containing the Mahalanobis distances from the estimation in subgroups, the Mahalanobis distances from the imputation and covariance approach, an indicator specifiying outliers and an indicator specifying the zero pattern} \item{df2}{a groupwise statistics.}
 #' @export
+#' @import ggplot2
+#' @import data.table
 #' @author Matthias Templ, Karel Hron
 #' @seealso \code{\link{impKNNa}}, \code{\link{isomLR}}
 #' @examples
 #' 
-#' data(expenditures)
+#' data(arcticLake)
 #' # generate some zeros
-#' expenditures[1:10, 1] <- 0
-#' expenditures[11:20, 2] <- 0
-#' m <- compareMahal(expenditures)
+#' arcticLake[1:10, 1] <- 0
+#' arcticLake[11:20, 2] <- 0
+#' m <- compareMahal(arcticLake)
 #' plot(m)
 compareMahal <- function(x, imp="KNNa"){
   if(is.null(dim(x))) stop("x must be a data.frame, data.table or matrix")
@@ -54,7 +53,7 @@ compareMahal <- function(x, imp="KNNa"){
   if(length(w) > 0){
     m <- missPatterns(x[,-ncol(x)])$tabcombPlus
     cat("\n the following subgroups:\n")
-    cat(m[w,])
+    print(m[w,])
     cat("\n are too small for evaluation in each subcomposition")
     stop("subgroups must be larger than 2*ncol(x)+1")
   }
@@ -67,7 +66,7 @@ compareMahal <- function(x, imp="KNNa"){
   calcMahal <- function(x){
     if(ncol(x) > 2){
       xilr <- isomLR(x)
-      covs <- covMcd(xilr)
+      covs <- robustbase::covMcd(xilr)
       mahcorr <- sqrt(as.numeric(mahalanobis(xilr, center=covs$center, cov=covs$cov)))
       mahcorr <- mahcorr / sqrt(qchisq(0.975, ncol(xilr)))
     } else if(ncol(x) == 2){
@@ -102,7 +101,10 @@ compareMahal <- function(x, imp="KNNa"){
   df <- df[, ordering]
   colnames(df)[2] <- "imp"
   ## add number of obs to group, easier with data.table 
-  df <- data.table(df)
+  df <- data.table::data.table(df)
+  ## to avoid CRAN notes:
+  obs <- group <- NULL
+  ## group:
   df[, obs:=.N, by = list(group)]
   df <- data.frame(df)
   df$group <- apply(df[,c("group","obs")], 1, paste, collapse=",  obs =")
@@ -125,25 +127,31 @@ compareMahal <- function(x, imp="KNNa"){
   return(result)
 }
 
-#' @method plot mahal
+#' @rdname compareMahal
 #' @export
+#' @method plot mahal
 plot.mahal <- function(x, y, ...){
   df <- x$df
   df2 <- x$df2
-  g <- ggplot(aes(x=imp, y=sub), data=df)
-  g <- g + geom_point() 
-  g <- g + facet_wrap(~group)
-  g <- g + geom_hline(yintercept=1, linetype=2, colour="lightgrey")
-  g <- g + geom_vline(xintercept=1, linetype=2, colour="lightgrey")
-  g <- g + geom_abline(intercept = 0, slope = 1, colour="grey")
-  g <- g + theme_bw()
-  g <- g + xlab("imputation subcompositional approach")
-  g <- g + ylab("estimation in subcompositions only")
+  ## to avoid CRAN notes:
+  imp <- sub <- NULL
+  ## ggplot:
+  g <- ggplot2::ggplot(aes(x=imp, y=sub), data=df)
+  g <- g + ggplot2::geom_point() 
+  g <- g + ggplot2::facet_wrap(~group)
+  g <- g + ggplot2::geom_hline(yintercept=1, linetype=2, colour="lightgrey")
+  g <- g + ggplot2::geom_vline(xintercept=1, linetype=2, colour="lightgrey")
+  g <- g + ggplot2::geom_abline(intercept = 0, slope = 1, colour="grey")
+  g <- g + ggplot2::theme_bw()
+  g <- g + ggplot2::xlab("imputation subcompositional approach")
+  g <- g + ggplot2::ylab("estimation in subcompositions only")
   #  g <- g + geom_text(data=df2[,c("nam","outsub")], 
   #                     aes(x=1, y=5, label=outsub), parse=TRUE)
   #  g <- g + geom_text(aes(x, y, label=outsub, data=df2))
-  g <- g + geom_text(data = df2, aes(x=x, y=y, label=outsub), size=4)
-  g <- g + geom_text(data = df2, aes(x=y, y=x, label=outimp), size=4)
+  ## to avoid CRAN notes:
+  outsub <- outimp <- NULL
+  g <- g + ggplot2::geom_text(data = df2, aes(x=x, y=y, label=outsub), size=4)
+  g <- g + ggplot2::geom_text(data = df2, aes(x=y, y=x, label=outimp), size=4)
   #  g <- g + geom_text(data = df2, aes(x=y, y=y, label=paste("obs=",gsize,sep="")))
   print(g)
 } 
