@@ -15,7 +15,7 @@ A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Cent
 \itemize{
  \item{\code{X.S_ID }}{ID}
  \item{\code{X.Loc_ID }}{ID}
- \item{\code{longitude }}{langitude in WGS84}
+ \item{\code{longitude }}{longitude in WGS84}
  \item{\code{latitude }}{latitude in WGS84}
  \item{\code{E32wgs }}{UTM zone east}
  \item{\code{N32wgs }}{UTM zone north}

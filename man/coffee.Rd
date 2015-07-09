@@ -4,22 +4,25 @@
 \name{coffee}
 \alias{coffee}
 \title{coffee data set}
-\format{A data frame with 27 observations on the following 4 variables.}
+\format{A data frame with 30 observations and 7 variables.}
 \usage{
 data(coffee)
 }
 \description{
-27 commercially available coffee samples of different origins.
+30 commercially available coffee samples of different origins.
 }
 \details{
 \itemize{
-\item{\code{metpyr }}{hydroxy-2-propanone}
-\item{\code{met5 }}{methylpyrazine}
-\item{\code{furfu }}{methylfurfural}
-\item{\code{sort }}{a character vector}
+\item{\code{sort }}{sort of coffee}
+\item{\code{acit }}{acetic acid }
+\item{\code{metpyr }}{methylpyrazine}
+\item{\code{furfu }}{furfural}
+\item{\code{furfualc }}{furfuryl alcohol}
+\item{\code{dimeth }}{2,6 dimethylpyrazine}
+\item{\code{met5 }}{5-methylfurfural}
 }
 
-In the original data set, 15 volatile compounds (descriptors of coffee aroma) were selected for a statistical analysis. We selected only three compounds (compositional parts) hydroxy-2-propanone, methylpyrazine and methylfurfural to allow for a visualization in a ternary diagram.
+In the original data set, 15 volatile compounds (descriptors of coffee aroma) were selected for a statistical analysis. We selected six compounds (compositional parts) on three sorts of coffee.
 }
 \examples{
 data(coffee)

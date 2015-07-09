@@ -29,21 +29,24 @@ NULL
 
 #' coffee data set
 #' 
-#' 27 commercially available coffee samples of different origins.
+#' 30 commercially available coffee samples of different origins.
 #'
 #' \itemize{
-#' \item{\code{metpyr }}{hydroxy-2-propanone}
-#' \item{\code{met5 }}{methylpyrazine}
-#' \item{\code{furfu }}{methylfurfural}
-#' \item{\code{sort }}{a character vector}
+#' \item{\code{sort }}{sort of coffee}
+#' \item{\code{acit }}{acetic acid }
+#' \item{\code{metpyr }}{methylpyrazine}
+#' \item{\code{furfu }}{furfural}
+#' \item{\code{furfualc }}{furfuryl alcohol}
+#' \item{\code{dimeth }}{2,6 dimethylpyrazine}
+#' \item{\code{met5 }}{5-methylfurfural}
 #' }
 #'
 #' @name coffee
 #' @docType data
 #' @usage data(coffee)
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}, Karel Hron
-#' @details In the original data set, 15 volatile compounds (descriptors of coffee aroma) were selected for a statistical analysis. We selected only three compounds (compositional parts) hydroxy-2-propanone, methylpyrazine and methylfurfural to allow for a visualization in a ternary diagram.
-#' @format A data frame with 27 observations on the following 4 variables.
+#' @details In the original data set, 15 volatile compounds (descriptors of coffee aroma) were selected for a statistical analysis. We selected six compounds (compositional parts) on three sorts of coffee.
+#' @format A data frame with 30 observations and 7 variables.
 #' @references M. Korhonov\'a, K. Hron, D. Klimc\'ikov\'a, L. Muller, P. Bedn\'ar, and P. Bart\'ak (2009). Coffee aroma - statistical analysis of compositional data. \emph{Talanta}, 80(2): 710--715.
 #' @keywords data
 #' @examples 
@@ -81,6 +84,70 @@ NULL
 NULL
 
 
+#' Gemas geochemical data set
+#'
+#' Geochemical data set on agricultural and grazing land soil
+#'
+#' \itemize{
+#'  \item{\code{COUNTRY }}{country name}
+#'  \item{\code{longitude }}{longitude in WGS84}
+#'  \item{\code{latitude }}{latitude in WGS84}
+#'  \item{\code{Xcoord }}{UTM zone east}
+#'  \item{\code{Ycoord }}{UTM zone north}
+#'  \item{\code{MeanTemp}}{Annual mean temperature}
+#'  \item{\code{AnnPrec }}{Annual mean precipitation}
+#'  \item{\code{soilclass }}{soil class}
+#'  \item{\code{sand }}{sand}
+#'  \item{\code{silt }}{silt}
+#'  \item{\code{clay }}{clay}
+#'  \item{\code{Al }}{Concentration of aluminum (in mg/kg)}
+#'  \item{\code{Ba }}{Concentration of barium (in mg/kg)}
+#'  \item{\code{Ca }}{Concentration of calzium (in mg/kg)}\
+#'  \item{\code{Cr }}{Concentration of chromium (in mg/kg)}
+#'  \item{\code{Fe }}{Concentration of iron (in mg/kg)}
+#'  \item{\code{K }}{Concentration of pottasium (in mg/kg)}
+#'  \item{\code{Mg }}{Concentration of magnesium (in mg/kg)}
+#'  \item{\code{Mn }}{Concentration of manganese (in mg/kg)}
+#'  \item{\code{Na }}{Concentration of sodium (in mg/kg)}
+#'  \item{\code{Nb }}{Concentration of niobium (in mg/kg)}
+#'  \item{\code{Ni }}{Concentration of nickel (in mg/kg)}
+#'  \item{\code{P }}{Concentration of phosphorus (in mg/kg)}
+#'  \item{\code{Si }}{Concentration of silicium (in mg/kg)}
+#'  \item{\code{Sr }}{Concentration of strontium (in mg/kg)}
+#'  \item{\code{Ti }}{Concentration of titanium (in mg/kg)}
+#'  \item{\code{V }}{Concentration of vanadium (in mg/kg)}\
+#'  \item{\code{Y }}{Concentration of yttrium (in mg/kg)}
+#'  \item{\code{Zn }}{Concentration of zinc (in mg/kg)}
+#'  \item{\code{Zr }}{Concentration of zirconium (in mg/kg)}
+#'  \item{\code{LOI }}{Loss on ignition (in wt-percent)}
+#' }
+#'
+#' @name gemas
+#' @docType data
+#' @usage data(gemas)
+#' @author GEMAS is a cooperation project between the EuroGeoSurveys Geochemistry Expert Group and Eurometaux. Integration in R, Peter Filzmoser and Matthias Templ.
+#' @format A data frame with 2108 observations and 30 variables
+#' @references Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. \& O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part A: Methodology and interpretation of the GEMAS data set. Geologisches Jahrbuch (Reihe B 102), Schweizerbarth, Hannover, 528 pp. + DVD 
+#' Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. & O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part B: General background information and further analysis of the GEMAS data set. Geologisches Jahrbuch (Reihe B 103), Schweizerbarth, Hannover, 352 pp. 
+#' @details The sampling, at a density of 1 site/2500 sq. km, was completed at the beginning of 2009 by collecting 2211 samples of agricultural soil (Ap-horizon, 0-20 cm, regularly ploughed fields), and 2118 samples from land under permanent grass cover (grazing land soil, 0-10 cm), according to an agreed field protocol.
+#' All GEMAS project samples were shipped to Slovakia for sample preparation, where they were air dried, sieved to <2 mm using a nylon screen, homogenised and split to subsamples for analysis. They were analysed for a large number of chemical elements. In this sample, the main elements by X-ray fluorescence are included as well as the composition on sand, silt, clay.
+#' @keywords data
+#' @examples 
+#' 
+#' data(gemas)
+#' str(gemas)
+#' ## sample sites
+#' \dontrun{
+#' require(ggmap)
+#' map <- get_map("europe", source = "stamen", maptype = "watercolor", zoom=4)
+#' ggmap(map) + geom_point(aes(x=longitude, y=latitude), data=gemas)
+#' map <- get_map("europe", zoom=4)
+#' ggmap(map) + geom_point(aes(x=longitude, y=latitude), data=gemas, size=0.8)
+#' }
+NULL
+
+
+
 #' Regional geochemical survey of soil C in Norway
 #' 
 #' A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
@@ -88,7 +155,7 @@ NULL
 #' \itemize{
 #'  \item{\code{X.S_ID }}{ID}
 #'  \item{\code{X.Loc_ID }}{ID}
-#'  \item{\code{longitude }}{langitude in WGS84}
+#'  \item{\code{longitude }}{longitude in WGS84}
 #'  \item{\code{latitude }}{latitude in WGS84}
 #'  \item{\code{E32wgs }}{UTM zone east}
 #'  \item{\code{N32wgs }}{UTM zone north}
