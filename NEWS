@@ -1,6 +1,7 @@
 Changes in robCompositions version 1.9.3
   + combined help for some S3methods
   + function robVariation is now called variation
+  + new data sets
 
 Changes in robCompositions version 1.9.1
   + now with roxygen2 documentation

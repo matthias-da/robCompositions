@@ -13,8 +13,8 @@ data(coffee)
 }
 \details{
 \itemize{
-\item{\code{Metpyr }}{Hydroxy-2-propanone}
-\item{\code{5-Met }}{methylpyrazine}
+\item{\code{metpyr }}{hydroxy-2-propanone}
+\item{\code{met5 }}{methylpyrazine}
 \item{\code{furfu }}{methylfurfural}
 \item{\code{sort }}{a character vector}
 }

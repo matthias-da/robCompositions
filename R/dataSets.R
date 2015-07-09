@@ -32,8 +32,8 @@ NULL
 #' 27 commercially available coffee samples of different origins.
 #'
 #' \itemize{
-#' \item{\code{Metpyr }}{Hydroxy-2-propanone}
-#' \item{\code{5-Met }}{methylpyrazine}
+#' \item{\code{metpyr }}{hydroxy-2-propanone}
+#' \item{\code{met5 }}{methylpyrazine}
 #' \item{\code{furfu }}{methylfurfural}
 #' \item{\code{sort }}{a character vector}
 #' }
@@ -51,6 +51,275 @@ NULL
 #' data(coffee)
 #' str(coffee)
 #' summary(coffee)
+NULL
+
+#' Economic indicators
+#' 
+#' Household and government consumptions, gross captial formation and import and exports of goods and services.
+#'
+#' \itemize{
+#'  \item{\code{country }}{country name}
+#'  \item{\code{country2 }}{country name, short version}
+#'  \item{\code{HHconsumption }}{Household and NPISH final consumption expenditure}
+#'  \item{\code{GOVconsumption }}{Final consumption expenditure of general government}
+#'  \item{\code{capital }}{Gross capital formation}
+#'  \item{\code{exports }}{Exports of goods and services}
+#'  \item{\code{imports }}{Imports of goods and services}
+#' }
+#'
+#' @name economy
+#' @docType data
+#' @usage data(economy)
+#' @author Peter Filzmoser, Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 30 observations and 7 variables
+#' @references Eurostat, \url{http://ec.europa.eu/eurostat/data}
+#' @keywords data
+#' @examples 
+#' 
+#' data(economy)
+#' str(economy)
+NULL
+
+
+#' Regional geochemical survey of soil C in Norway
+#' 
+#' A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
+#'
+#' \itemize{
+#'  \item{\code{X.S_ID }}{ID}
+#'  \item{\code{X.Loc_ID }}{ID}
+#'  \item{\code{longitude }}{langitude in WGS84}
+#'  \item{\code{latitude }}{latitude in WGS84}
+#'  \item{\code{E32wgs }}{UTM zone east}
+#'  \item{\code{N32wgs }}{UTM zone north}
+#'  \item{\code{X.Medium }}{}
+#'  \item{\code{Ag }}{Concentration of silver (in mg/kg)}
+#'  \item{\code{Al }}{Concentration of aluminum (in mg/kg)}
+#'  \item{\code{As }}{Concentration of arsenic (in mg/kg)}
+#'  \item{\code{Au }}{Concentration of gold (in mg/kg)}
+#'  \item{\code{B }}{Concentration of boron (in mg/kg)}
+#'  \item{\code{Ba }}{Concentration of barium (in mg/kg)}
+#'  \item{\code{Be }}{Concentration of beryllium (in mg/kg)}
+#'  \item{\code{Bi }}{Concentration of bismuth (in mg/kg)}
+#'  \item{\code{Ca }}{Concentration of calzium (in mg/kg)}
+#'  \item{\code{Cd }}{Concentration of cadmium (in mg/kg)}
+#'  \item{\code{Ce }}{Concentration of cerium (in mg/kg)}
+#'  \item{\code{Co }}{Concentration of cobalt (in mg/kg)}
+#'  \item{\code{Cr }}{Concentration of chromium (in mg/kg)}
+#'  \item{\code{Cs }}{Concentration of cesium (in mg/kg)}
+#'  \item{\code{Cu }}{Concentration of copper (in mg/kg)}
+#'  \item{\code{Fe }}{Concentration of iron (in mg/kg)}
+#'  \item{\code{Ga }}{Concentration of gallium (in mg/kg)}
+#'  \item{\code{Ge }}{Concentration of germanium (in mg/kg)}
+#'  \item{\code{Hf }}{Concentration of hafnium (in mg/kg)}
+#'  \item{\code{Hg }}{Concentration of mercury (in mg/kg)}
+#'  \item{\code{In }}{Concentration of indium (in mg/kg)}
+#'  \item{\code{K }}{Concentration of pottasium (in mg/kg)}
+#'  \item{\code{La }}{Concentration of lanthanum (in mg/kg)}
+#'  \item{\code{Li }}{Concentration of lithium (in mg/kg)}
+#'  \item{\code{Mg }}{Concentration of magnesium (in mg/kg)}
+#'  \item{\code{Mn }}{Concentration of manganese (in mg/kg)}
+#'  \item{\code{Mo }}{Concentration of molybdenum (in mg/kg)}
+#'  \item{\code{Na }}{Concentration of sodium (in mg/kg)}
+#'  \item{\code{Nb }}{Concentration of niobium (in mg/kg)}
+#'  \item{\code{Ni }}{Concentration of nickel (in mg/kg)}
+#'  \item{\code{P }}{Concentration of phosphorus (in mg/kg)}
+#'  \item{\code{Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{Pb204 }}{Concentration of lead, 204 neutrons (in mg/kg)}
+#'  \item{\code{Pb206 }}{Concentration of lead, 206 neutrons (in mg/kg)}
+#'  \item{\code{Pb207 }}{Concentration of lead, 207 neutrons (in mg/kg)}
+#'  \item{\code{Pb208 }}{Concentration of lead, 208 neutrons (in mg/kg)}
+#'  \item{\code{X6_7Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X7_8Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X6_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X7_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X8_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{Pd }}{Concentration of palladium (in mg/kg)}
+#'  \item{\code{Pt }}{Concentration of platium (in mg/kg)}
+#'  \item{\code{Rb }}{Concentration of rubidium (in mg/kg)}
+#'  \item{\code{Re }}{Concentration of rhenium (in mg/kg)}
+#'  \item{\code{S }}{Concentration of sulfur (in mg/kg)}
+#'  \item{\code{Sb }}{Concentration of antimony (in mg/kg)}
+#'  \item{\code{Sc }}{Concentration of scandium (in mg/kg)}
+#'  \item{\code{Se }}{Concentration of selenium (in mg/kg)}
+#'  \item{\code{Sn }}{Concentration of tin (in mg/kg)}
+#'  \item{\code{Sr }}{Concentration of strontium (in mg/kg)}
+#'  \item{\code{Ta }}{Concentration of tantalum (in mg/kg)}
+#'  \item{\code{Te }}{Concentration of tellurium (in mg/kg)}
+#'  \item{\code{Th }}{Concentration of thorium (in mg/kg)}
+#'  \item{\code{Ti }}{Concentration of titanium (in mg/kg)}
+#'  \item{\code{Tl }}{Concentration of thalium (in mg/kg)}
+#'  \item{\code{U }}{Concentration of uranium (in mg/kg)}
+#'  \item{\code{V }}{Concentration of vanadium (in mg/kg)}
+#'  \item{\code{W }}{Concentration of tungsten (in mg/kg)}
+#'  \item{\code{Y }}{Concentration of yttrium (in mg/kg)}
+#'  \item{\code{Zn }}{Concentration of zinc (in mg/kg)}
+#'  \item{\code{Zr }}{Concentration of zirconium (in mg/kg)}
+#' }
+#'
+#' @name trondelagC
+#' @docType data
+#' @usage data(trondelagC)
+#' @author NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 754 observations and 70 variables
+#' @references C. Reimann, J. Schilling, D. Roberts, K. Fabian: \emph{A regional-scale geochemical survey of soil O and C horizon samples in Nord-Trondelag, Central Norway: Geology and mineral potential},  Applied Geochemistry 61 (2015) 192–205.
+#' @details The samples were analysed using aqua regia extraction. 
+#' Sampling was based on a 6.6km grid, i.e. 1 sample site/36 km2. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(trondelagC)
+#' str(trondelagC)
+NULL
+
+
+#' Regional geochemical survey of soil O in Norway
+#' 
+#' A regional-scale geochemical survey of O horizon samples in Nord-Trondelag, Central Norway
+#'
+#' \itemize{
+#'  \item{\code{X.Loc_ID }}{ID}
+#'  \item{\code{LITHO }}{Rock type}
+#'  \item{\code{longitude }}{langitude in WGS84}
+#'  \item{\code{latitude }}{latitude in WGS84}
+#'  \item{\code{E32wgs }}{UTM zone east}
+#'  \item{\code{N32wgs }}{UTM zone north}
+#'  \item{\code{X.Medium }}{a numeric vector}
+#'  \item{\code{Alt_masl }}{a numeric vector}
+#'  \item{\code{LOI_480 }}{Loss on ignition}
+#'  \item{\code{pH }}{Numeric scale used to specify the acidity or alkalinity of an aqueous solution}
+#'  \item{\code{Ag }}{Concentration of silver (in mg/kg)}
+#'  \item{\code{Al }}{Concentration of aluminum (in mg/kg)}
+#'  \item{\code{As }}{Concentration of arsenic (in mg/kg)}
+#'  \item{\code{Au }}{Concentration of gold (in mg/kg)}
+#'  \item{\code{B }}{Concentration of boron (in mg/kg)}
+#'  \item{\code{Ba }}{Concentration of barium (in mg/kg)}
+#'  \item{\code{Be }}{Concentration of beryllium (in mg/kg)}
+#'  \item{\code{Bi }}{Concentration of bismuth (in mg/kg)}
+#'  \item{\code{Ca }}{Concentration of calzium (in mg/kg)}
+#'  \item{\code{Cd }}{Concentration of cadmium (in mg/kg)}
+#'  \item{\code{Ce }}{Concentration of cerium (in mg/kg)}
+#'  \item{\code{Co }}{Concentration of cobalt (in mg/kg)}
+#'  \item{\code{Cr }}{Concentration of chromium (in mg/kg)}
+#'  \item{\code{Cs }}{Concentration of cesium (in mg/kg)}
+#'  \item{\code{Cu }}{Concentration of copper (in mg/kg)}
+#'  \item{\code{Fe }}{Concentration of iron (in mg/kg)}
+#'  \item{\code{Ga }}{Concentration of gallium (in mg/kg)}
+#'  \item{\code{Ge }}{Concentration of germanium (in mg/kg)}
+#'  \item{\code{Hf }}{Concentration of hafnium (in mg/kg)}
+#'  \item{\code{Hg }}{Concentration of mercury (in mg/kg)}
+#'  \item{\code{In }}{Concentration of indium (in mg/kg)}
+#'  \item{\code{K }}{Concentration of pottasium (in mg/kg)}
+#'  \item{\code{La }}{Concentration of lanthanum (in mg/kg)}
+#'  \item{\code{Li }}{Concentration of lithium (in mg/kg)}
+#'  \item{\code{Mg }}{Concentration of magnesium (in mg/kg)}
+#'  \item{\code{Mn }}{Concentration of manganese (in mg/kg)}
+#'  \item{\code{Mo }}{Concentration of molybdenum (in mg/kg)}
+#'  \item{\code{Na }}{Concentration of sodium (in mg/kg)}
+#'  \item{\code{Nb }}{Concentration of niobium (in mg/kg)}
+#'  \item{\code{Ni }}{Concentration of nickel (in mg/kg)}
+#'  \item{\code{P }}{Concentration of phosphorus (in mg/kg)}
+#'  \item{\code{Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{Pb204 }}{Concentration of lead, 204 neutrons (in mg/kg)}
+#'  \item{\code{Pb206 }}{Concentration of lead, 206 neutrons (in mg/kg)}
+#'  \item{\code{Pb207 }}{Concentration of lead, 207 neutrons (in mg/kg)}
+#'  \item{\code{Pb208 }}{Concentration of lead, 208 neutrons (in mg/kg)}
+#'  \item{\code{X6_7Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X7_8Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X6_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X7_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{X8_4Pb }}{Concentration of lead (in mg/kg)}
+#'  \item{\code{Pd }}{Concentration of palladium (in mg/kg)}
+#'  \item{\code{Pt }}{Concentration of platium (in mg/kg)}
+#'  \item{\code{Rb }}{Concentration of rubidium (in mg/kg)}
+#'  \item{\code{Re }}{Concentration of rhenium (in mg/kg)}
+#'  \item{\code{S }}{Concentration of sulfur (in mg/kg)}
+#'  \item{\code{Sb }}{Concentration of antimony (in mg/kg)}
+#'  \item{\code{Sc }}{Concentration of scandium (in mg/kg)}
+#'  \item{\code{Se }}{Concentration of selenium (in mg/kg)}
+#'  \item{\code{Sn }}{Concentration of tin (in mg/kg)}
+#'  \item{\code{Sr }}{Concentration of strontium (in mg/kg)}
+#'  \item{\code{Ta }}{Concentration of tantalum (in mg/kg)}
+#'  \item{\code{Te }}{Concentration of tellurium (in mg/kg)}
+#'  \item{\code{Th }}{Concentration of thorium (in mg/kg)}
+#'  \item{\code{Ti }}{Concentration of titanium (in mg/kg)}
+#'  \item{\code{Tl }}{Concentration of thalium (in mg/kg)}
+#'  \item{\code{U }}{Concentration of uranium (in mg/kg)}
+#'  \item{\code{V }}{Concentration of vanadium (in mg/kg)}
+#'  \item{\code{W }}{Concentration of tungsten (in mg/kg)}
+#'  \item{\code{Y }}{Concentration of yttrium (in mg/kg)}
+#'  \item{\code{Zn }}{Concentration of zinc (in mg/kg)}
+#'  \item{\code{Zr }}{Concentration of zirconium (in mg/kg)}
+#' }
+#'
+#' @name trondelagO
+#' @docType data
+#' @usage data(trondelagO)
+#' @author NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 754 observations and 70 variables
+#' @references C. Reimann, J. Schilling, D. Roberts, K. Fabian: \emph{A regional-scale geochemical survey of soil O and C horizon samples in Nord-Trondelag, Central Norway: Geology and mineral potential},  Applied Geochemistry 61 (2015) 192–205.
+#' @details The samples were analysed using aqua regia extraction. 
+#' Sampling was based on a 6.6km grid, i.e. 1 sample site/36 km2. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(trondelagO)
+#' str(trondelagO)
+NULL
+
+
+#' Metabolomics MCADD data set
+#' 
+#'
+#' \itemize{
+#'  \item{\code{group }}{patient group}
+#'  \item{\code{... }}{the remaining variables named after the time stamps.}
+#' }
+#'
+#' @name mcadd
+#' @docType data
+#' @usage data(mcadd)
+#' @format A data frame with 50 observations and 279 variables
+#' @keywords data
+#' @examples 
+#' 
+#' data(mcadd)
+#' str(mcadd)
+NULL
+
+
+#' Mortality and life expectancy in the EU
+#' 
+#'
+#' \itemize{
+#'  \item{\code{country }}{country name}
+#'  \item{\code{country2 }}{country name, short version}
+#'  \item{\code{sex }}{gender}
+#'  \item{\code{lifeExpectancy }}{life expectancy}
+#'  \item{\code{infectious }}{certain infectious and parasitic diseases (A00-B99)}
+#'  \item{\code{neoplasms }}{malignant neoplasms (C00-C97)}
+#'  \item{\code{endocrine }}{endocrine nutritional and metabolic diseases (E00-E90)}
+#'  \item{\code{mental }}{mental and behavioural disorders (F00-F99)}
+#'  \item{\code{nervous }}{diseases of the nervous system and the sense organs (G00-H95)}
+#'  \item{\code{circulatory }}{diseases of the circulatory system (I00-I99)}
+#'  \item{\code{respiratory }}{diseases of the respiratory system (J00-J99)}
+#'  \item{\code{digestive }}{diseases of the digestive system (K00-K93)}
+#' }
+#'
+#' @name mortality
+#' @docType data
+#' @usage data(mortality)
+#' @author Peter Filzmoser, Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 60 observations and 12 variables
+#' @references Eurostat, \url{http://ec.europa.eu/eurostat/data}
+#' @keywords data
+#' @examples 
+#' 
+#' data(mortality)
+#' str(mortality)
+#' ## totals (mortality)
+#' aggregate(mortality[,5:ncol(mortality)], 
+#'           list(mortality$country2), sum)
 NULL
 
 #' machine operators 
