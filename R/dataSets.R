@@ -162,7 +162,7 @@ NULL
 #' @usage data(trondelagC)
 #' @author NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @format A data frame with 754 observations and 70 variables
-#' @references C. Reimann, J. Schilling, D. Roberts, K. Fabian: \emph{A regional-scale geochemical survey of soil O and C horizon samples in Nord-Trondelag, Central Norway: Geology and mineral potential},  Applied Geochemistry 61 (2015) 192–205.
+#' @references C.Reimann, J.Schilling, D.Roberts, K.Fabian. A regional-scale geochemical survey of soil C horizon samples in Nord-Trondelag, Central Norway. Geology and mineral potential, \emph{Applied Geochemistry} 61 (2015) 192-205.
 #' @details The samples were analysed using aqua regia extraction. 
 #' Sampling was based on a 6.6km grid, i.e. 1 sample site/36 km2. 
 #' @keywords data
@@ -257,7 +257,7 @@ NULL
 #' @usage data(trondelagO)
 #' @author NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @format A data frame with 754 observations and 70 variables
-#' @references C. Reimann, J. Schilling, D. Roberts, K. Fabian: \emph{A regional-scale geochemical survey of soil O and C horizon samples in Nord-Trondelag, Central Norway: Geology and mineral potential},  Applied Geochemistry 61 (2015) 192–205.
+#' @references C.Reimann, J.Schilling, D.Roberts, K.Fabian. A regional-scale geochemical survey of soil C horizon samples in Nord-Trondelag, Central Norway. Geology and mineral potential, \emph{Applied Geochemistry} 61 (2015) 192-205.
 #' @details The samples were analysed using aqua regia extraction. 
 #' Sampling was based on a 6.6km grid, i.e. 1 sample site/36 km2. 
 #' @keywords data

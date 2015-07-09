@@ -98,7 +98,7 @@ str(trondelagO)
 NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@tuwien.ac.at}
 }
 \references{
-C. Reimann, J. Schilling, D. Roberts, K. Fabian: \emph{A regional-scale geochemical survey of soil O and C horizon samples in Nord-Trondelag, Central Norway: Geology and mineral potential},  Applied Geochemistry 61 (2015) 192–205.
+C.Reimann, J.Schilling, D.Roberts, K.Fabian. A regional-scale geochemical survey of soil C horizon samples in Nord-Trondelag, Central Norway. Geology and mineral potential, \emph{Applied Geochemistry} 61 (2015) 192-205.
 }
 \keyword{data}
 
