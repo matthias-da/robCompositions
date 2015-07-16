@@ -26,6 +26,8 @@ data(arcticLake)
 str(arcticLake)
 summary(arcticLake)
 rowSums(arcticLake)
+ternaryDiag(arcticLake)
+plot(isomLR(arcticLake))
 }
 \author{
 Matthias Templ \email{matthias.templ@tuwien.ac.at}

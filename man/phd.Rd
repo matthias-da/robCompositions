@@ -16,6 +16,9 @@ by different kind of studies (given as percentages).
 Due to unknown reasons the rowSums of the percentages is not always 100.
 
 \itemize{
+\item{\code{country }}{country of origin (German)}
+\item{\code{countryEN }}{country of origin (English)}
+\item{\code{country2 }}{country of origin, 2-digits}
 \item{\code{total }}{total phd students (in 1.000)}
 \item{\code{male }}{male phd students (in 1.000)}
 \item{\code{female }}{total phd students (in 1.000)}
@@ -29,6 +32,9 @@ Due to unknown reasons the rowSums of the percentages is not always 100.
 \examples{
 data(phd)
 phdImputed <- impCoda(phd)$xOrig
+}
+\references{
+Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
 }
 \keyword{datasets}
 

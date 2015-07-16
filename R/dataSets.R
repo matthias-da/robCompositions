@@ -23,6 +23,8 @@
 #' str(arcticLake)
 #' summary(arcticLake)
 #' rowSums(arcticLake)
+#' ternaryDiag(arcticLake)
+#' plot(isomLR(arcticLake))
 NULL
 
 
@@ -335,23 +337,29 @@ NULL
 NULL
 
 
-#' Metabolomics MCADD data set
+#' Metabolomics mcad data set
 #' 
+#' The aim of the experiment was to ascertain novel biomarkers of 
+#' MCAD (Medium chain acyl-CoA dehydrogenase) deficiency. 
+#' The data consists of 25 patients and 25 controls and the analysis was done by LC-MS.
+#' Rows represent patients and controls and columns represent chemical 
+#' entities with their quantity.  
 #'
 #' \itemize{
 #'  \item{\code{group }}{patient group}
-#'  \item{\code{... }}{the remaining variables named after the time stamps.}
+#'  \item{\code{... }}{the remaining variables columns are represented by m/z which are chemical characterizations of individual chemical components on exact mass measurements..}
 #' }
 #'
-#' @name mcadd
+#' @name mcad
 #' @docType data
-#' @usage data(mcadd)
+#' @usage data(mcad)
 #' @format A data frame with 50 observations and 279 variables
 #' @keywords data
+#' @references Najdekr L., Gardlo A., Madrova L., Friedeckyy D., Janeckova H., Correa E.S., Goodacre R., Adam T., Oxidized phosphatidylcholines suggest oxidative stress in patients with medium-chain acyl-CoA dehydrogenase deficiency, \emph{Talanta} 139, 2015, 62-66.
 #' @examples 
 #' 
-#' data(mcadd)
-#' str(mcadd)
+#' data(mcad)
+#' str(mcad)
 NULL
 
 
@@ -556,9 +564,12 @@ NULL
 #' Due to unknown reasons the rowSums of the percentages is not always 100.
 #' 
 #' \itemize{
-#' \item{\code{total }}{total phd students (in 1.000)}                            
-#' \item{\code{male }}{male phd students (in 1.000)}                                      
-#' \item{\code{female }}{total phd students (in 1.000)}                                     
+#' \item{\code{country }}{country of origin (German)}  
+#' \item{\code{countryEN }}{country of origin (English)}    
+#' \item{\code{country2 }}{country of origin, 2-digits}   
+#' \item{\code{total }}{total phd students (in 1.000)}              
+#' \item{\code{male }}{male phd students (in 1.000)}                   
+#' \item{\code{female }}{total phd students (in 1.000)}               
 #' \item{\code{technical }}{phd students in natural and technical sciences}
 #' \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
 #' \item{\code{human }}{phd students in human sciences including teaching}
@@ -571,6 +582,7 @@ NULL
 #' @format A data set on 33 compositions and 8 variables.
 #' @source
 #' \url{http://epp.eurostat.ec.europa.eu/cache/ITY_PUBLIC/1-18092009-AP/DE/1-18092009-AP-DE.PDF}
+#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
 #' @keywords datasets
 #' @examples
 #' 
@@ -580,4 +592,93 @@ NULL
 NULL
 
 
+#' Labour force by status in employment 
+#' 
+#' Labour force by status in employment for 124 countries, latest update: December 2009
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                            
+#' \item{\code{year }}{year}                                      
+#' \item{\code{employeesW }}{percentage female employees}                             
+#' \item{\code{employeesM }}{percentage male employees}
+#' \item{\code{employersW }}{percentage female employers}                    
+#' \item{\code{employersM }}{percentage male employers}
+#' \item{\code{ownW }}{percentage female own-account workers and contributing family workers}               
+#' \item{\code{ownM }}{percentage male own-account workers and contributing family workers} 
+#' \item{\code{source }}{HS: household or labour force survey. OE: official estimates. PC: population census} 
+#' }
+#' 
+#' @name laborForce
+#' @docType data
+#' @format A data set on 124 compositions on 9 variables.
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @source
+#' \url{http://unstats.un.org/unsd/demographic/products/indwm/tab5c.htm}
+#' @keywords datasets
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(laborForce)
+#' str(laborForce)
+#' 
+NULL
 
+
+#' Hospital discharges on cancer and distribution of age
+#' 
+#' Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure. 
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                            
+#' \item{\code{year }}{year}                                      
+#' \item{\code{<15 }}{percentage of population with age below 15}                       
+#' \item{\code{15-60 }}{percentage of population with age between 15 and 60}
+#' \item{\code{60+ }}{percentage of population with age above 60}                    
+#' \item{\code{discharges }}{hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants}
+#' }
+#' 
+#' @name cancer
+#' @docType data
+#' @details The response (discharges) is provided for the European Union countries (except Greece, Hungary and Malta) by Eurostat. As explanatory variables we use the age structure of the population in the same countries (year 2008). The age structure consists of three parts, age <15, age 15–60 and age >60 years, and they are expressed as percentages on the overall population in the countries. The data are provided by the United Nations Statistics Division.
+#' @format A data set on 24 compositions on 6 variables.
+#' @source
+#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
+#' @keywords datasets
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(cancer)
+#' str(cancer)
+NULL
+
+
+#' Life expectancy and GDP (2008) for EU-countries
+#' 
+#' Social-economic data for compositional regression.
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                                   
+#' \item{\code{agriculture }}{GDP on agriculture, hunting, forestry, fishing (ISIC A-B, x1)}               
+#' \item{\code{manufacture }}{GDP on mining, manufacturing, utilities (ISIC C-E, x2)}
+#' \item{\code{construction }}{GDP on construction (ISIC F, x3)}              
+#' \item{\code{wholesales }}{GDP on wholesale, retail trade, restaurants and hotels (ISIC G-H, x4)}
+#' \item{\code{transport }}{GDP on transport, storage and communication (ISIC I, x5)}
+#' \item{\code{other }}{GDP on other activities (ISIC J-P, x6)}
+#' \item{\code{lifeExpMen }}{life expectancy for men and women}
+#' \item{\code{lifeExpWomen }}{life expectancy for men and women}
+#' }
+#' 
+#' @name lifeExpGdp
+#' @docType data
+#' @format A data set on 27 compositions on 9 variables.
+#' @source
+#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
+#' @keywords datasets
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(lifeExpGdp)
+#' str(lifeExpGdp)
+NULL
