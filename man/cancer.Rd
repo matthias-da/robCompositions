@@ -15,13 +15,13 @@ Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants
 \itemize{
 \item{\code{country }}{country}
 \item{\code{year }}{year}
-\item{\code{<15 }}{percentage of population with age below 15}
-\item{\code{15-60 }}{percentage of population with age between 15 and 60}
-\item{\code{60+ }}{percentage of population with age above 60}
+\item{\code{p1 }}{percentage of population with age below 15}
+\item{\code{p2 }}{percentage of population with age between 15 and 60}
+\item{\code{p3 }}{percentage of population with age above 60}
 \item{\code{discharges }}{hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants}
 }
 
-The response (discharges) is provided for the European Union countries (except Greece, Hungary and Malta) by Eurostat. As explanatory variables we use the age structure of the population in the same countries (year 2008). The age structure consists of three parts, age <15, age 15–60 and age >60 years, and they are expressed as percentages on the overall population in the countries. The data are provided by the United Nations Statistics Division.
+The response (discharges) is provided for the European Union countries (except Greece, Hungary and Malta) by Eurostat. As explanatory variables we use the age structure of the population in the same countries (year 2008). The age structure consists of three parts, age smaller than 15, age between 15 and 60 and age above 60 years, and they are expressed as percentages on the overall population in the countries. The data are provided by the United Nations Statistics Division.
 }
 \examples{
 data(cancer)
