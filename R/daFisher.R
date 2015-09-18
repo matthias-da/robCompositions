@@ -28,8 +28,7 @@
 #' @return an object of class \dQuote{daFisher} including the following
 #' elements \item{B }{Between variance of the groups} \item{W }{Within variance
 #' of the groups} \item{loadings}{loadings} \item{coda}{coda}
-#' @author The code is was written by Peter Filzmoser. Minor modifications by
-#' Matthias Templ.
+#' @author Peter Filzmoser, Matthias Templ.
 #' @seealso \code{\link[rrcov]{Linda}}
 #' @references Filzmoser, P. and Hron, K. and Templ, M. (2009) Discriminant
 #' analysis for compositional data and robust parameter estimation.
@@ -45,7 +44,6 @@
 #' @export
 #' @import rrcov
 #' @examples
-#' 
 #' require(MASS)
 #' x1 <- mvrnorm(20,c(0,0,0),diag(3))
 #' x2 <- mvrnorm(30,c(3,0,0),diag(3))
@@ -58,105 +56,233 @@
 #' d2 <- daFisher(X,grp=grp,method="robust",coda=FALSE)
 #' d2
 #' 
-daFisher <- function(x,grp,coda=TRUE,method="classical",plotScore=FALSE)
-{
-  if(class(x)=="data.frame") x <- as.matrix(x)
-  # Fisher LDA:
+#' library(classifly)
+#' data(olives)
+#' # exclude zeros (alternatively impute them if 
+#' # the detection limit is known using impRZilr())
+#' ind <- which(olives==0, arr.ind = TRUE)[,1]
+#' olives <- olives[-ind, ]
+#' x <- olives[, 4:10]
+#' grp <- olives$Region # 3 groups
+#' res <- daFisher(x,grp)
+#' V <- res$loadings
+#' fs <- res$scores
+#' grppred <- apply(fs,1,which.min)
+#' 
+#' mc=table(grp,grppred)
+#' library(e1071)
+#' mc <- mc[,matchClasses(mc,method="exact")]
+#' 1-sum(diag(mc))/sum(mc)
+#' 
+#' # for coda=FALSE:
+#' # plot(as.matrix(x)%*%V[,1:2],col=grp,pch=grppred)
+#' # for coda=TRUE:
+#' # plot(as.matrix(isomLR(x))%*%V[,1:2],col=grp,pch=grppred)
+#' 
+#' # 9 groups:
+#' grp <- olives$Area # 9 groups
+#' res <- daFisher(x, grp)
+#' V=res$loadings
+#' fs=res$scores
+#' grppred <- apply(fs,1,which.min)
+#' 
+#' mc=table(grp,grppred)
+#' 
+#' mc1=mc[,matchClasses(mc,method="exact")]
+#' 1-sum(diag(mc1))/sum(mc1)
+#' 
+#' # for coda=FALSE:
+#' # plot(as.matrix(x)%*%V[,1:2],col=grp,pch=grppred)
+#' # for coda=TRUE:
+#' # plot(as.matrix(isomLR(x))%*%V[,1:2],col=grp,pch=grppred)
+#' 
+#' # for coda = TRUE
+#' xi <- isomLR(x)
+#' glev <- unique(grp)
+#' g <- length(glev)
+#' n <- length(grp)
+#' p <- ncol(xi)
+#' fs2 <- matrix(NA,nrow=n,ncol=g)
+#' meanj <- matrix(NA,nrow=p,ncol=g)
+#' pj <- rep(NA,g)
+#' for (j in 1:g){
+#'   pj[j] <- sum(grp==glev[j])/n
+#'   meanj[,j] <- apply(xi[grp==glev[j],],2,mean)
+#'   xc <- scale(xi,meanj[,j],scale=FALSE)
+#'   xproj <- xc%*%V[,1:2]
+#'   fs2[,j] <- sqrt(apply(xproj^2,1,sum)-2*log(pj[j]))
+#' }
+#' grppred2 <- apply(fs2,1,which.min)
+#' mc <- table(grp,grppred2)
+#' mc2 <- mc[,matchClasses(mc,method="exact")]
+#' 1-sum(diag(mc2))/sum(mc2)
+daFisher <- function(x, grp, coda=TRUE,
+                   method = "classical", 
+                   plotScore = FALSE){
+  ## some checks
+  if(class(x) == "data.frame") x <- as.matrix(x)
+  ## Fisher LDA:
   if(length(grp) != dim(x)[1]){
-  	stop(paste("grp must be of length",dim(x)[1]))
+    stop(paste("grp must be of length", dim(x)[1]))
   }
   if(dim(x)[2] < 1){
-  	stop("matrix or data.frame expected.")
+    stop("matrix or data.frame expected.")
   }
   if(coda){
-  	x <- isomLR(x)
+    x <- isomLR(x)
+  }
+  n <- nrow(x)
+  p <- ncol(x)
+  glev <- unique(grp)
+  g <- length(glev)
+  
+  pj <- rep(NA,g)
+  meanj <- matrix(NA,nrow=p,ncol=g)
+  for (j in 1:g){
+    pj[j] <- sum(grp==glev[j])/n
+    meanj[,j] <- apply(x[grp==glev[j],],2,mean)
+  }
+  meanov <- t(t(meanj)*pj)
+  B <- matrix(0,p,p)
+  W <- matrix(0,p,p)
+  for (j in 1:g){
+    B <- B+pj[j]*((meanj-meanov)%*%t(meanj-meanov))
+    W <- W+pj[j]*cov(x[grp==glev[j],])
+  }
+  l <- min(g-1,p) # use this number of components
+  #V=matrix(Re(eigen(solve(W)%*%B)$vec)[,1:l],ncol=l)
+  #V=t(t(V)/(sqrt(diag(t(V)%*%W%*%V))))
+  
+  # besser:
+  B.svd <- svd(B)
+  B12 <- B.svd$u[,1:l]%*%diag(sqrt(B.svd$d[1:l]))%*%t(B.svd$u[,1:l])
+  Bm12 <- B.svd$u[,1:l]%*%diag(1/sqrt(B.svd$d[1:l]))%*%t(B.svd$u[,1:l])
+  K <- eigen(B12%*%solve(W)%*%B12)
+  Vs <- Bm12%*%K$vec[,1:l]
+  V <- t(t(Vs)/(sqrt(diag(t(Vs)%*%W%*%Vs))))
+  
+  
+  # Fisher scores
+  fs=matrix(NA,nrow=n,ncol=g)
+  for (j in 1:g){
+    xc <- scale(x,meanj[,j],scale=FALSE)
+    xproj <- xc%*%V
+    fs[,j] <- sqrt(apply(xproj^2,1,sum)-2*log(pj[j]))
   }
   
-  	p <- ncol(x)
-  	ni <- table(grp)
-  	ng <- length(ni)
-  	n <- sum(ni)
-  	pi <- ni/n
-  if (method=="classical"){
-    muil <- by(x,factor(grp),colMeans)
-    sigil <- by(x,factor(grp),cov)
-  }
-  else {
-  #  require(rrcov)
-    res <- by(x,factor(grp),CovMcd)
-    muil <- lapply(res,getCenter)
-    sigil <- lapply(res,getCov)
-  }
-  
-  	mui <- matrix(unlist(muil),ng,p,byrow=TRUE)
-  	mu <- pi%*%mui
-  	hlp <- diag(sqrt(pi))%*%(mui-rep(1,ng)%*%mu)
-  	B <- t(hlp)%*%hlp
-  	sigi <- array(unlist(sigil),dim=c(p,p,ng))
-  	W <- apply(sigi*array(sort(rep(pi,p*p)),dim=c(p,p,ng)),c(1,2),sum)
-  	adir <- matrix(as.numeric(eigen(solve(W)%*%B)$vec),ncol=p)
-  	adirs <- t(t(adir)/(sqrt(diag(t(adir)%*%W%*%adir))))
-  	scores=x%*%adirs
-  if(plotScore){
-    pl <- as.numeric(factor(grp))
-    plot(scores[,1:2],col=pl, pch=pl, cex=1.5, xlab="Scores 1", ylab="Scores 2", cex.lab=1.2)
-    legend("topright", legend=levels(factor(grp)), pch=unique(pl), col=unique(pl), cex=1.3)
-  }
-  #    postgroup <- apply(scores, 1, which.min)
-  #	print(postgroup)
-  	res <- list(B=B,W=W,loadings=adir,scores=scores,#classification=postgroup, 
-  			mu=muil, sigma=sigil,
-  			coda=coda)
-  	class(res) <- "daFisher"
-  	
-  #	## fill in for class lda
-  #	g <- as.factor(grp)
-  #	lev <- lev1 <- levels(g)
-  #	counts <- as.vector(table(g))
-  #	prior <- counts/n
-  #	prior <- prior[counts > 0]
-  #
-  #if(method == "moment") fac <- 1/(n-ng) else fac <- 1/n
-  #X <- sqrt(fac) * (x - group.means[g,  ]) %*% scaling
-  #X.s <- svd(X, nu = 0)
-  #X <-  sqrt(nu/(nu-2)*(1 + p/nu)/n * w) * (x - group.means[g,  ]) %*% scaling
-  #X.s <- svd(X, nu = 0)
-  #	cl <- match.call()
-  #	cl[[1L]] <- as.name("daFisher")
-  #	
-  #	res <- structure(list(prior = prior, counts = counts, means = mui,
-  #					scaling = hlp, lev = lev, svd = hlp,
-  #					N = n, call = cl, B=B, W=W, loadings=adir, coda=coda),
-  #			class = "lda")
-  #
-  #	z1=z[grp=="arabica",]
-  #	z2=z[grp=="blended",]
-  #	n1=nrow(z1)
-  #	n2=nrow(z2)
-  #	n=n1+n2
-  #	p1=n1/n
-  #	p2=n2/n
-  #	m1=apply(z1,2,mean)
-  #	m2=apply(z2,2,mean)
-  #	S1=cov(z1)
-  #	S2=cov(z2)
-  #	Sp=((n1-1)/(n1-1+n2-1))*S1+((n2-1)/(n1-1+n2-1))*S2
-  #	Sp1=solve(Sp)
-  #	yLDA=as.numeric(t(m1-m2)%*%Sp1%*%t(z)-as.numeric(1/2*t(m1-m2)%*%Sp1%*%(m1+m2)))-log(p2/p1)	
-  #	plot(z, pch=21, bg=ifelse(grp=="arabica","red","blue"))#bg=ifelse(yLDA<0,"red","blue"))
-  #	y1=seq(from=min(z[,1])-1.5,to=max(z[,1])+1.9,by=0.05)
-  #	y2=seq(from=min(z[,2]),to=max(z[,2])+0.2,by=0.05)
-  #	y1a=rep(y1,length(y2))
-  #	y2a=sort(rep(y2,length(y1)))
-  #	ya=cbind(y1a,y2a)
-  #	yaLDA=as.numeric(t(m1-m2)%*%Sp1%*%t(ya)-
-  #					as.numeric(1/2*t(m1-m2)%*%Sp1%*%(m1+m2)))-log(p2/p1)
-  #	
-  #	boundLDA=abs(yaLDA)<0.05
-  #	lines(lowess(y1a[boundLDA],y2a[boundLDA]),col=gray(0.6),lwd=1.5,lty=1)
-  
-  invisible(res)
+  list(V=V,fs=fs)
+  res <- list(B = B, 
+              W = W,
+              loadings = V,
+              scores = fs,#classification=postgroup, 
+            #  mu=muil, 
+            #  sigma=sigil,
+              coda=coda)
+  class(res) <- "daFisher"
+  res
 }
+
+# daFisher <- function(x,grp,coda=TRUE,method="classical",plotScore=FALSE)
+# {
+#   if(class(x)=="data.frame") x <- as.matrix(x)
+#   # Fisher LDA:
+#   if(length(grp) != dim(x)[1]){
+#   	stop(paste("grp must be of length",dim(x)[1]))
+#   }
+#   if(dim(x)[2] < 1){
+#   	stop("matrix or data.frame expected.")
+#   }
+#   if(coda){
+#   	x <- isomLR(x)
+#   }
+#   
+#   	p <- ncol(x)
+#   	ni <- table(grp)
+#   	ng <- length(ni)
+#   	n <- sum(ni)
+#   	pi <- ni/n
+#   if (method=="classical"){
+#     muil <- by(x,factor(grp),colMeans)
+#     sigil <- by(x,factor(grp),cov)
+#   }
+#   else {
+#   #  require(rrcov)
+#     res <- by(x,factor(grp),CovMcd)
+#     muil <- lapply(res,getCenter)
+#     sigil <- lapply(res,getCov)
+#   }
+#   
+#   	mui <- matrix(unlist(muil),ng,p,byrow=TRUE)
+#   	mu <- pi%*%mui
+#   	hlp <- diag(sqrt(pi))%*%(mui-rep(1,ng)%*%mu)
+#   	B <- t(hlp)%*%hlp
+#   	sigi <- array(unlist(sigil),dim=c(p,p,ng))
+#   	W <- apply(sigi*array(sort(rep(pi,p*p)),dim=c(p,p,ng)),c(1,2),sum)
+#   	adir <- matrix(as.numeric(eigen(solve(W)%*%B)$vec),ncol=p)
+#   	adirs <- t(t(adir)/(sqrt(diag(t(adir)%*%W%*%adir))))
+#   	scores=x%*%adirs
+#   if(plotScore){
+#     pl <- as.numeric(factor(grp))
+#     plot(scores[,1:2],col=pl, pch=pl, cex=1.5, xlab="Scores 1", ylab="Scores 2", cex.lab=1.2)
+#     legend("topright", legend=levels(factor(grp)), pch=unique(pl), col=unique(pl), cex=1.3)
+#   }
+#   #    postgroup <- apply(scores, 1, which.min)
+#   #	print(postgroup)
+#   	res <- list(B=B,W=W,loadings=adir,scores=scores,#classification=postgroup, 
+#   			mu=muil, sigma=sigil,
+#   			coda=coda)
+#   	class(res) <- "daFisher"
+#   	
+#   #	## fill in for class lda
+#   #	g <- as.factor(grp)
+#   #	lev <- lev1 <- levels(g)
+#   #	counts <- as.vector(table(g))
+#   #	prior <- counts/n
+#   #	prior <- prior[counts > 0]
+#   #
+#   #if(method == "moment") fac <- 1/(n-ng) else fac <- 1/n
+#   #X <- sqrt(fac) * (x - group.means[g,  ]) %*% scaling
+#   #X.s <- svd(X, nu = 0)
+#   #X <-  sqrt(nu/(nu-2)*(1 + p/nu)/n * w) * (x - group.means[g,  ]) %*% scaling
+#   #X.s <- svd(X, nu = 0)
+#   #	cl <- match.call()
+#   #	cl[[1L]] <- as.name("daFisher")
+#   #	
+#   #	res <- structure(list(prior = prior, counts = counts, means = mui,
+#   #					scaling = hlp, lev = lev, svd = hlp,
+#   #					N = n, call = cl, B=B, W=W, loadings=adir, coda=coda),
+#   #			class = "lda")
+#   #
+#   #	z1=z[grp=="arabica",]
+#   #	z2=z[grp=="blended",]
+#   #	n1=nrow(z1)
+#   #	n2=nrow(z2)
+#   #	n=n1+n2
+#   #	p1=n1/n
+#   #	p2=n2/n
+#   #	m1=apply(z1,2,mean)
+#   #	m2=apply(z2,2,mean)
+#   #	S1=cov(z1)
+#   #	S2=cov(z2)
+#   #	Sp=((n1-1)/(n1-1+n2-1))*S1+((n2-1)/(n1-1+n2-1))*S2
+#   #	Sp1=solve(Sp)
+#   #	yLDA=as.numeric(t(m1-m2)%*%Sp1%*%t(z)-as.numeric(1/2*t(m1-m2)%*%Sp1%*%(m1+m2)))-log(p2/p1)	
+#   #	plot(z, pch=21, bg=ifelse(grp=="arabica","red","blue"))#bg=ifelse(yLDA<0,"red","blue"))
+#   #	y1=seq(from=min(z[,1])-1.5,to=max(z[,1])+1.9,by=0.05)
+#   #	y2=seq(from=min(z[,2]),to=max(z[,2])+0.2,by=0.05)
+#   #	y1a=rep(y1,length(y2))
+#   #	y2a=sort(rep(y2,length(y1)))
+#   #	ya=cbind(y1a,y2a)
+#   #	yaLDA=as.numeric(t(m1-m2)%*%Sp1%*%t(ya)-
+#   #					as.numeric(1/2*t(m1-m2)%*%Sp1%*%(m1+m2)))-log(p2/p1)
+#   #	
+#   #	boundLDA=abs(yaLDA)<0.05
+#   #	lines(lowess(y1a[boundLDA],y2a[boundLDA]),col=gray(0.6),lwd=1.5,lty=1)
+#   
+#   invisible(res)
+# }
+
+
 #' @rdname daFisher
 #' @method print daFisher
 #' @export

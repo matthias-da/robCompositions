@@ -259,12 +259,7 @@ As a regression method we propose to use robust regression, like LTS regression
 %\subsection{Data Sets in the Package}
 %
 %Three data sets are included in the package, namely
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: robustbase\\\#\# Loading required package: ggplot2\\\#\# Loading required package: data.table\\\#\# data.table 1.9.4\ \ For help type: ?data.table\\\#\# *** NB: by=.EACHI is now explicit. See README to restore previous behaviour.\\\#\# sROC 0.1-2 loaded}}\end{kframe}
-\end{knitrout}
 %<<data sets>>=
 %library(robCompositions)
 %data(aitchison359)
@@ -422,14 +417,12 @@ set, and use the parameter $k=6$:
 \hlkwd{packageDescription}\hlstd{(}\hlstr{"robCompositions"}\hlstd{)}\hlopt{$}\hlstd{Version}
 \end{alltt}
 \begin{verbatim}
-## [1] "1.9.3"
+## [1] "2.0.0"
 \end{verbatim}
 \begin{alltt}
 \hlstd{xImp} \hlkwb{<-} \hlkwd{impKNNa}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{k}\hlstd{=}\hlnum{6}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in quantile.default(d, k/length(d)): missing values and NaN's not allowed if 'na.rm' is FALSE}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 As a default, Aitchison distances are used for identifying the $k$-nearest neighbors
@@ -443,9 +436,10 @@ The resulting object \texttt{xImp} is of class
 \begin{alltt}
 \hlkwd{class}\hlstd{(xImp)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'xImp' not found}}\end{kframe}
+\begin{verbatim}
+## [1] "imp"
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 A print, a summary, and a plot method are provided for objects of this class:
@@ -462,9 +456,13 @@ A print, a summary, and a plot method are provided for objects of this class:
 \begin{alltt}
 \hlstd{xImp}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'xImp' not found}}\end{kframe}
+\begin{verbatim}
+## 
+##  --------------------------------------- 
+## [1] "31 missing values were imputed"
+##  ---------------------------------------
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 Various informations are included in the object \texttt{xImp}, which can be accessed easily:
@@ -489,15 +487,9 @@ The iterative model-based imputation method is applied with:
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{alltt}
 \hlstd{xImp1} \hlkwb{<-} \hlkwd{impCoda}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{method}\hlstd{=}\hlstr{'lm'}\hlstd{)}
-\end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in quantile.default(d, k/length(d)): missing values and NaN's not allowed if 'na.rm' is FALSE}}\begin{alltt}
 \hlstd{xImp2} \hlkwb{<-} \hlkwd{impCoda}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{method}\hlstd{=}\hlstr{'ltsReg'}\hlstd{)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in quantile.default(d, k/length(d)): missing values and NaN's not allowed if 'na.rm' is FALSE}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 The first command uses classical least-squares regression within the 
@@ -573,30 +565,17 @@ gives more reasonable results than its classical counterpart
 %\end{tabular}
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in constSum(xImp1\$xImp[1:95, ]): object 'xImp1' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in constSum(xImp2\$xImp[1:95, ]): object 'xImp2' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'v2' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in eval(expr, envir, enclos): object 'v22' not found}}\end{kframe}
-\end{knitrout}
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'xImp1' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error: object 'xImp2' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in paste("{}DV: iterative lm approach:"{}, round(variations1, 3)): object 'variations1' not found}}
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in paste("{}DV: iterative ltsReg approach:"{}, round(variations2, 3)): object 'variations2' not found}}\end{kframe}
+\begin{verbatim}
+## [1] "RDA: iterative lm approach: 0.441"
+## [1] "RDA: iterative ltsReg approach: 0.329"
+## [1] "DV: iterative lm approach: 0.041"
+## [1] "DV: iterative ltsReg approach: 0.019"
+\end{verbatim}
+\end{kframe}
 \end{knitrout}
 
 \subsection{Measuring the Uncertainty of the Imputations}
@@ -688,9 +667,7 @@ in the computation of the geometric means.}
 \hlstd{R} \hlkwb{<-} \hlnum{5}
 \hlkwd{bootimp}\hlstd{(x}\hlopt{$}\hlstd{z2,} \hlkwc{R}\hlstd{=R)}
 \end{alltt}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in lm.fit(x, y, offset = offset, singular.ok = singular.ok, ...): 0 (non-NA) cases}}\end{kframe}
+\end{kframe}
 \end{knitrout}
 
 

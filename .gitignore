@@ -1,5 +1,11 @@
 *.o
 *.so
 *.dll
+*.blg
+*.aux
+*.bgl
+*.bbl
+*.out
+*.log
 .project
 .Rproj.user
