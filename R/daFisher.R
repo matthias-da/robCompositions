@@ -28,12 +28,12 @@
 #' @importFrom e1071 matchClasses
 #' @return an object of class \dQuote{daFisher} including the following
 #' elements \item{B }{Between variance of the groups} \item{W }{Within variance
-#' of the groups} \item{loadings}{loadings} \item{coda}{coda}
+#' of the groups} \item{loadings}{loadings} \item{scores}{fisher scores} \item{mc}{table indicating misclassifications} \item{mcrate}{misclassification rate}  \item{coda}{coda}
 #' @author Peter Filzmoser, Matthias Templ.
 #' @seealso \code{\link[rrcov]{Linda}}
-#' @references Filzmoser, P. and Hron, K. and Templ, M. (2009) Discriminant
-#' analysis for compositional data and robust parameter estimation.
-#' \emph{Research Report SM-2009-3}, Vienna University of Technology, 27 pages.
+#' @references Filzmoser, P. and Hron, K. and Templ, M. (2012) 
+#' Discriminant analysis for compositional data and robust parameter estimation. 
+#' \emph{Computational Statistics}, Vol. 27(4), pp. 585-604, 2012.
 #' 
 #' Fisher, R. A. (1938) The statistical utiliziation of multiple measurements.
 #' \emph{Annals of Eugenics}, 8:376-386.
