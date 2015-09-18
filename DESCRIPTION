@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 2.0.0
-Date: 2015-07-15
+Version: 2.0.1
+Date: 2015-09-18
 Depends:
     R (>= 2.10),
     utils,
@@ -10,6 +10,8 @@ Depends:
     ggplot2,
     data.table
 Imports: 
+    classifly,
+    e1071,
     rrcov,
     GGally,
     MASS,

@@ -54,6 +54,7 @@ Robustification is done (method \dQuote{robust}) by estimating the
 columnwise means and the covariance by the Minimum Covariance Estimator.
 }
 \examples{
+## toy data (non-compositional)
 require(MASS)
 x1 <- mvrnorm(20,c(0,0,0),diag(3))
 x2 <- mvrnorm(30,c(3,0,0),diag(3))
@@ -65,8 +66,11 @@ grp=c(rep(1,20),rep(2,30),rep(3,40))
 d1 <- daFisher(X,grp=grp,method="classical",coda=FALSE)
 d2 <- daFisher(X,grp=grp,method="robust",coda=FALSE)
 d2
+summary(d2)
+predict(d2)
 
-library(classifly)
+## example with olive data:
+require(classifly)
 data(olives)
 # exclude zeros (alternatively impute them if
 # the detection limit is known using impRZilr())
@@ -75,57 +79,22 @@ olives <- olives[-ind, ]
 x <- olives[, 4:10]
 grp <- olives$Region # 3 groups
 res <- daFisher(x,grp)
-V <- res$loadings
-fs <- res$scores
-grppred <- apply(fs,1,which.min)
+res
+summary(res)
+predict(res)
+res <- daFisher(x, grp, plotScore = TRUE)
+res <- daFisher(x, grp, method = "robust")
+res
+summary(res)
+predict(res)
+res <- daFisher(x,grp, plotScore = TRUE, method = "robust")
 
-mc=table(grp,grppred)
-library(e1071)
-mc <- mc[,matchClasses(mc,method="exact")]
-1-sum(diag(mc))/sum(mc)
-
-# for coda=FALSE:
-# plot(as.matrix(x)\%*\%V[,1:2],col=grp,pch=grppred)
-# for coda=TRUE:
-# plot(as.matrix(isomLR(x))\%*\%V[,1:2],col=grp,pch=grppred)
-
-# 9 groups:
-grp <- olives$Area # 9 groups
-res <- daFisher(x, grp)
-V=res$loadings
-fs=res$scores
-grppred <- apply(fs,1,which.min)
-
-mc=table(grp,grppred)
-
-mc1=mc[,matchClasses(mc,method="exact")]
-1-sum(diag(mc1))/sum(mc1)
-
-# for coda=FALSE:
-# plot(as.matrix(x)\%*\%V[,1:2],col=grp,pch=grppred)
-# for coda=TRUE:
-# plot(as.matrix(isomLR(x))\%*\%V[,1:2],col=grp,pch=grppred)
-
-# for coda = TRUE
-xi <- isomLR(x)
-glev <- unique(grp)
-g <- length(glev)
-n <- length(grp)
-p <- ncol(xi)
-fs2 <- matrix(NA,nrow=n,ncol=g)
-meanj <- matrix(NA,nrow=p,ncol=g)
-pj <- rep(NA,g)
-for (j in 1:g){
-  pj[j] <- sum(grp==glev[j])/n
-  meanj[,j] <- apply(xi[grp==glev[j],],2,mean)
-  xc <- scale(xi,meanj[,j],scale=FALSE)
-  xproj <- xc\%*\%V[,1:2]
-  fs2[,j] <- sqrt(apply(xproj^2,1,sum)-2*log(pj[j]))
-}
-grppred2 <- apply(fs2,1,which.min)
-mc <- table(grp,grppred2)
-mc2 <- mc[,matchClasses(mc,method="exact")]
-1-sum(diag(mc2))/sum(mc2)
+# 9 regions
+grp <- olives$Area
+res <- daFisher(x, grp, plotScore = TRUE)
+res
+summary(res)
+predict(res)
 }
 \author{
 Peter Filzmoser, Matthias Templ.
