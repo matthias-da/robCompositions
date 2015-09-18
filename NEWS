@@ -1,3 +1,8 @@
+Changes in robCompositions version 2.0.1
+  + discriminant analysis (daFisher) for n-group case
+  + discriminant analysis (daFisher) including predict
+  + discriminant analysis (daFisher) including misclassification rates
+
 Changes in robCompositions version 2.0.0
   + combined help for some S3methods
   + function robVariation is now called variation
