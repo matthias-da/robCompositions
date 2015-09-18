@@ -36,7 +36,7 @@ elements \item{B }{Between variance of the groups} \item{W }{Within variance
 of the groups} \item{loadings}{loadings} \item{coda}{coda}
 }
 \description{
-Discriminant analysis by Fishers rule.
+Discriminant analysis by Fishers rule using CoDa methods.
 }
 \details{
 The Fisher rule leads only to linear boundaries. However, this method allows

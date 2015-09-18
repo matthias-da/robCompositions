@@ -1,6 +1,6 @@
 #' Discriminant analysis by Fisher Rule.
 #' 
-#' Discriminant analysis by Fishers rule.
+#' Discriminant analysis by Fishers rule using CoDa methods.
 #' 
 #' The Fisher rule leads only to linear boundaries. However, this method allows
 #' for dimension reduction and thus for a better visualization of the
