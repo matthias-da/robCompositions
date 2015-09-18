@@ -135,19 +135,33 @@ daFisher <- function(x, grp, coda=TRUE,
   p <- ncol(x)
   glev <- unique(grp)
   g <- length(glev)
-  
   pj <- rep(NA,g)
   meanj <- matrix(NA,nrow=p,ncol=g)
+  cv <- list()
   for (j in 1:g){
     pj[j] <- sum(grp==glev[j])/n
-    meanj[,j] <- apply(x[grp==glev[j],],2,mean)
+    if(method == "classical"){
+      meanj[,j] <- apply(x[grp==glev[j],],2,mean)
+      cv[[j]] <- cov(x[grp==glev[j],])
+    } else {
+      robcov <- covMcd(x[grp==glev[j],])
+      meanj[,j] <- robcov$center
+      cv[[j]] <- robcov$cov
+      #   else {
+      #   #  require(rrcov)
+      #     res <- by(x,factor(grp),CovMcd)
+      #     muil <- lapply(res,getCenter)
+      #     sigil <- lapply(res,getCov)
+      #   }
+    }
   }
   meanov <- t(t(meanj)*pj)
   B <- matrix(0,p,p)
   W <- matrix(0,p,p)
   for (j in 1:g){
     B <- B+pj[j]*((meanj-meanov)%*%t(meanj-meanov))
-    W <- W+pj[j]*cov(x[grp==glev[j],])
+#    W <- W+pj[j]*cov(x[grp==glev[j],])
+    W <- W+pj[j]*cv[[j]]
   }
   l <- min(g-1,p) # use this number of components
   #V=matrix(Re(eigen(solve(W)%*%B)$vec)[,1:l],ncol=l)
@@ -170,13 +184,37 @@ daFisher <- function(x, grp, coda=TRUE,
     fs[,j] <- sqrt(apply(xproj^2,1,sum)-2*log(pj[j]))
   }
   
-  list(V=V,fs=fs)
+  ## predition:
+  grppred <- apply(fs, 1, which.min)
+  
+  ## misclassification rate:
+  mc <- table(grp, grppred)
+  mc <- mc[, matchClasses(mc, method = "exact")]
+  rate <- 1 - sum(diag(mc)) / sum(mc)
+  
+  ## plot scores (if TRUE)
+  if(plotScore){
+    proj <- x %*%V [,1:2]
+    proj <- data.frame(proj)
+    proj$grp <- as.factor(grp)
+    proj$grppred <- as.factor(grppred)
+    colnames(proj) <- c("firstscores", "secondscores","grp", "grppred")
+    gg <- ggplot(proj, aes(firstscores, secondscores, colour = grp, shape = grppred)) 
+    gg <- gg + geom_point()
+    gg <- gg + xlab("first fisher scores") + ylab("second fisher scores")
+    print(gg)
+#    plot(, col=grp, pch=grppred, 
+#         xlab="first fisher scores", ylab="second fisher scores")
+  }
+  
   res <- list(B = B, 
               W = W,
               loadings = V,
               scores = fs,#classification=postgroup, 
             #  mu=muil, 
             #  sigma=sigil,
+              mc = mc,
+              mcrate =  rate,
               coda=coda)
   class(res) <- "daFisher"
   res
@@ -297,3 +335,27 @@ print.daFisher <- function(x,...){
   print(x$load)
   cat("--------------------------------------\n")
 }
+
+#' @rdname daFisher
+#' @method predict daFisher
+#' @export
+predict.daFisher <- function(object, ...){
+  grppred <- apply(object$scores, 1, which.min)
+  return(grppred)
+}
+
+#' @rdname daFisher
+#' @method summary daFisher
+#' @export
+summary.daFisher <- function(object, ...){
+  cat("--------------------------------------")
+  cat("\nMisclassification rate from Fishers discriminant analysis, coda ==", x$coda)
+  cat("\n")
+  print(object$mcrate)
+  cat("\n--------------------------------------")
+  cat("\nMisclassifications from Fishers discriminant analysis, coda ==", x$coda)
+  cat("\n")
+  print(object$mc)
+  cat("\n--------------------------------------\n")
+}
+

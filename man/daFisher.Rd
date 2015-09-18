@@ -2,12 +2,18 @@
 % Please edit documentation in R/daFisher.R
 \name{daFisher}
 \alias{daFisher}
+\alias{predict.daFisher}
 \alias{print.daFisher}
+\alias{summary.daFisher}
 \title{Discriminant analysis by Fisher Rule.}
 \usage{
 daFisher(x, grp, coda = TRUE, method = "classical", plotScore = FALSE)
 
 \method{print}{daFisher}(x, ...)
+
+\method{predict}{daFisher}(object, ...)
+
+\method{summary}{daFisher}(object, ...)
 }
 \arguments{
 \item{x}{a matrix or data frame containing the explanatory variables
