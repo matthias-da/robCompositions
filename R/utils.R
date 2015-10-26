@@ -95,7 +95,7 @@ adjustImputed <- function(xImp, xOrig, wind){
   ## per row: consider rowsums of imputed data
   sumPrevious <- sumAfter <- numeric(nrow(xImp))
   for (i in 1:nrow(xImp)) {
-    if(any(wind[i,])){
+    if(any(wind[i, ]) & !all(wind[i,])){
       sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
       sumAfter[i] <- sum(xImp[i, !wind[i,]])
     } else{ 

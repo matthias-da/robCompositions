@@ -14,6 +14,7 @@
 #' corresponding inverse ilr transformation is applied. After all parts are
 #' imputed, the algorithm starts again until the imputations do not change.
 #' 
+#' @aliases imputeBDLs print.replaced checkData
 #' @param x data.frame or matrix
 #' @param maxit maximum number of iterations
 #' @param eps convergency criteria
@@ -53,99 +54,6 @@
 #' x[x[,2] < 44, 2] <- 0
 #' xia <- impRZilr(x, dl=c(5,44,0), eps=0.01, method="lm")
 #' xia$x
-#' 
-`checkData` <- function(x, dl){
-  if(any(is.na(x))) stop("your data includes missing values.\n Use impKNNa() or impCoda() to impute them first.")
-  if( is.vector(x) ) stop("x must be a matrix or data frame")
-  ## check if only numeric variables are in x:
-  cl <- lapply(x, class)
-  if(!all(cl %in% "numeric")) stop("some of your variables are not of class numeric.")
-  stopifnot((method %in% c("lm", "MM", "pls", "variation")))
-  if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
-  if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
-  if(any(is.na(x))) stop("missing values are not allowed. \n Use impKNNa or impCoda to impute them first.")
-  if(is.null(nComp)){
-    pre <- FALSE
-    nC <- NULL
-  } else if(nComp=="boot"){
-    nC <- integer(ncol(x))
-    pre <- TRUE
-  } else if(length(nComp) == ncol(x)){
-    nC <- nComp
-    pre <- FALSE
-  } else  {
-    pre <- FALSE	
-  }
-  if(!(correction %in% c("normal","density"))) stop("correction method must be normal or density")
-  #     pre <- TRUE
-  #      if(length(nComp) != ncol(x) & nComp!="boot") stop("nComp must be NULL, boot or of length ncol(x)")
-  #    } else if(nComp == "boot"){#
-  #		pre <- TRUE
-  #	} else {
-  #		pre <- FALSE
-  #	}
-  #################
-  ## zeros to NA:
-  # check if values are in (0, dl[i]):
-  check <- logical(ncol(x))
-  for(i in 1:ncol(x)){
-    #      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
-    x[x[,i] < dl[i],i] <- 0
-  }
-  #    if(any(check)){warning("values below detection limit have been set to zero and will be imputed")}
-  check2 <- any(x < 0)
-  if(check2){warning("values below 0 set have been set to zero and will be imputed")}
-  x[x == 0] <- NA
-  x[x < 0] <- NA
-  indexFinalCheck <- is.na(x)
-  
-  ## check if rows consists of only zeros:
-  checkRows <- unlist(apply(x, 1, function(x) all(is.na(x))))
-  if(any(checkRows)){ 
-    w <- which(checkRows)
-    cat("\n--------\n")
-    message("Rows with only zeros are not allowed")
-    message("Remove this rows before running the algorithm")
-    cat("\n--------\n")      
-    stop(paste("Following rows with only zeros:", w))
-  }  
-  
-  ## check if cols consists of only zeros:
-  checkCols <- unlist(apply(x, 2, function(x) all(is.na(x))))
-  if(any(checkCols)){ 
-    w <- which(checkCols)
-    cat("\n--------\n")
-    message("Cols with only zeros are not allowed")
-    message("Remove this columns before running the algorithm")
-    cat("\n--------\n")      
-    stop(paste("\n Following cols with only zeros:", colnames(x)[w]))
-  }  
-  
-  indNA <- apply(x, 2, function(x){any(is.na(x))})
-
-  ## check if for any variable with zeros,
-  ## the detection limit should be larger than 0:
-  if(any(dl[indNA]==0)){
-    w <- which(dl[indNA]==0)
-    invalidCol <- colnames(x)[w]
-    for(i in 1:length(invalidCol)){
-      cat("-------\n")
-      cat(paste("Error: variable/part", invalidCol[i], 
-                "has detection limit 0 but includes zeros"))
-      cat("\n-------\n")
-    }
-    stop(paste("Set detection limits larger than 0 for variables/parts \n including zeros"))
-  }
-  
-}
-
-multis <- function(x){
-  rs <- rowSums(x)
-  x2 <- isomLRinv(isomLR(x))
-  rs2 <- rowSums(x2)
-  fac <- rs / rs2
-  return(fac)
-}
 `imputeBDLs` <-
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), variation=TRUE,	nComp = "boot", 
@@ -155,6 +63,23 @@ multis <- function(x){
     
     checkData(x, dl)
     
+    stopifnot((method %in% c("lm", "MM", "pls", "variation")))
+    if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
+    
+    if(is.null(nComp)){
+      pre <- FALSE
+      nC <- NULL
+    } else if(nComp=="boot"){
+      nC <- integer(ncol(x))
+      pre <- TRUE
+    } else if(length(nComp) == ncol(x)){
+      nC <- nComp
+      pre <- FALSE
+    } else  {
+      pre <- FALSE	
+    }
+    if(!(correction %in% c("normal","density"))) stop("correction method must be normal or density")
+    
     ## store some important values
     n <- nrow(x) 
     d <- ncol(x)
@@ -163,6 +88,7 @@ multis <- function(x){
     ## set zeros to NA for easier handling
     x[x == 0] <- NA
     x[x < 0] <- NA
+    indexFinalCheck <- is.na(x)
     
     ## sort variables of x based on 
     ## decreasing number of zeros in the variables
@@ -216,7 +142,7 @@ multis <- function(x){
           xneworder <- xneworder[, cols]
         }
         ## factors for preserving abs values:
-        fac <- multis(xneworder)
+        # fac <- multis(xneworder)
         ## detection limit in ilr-space
         forphi <- cbind(rep(dlordered[i], n), xneworder[,-1,drop=FALSE])
         if(any(is.na(forphi))) break()
@@ -264,7 +190,8 @@ multis <- function(x){
         xinv <- isomLRinv(xilr)
         ## if variation:
         if(variation == TRUE){
-          orig[, cols] <- xinv * fac
+          xneworder <- adjustImputed(xinv, xneworder, w2[, cols])
+          orig[, cols] <- xneworder #* fac
           xinv <- orig
         }
         ## reordering of xOrig
@@ -275,7 +202,11 @@ multis <- function(x){
           xinv <- cbind(xinv[,2:d], xinv[,1])
         }
         #       browser()
-        x <- adjustImputed(xinv, xOrig, w2)
+        if(!variation){ 
+          x <- adjustImputed(xinv, xOrig, w2)
+        } else {
+          x <- xinv
+        }
         #		x <- adjust3(xinv, xOrig, w2) 
         #		## quick and dirty:
         #		x[!w] <- xOrig[!w]
@@ -337,32 +268,114 @@ multis <- function(x){
     #   x[!w] <- xOrig[!w] 
     x <- x[,order(o)] ## checked: reordering is OK!
     colnames(x) <- cn
+    
+    if(verbose){
+      message(paste(sum(w)), "values below detection limit has been imputed \n below the corresponding detection limits")
+    }
     ## check if all is fine:
     # check if values are in (0, dl[i]):
     checkDL <- function(x, dl, indexNA){
       check <- logical(ncol(x))
       for(i in 1:ncol(x)){
-        check[i] <- any(x[indexNA[,i],i] > dl[i])
+        critvals <- x[indexNA[,i],i] > dl[i]
+        check[i] <- any(critvals)
         if(check[i]){ 
           x[which(x[indexNA[,i],i] > dl[i]),i] <- dl[i]
         }
       }
-      if(any(check)){
-        message("few replaced values have been corrected")      
+      if(any(check) & verbose){
+        message(paste(sum(critvals), "/", sum(w), "replaced values has been corrected"))      
       }
-      return(x)
+      x
     }
+
     x <- checkDL(x, dl, indexFinalCheck)
-    
-    
-    
+
     res <- list(x=x, criteria=criteria, iter=it, 
                 maxit=maxit, wind=w, nComp=nC, method=method, dl=dl)
+    print(class(res))
     class(res) <- "replaced"
-    invisible(res)
+    return(res)
   }
+#' @rdname imputeBDLs
+#' @export
+`checkData` <- function(x, dl){
+  if(any(is.na(x))) stop("your data includes missing values.\n Use impKNNa() or impCoda() to impute them first.")
+  if( is.vector(x) ) stop("x must be a matrix or data frame")
+  ## check if only numeric variables are in x:
+  cl <- lapply(x, class)
+  if(!all(cl %in% "numeric")) stop("some of your variables are not of class numeric.")
+  if( length(dl) < ncol(x)) stop(paste("dl has to be a vector of ", ncol(x)))
+  if(any(is.na(x))) stop("missing values are not allowed. \n Use impKNNa or impCoda to impute them first.")
+ 
+  #     pre <- TRUE
+  #      if(length(nComp) != ncol(x) & nComp!="boot") stop("nComp must be NULL, boot or of length ncol(x)")
+  #    } else if(nComp == "boot"){#
+  #		pre <- TRUE
+  #	} else {
+  #		pre <- FALSE
+  #	}
+  #################
+  ## zeros to NA:
+  # check if values are in (0, dl[i]):
+  check <- logical(ncol(x))
+  for(i in 1:ncol(x)){
+    #      check[i] <- any(x[,i] < dl[i] & x[,i] != 0)
+    x[x[,i] < dl[i],i] <- 0
+  }
+  #    if(any(check)){warning("values below detection limit have been set to zero and will be imputed")}
+  check2 <- any(x < 0)
+  if(check2){warning("values below 0 set have been set to zero and will be imputed")}
+  x[x == 0] <- NA
+  x[x < 0] <- NA
+  indexFinalCheck <- is.na(x)
+  
+  ## check if rows consists of only zeros:
+  checkRows <- unlist(apply(x, 1, function(x) all(is.na(x))))
+  if(any(checkRows)){ 
+    w <- which(checkRows)
+    cat("\n--------\n")
+    message("Rows with only zeros are not allowed")
+    message("Remove this rows before running the algorithm")
+    cat("\n--------\n")      
+    stop(paste("Following rows with only zeros:", w))
+  }  
+  
+  ## check if cols consists of only zeros:
+  checkCols <- unlist(apply(x, 2, function(x) all(is.na(x))))
+  if(any(checkCols)){ 
+    w <- which(checkCols)
+    cat("\n--------\n")
+    message("Cols with only zeros are not allowed")
+    message("Remove this columns before running the algorithm")
+    cat("\n--------\n")      
+    stop(paste("\n Following cols with only zeros:", colnames(x)[w]))
+  }  
+  
+  indNA <- apply(x, 2, function(x){any(is.na(x))})
+  
+  ## check if for any variable with zeros,
+  ## the detection limit should be larger than 0:
+  if(any(dl[indNA]==0)){
+    w <- which(dl[indNA]==0)
+    invalidCol <- colnames(x)[w]
+    for(i in 1:length(invalidCol)){
+      cat("-------\n")
+      cat(paste("Error: variable/part", invalidCol[i], 
+                "has detection limit 0 but includes zeros"))
+      cat("\n-------\n")
+    }
+    stop(paste("Set detection limits larger than 0 for variables/parts \n including zeros"))
+  }
+  
+}
 
-
+#' @rdname imputeBDLs
+#' @method print replaced  
+#' @export
+print.replaced <- function(x, ...){
+  message(paste("\n", sum(w), "values below detection limit were imputed \n below their corresponding detection limits.\n"))
+}
 
 #' Bootstrap to find optimal number of components
 #' 
