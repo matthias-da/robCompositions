@@ -99,19 +99,22 @@ adjustImputed <- function(xImp, xOrig, wind){
       sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
       sumAfter[i] <- sum(xImp[i, !wind[i,]])
     } else{ 
-      s <- 1
+      sumPrevious[i] <- sumAfter[i] <- 1
     }
+   }
     # how much is rowsum increased by imputation:
-    fac <- sumPrevious/(sumAfter)
+    fac <- sumPrevious/sumAfter
     
 #    # decrese rowsums of orig.
 #    s1[i] <- s1[i]/fac
-  }
+#  }
   ## for non-zeros overwrite them:
   xneu[!wind] <- xOrig[!wind]
   ## adjust zeros:
   for(i in 1:nrow(xImp)){
-    xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
+    if(any(wind[i,])){
+      xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
+    }
   }
   return(xneu)
 }
