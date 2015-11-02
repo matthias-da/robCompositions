@@ -10,7 +10,7 @@ Depends:
     ggplot2,
     data.table,
     pls
-Imports: 
+Imports:
     classifly,
     e1071,
     rrcov,
@@ -20,20 +20,20 @@ Imports:
     VIM
 Suggests:
     knitr
-VignetteBuilder: 
-    knitr
+VignetteBuilder: knitr
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
 Maintainer: Matthias Templ <templ@tuwien.ac.at>
-Description: Methods for analysis of compositional data
-    including robust methods, imputation, methods to replace rounded zeros, (robust) 
-    outlier detection for compositional data, (robust) principal component analysis for
-    compositional data, (robust) factor analysis for compositional data,
-    (robust) discriminant analysis for compositional data (Fisher rule), robust
-    regression with compositional predictors and (robust) Anderson-Darling
-    normality tests for compositional data as well as popular log-ratio
-    transformations (addLR, cenLR, isomLR, and their inverse transformations).
-    In addition, visualisation and diagnostic tools are implemented as well as
-    high and low-level plot functions for the ternary diagram.
+Description: Methods for analysis of compositional data including robust
+    methods, imputation, methods to replace rounded zeros, (robust) outlier
+    detection for compositional data, (robust) principal component analysis for
+    compositional data, (robust) factor analysis for compositional data, (robust)
+    discriminant analysis for compositional data (Fisher rule), robust regression
+    with compositional predictors and (robust) Anderson-Darling normality tests for
+    compositional data as well as popular log-ratio transformations (addLR, cenLR,
+    isomLR, and their inverse transformations). In addition, visualisation and
+    diagnostic tools are implemented as well as high and low-level plot functions
+    for the ternary diagram.
 License: GPL-2
 LazyLoad: yes
 LazyData: true
+RoxygenNote: 5.0.0

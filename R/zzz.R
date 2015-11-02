@@ -1,5 +1,5 @@
 .onLoad <- function(lib, pkg) {
-	library.dynam("robCompositions",pkg,lib)
+#	library.dynam("robCompositions",pkg,lib)
 
 #	cat("\n ----------------------------------------------\n")	
 #    print(citation("robCompositions"))

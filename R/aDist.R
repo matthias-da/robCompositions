@@ -20,7 +20,7 @@
 #' sets.
 #' @author Matthias Templ, Bernhard Meindl
 #' @export
-#' @useDynLib robCompositions da
+#' @useDynLib robCompositions
 #' @seealso \code{\link{isomLR}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.

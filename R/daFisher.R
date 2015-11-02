@@ -319,11 +319,11 @@ predict.daFisher <- function(object, ...){
 #' @export
 summary.daFisher <- function(object, ...){
   cat("--------------------------------------")
-  cat("\nMisclassification rate from Fishers discriminant analysis, coda ==", x$coda)
+  cat("\nMisclassification rate from Fishers discriminant analysis, coda ==", object$coda)
   cat("\n")
   print(object$mcrate)
   cat("\n--------------------------------------")
-  cat("\nMisclassifications from Fishers discriminant analysis, coda ==", x$coda)
+  cat("\nMisclassifications from Fishers discriminant analysis, coda ==", object$coda)
   cat("\n")
   print(object$mc)
   cat("\n--------------------------------------\n")
