@@ -18,7 +18,7 @@
 #' @param y a vector, matrix or data.frame with equal dimension as \code{x}
 #' @return The Aitchison distance between two compositions or between two data
 #' sets.
-#' @author Matthias Templ
+#' @author Matthias Templ, Bernhard Meindl
 #' @export
 #' @useDynLib robCompositions da
 #' @seealso \code{\link{isomLR}}
