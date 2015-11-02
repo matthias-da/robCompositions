@@ -8,14 +8,14 @@ Depends:
     utils,
     robustbase,
     ggplot2,
-    data.table
+    data.table,
+    pls
 Imports: 
     classifly,
     e1071,
     rrcov,
     GGally,
     MASS,
-    pls,
     sROC,
     VIM
 Suggests:

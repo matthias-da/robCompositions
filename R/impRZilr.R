@@ -41,7 +41,6 @@
 #' @seealso \code{\link{impRZalr}}
 #' @keywords manip multivariate
 #' @export
-#' @import pls
 #' @importFrom sROC kCDF
 #' @importFrom MASS rlm
 #' @examples
@@ -56,7 +55,7 @@
 #' 
 `impRZilr` <-
   function(x, maxit=10, eps=0.1, method="pls", 
-           dl=rep(0.05, ncol(x)), variation=TRUE,	nComp = "boot", 
+           dl=rep(0.05, ncol(x)), variation=FALSE,	nComp = "boot", 
            bruteforce=FALSE,  noisemethod="residuals", 
            noise=FALSE, R=10, correction="normal",
            verbose=FALSE){

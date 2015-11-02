@@ -42,7 +42,6 @@
 #' @seealso \code{\link{imputeBDLs}}
 #' @keywords manip multivariate
 #' @export
-#' @import pls
 #' @importFrom sROC kCDF
 #' @importFrom MASS rlm
 #' @examples
