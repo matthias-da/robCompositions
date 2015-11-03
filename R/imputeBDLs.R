@@ -14,13 +14,15 @@
 #' corresponding inverse ilr transformation is applied. After all parts are
 #' imputed, the algorithm starts again until the imputations do not change.
 #' 
-#' @aliases imputeBDLs print.replaced checkData
+#' @aliases imputeBDLs print.replaced checkData adjustImputed
 #' @param x data.frame or matrix
 #' @param maxit maximum number of iterations
 #' @param eps convergency criteria
 #' @param method either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
 #' @param dl Detection limit for each variable. zero for variables with
 #' variables that have no detection limit problems.
+#' @param variation, if TRUE those predictors are chosen in each step, who's variation is lowest to the predictor.
+#' @param nPred, if determined and variation equals TRUE, it fixes the number of predictors 
 #' @param nComp if determined, it fixes the number of pls components. If
 #' \dQuote{boot}, the number of pls components are estimated using a
 #' bootstraped cross validation approach.
@@ -33,6 +35,7 @@
 #' components. Only important for method \dQuote{pls}.
 #' @param correction normal or density
 #' @param verbose additional print output during calculations.
+#' @importFrom cvTools cvFit
 #' @return \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit
 #' }{maximum number of iterations} \item{wind}{index of zeros}
@@ -55,16 +58,25 @@
 #' xia$x
 `imputeBDLs` <-
   function(x, maxit=10, eps=0.1, method="pls", 
-           dl=rep(0.05, ncol(x)), variation=TRUE,	nComp = "boot", 
-           bruteforce=FALSE,  noisemethod="residuals", 
-           noise=FALSE, R=10, correction="normal",
-           verbose=FALSE){
-    
+           dl=rep(0.05, ncol(x)), variation=TRUE,	nPred=NULL, 
+           nComp = "boot", bruteforce=FALSE,  
+           noisemethod="residuals", noise=FALSE, R=10, 
+           correction="normal", verbose=FALSE){
+      
+    ## check if data are fine
     checkData(x, dl)
     
-    stopifnot((method %in% c("lm", "MM", "pls", "variation")))
+    ## some specific checks
+    stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "variation")))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
+    if(!(correction %in% c("normal","density"))){
+      stop("correction method must be normal or density")
+    }
+    if(method == "pls" & variation){
+      stop("if variation is TRUE then pls is not supported.")
+    }
     
+    ## how to deal with user input on nComp
     if(is.null(nComp)){
       pre <- FALSE
       nC <- NULL
@@ -77,7 +89,7 @@
     } else  {
       pre <- FALSE	
     }
-    if(!(correction %in% c("normal","density"))) stop("correction method must be normal or density")
+
     
     ## store some important values
     n <- nrow(x) 
@@ -116,8 +128,44 @@
       if(length(ind) > 0) x[ind,i] <- dlordered[i] *2/3
     }
     xOrig <- x
-
     
+    ## nPred if variation == TRUE and cv for number of predictors
+    ## evaluate the vector containing the amount of predictors
+    if(!is.null(nPred) & length(nPred) == 1){
+      nPred <- rep(nPred, ncol(x))
+    }
+    if(!is.null(nPred) & length(nPred) > 1){
+      stop("nPred must be NULL or a vector of length 1.")
+    }
+    if(is.null(nPred) & variation){
+      ptmcv <- proc.time()
+      if(verbose) cat("\n cross validation to estimate number of predictors\n")
+      ii <- 1
+      if(verbose) pb <- txtProgressBar(min = 0, max = sum(indNA), style = 3)
+      nPred <- numeric(nrow(x))
+      for(i in which(indNA)){
+        xneworder <- cbind(x[, i, drop=FALSE], x[, -i, drop=FALSE]) 
+        rv <- variation(x, robust = FALSE)[1,]
+        cve <- numeric()
+        for(np in seq(3, min(c(27,ncol(x))), 3)){
+          s <- sort(rv)[np]
+          cols <- which(rv <= s)[1:np]
+          xn <- xneworder[, cols]
+          xilr <- data.frame(isomLR(xn))
+          colnames(xilr)[1] <- "Y"
+          call <- call(method, formula = Y ~ .)
+          # perform cross-validation
+          cve[np] <- suppressWarnings(cvFit(call, data = xilr, y = xilr$Y, cost = rtmspe,
+                    K = 5, R = 1, costArgs = list(trim = 0.1), seed = 1234)$cv)
+        }
+        nPred[i] <- which.min(cve)
+        ## update progress bar
+        if(verbose) setTxtProgressBar(pb, ii); ii <- ii + 1
+      }  
+      if(verbose) close(pb)
+      ptmcv <- proc.time() - ptmcv
+    }
+
     ###############################
     ###   start the iteration   ###
     ###############################
@@ -136,8 +184,8 @@
         if(variation){
           orig <- xneworder  
           rv <- variation(x, robust = FALSE)[1,]
-          s <- sort(rv)[11]
-          cols <- which(rv <= s)[1:11]
+          s <- sort(rv)[nPred[i]]
+          cols <- which(rv <= s)[1:nPred[i]]
           xneworder <- xneworder[, cols]
         }
         ## factors for preserving abs values:
@@ -291,11 +339,49 @@
     x <- checkDL(x, dl, indexFinalCheck)
 
     res <- list(x=x, criteria=criteria, iter=it, 
-                maxit=maxit, wind=w, nComp=nC, method=method, dl=dl)
-    print(class(res))
+                maxit=maxit, wind=w, nComp=nC, nPred=nPred,
+                variation=variation,
+                method=method, dl=dl)
     class(res) <- "replaced"
     return(res)
+}
+
+#' @rdname imputeBDLs
+#' @export
+adjustImputed <- function(xImp, xOrig, wind){
+  ## aim: 
+  ## (1) ratios must be preserved
+  ## (2) do not change original values
+  ## (3) adapt imputations
+  xneu  <- xImp
+  s1 <- rowSums(xOrig, na.rm = TRUE)
+  ## per row: consider rowsums of imputed data
+  sumPrevious <- sumAfter <- numeric(nrow(xImp))
+  for (i in 1:nrow(xImp)) {
+    if(any(wind[i, ]) & !all(wind[i,])){
+      sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
+      sumAfter[i] <- sum(xImp[i, !wind[i,]])
+    } else{ 
+      sumPrevious[i] <- sumAfter[i] <- 1
+    }
   }
+  # how much is rowsum increased by imputation:
+  fac <- sumPrevious/sumAfter
+  
+  #    # decrese rowsums of orig.
+  #    s1[i] <- s1[i]/fac
+  #  }
+  ## for non-zeros overwrite them:
+  xneu[!wind] <- xOrig[!wind]
+  ## adjust zeros:
+  for(i in 1:nrow(xImp)){
+    if(any(wind[i,])){
+      xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
+    }
+  }
+  return(xneu)
+}
+
 #' @rdname imputeBDLs
 #' @export
 `checkData` <- function(x, dl){

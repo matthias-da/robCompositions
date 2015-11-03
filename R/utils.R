@@ -84,40 +84,40 @@ genTest <- function(){
                      34,44.8*246/252.5,99,4,32,12*246/252.5,77), ncol=7, byrow=TRUE)
   list(wind=wind, orig=orig, xOrig=xOrig, xImp=xImp, result=result)
 }
-
-adjustImputed <- function(xImp, xOrig, wind){
-  ## aim: 
-  ## (1) ratios must be preserved
-  ## (2) do not change original values
-  ## (3) adapt imputations
-  xneu  <- xImp
-  s1 <- rowSums(xOrig, na.rm = TRUE)
-  ## per row: consider rowsums of imputed data
-  sumPrevious <- sumAfter <- numeric(nrow(xImp))
-  for (i in 1:nrow(xImp)) {
-    if(any(wind[i, ]) & !all(wind[i,])){
-      sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
-      sumAfter[i] <- sum(xImp[i, !wind[i,]])
-    } else{ 
-      sumPrevious[i] <- sumAfter[i] <- 1
-    }
-   }
-    # how much is rowsum increased by imputation:
-    fac <- sumPrevious/sumAfter
-    
-#    # decrese rowsums of orig.
-#    s1[i] <- s1[i]/fac
-#  }
-  ## for non-zeros overwrite them:
-  xneu[!wind] <- xOrig[!wind]
-  ## adjust zeros:
-  for(i in 1:nrow(xImp)){
-    if(any(wind[i,])){
-      xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
-    }
-  }
-  return(xneu)
-}
+# 
+# adjustImputed <- function(xImp, xOrig, wind){
+#   ## aim: 
+#   ## (1) ratios must be preserved
+#   ## (2) do not change original values
+#   ## (3) adapt imputations
+#   xneu  <- xImp
+#   s1 <- rowSums(xOrig, na.rm = TRUE)
+#   ## per row: consider rowsums of imputed data
+#   sumPrevious <- sumAfter <- numeric(nrow(xImp))
+#   for (i in 1:nrow(xImp)) {
+#     if(any(wind[i, ]) & !all(wind[i,])){
+#       sumPrevious[i] <- sum(xOrig[i, !wind[i, ]]) 
+#       sumAfter[i] <- sum(xImp[i, !wind[i,]])
+#     } else{ 
+#       sumPrevious[i] <- sumAfter[i] <- 1
+#     }
+#   }
+#   # how much is rowsum increased by imputation:
+#   fac <- sumPrevious/sumAfter
+#   
+#   #    # decrese rowsums of orig.
+#   #    s1[i] <- s1[i]/fac
+#   #  }
+#   ## for non-zeros overwrite them:
+#   xneu[!wind] <- xOrig[!wind]
+#   ## adjust zeros:
+#   for(i in 1:nrow(xImp)){
+#     if(any(wind[i,])){
+#       xneu[i,wind[i,]] <- fac[i]*xneu[i,wind[i,]]
+#     }
+#   }
+#   return(xneu)
+# }
 
 
 
