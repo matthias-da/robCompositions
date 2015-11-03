@@ -35,6 +35,7 @@
 #' components. Only important for method \dQuote{pls}.
 #' @param correction normal or density
 #' @param verbose additional print output during calculations.
+#' @import cvTools
 #' @importFrom cvTools cvFit
 #' @return \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit
@@ -107,7 +108,7 @@
     wcol <- - abs(apply(x, 2, function(x) sum(is.na(x))))
     o <- order(wcol)
     x <- x[,o]
-    if(verbose) cat("variables with decreasing number of missings:\n", colnames(x))
+    if(verbose) cat("number of variables with zeros:\n", sum(wcol != 0))
     ## --> now work in revised order of variables
     ## dl must also be in correct order
     dlordered <- dl[o]
@@ -121,7 +122,7 @@
     
     ## initialisation
     indNA <- apply(x, 2, function(x){any(is.na(x))})
-    print(indNA)
+#    print(indNA)
     for(i in 1:length(dl)){
       ind <- is.na(x[,i])
       #		if(length(ind) > 0) x[ind,i] <- dl[i]*runif(sum(ind),1/3,2/3)
@@ -204,7 +205,7 @@
         if(method=="lm"){ 
           reg1 <- lm(response ~ predictors)
           yhat <- predict(reg1, new.data=data.frame(predictors))
-        } else if(method=="MM"){
+        } else if(method=="MM" | method=="lmrob"){
           reg1 <- MASS::rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
