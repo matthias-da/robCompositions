@@ -17,8 +17,8 @@
 #' @aliases imputeBDLs print.replaced checkData adjustImputed
 #' @param x data.frame or matrix
 #' @param maxit maximum number of iterations
-#' @param eps convergency criteria
-#' @param method either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
+#' @param eps convergency criteria 
+#' @param method either \dQuote{lm}, \dQuote{lmrob} or \dQuote{pls}
 #' @param dl Detection limit for each variable. zero for variables with
 #' variables that have no detection limit problems.
 #' @param variation, if TRUE those predictors are chosen in each step, who's variation is lowest to the predictor.
@@ -143,12 +143,12 @@
       if(verbose) cat("\n cross validation to estimate number of predictors\n")
       ii <- 1
       if(verbose) pb <- txtProgressBar(min = 0, max = sum(indNA), style = 3)
-      nPred <- numeric(nrow(x))
+      nPred <- numeric(nrow(x)) 
       for(i in which(indNA)){
         xneworder <- cbind(x[, i, drop=FALSE], x[, -i, drop=FALSE]) 
         rv <- variation(x, robust = FALSE)[1,]
         cve <- numeric()
-        for(np in seq(3, min(c(27,ncol(x))), 3)){
+        for(np in seq(3, min(c(27,ncol(x),floor(nrow(x)/2))), 3)){
           s <- sort(rv)[np]
           cols <- which(rv <= s)[1:np]
           xn <- xneworder[, cols]

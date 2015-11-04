@@ -25,7 +25,7 @@ checkData(x, dl)
 
 \item{eps}{convergency criteria}
 
-\item{method}{either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}}
+\item{method}{either \dQuote{lm}, \dQuote{lmrob} or \dQuote{pls}}
 
 \item{dl}{Detection limit for each variable. zero for variables with
 variables that have no detection limit problems.}
