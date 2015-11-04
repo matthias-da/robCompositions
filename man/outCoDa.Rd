@@ -6,11 +6,11 @@
 \alias{print.outCoDa}
 \title{Outlier detection for compositional data}
 \usage{
-outCoDa(x, quantile = 0.975, method = "robust", h = 1/2)
+outCoDa(x, quantile = 0.975, method = "robust", h = 1/2, coda = TRUE)
 
 \method{print}{outCoDa}(x, ...)
 
-\method{plot}{outCoDa}(x, y, ...)
+\method{plot}{outCoDa}(x, y, ..., which = 1)
 }
 \arguments{
 \item{x}{compositional data}
@@ -28,6 +28,12 @@ default is (n+p+1)/2).}
 \item{...}{additional parameters for print and plot method passed through}
 
 \item{y}{unused second plot argument for the plot method}
+
+\item{which}{1 ... MD against index
+2 ... distance-distance plot}
+
+\item{isometric}{log-ratio transformation or no transformation or self-defined function.
+For a self-defined function a data.frame with the transformed variables should be returned.}
 }
 \value{
 \item{mahalDist }{resulting Mahalanobis distance} \item{limit
@@ -62,6 +68,8 @@ It is highly recommended to use the robust version of the procedure.
 data(expenditures)
 oD <- outCoDa(expenditures)
 oD
+## providing a function:
+oD <- outCoDa(expenditures, coda = log)
 
 }
 \author{

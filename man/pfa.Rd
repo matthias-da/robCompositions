@@ -62,7 +62,7 @@ are backtransformed to the clr space (see Filzmoser et al., 2009).
 
 data(expenditures)
 x <- expenditures
-res0 <- pfa(x, factors=1, covmat="cov")
+res0 <- pfa(x, factors=1)
 
 ## the following produce always the same result:
 res1 <- pfa(x, factors=1, covmat="covMcd")

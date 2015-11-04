@@ -29,6 +29,8 @@
 #' default is (n+p+1)/2).
 #' @param y unused second plot argument for the plot method
 #' @param ... additional parameters for print and plot method passed through
+#' @param isometric log-ratio transformation or no transformation or self-defined function.
+#' For a self-defined function a data.frame with the transformed variables should be returned.
 #' @return \item{mahalDist }{resulting Mahalanobis distance} \item{limit
 #' }{quantile of the Chi-squared distribution} \item{outlierIndex }{logical
 #' vector indicating outliers and non-outliers} \item{method }{method used}
@@ -51,8 +53,11 @@
 #' data(expenditures)
 #' oD <- outCoDa(expenditures)
 #' oD
+#' ## providing a function:
+#' oD <- outCoDa(expenditures, coda = log)
 #' 
-outCoDa <- function(x, quantile=0.975, method="robust", h=1/2){
+outCoDa <- function(x, quantile=0.975, method="robust", 
+                    h=1/2, coda = TRUE){
 	if(dim(x)[2] < 2) stop("need data with at least 2 variables")
 	
 	covEst <- function(x, type) {
@@ -67,13 +72,23 @@ outCoDa <- function(x, quantile=0.975, method="robust", h=1/2){
 				standard = standard(x),
 				robust = robust(x))
 	}
-		
-	z <- isomLR(x)
-	cv <- covEst(z, method)
-	dM <- sqrt(mahalanobis(z, center=cv$mean, cov=cv$varmat))
+	if(!is.logical(coda) & !is.function(coda)){
+	  stop("coda must be logical or function")
+	}
+	if(!is.logical(coda)){
+	  x <- coda(x)
+	}	else if (coda){ 
+	  x <- isomLR(x)
+	}  
+	cv <- covEst(x, "robust")
+	cvc <- covEst(x, "standard")
+	dM <- sqrt(mahalanobis(x, center=cv$mean, cov=cv$varmat))
+	dMc <- sqrt(mahalanobis(x, center=cvc$mean, cov=cvc$varmat))
 	limit <- sqrt(qchisq(p=quantile, df=ncol(x)-1))
 	res <- list(mahalDist = dM, limit = limit, 
-			    outlierIndex = dM > limit, method=method)
+			    outlierIndex = dM > limit, method=method, 
+			    om2 = dMc > limit,
+			    m2=dMc, coda = coda)
 	class(res) <- "outCoDa"
     invisible(res)
 }
@@ -89,15 +104,40 @@ print.outCoDa <- function(x, ...){
 #' @rdname outCoDa 
 #' @export
 #' @method plot outCoDa
-plot.outCoDa <- function(x, y, ...){
+#' @param which 1 ... MD against index
+#' 2 ... distance-distance plot
+plot.outCoDa <- function(x, y, ..., which = 1){
   #	plot(1:length(x$mahalDist), x$mahalDist, ylab="Mahalanobis distance", xlab="Index", type="n", ylim=c(0, max(x$mahalDist)) )
   #	points(1:length(x$mahalDist[x$outlierIndex]), x$mahalDist[x$outlierIndex], pch=3, col="red")
   #	points(1:length(x$mahalDist[!x$outlierIndex]), x$mahalDist[!x$outlierIndex])	
   #	abline(h=x$limit, lty=2)
   #	#print(x$mahalDist)
+  if(which == 1){
   if(x$method =="standard") yl <- "Mahalanobis distance" else yl <- "Robust Mahalanobis distance" 
-  plot(1:length(x$mahalDist), x$mahalDist, ylab = yl,
-       xlab = "Index", ylim = c(0, max(x$mahalDist)),
-       pch = as.numeric(x$outlierIndex)*2+1)
-  abline(h=x$limit, lty=2)
+    plot(1:length(x$mahalDist), x$mahalDist, ylab = yl,
+         xlab = "Index", ylim = c(0, max(x$mahalDist)),
+         pch = as.numeric(x$outlierIndex)*2+1)
+    abline(h=x$limit, lty=2)
+  }
+  if(which == 2){
+    if(x$method == "standard"){
+      return(cat("apply method robust in outCoDa to make a distance-distance plot available"))
+    }
+    n <- length(x$mahalDist)
+    outlier <- ifelse(x$outlierIndex & x$om2, "both", 
+                      ifelse(x$outlierIndex & !x$om2, "robust only",
+                             ifelse(x$om2 & !x$outlierIndex, "standard only", "no outlier")))
+    df <- data.frame("RMD" = x$mahalDist,
+                     "MD" = x$m2,
+                     "limit" = rep(x$limit, n),
+                     "outlier" = outlier,
+                     "name" = 1:n)
+    gg <- ggplot(df, aes(x = MD, y = RMD, colour = outlier )) 
+    gg <- gg + geom_point(data=subset(df, RMD <= limit & MD <= limit)) 
+    gg <- gg + geom_abline(intercept = 0, slope = 1, linetype = "dashed", colour="grey") 
+    gg <- gg + geom_text(data=subset(df, RMD > limit | MD > limit),  aes(MD, RMD, label=name))
+    gg <- gg + geom_vline(xintercept = x$limit, size=0.25) + geom_hline(yintercept = x$limit, size=0.25)
+    gg <- gg + theme_bw()
+    print(gg)
+  }
 }
