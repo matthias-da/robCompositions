@@ -1,6 +1,6 @@
 #' missing or zero pattern structure.
 #' 
-#' Analysis of the missing or zero patterns structure of a data set.
+#' Analysis of the missing or the zero patterns structure of a data set.
 #' 
 #' Here, one pattern defines those observations that have the same structure
 #' regarding their missingness or zeros. For all patterns a summary is
