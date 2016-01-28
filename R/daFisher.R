@@ -164,7 +164,7 @@ daFisher <- function(x, grp, coda=TRUE,
   
   ## plot scores (if TRUE)
   if(plotScore){
-    proj <- x %*%V [,1:2]
+    proj <- xc %*%V [,1:2]
     proj <- data.frame(proj)
     proj$grp <- as.factor(grp)
     proj$grppred <- as.factor(grppred)

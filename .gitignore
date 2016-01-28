@@ -1,3 +1,5 @@
+man/zeroOut.Rd
+./man/*
 man/*
 *.o
 *.so
