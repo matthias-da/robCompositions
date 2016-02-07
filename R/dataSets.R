@@ -579,7 +579,7 @@ NULL
 #' 
 #' @name phd
 #' @docType data
-#' @format A data set on 33 compositions and 8 variables.
+#' @format A data set on 32 compositions and 11 variables.
 #' @source
 #' \url{http://epp.eurostat.ec.europa.eu/cache/ITY_PUBLIC/1-18092009-AP/DE/1-18092009-AP-DE.PDF}
 #' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
@@ -587,7 +587,7 @@ NULL
 #' @examples
 #' 
 #' data(phd)
-#' phdImputed <- impCoda(phd)$xOrig
+#' phdImputed <- impCoda(phd[, 7:ncol(phd)])$xOrig
 #' 
 NULL
 

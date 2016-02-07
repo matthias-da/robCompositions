@@ -22,7 +22,7 @@ Low-level plot function to add points or lines to a ternary high-level plot.
 \examples{
 
 data(coffee)
-x <- coffee[,1:3]
+x <- coffee[,2:4]
 ternaryDiag(x, grid=FALSE)
 ternaryDiagPoints(x+1, col="red", pch=2)
 

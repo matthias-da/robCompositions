@@ -24,7 +24,7 @@ from two given points in an isometric transformed space.
 \examples{
 
 data(coffee)
-x <- coffee[,1:3]
+x <- coffee[,2:4]
 ternaryDiag(x, grid=FALSE)
 ternaryDiagAbline(data.frame(z1=c(0.01,0.5), z2=c(0.4,0.8)), col="red")
 

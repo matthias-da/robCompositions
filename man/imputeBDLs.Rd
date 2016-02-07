@@ -52,6 +52,14 @@ components. Only important for method \dQuote{pls}.}
 \item{correction}{normal or density}
 
 \item{verbose}{additional print output during calculations.}
+
+\item{xImp}{imputed data set}
+
+\item{xOrig}{original data set}
+
+\item{wind}{index matrix of rounded zeros}
+
+\item{...}{further arguments passed through the print function}
 }
 \value{
 \item{x }{imputed data} \item{criteria }{change between last and

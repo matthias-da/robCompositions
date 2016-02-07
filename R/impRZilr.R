@@ -20,6 +20,7 @@
 #' @param method either \dQuote{lm}, \dQuote{MM} or \dQuote{pls}
 #' @param dl Detection limit for each variable. zero for variables with
 #' variables that have no detection limit problems.
+#' @param variation matrix is used to first select number of parts
 #' @param nComp if determined, it fixes the number of pls components. If
 #' \dQuote{boot}, the number of pls components are estimated using a
 #' bootstraped cross validation approach.
@@ -350,105 +351,105 @@
     invisible(res)
   }
 
-
-
-#' Bootstrap to find optimal number of components
-#' 
-#' Combined bootstrap and cross validation procedure to find optimal number of
-#' PLS components
-#' 
-#' Heavily used internally in function impRZilr.
-#' 
-#' @param X predictors as a matrix
-#' @param y response
-#' @param R number of bootstrap samples
-#' @param plotting if TRUE, a diagnostic plot is drawn for each bootstrap
-#' replicate
-#' @return Including other information in a list, the optimal number of
-#' components
-#' @author Matthias Templ
-#' @seealso \code{\link{impRZilr}}
-#' @keywords manip
-#' @examples
-#' 
-#' ## we refer to impRZilr()
-#' 
-bootnComp <- function(X,y, R=99, plotting=FALSE){
-  ind <- 1:nrow(X)
-  d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
-  nc <- integer(R)
-  for(i in 1:R){
-    bootind <- sample(ind)
-#    XX <- X
-#    yy <- y
-    ds <- cbind(X[bootind,], as.numeric(y[bootind]))
-    colnames(ds)[ncol(ds)] <- "V1"
-    res1 <- mvr(V1~., data=data.frame(ds), method="simpls", 
-                  validation="CV")
-    d[1:res1$ncomp, i] <- res1$validation$PRESS
-    nc[i] <- which.min(res1$validation$PRESS)
-#    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, 
-#                                  function(x) sum(((y - x)^2)) ) )
-  }
-  d <- na.omit(d)
-  sdev <- apply(d, 1, sd, na.rm=TRUE)
-  means <- apply(d, 1, mean, na.rm=TRUE)
-  mi <- which.min(means)
-  r <- round(ncol(X)/20)
-  mi2 <- which.min(means[r:length(means)])+r-1
-  w <- means < min(means) + sdev[mi]
-  threshold <- min(means) + sdev[mi]
-  sdev <- sdev
-  means <- means
-  mi <- mi
-  means2 <- means
-  means2[!w] <- 999999999999999
-  res <- which.min(means2)
-  mi3 <- which.max(w)
-#  minsd <- means - sdev > means[mi]
-#  check <- means
-#  check[!minsd] <- 99999999
-  if(plotting) plot(means, type="l")
-#  res <- which.min(check)
-  list(res3=mi3, res2=mi2, res=res, means=means)
-}
-
-
-bootnCompHD <- function(X,y, R=99, plotting=FALSE){
-  ind <- 1:nrow(X)
-  d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
-  for(i in 1:R){
-    bootind <- sample(ind)
-    XX <- X
-    yy <- y
-    ds <- cbind(X[bootind,], as.numeric(y[bootind]))
-    colnames(ds)[ncol(ds)] <- "V1"
-    reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
-    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
-  }
-  d <- na.omit(d)
-  sdev <- apply(d, 1, mad, na.rm=TRUE)
-  means <- apply(d, 1, median, na.rm=TRUE)
-  mi <- which.min(means)
-  if(plotting) plot(means, type="l", col="blue", ylab="squared total prediction error", xlab="number of components")
-  themean <- mean(means)
-  thesd <- sd(means)
-  abovethreshold <- themean - sdev > means
-  check <- means
-  check[!abovethreshold] <- 9999999999
-  res <- which.min(check)
-  #	minsd <- means - sdev > means[mi]
-  #	check <- means
-  #	check[!minsd] <- 99999999
-  #	res <- which.min(check)
-  if(plotting){
-    abline(v=res, lwd=3)
-    abline(h=mi, col="red")
-    #		abline(h=means-sdev, lty=3)
-  }
-  list(res=res, mean=means)
-}
-
+# 
+# 
+# #' Bootstrap to find optimal number of components
+# #' 
+# #' Combined bootstrap and cross validation procedure to find optimal number of
+# #' PLS components
+# #' 
+# #' Heavily used internally in function impRZilr.
+# #' 
+# #' @param X predictors as a matrix
+# #' @param y response
+# #' @param R number of bootstrap samples
+# #' @param plotting if TRUE, a diagnostic plot is drawn for each bootstrap
+# #' replicate
+# #' @return Including other information in a list, the optimal number of
+# #' components
+# #' @author Matthias Templ
+# #' @seealso \code{\link{impRZilr}}
+# #' @keywords manip
+# #' @examples
+# #' 
+# #' ## we refer to impRZilr()
+# #' 
+# bootnComp <- function(X,y, R=99, plotting=FALSE){
+#   ind <- 1:nrow(X)
+#   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
+#   nc <- integer(R)
+#   for(i in 1:R){
+#     bootind <- sample(ind)
+# #    XX <- X
+# #    yy <- y
+#     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
+#     colnames(ds)[ncol(ds)] <- "V1"
+#     res1 <- mvr(V1~., data=data.frame(ds), method="simpls", 
+#                   validation="CV")
+#     d[1:res1$ncomp, i] <- res1$validation$PRESS
+#     nc[i] <- which.min(res1$validation$PRESS)
+# #    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, 
+# #                                  function(x) sum(((y - x)^2)) ) )
+#   }
+#   d <- na.omit(d)
+#   sdev <- apply(d, 1, sd, na.rm=TRUE)
+#   means <- apply(d, 1, mean, na.rm=TRUE)
+#   mi <- which.min(means)
+#   r <- round(ncol(X)/20)
+#   mi2 <- which.min(means[r:length(means)])+r-1
+#   w <- means < min(means) + sdev[mi]
+#   threshold <- min(means) + sdev[mi]
+#   sdev <- sdev
+#   means <- means
+#   mi <- mi
+#   means2 <- means
+#   means2[!w] <- 999999999999999
+#   res <- which.min(means2)
+#   mi3 <- which.max(w)
+# #  minsd <- means - sdev > means[mi]
+# #  check <- means
+# #  check[!minsd] <- 99999999
+#   if(plotting) plot(means, type="l")
+# #  res <- which.min(check)
+#   list(res3=mi3, res2=mi2, res=res, means=means)
+# }
+# 
+# 
+# bootnCompHD <- function(X,y, R=99, plotting=FALSE){
+#   ind <- 1:nrow(X)
+#   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
+#   for(i in 1:R){
+#     bootind <- sample(ind)
+#     XX <- X
+#     yy <- y
+#     ds <- cbind(X[bootind,], as.numeric(y[bootind]))
+#     colnames(ds)[ncol(ds)] <- "V1"
+#     reg1 <- mvr(V1~., data=data.frame(ds), method="simpls", validation="CV")
+#     d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, function(x) sum(((y - x)^2)) ) )
+#   }
+#   d <- na.omit(d)
+#   sdev <- apply(d, 1, mad, na.rm=TRUE)
+#   means <- apply(d, 1, median, na.rm=TRUE)
+#   mi <- which.min(means)
+#   if(plotting) plot(means, type="l", col="blue", ylab="squared total prediction error", xlab="number of components")
+#   themean <- mean(means)
+#   thesd <- sd(means)
+#   abovethreshold <- themean - sdev > means
+#   check <- means
+#   check[!abovethreshold] <- 9999999999
+#   res <- which.min(check)
+#   #	minsd <- means - sdev > means[mi]
+#   #	check <- means
+#   #	check[!minsd] <- 99999999
+#   #	res <- which.min(check)
+#   if(plotting){
+#     abline(v=res, lwd=3)
+#     abline(h=mi, col="red")
+#     #		abline(h=means-sdev, lty=3)
+#   }
+#   list(res=res, mean=means)
+# }
+# 
 
 #checkIfValuesUnderDL <- function(x, dl, wind){
 #	check <- logical(ncol(x))

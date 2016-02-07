@@ -25,15 +25,14 @@ a cut-off value for outlier identification: observations with larger
 according the MCD-estimator for which the determinant is minimized (the
 default is (n+p+1)/2).}
 
+\item{coda}{if TRUE, data transformed to coordinate representation before outlier detection.}
+
 \item{...}{additional parameters for print and plot method passed through}
 
 \item{y}{unused second plot argument for the plot method}
 
 \item{which}{1 ... MD against index
 2 ... distance-distance plot}
-
-\item{isometric}{log-ratio transformation or no transformation or self-defined function.
-For a self-defined function a data.frame with the transformed variables should be returned.}
 }
 \value{
 \item{mahalDist }{resulting Mahalanobis distance} \item{limit

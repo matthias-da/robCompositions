@@ -174,14 +174,14 @@ function (x, factors, data = NULL, covmat = NULL, n.obs = NA,
 	class(fit$loadings) <- "loadings"
 	fit$na.action <- na.act
 	if (scores != "none") {
-	  Lambda <<- fit$loadings
-	  zz <<- z
+	  Lambda <- fit$loadings
+	  zz <- z
 	  switch(scores, regression = {
 	    sc <- as.matrix(zz) %*% solve(cv, Lambda)
 	    if (!is.null(Phi <- attr(Lambda, "covariance"))) 
 	      sc <- sc %*% Phi
 	  }, Bartlett = {
-	    psiinv <<- ginv(fit$psi)
+	    psiinv <- ginv(fit$psi)
 	    sc <- t(ginv(t(Lambda)%*%psiinv%*%Lambda)%*%t(Lambda)%*%psiinv%*%t(zz))
 	    ###            d <- 1/fit$uniquenesses
 	    ###            tmp <- t(Lambda * d)

@@ -26,6 +26,7 @@
 #' \item{method }{method} \item{princompOutputClr }{output of \code{princomp}
 #' needed in \code{plot.pcaCoDa}}
 #' @author K. Hron, P. Filzmoser, M. Templ
+#' @importFrom stats princomp
 #' @seealso \code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 #' Analysis for Compositional Data with Outliers. \emph{Environmetrics},

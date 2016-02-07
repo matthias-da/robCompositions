@@ -4,7 +4,7 @@
 \name{phd}
 \alias{phd}
 \title{PhD Students in the EU}
-\format{A data set on 33 compositions and 8 variables.}
+\format{A data set on 32 compositions and 11 variables.}
 \source{
 \url{http://epp.eurostat.ec.europa.eu/cache/ITY_PUBLIC/1-18092009-AP/DE/1-18092009-AP-DE.PDF}
 }
@@ -32,7 +32,7 @@ Due to unknown reasons the rowSums of the percentages is not always 100.
 \examples{
 
 data(phd)
-phdImputed <- impCoda(phd)$xOrig
+phdImputed <- impCoda(phd[, 7:ncol(phd)])$xOrig
 
 }
 \references{

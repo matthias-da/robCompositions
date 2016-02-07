@@ -29,6 +29,8 @@ observation.}
 \item{plotScore}{TRUE, if the scores should be plotted automatically.}
 
 \item{...}{additional arguments for the print method passed through}
+
+\item{object}{object of class \dQuote{daFisher}}
 }
 \value{
 an object of class \dQuote{daFisher} including the following
@@ -70,8 +72,8 @@ summary(d2)
 predict(d2)
 
 ## example with olive data:
-require(classifly)
-data(olives)
+\dontrun{
+data(olives, package = "classifly")
 # exclude zeros (alternatively impute them if 
 # the detection limit is known using impRZilr())
 ind <- which(olives==0, arr.ind = TRUE)[,1]
@@ -95,6 +97,7 @@ res <- daFisher(x, grp, plotScore = TRUE)
 res
 summary(res)
 predict(res)
+}
 }
 \author{
 Peter Filzmoser, Matthias Templ.
