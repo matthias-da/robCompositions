@@ -86,13 +86,25 @@ imputed, the algorithm starts again until the imputations do not change.
 }
 \examples{
 
-data(arcticLake)
-x <- arcticLake
+data(mcad)
+\dontrun{
 ## generate rounded zeros artificially:
-#x[x[,1] < 5, 1] <- 0
-x[x[,2] < 44, 2] <- 0
-xia <- impRZilr(x, dl=c(5,44,0), eps=0.01, method="lm")
-xia$x
+x <- x[1:25, 2:ncol(x)]
+dl <- apply(x, 2, quantile, 0.1)
+for(i in seq(1, ncol(x), 2)){
+  x[x[,i] < dl[i], i] <- 0
+} 
+ni <- sum(x==0, na.rm=TRUE) 
+ni/(ncol(x)*nrow(x)) * 100
+dl[seq(2, ncol(x), 2)] <- 0
+replaced_lm <- imputeBDLs(x, dl=dl, eps=1, method="lm",  
+  verbose=FALSE, R=50, variation=TRUE)$x
+replaced_lmrob <- imputeBDLs(x, dl=dl, eps=1, method="lmrob",  
+  verbose=FALSE, R=50, variation=TRUE)$x
+replaced_plsfull <- imputeBDLs(x, dl=dl, eps=1, 
+  method="pls", verbose=FALSE, R=50, 
+  variation=FALSE)$x 
+}
 }
 \author{
 Matthias Templ
