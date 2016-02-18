@@ -27,10 +27,9 @@
 #' @param h the size of the subsets for the robust covariance estimation
 #' according the MCD-estimator for which the determinant is minimized (the
 #' default is (n+p+1)/2).
+#' @param coda if TRUE, data transformed to coordinate representation before outlier detection. 
 #' @param y unused second plot argument for the plot method
 #' @param ... additional parameters for print and plot method passed through
-#' @param isometric log-ratio transformation or no transformation or self-defined function.
-#' For a self-defined function a data.frame with the transformed variables should be returned.
 #' @return \item{mahalDist }{resulting Mahalanobis distance} \item{limit
 #' }{quantile of the Chi-squared distribution} \item{outlierIndex }{logical
 #' vector indicating outliers and non-outliers} \item{method }{method used}
@@ -127,6 +126,11 @@ plot.outCoDa <- function(x, y, ..., which = 1){
     outlier <- ifelse(x$outlierIndex & x$om2, "both", 
                       ifelse(x$outlierIndex & !x$om2, "robust only",
                              ifelse(x$om2 & !x$outlierIndex, "standard only", "no outlier")))
+    MD <- NULL
+    RMD <- NULL
+    limit <- NULL
+    name <- NULL
+    w <- NULL
     df <- data.frame("RMD" = x$mahalDist,
                      "MD" = x$m2,
                      "limit" = rep(x$limit, n),

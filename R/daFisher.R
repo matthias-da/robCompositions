@@ -61,8 +61,8 @@
 #' predict(d2)
 #' 
 #' ## example with olive data:
-#' require(classifly)
-#' data(olives)
+#'\dontrun{
+#' data(olives, package = "classifly")
 #' # exclude zeros (alternatively impute them if 
 #' # the detection limit is known using impRZilr())
 #' ind <- which(olives==0, arr.ind = TRUE)[,1]
@@ -86,6 +86,7 @@
 #' res
 #' summary(res)
 #' predict(res)
+#' }
 daFisher <- function(x, grp, coda=TRUE,
                    method = "classical", 
                    plotScore = FALSE){
@@ -164,10 +165,12 @@ daFisher <- function(x, grp, coda=TRUE,
   
   ## plot scores (if TRUE)
   if(plotScore){
-    proj <- x %*%V [,1:2]
+    proj <- xc %*%V [,1:2]
     proj <- data.frame(proj)
     proj$grp <- as.factor(grp)
     proj$grppred <- as.factor(grppred)
+    firstscores <- NULL
+    secondscores <- NULL
     colnames(proj) <- c("firstscores", "secondscores","grp", "grppred")
     gg <- ggplot(proj, aes(firstscores, secondscores, colour = grp, shape = grppred)) 
     gg <- gg + geom_point()
@@ -308,6 +311,7 @@ print.daFisher <- function(x,...){
 
 #' @rdname daFisher
 #' @method predict daFisher
+#' @param object object of class \dQuote{daFisher}
 #' @export
 predict.daFisher <- function(object, ...){
   grppred <- apply(object$scores, 1, which.min)

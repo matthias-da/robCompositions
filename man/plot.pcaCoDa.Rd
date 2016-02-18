@@ -21,12 +21,29 @@ Provides a screeplot for (robust) compositional principal components analysis.
 }
 \examples{
 
+<<<<<<< HEAD
 data(coffee)
 p1 <- pcaCoDa(coffee[,-1])
+=======
+data(expenditures)
+p1 <- pcaCoDa(expenditures)
+p1
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 plot(p1)
 plot(p1, type="lines")
 
 
+<<<<<<< HEAD
+=======
+## with labels for the scores:
+data(arcticLake)
+rownames(arcticLake) <- paste(sample(letters[1:26],nrow(arcticLake), replace=TRUE), 
+                              1:nrow(arcticLake), sep="")
+pc <- pcaCoDa(arcticLake, method="standard")
+plot(pc, xlabs=rownames(arcticLake))
+
+
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 }
 \author{
 M. Templ, K. Hron

@@ -21,6 +21,8 @@ impRZilr(x, maxit = 10, eps = 0.1, method = "pls", dl = rep(0.05,
 \item{dl}{Detection limit for each variable. zero for variables with
 variables that have no detection limit problems.}
 
+\item{variation}{matrix is used to first select number of parts}
+
 \item{nComp}{if determined, it fixes the number of pls components. If
 \dQuote{boot}, the number of pls components are estimated using a
 bootstraped cross validation approach.}

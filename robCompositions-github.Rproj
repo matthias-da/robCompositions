@@ -13,6 +13,11 @@ RnwWeave: knitr
 LaTeX: pdfLaTeX
 
 BuildType: Package
+<<<<<<< HEAD
 PackageUseDevtools: Yes
 PackageInstallArgs: --no-multiarch --with-keep.source
 PackageRoxygenize: rd,collate,namespace
+=======
+PackageInstallArgs: --no-multiarch
+PackageRoxygenize: rd,collate,namespace,vignette
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7

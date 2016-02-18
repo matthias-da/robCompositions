@@ -46,8 +46,8 @@ data(arcticLake)
 ternaryDiag(arcticLake)
 
 data(coffee)
-x <- coffee[,1:3]
-grp <- as.integer(factor(coffee[,4]))
+x <- coffee[,2:4]
+grp <- as.integer(coffee[,1])
 ternaryDiag(x, col=grp, pch=grp)
 ternaryDiag(x, grid=FALSE, col=grp, pch=grp)
 legend("topright", legend=unique(coffee[,4]), pch=1:2, col=1:2)

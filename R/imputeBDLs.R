@@ -35,8 +35,8 @@
 #' components. Only important for method \dQuote{pls}.
 #' @param correction normal or density
 #' @param verbose additional print output during calculations.
-#' @import cvTools
 #' @importFrom cvTools cvFit
+#' @import pls
 #' @return \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit
 #' }{maximum number of iterations} \item{wind}{index of zeros}
@@ -50,13 +50,25 @@
 #' @importFrom MASS rlm
 #' @examples
 #' 
-#' data(arcticLake)
-#' x <- arcticLake
+#' data(mcad)
+#' \dontrun{
 #' ## generate rounded zeros artificially:
-#' #x[x[,1] < 5, 1] <- 0
-#' x[x[,2] < 44, 2] <- 0
-#' xia <- impRZilr(x, dl=c(5,44,0), eps=0.01, method="lm")
-#' xia$x
+#' x <- x[1:25, 2:ncol(x)]
+#' dl <- apply(x, 2, quantile, 0.1)
+#' for(i in seq(1, ncol(x), 2)){
+#'   x[x[,i] < dl[i], i] <- 0
+#' } 
+#' ni <- sum(x==0, na.rm=TRUE) 
+#' ni/(ncol(x)*nrow(x)) * 100
+#' dl[seq(2, ncol(x), 2)] <- 0
+#' replaced_lm <- imputeBDLs(x, dl=dl, eps=1, method="lm",  
+#'   verbose=FALSE, R=50, variation=TRUE)$x
+#' replaced_lmrob <- imputeBDLs(x, dl=dl, eps=1, method="lmrob",  
+#'   verbose=FALSE, R=50, variation=TRUE)$x
+#' replaced_plsfull <- imputeBDLs(x, dl=dl, eps=1, 
+#'   method="pls", verbose=FALSE, R=50, 
+#'   variation=FALSE)$x 
+#' }
 `imputeBDLs` <-
   function(x, maxit=10, eps=0.1, method="pls", 
            dl=rep(0.05, ncol(x)), variation=TRUE,	nPred=NULL, 
@@ -144,6 +156,7 @@
       ii <- 1
       if(verbose) pb <- txtProgressBar(min = 0, max = sum(indNA), style = 3)
       nPred <- numeric(nrow(x)) 
+      rtmspe <- NULL
       for(i in which(indNA)){
         xneworder <- cbind(x[, i, drop=FALSE], x[, -i, drop=FALSE]) 
         rv <- variation(x, robust = FALSE)[1,]
@@ -156,7 +169,7 @@
           colnames(xilr)[1] <- "Y"
           call <- call(method, formula = Y ~ .)
           # perform cross-validation
-          cve[np] <- suppressWarnings(cvFit(call, data = xilr, y = xilr$Y, cost = rtmspe,
+          cve[np] <- suppressWarnings(cvFit(call, data = xilr, y = xilr$Y, cost = cvTools::rtmspe,
                     K = 5, R = 1, costArgs = list(trim = 0.1), seed = 1234)$cv)
         }
         nPred[i] <- which.min(cve)
@@ -349,6 +362,9 @@
 
 #' @rdname imputeBDLs
 #' @export
+#' @param xImp imputed data set
+#' @param xOrig original data set
+#' @param wind index matrix of rounded zeros
 adjustImputed <- function(xImp, xOrig, wind){
   ## aim: 
   ## (1) ratios must be preserved
@@ -459,8 +475,9 @@ adjustImputed <- function(xImp, xOrig, wind){
 #' @rdname imputeBDLs
 #' @method print replaced  
 #' @export
+#' @param ... further arguments passed through the print function
 print.replaced <- function(x, ...){
-  message(paste("\n", sum(w), "values below detection limit were imputed \n below their corresponding detection limits.\n"))
+  message(paste("\n", sum(x$w), "values below detection limit were imputed \n below their corresponding detection limits.\n"))
 }
 
 #' Bootstrap to find optimal number of components
@@ -472,7 +489,7 @@ print.replaced <- function(x, ...){
 #' 
 #' @param X predictors as a matrix
 #' @param y response
-#' @param R number of bootstrap samples
+#' @param R number of bootstrap replicates
 #' @param plotting if TRUE, a diagnostic plot is drawn for each bootstrap
 #' replicate
 #' @return Including other information in a list, the optimal number of
@@ -480,11 +497,12 @@ print.replaced <- function(x, ...){
 #' @author Matthias Templ
 #' @seealso \code{\link{impRZilr}}
 #' @keywords manip
+#' @export
 #' @examples
 #' 
 #' ## we refer to impRZilr()
 #' 
-bootnComp <- function(X,y, R=99, plotting=FALSE){
+bootnComp <- function(X, y, R=99, plotting=FALSE){
   ind <- 1:nrow(X)
   d <- matrix(, ncol=R, nrow=nrow(X))#nrow(X))
   nc <- integer(R)

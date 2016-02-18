@@ -47,6 +47,14 @@ both compositional parts. The ilr-transformation is then internally applied
 to each group independently whenever the \code{mult_comp} is set correctly.
 }
 \examples{
+<<<<<<< HEAD
+=======
+
+data(expenditures)
+p1 <- pcaCoDa(expenditures)
+p1
+plot(p1)
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 
 data(arcticLake)
 

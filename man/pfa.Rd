@@ -80,8 +80,11 @@ res1 <- pfa(x, factors=1, covmat="covMcd")
 res2 <- pfa(x, factors=1, covmat=covMcd(isomLR(x))$cov)
 res3 <- pfa(x, factors=1, covmat=covMcd(isomLR(x)))
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 }
 \author{
 Peter Filzmoser, Karel Hron, Matthias Templ

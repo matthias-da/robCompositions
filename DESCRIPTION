@@ -1,19 +1,18 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 2.0.2
-Date: 2015-09-18
+Version: 2.0.1
+Date: 2016-02-11
 Depends:
     R (>= 2.10),
-    cvTools,
     robustbase,
     ggplot2,
     data.table,
     pls
 Imports:
-    classifly,
     e1071,
     rrcov,
+    cvTools,
     GGally,
     MASS,
     sROC,
@@ -36,4 +35,8 @@ Description: Methods for analysis of compositional data including robust
 License: GPL-2
 LazyLoad: yes
 LazyData: true
+<<<<<<< HEAD
 RoxygenNote: 5.0.1
+=======
+RoxygenNote: 5.0.1
+>>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7

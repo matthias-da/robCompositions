@@ -23,7 +23,7 @@ to each pattern.} \item{rsum}{the number of zeros or missing values in each
 row of the data set}
 }
 \description{
-Analysis of the missing or zero patterns structure of a data set.
+Analysis of the missing or the zero patterns structure of a data set.
 }
 \details{
 Here, one pattern defines those observations that have the same structure

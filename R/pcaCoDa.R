@@ -21,13 +21,15 @@
 #' @param method either \dQuote{robust} (default) or \dQuote{classical}
 #' @param mult_comp a list of numeric vectors holding the indices of linked
 #' compositions
-#' @param external specify external non-compositional variables
+#' @param external external non-compositional variables
 #' @return \item{scores }{scores in clr space} \item{loadings }{loadings in clr
 #' space} \item{eigenvalues }{eigenvalues of the clr covariance matrix}
 #' \item{method }{method} \item{princompOutputClr }{output of \code{princomp}
 #' needed in \code{plot.pcaCoDa}}
 #' @author K. Hron, P. Filzmoser, M. Templ
 #' @seealso \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
+#' @importFrom stats princomp
+#' @seealso \code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 #' Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 #' \bold{20}, 621-632.
@@ -70,7 +72,7 @@ pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
     xilr <- do.call("cbind",lapply(mult_comp,function(xx)ilrV(x[,xx])))
   }
   if(!is.null(external)){
-    xilr <- cbind(xilr, external)
+    xilr <- cbind(xilr, x[,external])
   }
   if( method == "robust"){
     cv <- robustbase::covMcd(xilr, cor=FALSE)
@@ -86,7 +88,7 @@ pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
   }
   # construct orthonormal basis
   if(is.null(mult_comp)){
-    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external))
+    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external)-1)
     for( i in 1:ncol(V) ){
       V[1:i,i] <- 1/i
       V[i+1,i] <- (-1)
