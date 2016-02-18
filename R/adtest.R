@@ -56,7 +56,7 @@
 adtest=function(x, R=1000, locscatt="standard") {   
 	#DNAME <- deparse(substitute(x))	
 	if( R < 1 ) stop("choose a higher value for R")
-	if( R < 50 ) warnings("maybe, the estimation of the p-value(s) is not accurate; choose a higher value for R")
+	if( R < 50 ) warning("maybe, the estimation of the p-value(s) is not accurate; choose a higher value for R")
 	cv <- function(x, type) {
 		classical <- function(x){
 			if( (length(dim(x)) < 1) | is.vector(x) ){

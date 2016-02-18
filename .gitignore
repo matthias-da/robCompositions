@@ -10,3 +10,4 @@ man/*
 *.log
 .project
 .Rproj.user
+packrat/lib*/

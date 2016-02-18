@@ -39,6 +39,7 @@
 #' 
 #' 
 isomLR <- function(x, fast=FALSE){
+  if(any(is.na(x)) | any(x <= 0)) warning("Data contains missing values, negative values, or zeros")
 	x.ilr=matrix(NA,nrow=nrow(x),ncol=ncol(x)-1)
 	D=ncol(x)
         if(fast){

@@ -16,17 +16,18 @@
 #' both compositional parts. The ilr-transformation is then internally applied
 #' to each group independently whenever the \code{mult_comp} is set correctly.
 #' 
-#' @aliases pcaCoDa print.pcaCoDa
+#' @aliases pcaCoDa print.pcaCoDa 
 #' @param x compositional data
-#' @param method either \dQuote{robust} (default) or \dQuote{standard}
+#' @param method either \dQuote{robust} (default) or \dQuote{classical}
 #' @param mult_comp a list of numeric vectors holding the indices of linked
 #' compositions
+#' @param external specify external non-compositional variables
 #' @return \item{scores }{scores in clr space} \item{loadings }{loadings in clr
 #' space} \item{eigenvalues }{eigenvalues of the clr covariance matrix}
 #' \item{method }{method} \item{princompOutputClr }{output of \code{princomp}
 #' needed in \code{plot.pcaCoDa}}
 #' @author K. Hron, P. Filzmoser, M. Templ
-#' @seealso \code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
+#' @seealso \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 #' Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 #' \bold{20}, 621-632.
@@ -35,15 +36,24 @@
 #' @importFrom MASS cov.mve
 #' @examples
 #' 
-#' data(expenditures)
-#' p1 <- pcaCoDa(expenditures)
-#' p1
-#' plot(p1)
+#' data(arcticLake)
 #' 
-#' ## just for illustration how to set the mult_comp argument
+#' ## robust estimation (default):
+#' res.rob <- pcaCoDa(arcticLake)
+#' res.rob
+#' summary(res.rob)
+#' plot(res.rob)
+#' 
+#' ## classical estimation:
+#' res.cla <- pcaCoDa(arcticLake, method="classical")
+#' biplot(res.cla)
+#' 
+#' ## just for illustration how to set the mult_comp argument:
+#' data(expenditures)
 #' p1 <- pcaCoDa(expenditures, mult_comp=list(c(1,2,3),c(4,5)))
 #' p1
-pcaCoDa <- function(x, method="robust",mult_comp=NULL){
+
+pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
   
   # Closure problem with ilr transformation
   ilrV <- function(x){
@@ -58,7 +68,10 @@ pcaCoDa <- function(x, method="robust",mult_comp=NULL){
     xilr <- ilrV(x)
   }else{
     xilr <- do.call("cbind",lapply(mult_comp,function(xx)ilrV(x[,xx])))
-  }		
+  }
+  if(!is.null(external)){
+    xilr <- cbind(xilr, external)
+  }
   if( method == "robust"){
     cv <- robustbase::covMcd(xilr, cor=FALSE)
     pcaIlr <- suppressWarnings(princomp(xilr, covmat=cv, cor=FALSE))
@@ -73,7 +86,7 @@ pcaCoDa <- function(x, method="robust",mult_comp=NULL){
   }
   # construct orthonormal basis
   if(is.null(mult_comp)){
-    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-1)
+    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external))
     for( i in 1:ncol(V) ){
       V[1:i,i] <- 1/i
       V[i+1,i] <- (-1)
@@ -137,4 +150,13 @@ print.pcaCoDa <- function(x, ...){
   cat("\n Percentages of explained variability for compositional data after clr transformation \n")
   print(eVcum)
   cat("\n-------------------\n\n")	
+}
+
+#' @rdname pcaCoDa
+#' @method summary pcaCoDa
+#' @export
+
+summary.pcaCoDa <- function(object, ...){
+    stopifnot(inherits(object, "pcaCoDa"))
+    summary(object$princompOutputClr)
 }
