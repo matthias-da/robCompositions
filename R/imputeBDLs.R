@@ -210,7 +210,7 @@
         if(test) phi <- -isomLRp(forphi)[,1] else phi <- isomLR(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         xneworder[xneworder < 2*.Machine$double.eps] <- 2*.Machine$double.eps
-        if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(isomLRp(xneworder))
+        if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(isomLR(xneworder))
 #        c1 <- colnames(xilr)[1]					
 #        colnames(xilr)[1] <- "V1"	
         response <- as.matrix(xilr[, 1, drop=FALSE])
@@ -233,6 +233,7 @@
         
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
+        yhat <- as.numeric(yhat)
         ex <- (phi - yhat)/s 
         if(correction=="normal"){
           yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
@@ -310,7 +311,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinvp(xilr) 
+        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinv(xilr) 
         ## reordering of xOrig
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])

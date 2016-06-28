@@ -1,21 +1,39 @@
 require("robCompositions")
 require("MASS")
 require("robustbase")
-crnorm <- function(n, mu, Sigma){ 
-  constSum(data.frame(exp(mvrnorm(n, mu, Sigma))))
+genVarsSimple <- function(n=200, p=50, k=3){
+  T <- matrix(rnorm(n*k,0,1), ncol=k)
+  #  B <- matrix(rnorm(p*k,0,0.1), ncol=k)
+  B <- matrix(runif(p*k,-1,1), ncol=k)
+  X <- T %*% t(B)
+  E <-  matrix(rnorm(n*p, 0,0.1), ncol=p)
+  XE <- X + E
+  XE <- isomLRinv(XE)
+  return(constSum(XE))  
 }
-sigGen <- function(p, d){
-  x <- diag(p)
-  x[upper.tri(x)] <- x[lower.tri(x)] <- d
-  x
-}
+
+# 
+# crnorm <- function(n, mu, Sigma){ 
+#   constSum(data.frame(exp(mvrnorm(n, mu, Sigma))))
+# }
+# sigGen <- function(p, d){
+#   x <- diag(p)
+#   x[upper.tri(x)] <- x[lower.tri(x)] <- d
+#   x
+# }
 set.seed(1234)
-x <- crnorm(50, rep(10,10), Sigma=sigGen(10,0.9))
-x <- xOrig <- x+rnorm(ncol(x)*nrow(x), 10, 1)
-lim <- quantile(as.numeric(as.matrix(x)), 0.05)
-x[x < lim] <- 0
-w <- x==0
-dl <- rep(lim, ncol(x))
+# x <- crnorm(50, rep(10,10), Sigma=sigGen(10,0.9))
+# x <- xOrig <- x+rnorm(ncol(x)*nrow(x), 10, 1)
+x <- xOrig <- data.frame(genVarsSimple(50, k=3, p=12))
+
+xOrig <- x
+lim <- apply(x, 2, quantile, 0.05)
+for(i in 1:ncol(x)){
+  x[x[,i] < lim[i],i] <- 0
+}
+xOrig[1,1] <- xOrig[2,2] <- xOrig[3,1] <- 0.00001
+x[1,1] <- x[2,2] <- x[3,1] <- 0
+
 
 res01 <- imputeBDLs(x, dl=dl, method="pls", variation = FALSE, verbose = TRUE)
 res02 <- imputeBDLs(x, dl=dl, method="lm", variation = TRUE, verbose = TRUE)
