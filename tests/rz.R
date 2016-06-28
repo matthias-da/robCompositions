@@ -1,6 +1,6 @@
-require(robCompositions)
-require(MASS)
-require(robustbase)
+require("robCompositions")
+require("MASS")
+require("robustbase")
 crnorm <- function(n, mu, Sigma){ 
   constSum(data.frame(exp(mvrnorm(n, mu, Sigma))))
 }
@@ -11,11 +11,17 @@ sigGen <- function(p, d){
 }
 set.seed(1234)
 x <- crnorm(50, rep(10,10), Sigma=sigGen(10,0.9))
-x <- x+rnorm(ncol(x)*nrow(x), 10, 1)
+x <- xOrig <- x+rnorm(ncol(x)*nrow(x), 10, 1)
 lim <- quantile(as.numeric(as.matrix(x)), 0.05)
 x[x < lim] <- 0
 w <- x==0
 dl <- rep(lim, ncol(x))
+
+res01 <- imputeBDLs(x, dl=dl, method="pls", variation = FALSE, verbose = TRUE)
+res02 <- imputeBDLs(x, dl=dl, method="lm", variation = TRUE, verbose = TRUE)
+res01b <- imputeBDLs(x, dl=dl, method="pls", variation = FALSE, verbose = TRUE, test = TRUE)
+res02b <- imputeBDLs(x, dl=dl, method="lm", variation = TRUE, verbose = TRUE, test = TRUE)
+
 
 res1 <- impRZilr(x, dl=dl, method="lm")
 res2 <- impRZilr(x, dl=dl, method="MM")
@@ -23,10 +29,14 @@ res3 <- impRZilr(x, dl=dl, method="pls", nComp="boot", verbose=TRUE)
 res4 <- impRZilr(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE)
 
 epsilon <- 55*.Machine$double.eps
-if(any(!c(isTRUE(is.logical((x[1,3]/x[1,4] - res1$x[1,3]/res1$x[1,4]) < epsilon)),
-isTRUE(is.logical((x[1,3]/x[1,4] - res2$x[1,3]/res2$x[1,4]) < epsilon)),
-isTRUE(is.logical((x[1,3]/x[1,4] - res3$x[1,3]/res3$x[1,4]) < epsilon)),
-isTRUE(is.logical((x[1,3]/x[1,4] - res4$x[1,3]/res4$x[1,4]) < epsilon))))){
+if(any(!c(
+  isTRUE(is.logical((x[1,3]/x[1,4] - res1$x[1,3]/res1$x[1,4]) < epsilon)),
+  isTRUE(is.logical((x[1,3]/x[1,4] - res2$x[1,3]/res2$x[1,4]) < epsilon)),
+  isTRUE(is.logical((x[1,3]/x[1,4] - res3$x[1,3]/res3$x[1,4]) < epsilon)),
+  isTRUE(is.logical((x[1,3]/x[1,4] - res4$x[1,3]/res4$x[1,4]) < epsilon)),
+  isTRUE(is.logical((x[1,3]/x[1,4] - res01$x[1,3]/res01$x[1,4]) < epsilon)),
+  isTRUE(is.logical((x[1,3]/x[1,4] - res02$x[1,3]/res01$x[1,4]) < epsilon))
+))){
   stop("ratios are not preserved.")
 }
 
@@ -45,31 +55,121 @@ check1 <- function(x, w, dl){
   invisible(res)
 }
 
-if(all(!c(check1(res1$x, w, dl=dl),
-check1(res2$x, w, dl=dl),
-check1(res3$x, w, dl=dl),
-check1(res4$x, w, dl=dl)))){
-  stop("one method imputed above detection limit")
+if(all(!c(
+  check1(res1$x, w, dl=dl),
+  check1(res2$x, w, dl=dl),
+  check1(res3$x, w, dl=dl),
+  check1(res4$x, w, dl=dl),
+  check1(res01$x, w, dl=dl),
+  check1(res02$x, w, dl=dl)
+  ))){
+    stop("one method imputed above detection limit")
 }
+
+### quality
+require("matrixcalc")
+rdcm <- function(x, y){
+  ocov <- cov(isomLR(x))
+  rcov <- cov(isomLR(y))
+  return(frobenius.norm(ocov-rcov)/frobenius.norm(ocov))
+}
+
+ced <- function(x, y, ni){
+  return(aDist(x, y)/ni)
+}
+
+ni <- sum(x == 0)
+
+ced(res01$x, xOrig, ni = ni)
+ced(res02$x, xOrig, ni = ni)
+ced(res01b$x, xOrig, ni = ni)
+ced(res02b$x, xOrig, ni = ni)
+ced(res1$x, xOrig, ni = ni)
+ced(res2$x, xOrig, ni = ni)
+ced(res3$x, xOrig, ni = ni)
+ced(res4$x, xOrig, ni = ni)
+rdcm(res01$x, xOrig)
+rdcm(res02$x, xOrig)
+rdcm(res01b$x, xOrig)
+rdcm(res02b$x, xOrig)
+rdcm(res1$x, xOrig)
+rdcm(res2$x, xOrig)
+rdcm(res3$x, xOrig)
+rdcm(res4$x, xOrig)
+
+## compare with zCompositions:
+require("zCompositions")
+resz1 <- multRepl(x, label = 0, dl = dl)
+zm1 <- ced(resz1, xOrig, ni = ni)
+zm1
+zm2 <- rdcm(resz1, xOrig)
+zm2
+zm1 > ced(res01$x, xOrig, ni = ni)
+zm1 > ced(res02$x, xOrig, ni = ni)
+zm2 > rdcm(res01$x, xOrig)
+zm2 > rdcm(res02$x, xOrig)
+
 
 ## HD data:
 set.seed(1234)
-x <- crnorm(50, rep(10,60), Sigma=sigGen(60,0.9))
+x <- xOrig <- crnorm(50, rep(10,60), Sigma=sigGen(60,0.9))
 lim <- 0.01
 x[x < lim] <- 0
 w <- x==0
 dl <- rep(lim, ncol(x))
 
-resHD1 <- impRZilr(x, dl=dl, method="pls", nComp="boot", verbose=TRUE)
-resHD2 <- impRZilr(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE, maxit=2)
+resHD01 <- imputeBDLs(x, dl=dl, method="pls", nComp="boot", verbose=TRUE, variation = FALSE, maxit=5)
+resHD02 <- imputeBDLs(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE, , maxit=5, variation = FALSE)
+resHD01var <- imputeBDLs(x, dl=dl, method="lm", nComp="boot", verbose=TRUE, variation = TRUE, maxit=5)
+resHD01b <- imputeBDLs(x, dl=dl, method="pls", nComp="boot", verbose=TRUE, variation = FALSE, test=TRUE, maxit=5)
+resHD02b <- imputeBDLs(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE, maxit=5, variation = FALSE, test=TRUE)
+resHD01bvar <- imputeBDLs(x, dl=dl, method="lm", nComp="boot", verbose=TRUE, variation = TRUE, test=TRUE, maxit=5)
 
 
-data(arcticLake)
-x <- arcticLake
-## generate rounded zeros artificially:
-x[x[,1] < 10, 1] <- 0
-xia <- impRZilr(x, dl=c(10,44,0), eps=0.01, method="MM")
-xia$x
+resHD1 <- impRZilr(x, dl=dl, method="pls", nComp="boot", verbose=TRUE, maxit=5)
+resHD2 <- impRZilr(x, dl=dl, method="pls", nComp=rep(5,ncol(x)), verbose=TRUE, maxit=5)
+
+ni <- sum(x == 0)
+
+ced(resHD01$x, xOrig, ni = ni)
+ced(resHD02$x, xOrig, ni = ni)
+ced(resHD01var$x, xOrig, ni = ni)
+ced(resHD01b$x, xOrig, ni = ni)
+ced(resHD02b$x, xOrig, ni = ni)
+ced(resHD01bvar$x, xOrig, ni = ni)
+ced(resHD1$x, xOrig, ni = ni)
+ced(resHD2$x, xOrig, ni = ni)
+
+rdcm(resHD01$x, xOrig)
+rdcm(resHD02$x, xOrig)
+rdcm(resHD01var$x, xOrig)
+rdcm(resHD01b$x, xOrig)
+rdcm(resHD02b$x, xOrig)
+rdcm(resHD01bvar$x, xOrig)
+rdcm(resHD1$x, xOrig)
+rdcm(resHD2$x, xOrig)
+
+## compare with zCompositions:
+require("zCompositions")
+resz1 <- multRepl(x, label = 0, dl = dl)
+zm1 <- ced(resz1, xOrig, ni = ni)
+zm1
+zm2 <- rdcm(resz1, xOrig)
+zm2
+zm1 > ced(resHD01$x, xOrig, ni = ni)
+zm1 > ced(resHD02$x, xOrig, ni = ni)
+zm2 > rdcm(resHD01$x, xOrig)
+zm2 > rdcm(resHD02$x, xOrig)
+
+
+# 
+# 
+# data(arcticLake)
+# x <- arcticLake
+# ## generate rounded zeros artificially:
+# x[x[,1] < 10, 1] <- 0
+# xia <- impRZilr(x, dl=c(10,44,0), eps=0.01, method="MM")
+# xia$x
 
 
 #data(expenditures)
