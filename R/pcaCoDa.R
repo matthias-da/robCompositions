@@ -56,10 +56,13 @@
 #' 
 #' ## example with external variables:
 #' data(election)
+#' # transform external variables
+#' election$unemployment <- log((election$unemployment/100)/(1-election$unemployment/100))
+#' election$income <- scale(ext$income)
 #' 
-#' res <- pcaCoDa(election[, 1:6], method=robust, external=election[,7:8])
+#' res <- pcaCoDa(election[,1:6], method="classical", external=election[,7:8])
 #' res
-#' biplot(res)
+#' biplot(res, scale=0)
 
 pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
  
