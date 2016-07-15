@@ -74,7 +74,7 @@
            dl=rep(0.05, ncol(x)), variation=TRUE,	nPred=NULL, 
            nComp = "boot", bruteforce=FALSE,  
            noisemethod="residuals", noise=FALSE, R=10, 
-           correction="normal", verbose=FALSE){
+           correction="normal", verbose=FALSE, test = FALSE){
       
     ## check if data are fine
     checkData(x, dl)
@@ -165,7 +165,7 @@
           s <- sort(rv)[np]
           cols <- which(rv <= s)[1:np]
           xn <- xneworder[, cols]
-          xilr <- data.frame(isomLR(xn))
+          if(test) xilr <- data.frame(isomLRp(xn)) else xilr <- data.frame(isomLR(xn))
           colnames(xilr)[1] <- "Y"
           call <- call(method, formula = Y ~ .)
           # perform cross-validation
@@ -207,10 +207,10 @@
         ## detection limit in ilr-space
         forphi <- cbind(rep(dlordered[i], n), xneworder[,-1,drop=FALSE])
         if(any(is.na(forphi))) break()
-        phi <- isomLR(forphi)[,1] 
+        if(test) phi <- -isomLRp(forphi)[,1] else phi <- isomLR(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         xneworder[xneworder < 2*.Machine$double.eps] <- 2*.Machine$double.eps
-        xilr <- data.frame(isomLR(xneworder))
+        if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(isomLR(xneworder))
 #        c1 <- colnames(xilr)[1]					
 #        colnames(xilr)[1] <- "V1"	
         response <- as.matrix(xilr[, 1, drop=FALSE])
@@ -233,6 +233,7 @@
         
         #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
         s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
+        yhat <- as.numeric(yhat)
         ex <- (phi - yhat)/s 
         if(correction=="normal"){
           yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
@@ -248,7 +249,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        xinv <- isomLRinv(xilr)
+        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinv(xilr)
         ## if variation:
         if(variation == TRUE){
           xneworder <- adjustImputed(xinv, xneworder, w2[, cols])
@@ -310,7 +311,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        xinv <- isomLRinv(xilr)
+        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinv(xilr) 
         ## reordering of xOrig
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])

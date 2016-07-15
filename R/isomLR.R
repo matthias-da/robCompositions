@@ -8,7 +8,7 @@
 #' remaining parts is separated. It is useful for estimating missing values in
 #' \eqn{x_1} by regression of the remaining variables.
 #' 
-#' @aliases isomLR isomLRinv
+#' @aliases isomLR isomLRinv isomLRp isomLRinvp
 #' @param x object of class data.frame or matrix. Positive values only for isomLR().
 #' @param fast if TRUE, it is approx. 10 times faster but numerical problems in case of 
 #' high-dimensional data may occur.
@@ -39,8 +39,7 @@
 #' 
 #' 
 isomLR <- function(x, fast=FALSE){
-  if(any(is.na(x)) | any(x <= 0)) warning("Data contains missing values, negative values, or zeros")
-	x.ilr=matrix(NA,nrow=nrow(x),ncol=ncol(x)-1)
+  x.ilr <- matrix(NA,nrow=nrow(x),ncol=ncol(x)-1)
 	D=ncol(x)
         if(fast){
 	  for (i in 1:ncol(x.ilr)){
@@ -50,8 +49,9 @@ isomLR <- function(x, fast=FALSE){
   	  for (i in 1:ncol(x.ilr)){
 #		x.ilr[,i]=sqrt((D-i)/(D-i+1))*log(((apply(as.matrix(x[,(i+1):D,drop=FALSE]),1,prod))^(1/(D-i)))/(x[,i]))
 		x.ilr[,i]=sqrt((D-i)/(D-i+1))*log(apply(as.matrix(x[,(i+1):D]), 1, gm)/(x[,i]))	
-	  } 
+  	  } 
 	}
+	if(is.data.frame(x)) x.ilr <- data.frame(x.ilr)
 	return(-x.ilr)
 }
 #' @rdname isomLR
@@ -71,6 +71,45 @@ isomLRinv <- function(x){
   }
   yexp=exp(y)
   x.back=yexp/apply(yexp,1,sum) # * rowSums(derOriginaldaten)
+  if(is.data.frame(x)) x.back <- data.frame(x.back)
+  return(x.back)
+  #return(yexp)
+}
+#' @rdname isomLR
+#' @export
+isomLRp <- function(x, fast=FALSE){
+  x.ilr <- matrix(NA,nrow=nrow(x),ncol=ncol(x)-1)
+  D=ncol(x)
+  if(fast){
+    for (i in 1:ncol(x.ilr)){
+      x.ilr[,i]=sqrt((D-i)/(D-i+1))*log(((apply(as.matrix(x[,(i+1):D,drop=FALSE]),1,prod))^(1/(D-i)))/(x[,i]))
+    }
+  } else {
+    for (i in 1:ncol(x.ilr)){
+      #		x.ilr[,i]=sqrt((D-i)/(D-i+1))*log(((apply(as.matrix(x[,(i+1):D,drop=FALSE]),1,prod))^(1/(D-i)))/(x[,i]))
+      x.ilr[,i]=sqrt((D-i)/(D-i+1))*log(apply(as.matrix(x[,(i+1):D]), 1, gm)/(x[,i]))	
+    } 
+  }
+  if(is.data.frame(x)) x.ilr <- data.frame(x.ilr)
+  return(x.ilr)
+}
+#' @rdname isomLR
+#' @export
+isomLRinvp <- function(x){
+  y=matrix(0,nrow=nrow(x),ncol=ncol(x)+1)
+  D=ncol(x)+1
+  y[,1]=-sqrt((D-1)/D)*x[,1]
+  for (i in 2:ncol(y)){
+    for (j in 1:(i-1)){
+      y[,i]=y[,i]+x[,j]/sqrt((D-j+1)*(D-j))
+    }
+  }
+  for (i in 2:(ncol(y)-1)){
+    y[,i]=y[,i]-sqrt((D-i)/(D-i+1))*x[,i]
+  }
+  yexp=exp(y)
+  x.back=yexp/apply(yexp,1,sum) # * rowSums(derOriginaldaten)
+  if(is.data.frame(x)) x.back <- data.frame(x.back)
   return(x.back)
   #return(yexp)
 }

@@ -3,11 +3,17 @@
 \name{isomLR}
 \alias{isomLR}
 \alias{isomLRinv}
+\alias{isomLRinvp}
+\alias{isomLRp}
 \title{Isometric log-ratio transformation}
 \usage{
 isomLR(x, fast = FALSE)
 
 isomLRinv(x)
+
+isomLRp(x, fast = FALSE)
+
+isomLRinvp(x)
 }
 \arguments{
 \item{x}{object of class data.frame or matrix. Positive values only for isomLR().}
