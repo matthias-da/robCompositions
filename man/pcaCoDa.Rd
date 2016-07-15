@@ -6,7 +6,7 @@
 \alias{summary.pcaCoDa}
 \title{Robust principal component analysis for compositional data}
 \usage{
-pcaCoDa(x, method = "robust", mult_comp = NULL)
+pcaCoDa(x, method = "robust", mult_comp = NULL, external = NULL)
 
 \method{print}{pcaCoDa}(x, ...)
 
@@ -19,6 +19,8 @@ pcaCoDa(x, method = "robust", mult_comp = NULL)
 
 \item{mult_comp}{a list of numeric vectors holding the indices of linked
 compositions}
+
+\item{external}{external non-compositional variables}
 
 \item{...}{additional parameters for print method passed through}
 }
@@ -47,14 +49,6 @@ both compositional parts. The ilr-transformation is then internally applied
 to each group independently whenever the \code{mult_comp} is set correctly.
 }
 \examples{
-<<<<<<< HEAD
-=======
-
-data(expenditures)
-p1 <- pcaCoDa(expenditures)
-p1
-plot(p1)
->>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 
 data(arcticLake)
 
@@ -83,6 +77,8 @@ Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 }
 \seealso{
 \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
+
+\code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 }
 \keyword{multivariate}
 

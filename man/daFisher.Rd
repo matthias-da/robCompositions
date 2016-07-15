@@ -72,13 +72,8 @@ summary(d2)
 predict(d2)
 
 ## example with olive data:
-<<<<<<< HEAD
-require(classifly)
-data(olives)
-=======
 \dontrun{
 data(olives, package = "classifly")
->>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 # exclude zeros (alternatively impute them if 
 # the detection limit is known using impRZilr())
 ind <- which(olives==0, arr.ind = TRUE)[,1]

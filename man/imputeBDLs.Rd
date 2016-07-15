@@ -86,13 +86,8 @@ imputed, the algorithm starts again until the imputations do not change.
 }
 \examples{
 
-<<<<<<< HEAD
-data(arcticLake)
-x <- arcticLake
-=======
 data(mcad)
 \dontrun{
->>>>>>> 8ce88895abd7120a0559f3fd03eb5e631151e6a7
 ## generate rounded zeros artificially:
 x <- x[1:25, 2:ncol(x)]
 dl <- apply(x, 2, quantile, 0.1)
