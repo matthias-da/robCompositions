@@ -18,7 +18,7 @@
 #' 
 #' @aliases pcaCoDa print.pcaCoDa 
 #' @param x compositional data
-#' @param method either \dQuote{robust} (default) or \dQuote{classical}
+#' @param method must be either \dQuote{robust} (default) or \dQuote{classical}
 #' @param mult_comp a list of numeric vectors holding the indices of linked
 #' compositions
 #' @param external external non-compositional variables
@@ -29,7 +29,6 @@
 #' @author K. Hron, P. Filzmoser, M. Templ
 #' @seealso \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @importFrom stats princomp
-#' @seealso \code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 #' Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 #' \bold{20}, 621-632.
@@ -54,8 +53,20 @@
 #' data(expenditures)
 #' p1 <- pcaCoDa(expenditures, mult_comp=list(c(1,2,3),c(4,5)))
 #' p1
+#' 
+#' ## example with external variables:
+#' data(election)
+#' 
+#' res <- pcaCoDa(election[, 1:6], method=robust, external=election[,7:8])
+#' res
+#' biplot(res)
 
 pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
+ 
+  if(is.vector(external) & length(external)!=nrow(x)){ 
+      stop("external and x must have the same number of observations")
+  }
+  if(!is.null(mult_comp) & !is.list(mult_comp)) stop("if specified, mult_comp must be a list")
   
   # Closure problem with ilr transformation
   ilrV <- function(x){
@@ -72,7 +83,7 @@ pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
     xilr <- do.call("cbind",lapply(mult_comp,function(xx)ilrV(x[,xx])))
   }
   if(!is.null(external)){
-    xilr <- cbind(xilr, x[,external])
+    xilr <- cbind(xilr, external)
   }
   if( method == "robust"){
     cv <- robustbase::covMcd(xilr, cor=FALSE)
@@ -88,7 +99,8 @@ pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
   }
   # construct orthonormal basis
   if(is.null(mult_comp)){
-    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external)-1)
+    #V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external)-1)
+    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-1)
     for( i in 1:ncol(V) ){
       V[1:i,i] <- 1/i
       V[i+1,i] <- (-1)
@@ -114,18 +126,25 @@ pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
   }
   
  
-  
-  
   # robust ilr result - back-transformed to clr-space
-  
-  loadings <- V %*% pcaIlr$loadings	
+  if(!is.null(external)){
+    nload <- nrow(pcaIlr$loadings)
+    if(dim(external)[2] < 2) index <- 1
+    else index <- ncol(external)
+    loadings <- V %*% pcaIlr$loadings[-c((nload-index+1):nload),] # transform without external loadings
+    loadings <- rbind(loadings, pcaIlr$loadings[(nload-index+1):nload,]) 
+  }
+  else{
+    loadings <- V %*% pcaIlr$loadings
+  }
   if(is.null(mult_comp)){
-    if(!is.null(names(x))) dimnames(loadings)[[1]] <- names(x)
+    if(!is.null(names(x)) & !is.null(external)) dimnames(loadings)[[1]] <- c(names(x), names(external))
+    else if(!is.null(names(x))) dimnames(loadings)[[1]] <- names(x)
   }else{
     if(!is.null(names(x))) dimnames(loadings)[[1]] <- colnames(x)[unlist(mult_comp)]
   }
   pcaClr <- pcaIlr
-#	pcaClr$scores <- pcaIlr$scores %*% t(V)
+#  pcaClr$scores <- pcaIlr$scores %*% t(V)
   pcaClr$scores <- pcaIlr$scores 
   pcaClr$loadings <- loadings
   

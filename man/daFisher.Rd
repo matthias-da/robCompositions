@@ -24,7 +24,7 @@ observation.}
 
 \item{coda}{TRUE, when the underlying data are compositions.}
 
-\item{method}{\dQuote{classical} or \dQuote{robust}}
+\item{method}{\dQuote{classical} or \dQuote{robust} estimation.}
 
 \item{plotScore}{TRUE, if the scores should be plotted automatically.}
 

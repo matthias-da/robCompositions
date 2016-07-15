@@ -15,7 +15,7 @@ pcaCoDa(x, method = "robust", mult_comp = NULL, external = NULL)
 \arguments{
 \item{x}{compositional data}
 
-\item{method}{either \dQuote{robust} (default) or \dQuote{classical}}
+\item{method}{must be either \dQuote{robust} (default) or \dQuote{classical}}
 
 \item{mult_comp}{a list of numeric vectors holding the indices of linked
 compositions}
@@ -66,6 +66,13 @@ biplot(res.cla)
 data(expenditures)
 p1 <- pcaCoDa(expenditures, mult_comp=list(c(1,2,3),c(4,5)))
 p1
+
+## example with external variables:
+data(election)
+
+res <- pcaCoDa(election[, 1:6], method=robust, external=election[,7:8])
+res
+biplot(res)
 }
 \author{
 K. Hron, P. Filzmoser, M. Templ
@@ -77,8 +84,6 @@ Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 }
 \seealso{
 \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
-
-\code{\link{print.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 }
 \keyword{multivariate}
 

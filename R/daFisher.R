@@ -22,7 +22,7 @@
 #' @param grp grouping variable: a factor specifying the class for each
 #' observation.
 #' @param coda TRUE, when the underlying data are compositions.
-#' @param method \dQuote{classical} or \dQuote{robust}
+#' @param method \dQuote{classical} or \dQuote{robust} estimation.
 #' @param plotScore TRUE, if the scores should be plotted automatically.
 #' @param ... additional arguments for the print method passed through
 #' @importFrom e1071 matchClasses
@@ -43,7 +43,7 @@
 #' Series B, 10:159-203.
 #' @keywords multivariate
 #' @export
-#' @import rrcov
+#' @import rrcov MASS
 #' @examples
 #' ## toy data (non-compositional)
 #' require(MASS)
@@ -88,7 +88,7 @@
 #' predict(res)
 #' }
 daFisher <- function(x, grp, coda=TRUE,
-                   method = "classical", 
+                   method = "classical",
                    plotScore = FALSE){
   ## some checks
   if(class(x) == "data.frame") x <- as.matrix(x)
@@ -126,18 +126,19 @@ daFisher <- function(x, grp, coda=TRUE,
       #   }
     }
   }
+  
   meanov <- t(t(meanj)*pj)
   B <- matrix(0,p,p)
   W <- matrix(0,p,p)
   for (j in 1:g){
     B <- B+pj[j]*((meanj-meanov)%*%t(meanj-meanov))
-#    W <- W+pj[j]*cov(x[grp==glev[j],])
+#   W <- W+pj[j]*cov(x[grp==glev[j],])
     W <- W+pj[j]*cv[[j]]
   }
   l <- min(g-1,p) # use this number of components
   #V=matrix(Re(eigen(solve(W)%*%B)$vec)[,1:l],ncol=l)
   #V=t(t(V)/(sqrt(diag(t(V)%*%W%*%V))))
-  
+    
   # besser:
   B.svd <- svd(B)
   B12 <- B.svd$u[,1:l]%*%diag(sqrt(B.svd$d[1:l]))%*%t(B.svd$u[,1:l])
@@ -145,8 +146,8 @@ daFisher <- function(x, grp, coda=TRUE,
   K <- eigen(B12%*%solve(W)%*%B12)
   Vs <- Bm12%*%K$vec[,1:l]
   V <- t(t(Vs)/(sqrt(diag(t(Vs)%*%W%*%Vs))))
-  
-  
+    
+    
   # Fisher scores
   fs=matrix(NA,nrow=n,ncol=g)
   for (j in 1:g){
@@ -154,18 +155,19 @@ daFisher <- function(x, grp, coda=TRUE,
     xproj <- xc%*%V
     fs[,j] <- sqrt(apply(xproj^2,1,sum)-2*log(pj[j]))
   }
-  
+    
   ## predition:
   grppred <- apply(fs, 1, which.min)
-  
+    
   ## misclassification rate:
   mc <- table(grp, grppred)
   mc <- mc[, matchClasses(mc, method = "exact")]
   rate <- 1 - sum(diag(mc)) / sum(mc)
-  
+    
   ## plot scores (if TRUE)
   if(plotScore){
-    proj <- xc %*%V [,1:2]
+    #proj <- xc %*%V [,1:2]
+    proj <- fs[,1:2]
     proj <- data.frame(proj)
     proj$grp <- as.factor(grp)
     proj$grppred <- as.factor(grppred)
@@ -176,20 +178,23 @@ daFisher <- function(x, grp, coda=TRUE,
     gg <- gg + geom_point()
     gg <- gg + xlab("first fisher scores") + ylab("second fisher scores")
     print(gg)
-#    plot(, col=grp, pch=grppred, 
-#         xlab="first fisher scores", ylab="second fisher scores")
+    #    plot(, col=grp, pch=grppred, 
+    #         xlab="first fisher scores", ylab="second fisher scores")
   }
-  
+    
   res <- list(B = B, 
               W = W,
               loadings = V,
               scores = fs,#classification=postgroup, 
-            #  mu=muil, 
-            #  sigma=sigil,
+              #  mu=muil, 
+              #  sigma=sigil,
               mc = mc,
               mcrate =  rate,
-              coda=coda)
+              coda=coda,
+              grp=grp, grppred=grppred, xc=xc)
   class(res) <- "daFisher"
+
+  
   res
 }
 
@@ -332,4 +337,3 @@ summary.daFisher <- function(object, ...){
   print(object$mc)
   cat("\n--------------------------------------\n")
 }
-
