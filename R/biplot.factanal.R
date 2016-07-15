@@ -21,22 +21,9 @@
 #' @method biplot factanal
 #' @examples
 #' 
-#' data(expenditures)
-#' p1 <- pcaCoDa(expenditures)
-#' p1
-#' biplot(p1)
-#' 
-#' 
-#' ## with labels for the scores:
-#' data(arcticLake)
-#' rownames(arcticLake) <- paste(sample(letters[1:26],nrow(arcticLake), replace=TRUE), 
-#'                               1:nrow(arcticLake), sep="")
-#' pc <- pcaCoDa(arcticLake, method="standard")
-#' plot(pc, xlabs=rownames(arcticLake))
-#' 
 #' 
 biplot.factanal <- function(x, ...){
-  if(is.null(x$scores)) warning("no scores computed")
+  if(is.null(x$scores)) stop("no scores computed")
   beschx <- if(x$robust) "Factor1 (clr-robust)" else "Factor1 (clr-classical)"
   beschy <- if(x$robust) "Factor2 (clr-robust)" else "Factor2 (clr-classical)"
   biplot(x$scores, x$loadings, xlab=beschx, ylab=beschy, ...)

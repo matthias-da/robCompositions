@@ -203,6 +203,7 @@ function (x, factors, robust=TRUE, data = NULL, covmat = NULL, n.obs = NA,
 	  fit$PVAL <- pchisq(fit$STATISTIC, dof, lower.tail = FALSE)
 	}
 	fit$n.obs <- n.obs
+	fit$robust <- robust
 	fit$call <- cl
 	fit
 }
