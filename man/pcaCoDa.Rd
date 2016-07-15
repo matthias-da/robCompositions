@@ -71,7 +71,7 @@ p1
 data(election)
 # transform external variables
 election$unemployment <- log((election$unemployment/100)/(1-election$unemployment/100))
-election$income <- scale(ext$income)
+election$income <- scale(election$income)
 
 res <- pcaCoDa(election[,1:6], method="classical", external=election[,7:8])
 res
