@@ -207,7 +207,7 @@
         ## detection limit in ilr-space
         forphi <- cbind(rep(dlordered[i], n), xneworder[,-1,drop=FALSE])
         if(any(is.na(forphi))) break()
-        if(test) phi <- -isomLRp(forphi)[,1] else phi <- isomLR(forphi)[,1] 
+        if(test) phi <- isomLRp(forphi)[,1] else phi <- isomLR(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         xneworder[xneworder < 2*.Machine$double.eps] <- 2*.Machine$double.eps
         if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(isomLR(xneworder))

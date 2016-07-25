@@ -1,23 +1,23 @@
 #' Aitchison distance
 #' 
-#' Computes the Aitchison distance between two observations or between two data
-#' sets.
+#' Computes the Aitchison distance between two observations, between two data
+#' sets or within observations of one data set.
 #' 
 #' This distance measure accounts for the relative scale property of the
 #' Aitchison distance. It measures the distance between two compositions if
-#' \code{x} and \code{y} are vectors and evaluate sum of the distances between
+#' \code{x} and \code{y} are vectors. It evaluates the sum of the distances between
 #' \code{x} and \code{y} for each row of \code{x} and \code{y} if \code{x} and
-#' \code{y} are matrices or data frames.
+#' \code{y} are matrices or data frames. It computes a n times n distance matrix (with n
+#' the number of observations/compositions) if only \code{x} is provided.
 #' 
-#' It is to compare two matrices.
 #' 
-#' The underlying code is written in C and allows a fast computation also for
-#' large data sets.
+#' The underlying code is partly written in C and allows a fast computation also for
+#' large data sets whenever \code{y} is supplied.
 #' 
 #' @param x a vector, matrix or data.frame
-#' @param y a vector, matrix or data.frame with equal dimension as \code{x}
+#' @param y a vector, matrix or data.frame with equal dimension as \code{x} or NULL.
 #' @return The Aitchison distance between two compositions or between two data
-#' sets.
+#' sets, or a distance matrix in case code{y} is not supplied.
 #' @author Matthias Templ, Bernhard Meindl
 #' @export
 #' @useDynLib robCompositions
@@ -42,6 +42,10 @@
 #' ## Aitchison distance between the first 2 observations:
 #' aDist(x[,1], x[,2])
 #' 
+#' ## Aitchison distance of x:
+#' aDist(x)
+#' 
+#' ## Example of distances between matrices:
 #' ## set some missing values:
 #' x[1,3] <- x[3,5] <- x[2,4] <- x[5,3] <- x[8,3] <- NA
 #' 
@@ -52,14 +56,15 @@
 #' aDist(xOrig, xImp)
 #' 
 `aDist` <-
-  function(x, y){
-      if(is.vector(x)) x <- matrix(x, ncol=length(x))
+  function(x, y = NULL){
+    n <- dim(x)[1]
+    p <- D <- dim(x)[2]
+    if(!is.null(y)){
+    if(is.vector(x)) x <- matrix(x, ncol=length(x))
 	  if(is.vector(y)) y <- matrix(y, ncol=length(y))	  
 	  
 	  matOrig <- as.numeric(t(x))
 	  matImp <- as.numeric(t(y))
-	  n <- dim(x)[1]
-	  p <- dim(x)[2]
 	  dims <- as.integer(c(n, p))
 	  rowDists <-  as.numeric(rep(0.0, n))
 	  distance <- as.numeric(0.0)
@@ -71,6 +76,17 @@
 				  distance,
 				  PACKAGE="robCompositions", NUOK=TRUE
 		  )[[5]]
+    } else {
+      out <- matrix(, ncol = n, nrow = n)
+      for(i in 1:(n-1)){
+        for(j in (i+1):n){
+          out[i, j] <- out[j, i] <- 
+            1 / D * sum(log(x[i, 2:(D-1)] / x[i, 2:D]) * 
+                          log(x[j, 2:(D-1)] / x[j, 2:D]))
+        }
+      }
+      diag(out) <- 0
+    }
 	  return(out)
 }	  
 	  
