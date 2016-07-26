@@ -1,3 +1,31 @@
+#' alcohol 
+#' 
+#' Alcohol consumptions by country and type of alcohol
+#'
+#' \itemize{
+#'  \item{\code{country }}{Country}
+#'  \item{\code{year }}{Year}
+#'  \item{\code{beer }}{Consumption of pure alcohol on beer (in percentages)}
+#'  \item{\code{wine }}{Consumption of pure alcohol on wine (in percentages)}
+#'  \item{\code{spirits }}{Consumption of pure alcohol on spirits (in percentages)}
+#'  \item{\code{other }}{Consumption of pure alcohol on other beverages (in percentages)}
+#' }
+#'
+#' @name alcohol
+#' @docType data
+#' @usage data(alcohol)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source Transfered from the World Health Organisation website. 
+#' @format A data frame with 193 rows and 6 variables
+#' @keywords data
+#' @examples 
+#' 
+#' data("alcohol")
+#' str(alcohol)
+#' summary(alcohol)
+NULL
+
+
 #' Production 
 #' 
 #' Production splitted by nationality on enterprise level
