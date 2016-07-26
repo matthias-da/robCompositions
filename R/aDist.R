@@ -59,6 +59,7 @@
   function(x, y = NULL){
     n <- dim(x)[1]
     p <- D <- dim(x)[2]
+    rn <- rownames(x)
     if(!is.null(y)){
     if(is.vector(x)) x <- matrix(x, ncol=length(x))
 	  if(is.vector(y)) y <- matrix(y, ncol=length(y))	  
@@ -86,6 +87,7 @@
         }
       }
       diag(out) <- 0
+      rownames(out) <- colnames(out) <- rn
     }
 	  return(out)
 }	  

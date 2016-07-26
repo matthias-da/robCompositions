@@ -1,3 +1,29 @@
+#' alcoholreg 
+#' 
+#' Regional alcohol per capita (15+) consumption by WHO region
+#'
+#' \itemize{
+#'  \item{\code{country }}{Country}
+#'  \item{\code{year }}{Year}
+#'  \item{\code{recorded }}{Recorded alcohol consumption}
+#'  \item{\code{unrecorded }}{Unrecorded alcohol consumption}
+#' }
+#'
+#' @name alcoholreg
+#' @docType data
+#' @usage data(alcoholreg)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source Transfered from the World Health Organisation website. 
+#' @format A data frame with 6 rows and 4 variables
+#' @keywords data
+#' @examples 
+#' 
+#' data("alcoholreg")
+#' alcoholreg
+NULL
+
+
+
 #' alcohol 
 #' 
 #' Alcohol consumptions by country and type of alcohol
