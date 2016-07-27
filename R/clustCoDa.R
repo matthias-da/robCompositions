@@ -1,22 +1,73 @@
-
-
+#' Cluster analysis for compositional data
+#' 
+#' Clustering in orthonormal coordinates or by using the Aitchison distance
+#' 
+#' The compositional data set is either internally represented by orthonormal coordiantes
+#' before a cluster algorithm is applied, or - depending on the 
+#' choice of parameters -  the Aitchison distance is used.
+#' 
+#' @aliases clustCoDa plot.clustCoDa 
+#' @param x compositional data represented as a data.frame
+#' @param number of clusters
+#' @param method clustering method. One of Mclust, cmeans, kmeansHartigan,
+#' cmeansUfcl, pam, clara, fanny, kccaKmeans, kccaKmedians, kccaAngle,
+#' Ward, hclustSingle, hclustComplete, hclustAverage, hclustWard, hclustMcquitty,
+#' hclustMedian, hclustcentroid
+#' @return all relevant information such as cluster centers, cluster memberships, and
+#' cluster statistics.
+#' @author Matthias Templ (accessing the basic features of hclust, Mclust, kcca or kmeans that 
+#' are all written by others)
+#' @export
+#' @references Templ, Filzmoser, Reimann (2008) 
+#' \emph{Cluster analysis applied to regional geochemical data: Problems and possibilities"}, 
+#' Applied Geochemistry, 23 (2008), pages 2198 - 2213.
+#' 
+#' @keywords multivariate
+#' @importFrom stats hclust
+#' @importFrom stats kmeans
+#' @importFrom mclust Mclust
+#' @examples
+#' \dontrun{
+#' data("chorizon") # from package mvoutlier
+#' x <- chorizon[1:50, 101:110]
+#' 
+#' rr <- clustCoDa(x, k=6, scale = "robust", transformation = "isomLR")
+#' rr2 <- clustCoDa(x, k=6, distMethod = "Aitchison", scale = "none", 
+#'                  transformation = "identity")
+#' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "hclustSingle",
+#'                  transformation = "identity", scale = "none")
+#' plot(rr2, normalized = FALSE)
+#' plot(rr)
+#' }
 clustCoDa <- function(x, k=NULL, method="Mclust",
           scale = "robust", transformation = "isomLR",
-          distMethod=NULL, qtclustsize=0.7, 
-          iter.max=100, eps=0.1, vals = TRUE, 
-          alt = NULL, coord=NULL, bic=NULL, verbose = TRUE){
-  if( method == "fixmahal" && vals == TRUE ){
-    stop("vals are not available with method fixmahal")
-  }
-  partitioning <- c("Mclust")
-  agglomerative <- c("Ward")
+          distMethod=NULL, iter.max=100, vals = TRUE, 
+          alt = NULL, bic=NULL, verbose = TRUE){
+  
+  partitioning <- c("Mclust","cmeans","cshell","kmeansHartigan",
+                    "kmeansLloyd","kmeansForgy","kmeansMacQueen",
+                    "cmeansUfcl","pam","klara","fanny","blust",
+                    "kccaKmeans","kccaKmedians","kccaAngle",
+                    "speccRbfdot","speccVanilladot",
+                    "speccTanhdot","speccLaplacedot","speccBesseldot",
+                    "speccAnovadot","speccSplinedot")
+  agglomerative <- c("Ward","hclustSingle","hclustComplete","hclustAverage",
+                     "hclustWard","hclustMcquitty","hclustMedian",
+                     "hclustcentroid")
   if(is.null(k) & method %in% partitioning) stop("provide the number of clusters")
   if(!is.null(distMethod)){
     if(distMethod == "Aitchison" & transformation %in% c("isomLR", "cenLR")) {
       stop("either apply a \nlog-ratio transformation or the Aitchison distance, \nnot both")
     }
   }
-  if(is.null(distMethod)) distMethod = "euclidean"
+  if(is.null(distMethod) & !(transformation %in% c("isomLR", "cenLR"))) { 
+     distMethod <- "Aitchison"
+     message("Aitchison distance is used for the calculation\n of the distance matrix")
+  }
+  if(is.null(distMethod) & transformation %in% c("isomLR", "cenLR")) {
+    distMethod <- "euclidean"
+  }
+  
   ## prepare
   "prepare" <- function(x, scaling="classical", transformation="cenLR"){
       ## ---------------------------------------------------------------------------
@@ -49,7 +100,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
         mean(x)
       }
       robust2 <- function(x){ scale(x, center=apply(x, 3, onestep)) }
-      nonescale <- function(x){ x }
+      nonescale <- none <- identity <- function(x){ x }
       ### transformation:
       logarithm <- function(x){ log(x) }
       boxcox <- function(x, powers){ box.cox(x, powers) }
@@ -57,7 +108,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
         b <- box.cox.powers(x)$lambda
         box.cox(x, b)
       }
-      nonetrans <- function(x){ x }
+      nonetrans <- identity <- none <- function(x){ x }
       logcentered <- function(x){ 
         xgeom=10^apply(log10(x),1,mean)
         x2=x/xgeom
@@ -69,29 +120,29 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
   }
   xOrig <- x
   x <- prepare(x, scale, transformation)
-#   
+  
 #   vp <- FALSE    # varplot information
-  if( distMethod == "rf" ){
-    cat("\n *** calculating random forest proximity measure...\n")
-    flush.console()
-    d <- sqrt( 1 - randomForest(x, proximity=TRUE)$proximity)
-  }
   if( distMethod == "correlation" ){
-    d <- 1 - abs(cor(t(x)))
+    d <- 1 - abs(cor(x))
+  }
+  if( distMethod == "variation" ){
+    d <- variation(x)
   }
   if( distMethod == "robustCorrelation" ){
-    d <- 1 - abs(covMcd(t(x), cor=TRUE)$cor)
+    d <- 1 - abs(covMcd(x, cor=TRUE)$cor)
   }  
-  if( any(distMethod == c("gower", "bray", "kulczynski", "chord")) ) d <- gdist(x, method = distMethod)
-  if( any(distMethod == c("morisita", "horn", "mountford")) ) d <- vegdist(x, method = distMethod)   
-  menge1 <- c("gower", "bray", "kulczynski", "chord")
-  menge2 <- c("morisita", "horn", "mountford")
-  ##menge2 <- c(menge1, "euclidean", "rf", "cosadist")
-  menge3 <- c("maximum", "canberra","euclidean", "manhattan")
-  if(distMethod == "Aitchison") d <- aDist(x)
-  if( any(distMethod == menge3) ) d <- dist(x, method = distMethod )
-  if( any(distMethod == menge1) ) d <- gdist(x, method=distMethod)
-  if( any(distMethod == menge2) ) d <- vegdist(x, method=distMethod)  
+#  if( any(distMethod == c("gower", "bray", "kulczynski", "chord")) ) d <- gdist(x, method = distMethod)
+#  if( any(distMethod == c("morisita", "horn", "mountford")) ) d <- vegdist(x, method = distMethod)   
+#  menge1 <- c("gower", "bray", "kulczynski", "chord")
+#  menge2 <- c("morisita", "horn", "mountford")
+#  ##menge2 <- c(menge1, "euclidean", "rf", "cosadist")
+#  menge3 <- c("maximum", "canberra","euclidean", "manhattan")
+  if(distMethod == "Aitchison") d <- as.dist(aDist(x))
+  if(distMethod == "euclidean" | distMethod == "Euclidean") d <- dist(x)
+  if(distMethod == "manhattan" | distMethod == "Manhattan") d <- dist(x, mmethod = "manhattan")
+#  if( any(distMethod == menge3) ) d <- dist(x, method = distMethod )
+#  if( any(distMethod == menge1) ) d <- gdist(x, method=distMethod)
+#  if( any(distMethod == menge2) ) d <- vegdist(x, method=distMethod)  
   
   
   findCenter <- function(x, clustering, k){
@@ -181,12 +232,6 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
   if( method == "kccaAngle" ){
     a <- kcca(as.matrix(d), k, family=kccaFamily("angle"))
   }
-  if( method == "kccaJaccard" ){
-    a <- kcca(as.matrix(d), k, family=kccaFamily("jaccard"))
-  }
-  if( method == "kccaEjaccard" ){
-    a <- kcca(as.matrix(d), k, family=kccaFamily("ejaccard"))
-  }
   if( substr(method, 1, 4) == "kcca"){
     clust$cluster <- a@cluster
     clust$center <- a@centers
@@ -255,10 +300,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
   }
   if( vals == FALSE ) clust.val <- m <- NA
   if( vals == TRUE && length(alt) > 1){
-    if( length(coord) == 0 ){
-      clust.val <- cluster.stats(dist(x), clust$cluster, as.numeric(alt))
-    } else { clust.val <- cluster.stats(dist(coord), clust$cluster, as.numeric(alt)) }
-    
+    clust.val <- cluster.stats(as.dist(d), clust$cluster, as.numeric(alt))
     m <- data.frame( average.between = round(clust.val$average.between, 3), 
                      average.within = round(clust.val$average.within, 3),
                      avg.silwidth = round(clust.val$avg.silwidth, 3), 
@@ -270,9 +312,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     
   }
   if( vals == TRUE && length(alt) == 0){
-    if( length(coord) == 0 ){
-      clust.val <- cluster.stats(dist(x), clust$cluster)
-    } else { clust.val <- cluster.stats(dist(coord), clust$cluster) }
+    clust.val <- cluster.stats(as.dist(d), clust$cluster)
     m <- data.frame( average.between = round(clust.val$average.between, 3), 
                      average.within = round(clust.val$average.within, 3),
                      avg.silwidth = round(clust.val$avg.silwidth, 3), 
@@ -315,174 +355,208 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     #clust$bics <- clust$bics
     #clust$vp <- vp
   }
+  if(distMethod != "Aitchison" & transformation == "isomLR"){
+    gms <- apply(x, 2, gm)
+    clust$centerSimplex <- isomLRinv(clust$center)
+    gmsc <- apply(clust$centerSimplex, 2, gm)
+    di <- gms/gmsc
+    for(i in 1:nrow(clust$centerSimplex)){
+      clust$centerSimplex[, i] <- clust$centerSimplex[, i] * di[i]
+    }
+    colnames(clust$centerSimplex) <- colnames(xOrig)
+  }
+  clust$transformation <- transformation
+  clust$scaling <- scale
   class(clust) <- "clust"
   colnames(clust$center) <- colnames(x)
-  class(clust) <- "clust"
+  class(clust) <- "clustCoDa"
   if(verbose) cat("\n finished\n")
   invisible(clust)
 }
 
-"plot.clust" <-
-  function(x, y, ..., which = 2, val = "silwidths"){
-    #coord, clust, k, val="silwidths", which.plot=c(1,2), Map="kola.background", texth=0.75){
-    k <- x$k
-    if(k < 13){r1 <- 3;r2 <- 4}
-    if(k < 10){r1 <- 3;r2 <- 3}
-    if(k < 7){r1 <- 2;r2 <- 3}
-    if(k < 5){r1 <- 2;r2 <- 2}
-    if(k < 3){r1 <- 1;r2 <- 2}
-    if( which.plot == 1 ){   
-      par(mfrow=c(r1,r2),pty="s",xaxt="n", yaxt="n", mar=c(0,0,0,0), omi=c(0,0,0.3,0),
-          bg="white", fg="black")
-      
-      if( any( clust$method == c("cmeans", "cmeansUfcl")) ){
-        ###g <- rep(0, 10)
-        ###grey.col <- rep(0, 10)
-        ###for( j in 1:10){
-        ###  g[j] <- 2 * j / (10 * k)
-        ###  grey.col[j] <- 1 - (j / 10)
-        ###}
-        for(i in 1:k){
-          plot(coord, col=0, xlab="",ylab="")
-          text(x=800000, y= 7870000, length(which(clust$cluster==i)))
-          #title(paste(xname,"-",methodname,"cluster",i))
-          ###for(j in 1:10){
-          ###  points(coord[clust$mem[,i] > g[j], ],pch=15,col=gray(grey.col[j]))
-          ### }
-          points(coord, pch=15, col=gray(1-clust$mem[,i]))
-          if( Map == "kola.background" ) plotKola.background(which.map=c(1,2,3,4),map.col=c(5,"grey","grey","grey"),map.lwd=c(1,1,1,1),
-                                                             add.plot=TRUE)
-        }
-        #  legend( x=800000, y= 8000000, legend=g, col=c(gray(grey.col[1]), gray(grey.col[2]), gray(grey.col[3]), gray(grey.col[4]),
-        #        gray(grey.col[5]), gray(grey.col[6]), gray(grey.col[7]), gray(grey.col[8]), gray(grey.col[9]), gray(grey.col[10])),
-        #        pch=rep(15, 10) )
-        vp1 <- viewport(x=0.5,y=0.5, w=1,height=1)
-        pushViewport(vp1)
-        if( clust$method != "Mclust" ){
-          grid.text(x=0.5,y=0.98,
-                    label=paste(clust$method, clust$distMethod, paste(names(clust$xdata), collapse=""), "Memberships" ))
-        } else if( clust$method == "Mclust" ){     grid.text(x=0.5,y=0.98,
-                                                             label=paste(clust$method, paste(names(clust$xdata), collapse=""), "Memberships" ))
-        }
-        popViewport()
-        X11()
-      }
-      #X11()
-      par(mfrow=c(r1,r2),pty="s",xaxt="n", yaxt="n", mar=c(0,0,0,0), omi=c(0,0,0.3,0),
-          bg="white", fg="black")
-      
-      ###untere <- vals + abs(min(vals))+0.05
-      ###fac1 <- 1/abs(max(untere))
-      ###grays <- gray(1 - untere*fac1)
-      if( all( vals > 0 ) ){
-        grays <- gray(1 - vals/max(vals))
-      } else {
-        v <- vals
-        v <- scale(vals)
-        v <- v+abs(min(v))+0.05
-        v2 <- 1 - v/max(v)
-        v2[v2 > 0.9] <- 0.9
-        grays <- gray(v2)
-      }
-      for(i in 1:k){
-        plot(coord, col=gray(0.95), xlab="", ylab="means", pch=15)
-        if( Map == "kola.background" ) plotKola.background(which.map=c(1,2,3,4),map.col=c(5,"grey","grey","grey"),map.lwd=c(1,1,1,1),
-                                                           add.plot=TRUE)
-        if(length(val) > 0){
-          points(coord[clust$cluster==i,], pch=15, col=grays[i])
-        } else { points(coord[clust$cluster==i,], pch=15, col=4) }
-        text(x=800000, y= 7850000, paste("obs =",length(which(clust$cluster==i))))
-        text(x=720000, y= 7890000, paste(val, "=", round(vals[i],2)))
-        text(x=373951, y=7882172, i, cex=1.3)
-      }
-      vp1 <- viewport(x=0.5,y=0.5, w=1,height=1)
-      pushViewport(vp1)
-      if(clust$method != "Mclust"){
-        #grid.text(x=0.5,y=0.98,
-        #  label=paste(clust$method, clust$distMethod, paste(names(clust$xdata), collapse=""), val ))
-        grid.text(x=0.5,y=0.965,
-                  label=clust$method, gp=gpar(cex=1.3))     
-      } else if( clust$method == "Mclust" ){
-        #grid.text(x=0.5,y=0.98,
-        #  label=paste(clust$method, paste(names(clust$xdata), collapse=""), val ))
-        grid.text(x=0.5,y=0.965,
-                  label="Mclust", gp=gpar(cex=1.3))
-      }
-      popViewport()
-      pushViewport(vp1)
-      if(clust$method != "Mclust"){
-        #grid.text(x=0.5,y=0.98,
-        #  label=paste(clust$method, clust$distMethod, paste(names(clust$xdata), collapse=""), val ))
-        grid.text(x=0.5,y=0.965,
-                  label=clust$method, gp=gpar(cex=1.3))     
-      } else if( clust$method == "Mclust" ){
-        #grid.text(x=0.5,y=0.98,
-        #  label=paste(clust$method, paste(names(clust$xdata), collapse=""), val ))
-        grid.text(x=0.5,y=0.965,
-                  label="Mclust", gp=gpar(cex=1.3))
-      }
-      popViewport()
+#' @rdname clustCoDa
+#' @export
+#' @method plot clustCoDa
+#' @param ... additional parameters for print method passed through
+#' @param which.plot currently the only plot. Plot of cluster centers.
+plot.clustCoDa <- function(x, y, ..., which.plot = "clusterMeans"){
+  if(which.plot == "clusterMeans"){
+    if(x$transformation != "isomLR"){
+      centers <- as.data.frame(x$center)
+    } else {
+      centers <- as.data.frame(x$centerSimplex)       
     }
-    if( clust$vp == FALSE ) cat("\n --------- \n *** Note:\n elementplot is useless and not printed, \n because distances are used for clustering \n and not the data itself \n --------- \n")
-    if( clust$vp == TRUE ){ yes <- TRUE } else { yes <- FALSE }
-    if( all(which.plot==c(1,2)) && yes == TRUE ){ X11() }
-    if( (all(which.plot==c(1,2)) && yes == TRUE) || (yes==TRUE & which.plot==2) ){
-      ##cent <- matrix(clust$centers,ncol=k,byrow=T)
-      # names of the variables
-      rnam <- colnames(clust$center)
-      # p ... Anzahl der Variablen
-      # k ... Anzahl der Cluster
-      p <- dim(clust$center)[2]
-      #name=""
-      for(j in 1:p){
-        rnam[j] <- substring(rnam[j],1,2)
-      }
-      #######rownames(clust$centers) <- rnam
-      ma <- max(abs(clust$center))
-      # create the plot
-      par(mfrow=c(1,1),cex=1,cex.axis=1,cex.lab=1.5,xaxt="s",yaxt="s")
-      plot(clust$center[,1],type="n",xlim=range(0,1),ylim=range(-ma-0.3,ma+0.3),
-           ylab="cluster means",xlab="", xaxt="n")
-      segments(0, 0, 1, 0)
-      #segments(0, 0.5, 1, 0.5, lty = 2)
-      #segments(0, -0.5, 1, -0.5, lty = 2)
-      if( clust$method == "Mclust" ){  } else{
-        title(paste(clust$method, ",", clust$distMethod)) }
-      bb <- c(0,1)
-      bb1 <- bb/k
-      ba <- seq(from = bb1[1], by = bb1[2])
-      ba1 <- ba[2]/20
-      ba2 <- c(0,ba1)
-      segments(0,-ma,0,ma)
-      for(i in 1:(k+1)){
-        segments(ba[i],-ma,ba[i],ma)
-      }
-      # create weights
-      weight <- 0
-      for(i in 1:k){
-        weight[i] <- clust$size[i]
-      }
-      sumweight <- sum(as.numeric(weight))
-      # text
-      for(j in 1:k){
-        text(seq(from=ba[j]+ba[2]/p,to=ba[j+1]-ba[2]/p,
-                 by=(ba[j+1]-ba[j]-2*ba[2]/p)/(p-1)), clust$center[j,], rnam,
-             col="black",cex=texth)
-        text(ba[j]+ba[2]/2,(ma+0.1)*(-1),paste(j,sep=""),col="black",cex=1.3)
-        text(ba[j]+ba[2]/2,ma+0.3,paste(as.numeric(weight[j], sep="")),
-             #substring(as.numeric(weight[j])/sumweight,1,4),sep=""),
-             col=1,cex=1.2)
-      }
-      mtext("Number of observations for each cluster", cex=1.3)
-      mtext("Cluster number", side=1, cex=1.3)
-    }
+    #      if( normalized ) centers <- scale(centers)
+    #centers <- cbind("cluster" = rep(1:nrow(x$center), ncol(x$center)), centers)
+    centers <- cbind("cluster" = 1:nrow(x$center), centers)
+    centers <- melt(centers, id = "cluster")
+    colnames(centers) <- c("cluster", "variable", "center")
+    centers <- centers[!centers$variable == "cluster", ]
+    ggplot(centers, aes(x=cluster, y=center)) + geom_bar(stat = "identity") +
+      facet_wrap(~variable)
   }
+}
+
+# "plot.clust" <-
+#   function(x, y, ..., which.plot = 2, val = "silwidths", coordinates = NULL){
+#     #coord, clust, k, val="silwidths", which.plot=c(1,2), Map="kola.background", texth=0.75){
+#     k <- x$k
+#     if(is.null(coordinates)) coordinates <- x$coord
+#     if(is.null(coordinates) & which.plot == 1){
+#       stop("\n no coordinates/geographical information are/is provided.")
+#     } 
+#     if(k < 13){r1 <- 3;r2 <- 4}
+#     if(k < 10){r1 <- 3;r2 <- 3}
+#     if(k < 7){r1 <- 2;r2 <- 3}
+#     if(k < 5){r1 <- 2;r2 <- 2}
+#     if(k < 3){r1 <- 1;r2 <- 2}
+#     if( which.plot == 1 & !is.null(coordinates)){   
+#       par(mfrow=c(r1,r2), pty="s", xaxt="n", yaxt="n", mar=c(0,0,0,0), 
+#           omi=c(0,0,0.3,0), bg="white", fg="black")
+#       
+#       if( any( x$method == c("cmeans", "cmeansUfcl", "fanny")) ){
+#         ###g <- rep(0, 10)
+#         ###grey.col <- rep(0, 10)
+#         ###for( j in 1:10){
+#         ###  g[j] <- 2 * j / (10 * k)
+#         ###  grey.col[j] <- 1 - (j / 10)
+#         ###}
+#         for(i in 1:k){
+#           plot(coord, col=0, xlab="", ylab="")
+#           text(x=800000, y=7870000, length(which(x$cluster==i)))
+#           #title(paste(xname,"-",methodname,"cluster",i))
+#           ###for(j in 1:10){
+#           ###  points(coord[x$mem[,i] > g[j], ],pch=15,col=gray(grey.col[j]))
+#           ### }
+#           points(coord, pch=15, col=gray(1 - x$mem[,i]))
+# #          if( Map == "kola.background" ) plotKola.background(which.map=c(1,2,3,4),map.col=c(5,"grey","grey","grey"),map.lwd=c(1,1,1,1),
+# #                                                             add.plot=TRUE)
+#         }
+#         #  legend( x=800000, y= 8000000, legend=g, col=c(gray(grey.col[1]), gray(grey.col[2]), gray(grey.col[3]), gray(grey.col[4]),
+#         #        gray(grey.col[5]), gray(grey.col[6]), gray(grey.col[7]), gray(grey.col[8]), gray(grey.col[9]), gray(grey.col[10])),
+#         #        pch=rep(15, 10) )
+#         vp1 <- viewport(x=0.5,y=0.5, w=1,height=1)
+#         pushViewport(vp1)
+#         if( x$method != "Mclust" ){
+#           grid.text(x=0.5,y=0.98,
+#                     label=paste(x$method, x$distMethod, paste(names(x$xdata), 
+#                                             collapse=""), "Memberships" ))
+#         } else if( x$method == "Mclust" ){  grid.text(x=0.5,y=0.98,
+#                                                              label=paste(x$method, paste(names(x$xdata), collapse=""), "Memberships" ))
+#         }
+#         popViewport()
+#         X11()
+#       }
+#       #X11()
+#       par(mfrow=c(r1,r2),pty="s",xaxt="n", yaxt="n", mar=c(0,0,0,0), omi=c(0,0,0.3,0),
+#           bg="white", fg="black")
+#       
+#       ###untere <- vals + abs(min(vals))+0.05
+#       ###fac1 <- 1/abs(max(untere))
+#       ###grays <- gray(1 - untere*fac1)
+#       if( all( vals > 0 ) ){
+#         grays <- gray(1 - vals/max(vals))
+#       } else {
+#         v <- vals
+#         v <- scale(vals)
+#         v <- v+abs(min(v))+0.05
+#         v2 <- 1 - v/max(v)
+#         v2[v2 > 0.9] <- 0.9
+#         grays <- gray(v2)
+#       }
+#       for(i in 1:k){
+#         plot(coord, col=gray(0.95), xlab="", ylab="means", pch=15)
+#         if( Map == "kola.background" ) plotKola.background(which.map=c(1,2,3,4),map.col=c(5,"grey","grey","grey"),map.lwd=c(1,1,1,1),
+#                                                            add.plot=TRUE)
+#         if(length(val) > 0){
+#           points(coord[x$cluster==i,], pch=15, col=grays[i])
+#         } else { points(coord[x$cluster==i,], pch=15, col=4) }
+#         text(x=800000, y= 7850000, paste("obs =",length(which(x$cluster==i))))
+#         text(x=720000, y= 7890000, paste(val, "=", round(vals[i],2)))
+#         text(x=373951, y=7882172, i, cex=1.3)
+#       }
+#       vp1 <- viewport(x=0.5,y=0.5, w=1,height=1)
+#       pushViewport(vp1)
+#       if(x$method != "Mclust"){
+#         #grid.text(x=0.5,y=0.98,
+#         #  label=paste(x$method, x$distMethod, paste(names(x$xdata), collapse=""), val ))
+#         grid.text(x=0.5,y=0.965,
+#                   label=x$method, gp=gpar(cex=1.3))     
+#       } else if( x$method == "Mclust" ){
+#         #grid.text(x=0.5,y=0.98,
+#         #  label=paste(x$method, paste(names(x$xdata), collapse=""), val ))
+#         grid.text(x=0.5,y=0.965,
+#                   label="Mclust", gp=gpar(cex=1.3))
+#       }
+#       popViewport()
+#       pushViewport(vp1)
+#       if(x$method != "Mclust"){
+#         #grid.text(x=0.5,y=0.98,
+#         #  label=paste(x$method, x$distMethod, paste(names(x$xdata), collapse=""), val ))
+#         grid.text(x=0.5,y=0.965,
+#                   label=x$method, gp=gpar(cex=1.3))     
+#       } else if( x$method == "Mclust" ){
+#         #grid.text(x=0.5,y=0.98,
+#         #  label=paste(x$method, paste(names(x$xdata), collapse=""), val ))
+#         grid.text(x=0.5,y=0.965,
+#                   label="Mclust", gp=gpar(cex=1.3))
+#       }
+#       popViewport()
+#     }
+#     if( x$vp == FALSE ) cat("\n --------- \n *** Note:\n elementplot is useless and not printed, \n because distances are used for clustering \n and not the data itself \n --------- \n")
+#     if( x$vp == TRUE ){ yes <- TRUE } else { yes <- FALSE }
+#     if( all(which.plot==c(1,2)) && yes == TRUE ){ X11() }
+#     if( (all(which.plot==c(1,2)) && yes == TRUE) || (yes==TRUE & which.plot==2) ){
+#       ##cent <- matrix(x$centers,ncol=k,byrow=T)
+#       # names of the variables
+#       rnam <- colnames(x$center)
+#       # p ... Anzahl der Variablen
+#       # k ... Anzahl der Cluster
+#       p <- dim(x$center)[2]
+#       #name=""
+#       for(j in 1:p){
+#         rnam[j] <- substring(rnam[j],1,2)
+#       }
+#       #######rownames(x$centers) <- rnam
+#       ma <- max(abs(x$center))
+#       # create the plot
+#       par(mfrow=c(1,1),cex=1,cex.axis=1,cex.lab=1.5,xaxt="s",yaxt="s")
+#       plot(x$center[,1],type="n",xlim=range(0,1),ylim=range(-ma-0.3,ma+0.3),
+#            ylab="cluster means",xlab="", xaxt="n")
+#       segments(0, 0, 1, 0)
+#       #segments(0, 0.5, 1, 0.5, lty = 2)
+#       #segments(0, -0.5, 1, -0.5, lty = 2)
+#       if( x$method == "Mclust" ){  } else{
+#         title(paste(x$method, ",", x$distMethod)) }
+#       bb <- c(0,1)
+#       bb1 <- bb/k
+#       ba <- seq(from = bb1[1], by = bb1[2])
+#       ba1 <- ba[2]/20
+#       ba2 <- c(0,ba1)
+#       segments(0,-ma,0,ma)
+#       for(i in 1:(k+1)){
+#         segments(ba[i],-ma,ba[i],ma)
+#       }
+#       # create weights
+#       weight <- 0
+#       for(i in 1:k){
+#         weight[i] <- x$size[i]
+#       }
+#       sumweight <- sum(as.numeric(weight))
+#       # text
+#       for(j in 1:k){
+#         text(seq(from=ba[j]+ba[2]/p,to=ba[j+1]-ba[2]/p,
+#                  by=(ba[j+1]-ba[j]-2*ba[2]/p)/(p-1)), x$center[j,], rnam,
+#              col="black",cex=texth)
+#         text(ba[j]+ba[2]/2,(ma+0.1)*(-1),paste(j,sep=""),col="black",cex=1.3)
+#         text(ba[j]+ba[2]/2,ma+0.3,paste(as.numeric(weight[j], sep="")),
+#              #substring(as.numeric(weight[j])/sumweight,1,4),sep=""),
+#              col=1,cex=1.2)
+#       }
+#       mtext("Number of observations for each cluster", cex=1.3)
+#       mtext("Cluster number", side=1, cex=1.3)
+#     }
 
 
-library(mclust)
-library("mvoutlier")
-library(robCompositions)
-data("chorizon")
-x <- chorizon[1:50, 101:110]
 
-rr <- clustCoDa(x, k=6)
+
