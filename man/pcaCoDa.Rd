@@ -84,6 +84,10 @@ K. Hron, P. Filzmoser, M. Templ
 Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 Analysis for Compositional Data with Outliers. \emph{Environmetrics},
 \bold{20}, 621-632.
+
+Kynclova, P., Filzmoser, P., Hron, K. (2016) Compositional biplots including external non-compositional variables. 
+\emph{Statistics: A Journal of Theoretical and Applied Statistics},
+\bold{50}, 1132-1148.
 }
 \seealso{
 \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}

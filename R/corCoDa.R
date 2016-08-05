@@ -1,24 +1,29 @@
 #' Correlations for compositional data
 #' 
-#' This function computes correlation coefficients between average symmetric 
-#' coordinates.
+#' This function computes correlation coefficients between compositional parts based
+#' on symmetric balances.
 #' 
 #' @param x a matrix or data frame with compositional data
-#' @return A matrix containing the correlation coefficients between average symmetric coordinates.
+#' @param ... additional arguments for the function \code{\link{cor}}
+#' @return A compositional correlation matrix.
 #' @author Petra Kynclova
 #' @export
 #' @examples
 #' data(expenditures)
 #' corCoDa(expenditures)
+#' @references Kynclova, P., Hron, K., Filzmoser, P.
+#' Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
+#' 
+#' @examples
+#' x <- arcticLake 
+#' corCoDa(x)
 #' 
 
-
-
-corCoDa <- function(x){
+corCoDa <- function(x, ...){
   
   # check
   if(!is.matrix(x) & !is.data.frame(x)) stop("x must be a matrix or data.frame")
-  if(any(x<0)) stop("all elements of x must be greater than 0")
+  if(any(x[!is.na(x)]<=0)) stop("all elements of x must be greater than 0")
   if(ncol(x)<=2) stop("calculation of average symmetric coordinates not possible")
   
   balZav <- function(x){
@@ -44,7 +49,7 @@ corCoDa <- function(x){
   corZav <- matrix(NA,ncol(x),ncol(x))
   for (i in 1:(ncol(x)-1)){
     for (j in (i+1):ncol(x)){
-      corZav[i,j] <- cor(balZav(x[,c(i,j,ind[-c(i,j)])]))[1,2] # correlations for average coordinates Z.av
+      corZav[i,j] <- cor(balZav(x[,c(i,j,ind[-c(i,j)])]), ...)[1,2] # correlations for average coordinates Z.av
     }
   }
   corZav[lower.tri(corZav)] <- t(corZav)[lower.tri(corZav)]
