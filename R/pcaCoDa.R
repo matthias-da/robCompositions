@@ -182,6 +182,7 @@ print.pcaCoDa <- function(x, ...){
 
 #' @rdname pcaCoDa
 #' @method summary pcaCoDa
+#' @param object object of class pcaCoDa
 #' @export
 
 summary.pcaCoDa <- function(object, ...){

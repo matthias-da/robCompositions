@@ -36,7 +36,7 @@ genData <- function(n=1000, out=0.05,
     for(i in 1:ncol(z)){
       zmiss[sample(1:n2, floor(s[i]*n2)), i] <- NA #1:index
     }
-    list(zmiss=zmiss, z2=z, good=n2)
+    list(zmiss=data.frame(zmiss), z2=data.frame(z), good=n2)
 }
 
 ## ----echo=FALSE, results='hide'------------------------------------------
@@ -64,12 +64,12 @@ genData <- function(n=1000, out=0.05,
     for(i in 1:ncol(z)){
       zmiss[sample(1:n2, floor(s[i]*n2)), i] <- NA #1:index
     }
-    list(zmiss=zmiss, z2=z, good=n2)
+    list(zmiss=data.frame(zmiss), z2=data.frame(z), good=n2)
 }
 
-## ----seed, echo=FALSE----------------------------------------------------
+## ----seed, echo=FALSE, message=FALSE, warning=FALSE----------------------
 set.seed(123)
-library(MASS)
+library("MASS")
 
 ## ----new data, echo=FALSE------------------------------------------------
 x <- genData(100)
@@ -169,8 +169,8 @@ function (x, ..., labels = colnames(X), cn = colnames(X), aspanel = FALSE,
     return(invisible(NULL))
 }
 
-## ----knn-----------------------------------------------------------------
-library(robCompositions) 
+## ----knn, message=FALSE, warning=FALSE-----------------------------------
+library("robCompositions") 
 packageDescription("robCompositions")$Version
 xImp <- impKNNa(x$zmiss, k=6)
 
@@ -335,4 +335,13 @@ bootimpM <- function(x, R = 100) {
 ## ----bootstat-erg--------------------------------------------------------
 R <- 5
 bootimp(x$z2, R=R)
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+plot(xImp1, which=1)
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+plot(xImp1, which=2)
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+plot(xImp1, which=3, seg1=FALSE)
 

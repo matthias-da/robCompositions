@@ -81,8 +81,8 @@
 
 
 \begin{flushleft}
-  {\LARGE\bf Robust Imputation of Missing
-  Values in \\[2mm]  \vspace*{-0.8cm} Compositional Data Using the\Rlogo-Package 
+  {\LARGE\textbf{Robust Imputation of Missing
+  Values in} \\[2mm]  \vspace*{-0.8cm} \textbf{Compositional Data Using the\Rlogo-Package} 
   \vspace*{0.55cm} \texttt{robCompositions}}
   \vspace{1.0cm}
   
@@ -259,26 +259,7 @@ As a regression method we propose to use robust regression, like LTS regression
 %\subsection{Data Sets in the Package}
 %
 %Three data sets are included in the package, namely
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# Loading required package: robustbase\\\#\# Loading required package: ggplot2\\\#\# Loading required package: data.table\\\#\# Loading required package: pls\\\#\# \\\#\# Attaching package: 'pls'\\\#\# \\\#\# The following object is masked from 'package:stats':\\\#\# \\\#\#\ \ \ \  loadings}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::cov.mve' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::ginv' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::mvrnorm' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::parcoord' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::rlm' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\color{warningcolor}{\#\# Warning: replacing previous import by 'MASS::stepAIC' when loading 'robCompositions'}}
-
-{\ttfamily\noindent\itshape\color{messagecolor}{\#\# sROC 0.1-2 loaded}}\end{kframe}
-\end{knitrout}
 %<<data sets>>=
 %library(robCompositions)
 %data(aitchison359)
@@ -436,7 +417,7 @@ set, and use the parameter $k=6$:
 \hlkwd{packageDescription}\hlstd{(}\hlstr{"robCompositions"}\hlstd{)}\hlopt{$}\hlstd{Version}
 \end{alltt}
 \begin{verbatim}
-## [1] "2.0.1"
+## [1] "2.0.2"
 \end{verbatim}
 \begin{alltt}
 \hlstd{xImp} \hlkwb{<-} \hlkwd{impKNNa}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{k}\hlstd{=}\hlnum{6}\hlstd{)}
@@ -468,9 +449,8 @@ A print, a summary, and a plot method are provided for objects of this class:
 \hlkwd{methods}\hlstd{(}\hlkwc{class} \hlstd{=} \hlstr{"imp"}\hlstd{)}
 \end{alltt}
 \begin{verbatim}
-## [1] plot.imp*    print.imp*   summary.imp*
-## 
-##    Non-visible functions are asterisked
+## [1] plot    print   summary
+## see '?methods' for accessing help and source code
 \end{verbatim}
 \begin{alltt}
 \hlstd{xImp}
@@ -801,12 +781,12 @@ The third diagnostic plot (see Figure \ref{repFig4}), a ternary diagram \citep{A
 
 \end{knitrout}
 
-%' The 3-part compositions are presented by three spikes, pointing in the
-%' directions of the corresponding three variables. The spikes of
-%' the imputed values are highlighted. This presentation allows gaining a multivariate
-%' view of the data, being helpful for interpreting possible irregularities
-%' of imputed values.
-%' 
+The 3-part compositions are presented by three spikes, pointing in the
+ directions of the corresponding three variables. The spikes of
+ the imputed values are highlighted. This presentation allows gaining a multivariate
+ view of the data, being helpful for interpreting possible irregularities
+ of imputed values.
+
 %' %\begin{center}
 %' %\begin{figure}
 %' %<<plot4, fig=TRUE>>=

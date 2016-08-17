@@ -94,7 +94,7 @@ NULL
 
 #' Special payments
 #' 
-#' Special payments splitted by different NACE categories and kind of employment
+#' Payments splitted by different NACE categories and kind of employment in Austria 2004
 #'
 #' \itemize{
 #'  \item{\code{nace }}{NACE classification, 2 digits}
@@ -125,7 +125,7 @@ NULL
 #' If tables published by STATISTICS AUSTRIA are partially used, displayed or 
 #' otherwise changed, a note must be added at an adequate position to 
 #' show data was extracted or adapted. 
-#' @format A data frame with 544 rows and 11 variables
+#' @format A data frame with 535 rows and 11 variables
 #' @keywords data
 #' @examples 
 #' 
@@ -224,7 +224,8 @@ NULL
 
 #' Economic indicators
 #' 
-#' Household and government consumptions, gross captial formation and import and exports of goods and services.
+#' Household and government consumptions, gross captial formation and import and exports of goods 
+#' and services.
 #'
 #' \itemize{
 #'  \item{\code{country }}{country name}
@@ -248,6 +249,48 @@ NULL
 #' data(economy)
 #' str(economy)
 NULL
+
+#' Election data
+#' 
+#' Results of a election in Germany 2013 in different
+#' federal states 
+#' 
+#' Votes for the political parties
+#' in the elections (compositional variables), and their relation to the unemployment rate
+#' and the average monthly income (external non-compositional variables). Votes are for the Christian Democratic Union and Christian Social Union of Bavaria, also
+#' called The Union (CDU/CSU), Social Democratic Party (SDP), The Left (DIE LINKE),
+#' Alliance '90/The Greens (GRUNE), Free Democratic Party (FDP) and the rest of the
+#' parties participated in the elections (other parties). The votes are examined in absolute
+#' values (number of valid votes). The unemployment in the federal states is reported in
+#' percentages, and the average monthly income in Euros.
+#'
+#' \itemize{
+#'  \item{\code{CDU_CSU }}{Christian Democratic Union and Christian Social Union of Bavaria, also
+#' called The Union}
+#'  \item{\code{SDP }}{Social Democratic Party}
+#'  \item{\code{GRUENE }}{Alliance '90/The Greens}
+#'  \item{\code{FDP }}{Free Democratic Party}
+#'  \item{\code{DIE_LINKE }}{The Left}
+#'  \item{\code{other_parties }}{Votes for the rest of the
+#' parties participated in the elections}
+#'  \item{\code{unemployment }}{Unemployment in the federal states in percentages}
+#'  \item{\code{income }}{Average monthly income in Euros}
+#' }
+#'
+#' @name election
+#' @docType data
+#' @usage data(election)
+#' @author Petra Klynclova, Matthias Templ
+#' @format A data frame with 16 observations and 8 variables
+#' @references Eurostat, \url{http://ec.europa.eu/eurostat/data}
+#' @keywords data
+#' @source German Federal Statistical Office 
+#' @examples 
+#' 
+#' data(election)
+#' str(election)
+NULL
+
 
 
 #' Gemas geochemical data set

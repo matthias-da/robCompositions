@@ -35,6 +35,7 @@
 #' components. Only important for method \dQuote{pls}.
 #' @param correction normal or density
 #' @param verbose additional print output during calculations.
+#' @param test an internal test situation (this parameter will be deleted soon)
 #' @importFrom cvTools cvFit
 #' @import pls
 #' @return \item{x }{imputed data} \item{criteria }{change between last and

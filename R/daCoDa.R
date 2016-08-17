@@ -5,7 +5,7 @@
 #' 
 #' An ilr-transformation is applied to compositional data (if \code{coda==TRUE}). For linear 
 #' discriminant analysis the functions LdaClassic (classical) and Linda (robust) from the 
-#' package \code{\link[rrcov]{rrcov}} are used. Similarly, quadratic discriminant analysis 
+#' package rrcov are used. Similarly, quadratic discriminant analysis 
 #' uses the functions QdaClassic and QdaCov (robust) from the same package.
 #' 
 #' The classical linear and quadratic discriminant rules are invariant to ilr and clr
@@ -20,7 +20,7 @@
 #' @param rule a character, either \dQuote{linear} (the default) or \dQuote{quadratic}.
 #' @param ... additional arguments for the functions passed through
 #' @return An S4 object of class LdaClassic, Linda, QdaClassic or QdaCov. See package 
-#' \code{\link[rrcov]{rrcov}} for details.
+#' rrcov for details.
 #' @author Jutta Gamper
 #' @seealso \code{\link[rrcov]{LdaClassic}}, \code{\link[rrcov]{Linda}}, 
 #' \code{\link[rrcov]{QdaClassic}}, \code{\link[rrcov]{QdaCov}}

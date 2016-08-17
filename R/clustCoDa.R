@@ -8,14 +8,22 @@
 #' 
 #' @aliases clustCoDa plot.clustCoDa 
 #' @param x compositional data represented as a data.frame
-#' @param number of clusters
+#' @param k number of clusters
 #' @param method clustering method. One of Mclust, cmeans, kmeansHartigan,
-#' cmeansUfcl, pam, clara, fanny, kccaKmeans, kccaKmedians, kccaAngle,
-#' Ward, hclustSingle, hclustComplete, hclustAverage, hclustWard, hclustMcquitty,
-#' hclustMedian, hclustcentroid
+#' cmeansUfcl, pam, clara, fanny, ward.D2, single, hclustComplete, 
+#' average, mcquitty, median, centroid
+#' @param scale If orthonormal coordinates should be normalized.
+#' @param transformation default is the isometric log-ratio transformation. Can only used when distMethod 
+#' is not Aitchison.
+#' @param distMethod Distance measure to be used. If \dQuote{Aitchison}, then transformation should be \dQuote{identity}.
+#' @param iter.max parameter if kmeans is chosen. The maximum number of iterations allowed 
+#' @param vals if cluster validity measures should be calculated
+#' @param alt a known partitioning can be provided (for special cluster validity measures)
+#' @param bic if TRUE then the BIC criteria is evaluated for each single cluster as validity measure
+#' @param verbose if TRUE additional print output is provided
 #' @return all relevant information such as cluster centers, cluster memberships, and
 #' cluster statistics.
-#' @author Matthias Templ (accessing the basic features of hclust, Mclust, kcca or kmeans that 
+#' @author Matthias Templ (accessing the basic features of hclust, Mclust, kmeans, etc. that 
 #' are all written by others)
 #' @export
 #' @references Templ, Filzmoser, Reimann (2008) 
@@ -25,20 +33,24 @@
 #' @keywords multivariate
 #' @importFrom stats hclust
 #' @importFrom stats kmeans
-#' @importFrom mclust Mclust
+#' @importFrom mclust Mclust 
+#' @importFrom fpc cluster.stats
+#' @importFrom cluster pam fanny 
+#' @importFrom e1071 cmeans bclust
+#' @importFrom kernlab specc
+#' @importFrom mclust mclustBIC
+#' @importFrom car box.cox box.cox.powers
 #' @examples
-#' \dontrun{
-#' data("chorizon") # from package mvoutlier
-#' x <- chorizon[1:50, 101:110]
-#' 
+#' data(expenditures)
+#' x <- expenditures
 #' rr <- clustCoDa(x, k=6, scale = "robust", transformation = "isomLR")
 #' rr2 <- clustCoDa(x, k=6, distMethod = "Aitchison", scale = "none", 
 #'                  transformation = "identity")
-#' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "hclustSingle",
+#' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
 #'                  transformation = "identity", scale = "none")
-#' plot(rr2, normalized = FALSE)
 #' plot(rr)
-#' }
+#' plot(rr, normalized = TRUE)
+#' plot(rr, normalized = TRUE, which.plot = "partMeans")
 clustCoDa <- function(x, k=NULL, method="Mclust",
           scale = "robust", transformation = "isomLR",
           distMethod=NULL, iter.max=100, vals = TRUE, 
@@ -51,9 +63,9 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
                     "speccRbfdot","speccVanilladot",
                     "speccTanhdot","speccLaplacedot","speccBesseldot",
                     "speccAnovadot","speccSplinedot")
-  agglomerative <- c("Ward","hclustSingle","hclustComplete","hclustAverage",
-                     "hclustWard","hclustMcquitty","hclustMedian",
-                     "hclustcentroid")
+  agglomerative <- c("ward.D2","single","complete","average",
+                     "mcquitty","median",
+                     "centroid")
   if(is.null(k) & method %in% partitioning) stop("provide the number of clusters")
   if(!is.null(distMethod)){
     if(distMethod == "Aitchison" & transformation %in% c("isomLR", "cenLR")) {
@@ -139,7 +151,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
 #  menge3 <- c("maximum", "canberra","euclidean", "manhattan")
   if(distMethod == "Aitchison") d <- as.dist(aDist(x))
   if(distMethod == "euclidean" | distMethod == "Euclidean") d <- dist(x)
-  if(distMethod == "manhattan" | distMethod == "Manhattan") d <- dist(x, mmethod = "manhattan")
+  if(distMethod == "manhattan" | distMethod == "Manhattan") d <- dist(x, method = "manhattan")
 #  if( any(distMethod == menge3) ) d <- dist(x, method = distMethod )
 #  if( any(distMethod == menge1) ) d <- gdist(x, method=distMethod)
 #  if( any(distMethod == menge2) ) d <- vegdist(x, method=distMethod)  
@@ -223,20 +235,20 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     clust$BIC <- a$bic
     clust$model <- a$model
   }
-  if( method == "kccaKmeans" ){
-    a <- kcca(as.matrix(d), k, family=kccaFamily("kmeans"))
-  }
-  if( method == "kccaKmedians" ){
-    a <- kcca(as.matrix(d), k, family=kccaFamily("kmedians"))
-  }
-  if( method == "kccaAngle" ){
-    a <- kcca(as.matrix(d), k, family=kccaFamily("angle"))
-  }
-  if( substr(method, 1, 4) == "kcca"){
-    clust$cluster <- a@cluster
-    clust$center <- a@centers
-    clust$size <- table(a@cluster)   
-  }
+  # if( method == "kccaKmeans" ){
+  #   a <- kcca(as.matrix(d), k, family=kccaFamily("kmeans"))
+  # }
+  # if( method == "kccaKmedians" ){
+  #   a <- kcca(as.matrix(d), k, family=kccaFamily("kmedians"))
+  # }
+  # if( method == "kccaAngle" ){
+  #   a <- kcca(as.matrix(d), k, family=kccaFamily("angle"))
+  # }
+  # if( substr(method, 1, 4) == "kcca"){
+  #   clust$cluster <- a@cluster
+  #   clust$center <- a@centers
+  #   clust$size <- table(a@cluster)   
+  # }
   if( method == "speccRbfdot" ){
     a <- specc(as.matrix(d),centers=k)
   }
@@ -266,28 +278,11 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     clust$center <- a@centers
     clust$size <- a@size    
   }
-  if( method == "hclustSingle" ){
-    dtree <- hclust(d, method="single")
+  s <- c("single", "complete", "average", "ward.D2", "mcquitty", "median", "centroid")
+  if( method %in% s){
+    dtree <- hclust(d, method)
   }
-  if( method == "hclustComplete" ){
-    dtree <- hclust(d, method="complete")
-  }
-  if( method == "hclustAverage" ){
-    dtree <- hclust(d, method="average")
-  }
-  if( method == "Ward" ){
-    dtree <- hclust(d, method="ward")
-  }
-  if( method == "hclustMcquitty" ){
-    dtree <- hclust(d, method="mcquitty")
-  }
-  if( method == "hclustMedian" ){
-    dtree <- hclust(d, method="median")
-  }
-  if( method == "hclustcentroid" ){
-    dtree <- hclust(d, method="centroid")
-  }
-  if(substr(method, 1, 6) == "hclust" | method == "Ward"){
+  if(method %in% s){
     a <- cutree(dtree, k)
     clust$cluster <- as.numeric(a)
     clust$center <- findCenter(x, a, k)
@@ -326,16 +321,16 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     cl <- Mclust(x,k,k)
     bics <- vector()
     for(i in 1:k ){
-      bics[i] <- min(EMclust(x[cl$class==i,], 1), na.rm=TRUE)
+      bics[i] <- min(mclust::EMclust(x[cl$class==i,], 1), na.rm=TRUE)
     }
     ##m <- cbind(m,bics)
     clust$bic <- bics
   }
-  clust$xdata <- x
+#  clust$xdata <- x
   clust$method <- method
   clust$distMethod <- distMethod
   clust$k <- k
-  if(substr(method, 1, 6) == "hclust" | method == "Ward"){
+  if(substr(method, 1, 6) == "hclust" | method == "ward.D2"){
     clust$dtree <- dtree
   }
   clust$valTF <- vals
@@ -356,14 +351,17 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     #clust$vp <- vp
   }
   if(distMethod != "Aitchison" & transformation == "isomLR"){
-    gms <- apply(x, 2, gm)
+    gms <- apply(xOrig, 2, gm)
     clust$centerSimplex <- isomLRinv(clust$center)
     gmsc <- apply(clust$centerSimplex, 2, gm)
     di <- gms/gmsc
-    for(i in 1:nrow(clust$centerSimplex)){
+    for(i in 1:ncol(clust$centerSimplex)){
       clust$centerSimplex[, i] <- clust$centerSimplex[, i] * di[i]
     }
     colnames(clust$centerSimplex) <- colnames(xOrig)
+  }
+  if(distMethod == "Aitchison"){
+    clust$centerSimplex <- clust$center
   }
   clust$transformation <- transformation
   clust$scaling <- scale
@@ -377,24 +375,52 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
 #' @rdname clustCoDa
 #' @export
 #' @method plot clustCoDa
+#' @param y the y coordinates of points in the plot, optional if x is an appropriate structure.
 #' @param ... additional parameters for print method passed through
+#' @param normalized results gets normalized before plotting. Normalization is done by z-transformation 
+#' applied on each variable.
 #' @param which.plot currently the only plot. Plot of cluster centers.
-plot.clustCoDa <- function(x, y, ..., which.plot = "clusterMeans"){
-  if(which.plot == "clusterMeans"){
+#' @param measure cluster validity measure to be considered for which.plot equals \dQuote{partMeans}
+plot.clustCoDa <- function(x, y, ..., 
+                           normalized = FALSE, 
+                           which.plot = "clusterMeans", 
+                           measure = "silwidths"){
+    variable <- center <- NULL
     if(x$transformation != "isomLR"){
       centers <- as.data.frame(x$center)
     } else {
       centers <- as.data.frame(x$centerSimplex)       
     }
-    #      if( normalized ) centers <- scale(centers)
+    if( normalized ) centers <- scale(centers)
     #centers <- cbind("cluster" = rep(1:nrow(x$center), ncol(x$center)), centers)
     centers <- cbind("cluster" = 1:nrow(x$center), centers)
     centers <- melt(centers, id = "cluster")
     colnames(centers) <- c("cluster", "variable", "center")
     centers <- centers[!centers$variable == "cluster", ]
-    ggplot(centers, aes(x=cluster, y=center)) + geom_bar(stat = "identity") +
-      facet_wrap(~variable)
-  }
+    annotations <- paste(measure, "=", round(x[[measure]], 5))    
+    xpos <- rep(2, length(annotations)) 
+    ypos <- rep(Inf, length(annotations))
+    cluster <- c(1:length(annotations))
+    ldata <- data.frame(xpos, ypos, annotations, cluster)
+    centers$cluster <- factor(centers$cluster)
+    centers$measure <- rep(x[[measure]], length(unique(centers$variable)))
+    centers$measure <- centers$measure + abs(min(centers$measure)) + abs(quantile(centers$measure, 0.1))
+    centers$measure <- centers$measure / max(centers$measure)
+    centers$measure <- grey(1 - centers$measure)
+    if(which.plot == "partMeans"){  
+      gg <- ggplot(centers, aes(x=variable, y=center, fill=measure)) + 
+        geom_bar(stat = "identity", aes(fill=measure)) +
+        theme(axis.text.x = element_text(angle = 90, hjust = 1)) + 
+        facet_wrap(~cluster) + 
+        geom_text(data = ldata, aes(x=length(annotations), y=max(centers$center), label=annotations),  
+                  inherit.aes=FALSE, parse=FALSE) +
+        scale_fill_identity()
+      print(gg)
+    }    
+    if(which.plot == "clusterMeans"){  
+      ggplot(centers, aes(x=cluster, y=center, fill=measure)) + geom_bar(stat = "identity") +
+        facet_wrap(~variable) +         scale_fill_identity()
+    }
 }
 
 # "plot.clust" <-

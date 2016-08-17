@@ -37,8 +37,8 @@ concordance=TRUE
 @
 
 \begin{flushleft}
-  {\LARGE\bf Robust Imputation of Missing
-  Values in \\[2mm]  \vspace*{-0.8cm} Compositional Data Using the\Rlogo-Package 
+  {\LARGE\textbf{Robust Imputation of Missing
+  Values in} \\[2mm]  \vspace*{-0.8cm} \textbf{Compositional Data Using the\Rlogo-Package} 
   \vspace*{0.55cm} \texttt{robCompositions}}
   \vspace{1.0cm}
   

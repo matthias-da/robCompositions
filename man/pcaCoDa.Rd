@@ -23,6 +23,8 @@ compositions}
 \item{external}{external non-compositional variables}
 
 \item{...}{additional parameters for print method passed through}
+
+\item{object}{object of class pcaCoDa}
 }
 \value{
 \item{scores }{scores in clr space} \item{loadings }{loadings in clr

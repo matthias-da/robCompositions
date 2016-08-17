@@ -72,14 +72,14 @@ compareMahal <- function(x, imp="KNNa"){
     } else if(ncol(x) == 2){
       xilr <- isomLR(x)
       covs <- covMcd(xilr)
-      zscore <- (as.numeric(xilr) - covs$center) / sqrt(covs$cov) 
+      zscore <- (as.numeric(unlist(xilr)) - covs$center) / sqrt(covs$cov) 
       mahcorr <- abs(zscore) / qnorm(0.975)
     } else {
       mahcorr <- NA
     }
     return(mahcorr)
   }
-  ## Mahalonibis distances for subsets:
+  ## Mahalanobis distances for subsets:
   m1 <- lapply(xs, function(x,...) calcMahal(x[,-ncol(x)]))
   ## Mahalonibis distances via imputation approach:
   resi <- zeroOut(x[,ind,drop=FALSE], imp)

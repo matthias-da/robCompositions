@@ -9,7 +9,8 @@
 data(economy)
 }
 \description{
-Household and government consumptions, gross captial formation and import and exports of goods and services.
+Household and government consumptions, gross captial formation and import and exports of goods 
+and services.
 }
 \details{
 \itemize{

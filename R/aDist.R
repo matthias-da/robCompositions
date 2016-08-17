@@ -39,8 +39,8 @@
 #' 
 #' data(expenditures)
 #' x <- xOrig <- expenditures
-#' ## Aitchison distance between the first 2 observations:
-#' aDist(x[,1], x[,2])
+#' ## Aitchison distance between two 2 observations:
+#' aDist(x[1, ], x[2, ])
 #' 
 #' ## Aitchison distance of x:
 #' aDist(x)
@@ -82,8 +82,8 @@
       for(i in 1:(n-1)){
         for(j in (i+1):n){
           out[i, j] <- out[j, i] <- 
-            1 / D * sum(log(as.numeric(x[i, 2:(D-1)]) / as.numeric(x[i, 2:D])) * 
-                          log(as.numeric(x[j, 2:(D-1)]) / as.numeric(x[j, 2:D])))
+            1 / D * sum(log(as.numeric(x[i, 1:(D-1)]) / as.numeric(x[i, 2:D])) * 
+                          log(as.numeric(x[j, 1:(D-1)]) / as.numeric(x[j, 2:D])))
         }
       }
       diag(out) <- 0

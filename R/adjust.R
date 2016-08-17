@@ -32,10 +32,12 @@ adjust <- function(x){
 	xneu=x$xImp
 	s1 <- rowSums(x$xOrig, na.rm=TRUE)
 	for(i in 1:nrow(x$xImp)){
-		s <- sum(x$xImp[i, !x$wind[i,]])
-		s2 <- sum(x$xImp[i, x$wind[i,]])
-		fac <- s / (s + s2)
+	  if(any(x$wind[i, ])){
+  		s <- sum(x$xImp[i, !x$wind[i,]])
+  		s2 <- sum(x$xImp[i, x$wind[i,]])
+  		fac <- s / (s + s2)
 		s1[i] <-  s1[i] / fac
+	  }
 	}
 	impS <- s1/rowSums(x$xImp)
 	for(i in 1:ncol(x$xImp)){

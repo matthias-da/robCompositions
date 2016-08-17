@@ -20,10 +20,12 @@
 #' @export
 #' @method biplot factanal
 #' @examples
-#' 
-#' 
+#' data(expenditures)
+#' res.rob <- pfa(expenditures, factors=2, scores = "regression")
+#' biplot(res.rob)
 biplot.factanal <- function(x, ...){
   if(is.null(x$scores)) stop("no scores computed")
+  if(x$factors == 1) stop("only one factor avalable, but need two")
   beschx <- if(x$robust) "Factor1 (clr-robust)" else "Factor1 (clr-classical)"
   beschy <- if(x$robust) "Factor2 (clr-robust)" else "Factor2 (clr-classical)"
   biplot(x$scores, x$loadings, xlab=beschx, ylab=beschy, ...)

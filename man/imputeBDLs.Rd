@@ -53,6 +53,8 @@ components. Only important for method \dQuote{pls}.}
 
 \item{verbose}{additional print output during calculations.}
 
+\item{test}{an internal test situation (this parameter will be deleted soon)}
+
 \item{xImp}{imputed data set}
 
 \item{xOrig}{original data set}

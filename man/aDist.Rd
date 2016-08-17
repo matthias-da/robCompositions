@@ -34,8 +34,8 @@ large data sets whenever \code{y} is supplied.
 
 data(expenditures)
 x <- xOrig <- expenditures
-## Aitchison distance between the first 2 observations:
-aDist(x[,1], x[,2])
+## Aitchison distance between two 2 observations:
+aDist(x[1, ], x[2, ])
 
 ## Aitchison distance of x:
 aDist(x)

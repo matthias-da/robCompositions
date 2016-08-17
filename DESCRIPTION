@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 2.0.1
-Date: 2016-02-11
+Version: 2.0.2
+Date: 2016-08-17
 Depends:
     R (>= 2.10),
     robustbase,
@@ -10,11 +10,16 @@ Depends:
     data.table,
     pls
 Imports:
+    car,
     e1071,
     rrcov,
+    cluster,
     cvTools,
+    fpc,
     GGally,
+    kernlab,
     MASS,
+    mclust,
     sROC,
     VIM
 Suggests:
