@@ -37,10 +37,12 @@
 #' @importFrom mclust Mclust 
 #' @importFrom fpc cluster.stats
 #' @importFrom cluster pam fanny 
+#' @import e1071
 #' @importFrom e1071 cmeans bclust
 #' @importFrom kernlab specc
 #' @importFrom mclust mclustBIC
 #' @importFrom car box.cox box.cox.powers
+#' @importFrom stats as.dist cor cutree dist
 #' @examples
 #' data(expenditures)
 #' x <- expenditures

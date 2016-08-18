@@ -41,7 +41,10 @@
 #' 
 #' clas1 <- daCoDa(X, grp, coda=FALSE, method = "classical", rule="linear")
 #' summary(clas1)
+#' ## predict runs only with newest verison of rrcov
+#' \dontrun{
 #' predict(clas1)
+#' }
 #' # specify different prior probabilities
 #' clas2 <- daCoDa(X, grp, coda=FALSE, prior=c(1/3, 1/3, 1/3))
 #' summary(clas2)
@@ -52,8 +55,11 @@
 #' group <- droplevels(coffee$sort[coffee$sort!="robusta"])
 #' cof.cla <- daCoDa(x, group, method="classical", rule="quadratic")
 #' cof.rob <- daCoDa(x, group, method="robust", rule="quadratic")
+#' ## predict runs only with newest verison of rrcov
+#' \dontrun{
 #' predict(cof.cla)@ct
 #' predict(cof.rob)@ct
+#' }
 daCoDa <- function(x, grp, coda=TRUE, method = "classical", rule="linear", ...){
   ## some checks
   if(!class(x) %in% c("matrix", "data.frame")) stop("x must be a matrix or data.frame")
