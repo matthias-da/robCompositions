@@ -3,6 +3,15 @@ Changes in robCompositions version 2.0.2
   + new function daCoDa()
   + new function clustCoDa()
   + new function corCoDa()
+  + aDist for single matrix
+  + pcaCoDa() with external variables
+  + new data set alcoholreg 
+  + new data set alcohol
+  + new data set economy
+  + new data set ageCatWorld
+  + new data set election
+  + new data set laborForce
+  + new data set payments
 
 Changes in robCompositions version 2.0.1
   + discriminant analysis (daFisher) for n-group case

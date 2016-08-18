@@ -6,7 +6,7 @@
 \title{PhD Students in the EU}
 \format{A data set on 32 compositions and 11 variables.}
 \source{
-\url{http://epp.eurostat.ec.europa.eu/cache/ITY_PUBLIC/1-18092009-AP/DE/1-18092009-AP-DE.PDF}
+Eurostat
 }
 \description{
 PhD students in Europe based on the standard klassification system splitted

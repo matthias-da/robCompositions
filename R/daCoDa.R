@@ -29,7 +29,7 @@
 #' \emph{Computational Statistics}, Vol. 27(4), pp. 585-604, 2012.
 #' @keywords multivariate
 #' @export
-#' @import rrcov
+#' @importFrom rrcov Linda LdaClassic QdaClassic QdaCov
 #' @examples
 #' ## toy data (non-compositional)
 #' require(MASS)
@@ -54,10 +54,7 @@
 #' cof.rob <- daCoDa(x, group, method="robust", rule="quadratic")
 #' predict(cof.cla)@ct
 #' predict(cof.rob)@ct
-#' 
- 
 daCoDa <- function(x, grp, coda=TRUE, method = "classical", rule="linear", ...){
-  
   ## some checks
   if(!class(x) %in% c("matrix", "data.frame")) stop("x must be a matrix or data.frame")
   if(class(x) == "data.frame") x <- as.matrix(x)
@@ -83,6 +80,5 @@ daCoDa <- function(x, grp, coda=TRUE, method = "classical", rule="linear", ...){
   else if(rule=="quadratic" & method=="robust"){
     res <- QdaCov(x, grp, ...)
   }
-
-  invisible(res)
+  return(res)
 }

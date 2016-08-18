@@ -33,6 +33,7 @@
 #' @keywords multivariate
 #' @importFrom stats hclust
 #' @importFrom stats kmeans
+#' @import mclust
 #' @importFrom mclust Mclust 
 #' @importFrom fpc cluster.stats
 #' @importFrom cluster pam fanny 

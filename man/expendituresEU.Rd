@@ -20,8 +20,7 @@
 \item{\code{Other}}{a numeric vector} 
 }}
 \source{
-Eurostat:
-\url{http://epp.eurostat.ec.europa.eu/statistics_explained/images/c/c2/Mean_consumption_expenditure_of_households,_2005(PPS).PNG}
+Eurostat
 }
 \description{
 Mean consumption expenditure of households at EU-level.  The final
@@ -32,11 +31,6 @@ residents and non-residents) for individual needs.
 
 data(expendituresEU)
 
-}
-\references{
-Eurostat provides a website with the data:
-
-\url{http://epp.eurostat.ec.europa.eu/statistics_explained/index.php/Household_consumption_expenditure}
 }
 \keyword{datasets}
 
