@@ -323,7 +323,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     cl <- Mclust(x,k,k)
     bics <- vector()
     for(i in 1:k ){
-      bics[i] <- min(mclust::EMclust(x[cl$class==i,], 1), na.rm=TRUE)
+      bics[i] <- min(mclustBIC(x[cl$class==i,], 1), na.rm=TRUE)
     }
     ##m <- cbind(m,bics)
     clust$bic <- bics
