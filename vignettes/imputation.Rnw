@@ -334,7 +334,7 @@ genData <- function(n=1000, out=0.05,
  
 
 <<seed, echo=FALSE, message=FALSE, warning=FALSE>>=
-set.seed(123)
+# set.seed(123)
 library("MASS")
 @
 

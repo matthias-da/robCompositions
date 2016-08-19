@@ -44,6 +44,10 @@
 #' @importFrom utils flush.console
 #' @importFrom utils setTxtProgressBar
 #' @importFrom utils txtProgressBar
+#' @importFrom stats as.dist
+#' @importFrom stats cor
+#' @importFrom stats cutree
+#' @importFrom stats dist
 NULL
  
 #' Additive log-ratio transformation

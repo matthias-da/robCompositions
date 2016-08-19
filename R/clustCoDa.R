@@ -42,7 +42,6 @@
 #' @importFrom kernlab specc
 #' @importFrom mclust mclustBIC
 #' @importFrom car box.cox box.cox.powers
-#' @importFrom stats as.dist cor cutree dist
 #' @examples
 #' data(expenditures)
 #' x <- expenditures
