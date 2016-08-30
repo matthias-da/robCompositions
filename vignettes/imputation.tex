@@ -23,6 +23,7 @@
 \newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
 \newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
 \newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
 
 \usepackage{framed}
 \makeatletter
@@ -417,7 +418,7 @@ set, and use the parameter $k=6$:
 \hlkwd{packageDescription}\hlstd{(}\hlstr{"robCompositions"}\hlstd{)}\hlopt{$}\hlstd{Version}
 \end{alltt}
 \begin{verbatim}
-## [1] "2.0.2.0"
+## [1] "2.0.2"
 \end{verbatim}
 \begin{alltt}
 \hlstd{xImp} \hlkwb{<-} \hlkwd{impKNNa}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{k}\hlstd{=}\hlnum{6}\hlstd{)}
@@ -569,10 +570,10 @@ gives more reasonable results than its classical counterpart
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## [1] "RDA: iterative lm approach: 0.704"
-## [1] "RDA: iterative ltsReg approach: 0.475"
-## [1] "DV: iterative lm approach: 0.09"
-## [1] "DV: iterative ltsReg approach: 0.022"
+## [1] "RDA: iterative lm approach: 0.441"
+## [1] "RDA: iterative ltsReg approach: 0.329"
+## [1] "DV: iterative lm approach: 0.041"
+## [1] "DV: iterative ltsReg approach: 0.019"
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

@@ -4,12 +4,15 @@
 \alias{addLR}
 \title{Additive log-ratio transformation}
 \usage{
-addLR(x, ivar = ncol(x))
+addLR(x, ivar = ncol(x), base = exp(1))
 }
 \arguments{
 \item{x}{D-part compositional data}
 
 \item{ivar}{Rationing part}
+
+\item{base}{a positive or complex number: 
+the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.}
 }
 \value{
 A list of class \dQuote{alr} which includes the following content:

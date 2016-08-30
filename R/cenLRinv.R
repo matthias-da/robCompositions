@@ -20,7 +20,7 @@
 #' @examples
 #' 
 #' data(expenditures)
-#' eclr <- cenLR(expenditures)
+#' eclr <- cenLR(expenditures, 2)
 #' inveclr <- cenLRinv(eclr)
 #' head(expenditures)
 #' head(inveclr)
@@ -30,7 +30,8 @@ cenLRinv <- function(x, useClassInfo=TRUE){
 	
 	if(class(x) != "clr" & useClassInfo == TRUE) warning("useClassInfo was set to FALSE, because x is not from class clr")
 	if(!(class(x) %in% c("clr", "data.frame", "matrix"))) stop("class from x must be either clr, data.frame or matrix")
-	xclr <- x$x.clr
+  if(!identical(x$base, exp(1))) warning("\n absolute values currently not preserved \n since base was different to exp(1)")
+  xclr <- x$x.clr
 	if(class(x) == "clr" & useClassInfo==TRUE){
 		dat <- exp(xclr)  * x$gm
 	} else if(class(x) != "clr" | useClassInfo==FALSE){

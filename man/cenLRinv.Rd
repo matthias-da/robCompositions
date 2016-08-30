@@ -23,7 +23,7 @@ Applies the inverse centred log-ratio transformation.
 \examples{
 
 data(expenditures)
-eclr <- cenLR(expenditures)
+eclr <- cenLR(expenditures, 2)
 inveclr <- cenLRinv(eclr)
 head(expenditures)
 head(inveclr)

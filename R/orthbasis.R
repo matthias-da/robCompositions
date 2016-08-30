@@ -28,7 +28,7 @@
 #' data(expenditures)
 #' V <- orthbasis(ncol(expenditures))
 #' xcen <- cenLR(expenditures)$x.clr
-#' xi <- as.matrix(xcen) %*% V
+#' xi <- as.matrix(xcen) %*% V$V
 #' xi2 <- isomLR(expenditures)
 #' all.equal(xi, xi2)
 #' 
@@ -70,7 +70,8 @@ orthbasis <- function(D){
 			codes[i,]=c(rep(0,i-1),-1,rep(1,D-i))
 		}
 	}   
-	t(codes)	
+	basisv <- t(codes)	
 	V <- gsicomp(t(codes))
-	return(V)
+	ll <- list("V" = V, "basisv" = basisv)
+	return(ll)
 }

@@ -24,7 +24,7 @@ that transfers the data from centered logratio to isometric logratio.
 data(expenditures)
 V <- orthbasis(ncol(expenditures))
 xcen <- cenLR(expenditures)$x.clr
-xi <- as.matrix(xcen) \%*\% V
+xi <- as.matrix(xcen) \%*\% V$V
 xi2 <- isomLR(expenditures)
 all.equal(xi, xi2)
 

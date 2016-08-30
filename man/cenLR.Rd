@@ -4,10 +4,13 @@
 \alias{cenLR}
 \title{Centred log-ratio transformation}
 \usage{
-cenLR(x)
+cenLR(x, base = exp(1))
 }
 \arguments{
 \item{x}{multivariate data ideally of class data.frame or matrix}
+
+\item{base}{a positive or complex number: 
+the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.}
 }
 \value{
 The transformed data, including \item{x.clr}{clr transformed data}

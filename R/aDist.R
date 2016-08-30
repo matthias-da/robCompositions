@@ -14,6 +14,7 @@
 #' The underlying code is partly written in C and allows a fast computation also for
 #' large data sets whenever \code{y} is supplied.
 #' 
+#' @aliases aDist iprod
 #' @param x a vector, matrix or data.frame
 #' @param y a vector, matrix or data.frame with equal dimension as \code{x} or NULL.
 #' @return The Aitchison distance between two compositions or between two data
@@ -91,5 +92,19 @@
     }
 	  return(out)
 }	  
-	  
+
+#' @rdname aDist
+#' @export
+#' @examples 
+#' data("expenditures")
+#' x <- expenditures[, 1]
+#' y <- expenditures[, 2]
+#' iprod(x, y)
+iprod <- function(x, y){
+  D <- length(x)
+  if(D != length(y)) stop("x and y should have the same length")
+  ip <- 1 / D * sum(log(as.numeric(x[1:(D-1)]) / as.numeric(x[2:D])) * 
+                      log(as.numeric(y[1:(D-1)]) / as.numeric(y[2:D])))
+  return(ip)
+}
 	

@@ -60,6 +60,8 @@ NULL
 #' 
 #' @param x D-part compositional data
 #' @param ivar Rationing part
+#' @param base a positive or complex number: 
+#' the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.
 #' @return A list of class \dQuote{alr} which includes the following content:
 #' \item{x.alr}{the transformed data} \item{varx}{the rationing variable}
 #' \item{ivar}{the index of the rationing variable, indicating the column
@@ -93,12 +95,11 @@ NULL
 #' addLRinv(x.alr, ivar=2, useClassInfo=FALSE)
 #' 
 #' 
-addLR <- function (x, ivar=ncol(x)){
-
+addLR <- function (x, ivar=ncol(x), base = exp(1)){
 	if(dim(x)[2] < 2) stop("data must be of dimension greater equal 2")
-	x.alr <- log(x/x[, ivar])
+	x.alr <- log(x/x[, ivar], base)
 	res <- list(x.alr=x.alr[,-ivar], 
-			varx=x[,ivar], ivar=ivar, cnames=colnames(x))
+			varx=x[,ivar], ivar=ivar, cnames=colnames(x), base = base)
 	class(res) <- "alr"
 	return(res)
 }
