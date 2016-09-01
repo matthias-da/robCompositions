@@ -216,7 +216,7 @@ As a regression method we propose to use robust regression, like LTS regression
 %
 %Three data sets are included in the package, namely
 <<load package, echo=FALSE, results='hide'>>=
-library(robCompositions)
+library("robCompositions")
 constSum <- function(x, const=1){
 	x / rowSums(x) * const
 }

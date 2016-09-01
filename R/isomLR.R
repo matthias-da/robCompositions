@@ -48,13 +48,16 @@
 #' system.time(pivotCoord(x, fast=TRUE))
 #' 
 #' ## without normalizing constant
+#' pivotCoord(expenditures, norm = "orthogonal") # or:
 #' pivotCoord(expenditures, norm = "1")
 #' ## other normalization
 #' pivotCoord(expenditures, norm = "-sqrt((D-i)/(D-i+1))")
 #' 
-pivotCoord <- function(x, pivotvar = 1, fast=FALSE, base = exp(1), norm = "sqrt((D-i)/(D-i+1))"){
+pivotCoord <- function(x, pivotvar = 1, fast=FALSE, base = exp(1), norm = "orthonormal"){
   if(dim(x)[2] < 2) stop("data must be of dimension greater equal 2")
   if(any(x < 0)) stop("negative values not allowed")
+  if(norm == "orthogonal") norm <- "1"
+  if(norm == "orthonormal") norm <- "sqrt((D-i)/(D-i+1))"
   x.ilr <- matrix(NA, nrow = nrow(x), ncol = ncol(x) - 1)
   D <- ncol(x)
   ## order parts according to pivotvar
@@ -71,9 +74,10 @@ pivotCoord <- function(x, pivotvar = 1, fast=FALSE, base = exp(1), norm = "sqrt(
     } 
   }
   if(is.data.frame(x)) x.ilr <- data.frame(x.ilr)
+  x.ilr <- data.frame(x.ilr)
   if(all(nchar(colnames(x)) > 1)){
     for(i in 1:(D-1)){
-      colnames(x.ilr)[i] <- paste(colnames(x)[i], "_", paste(substr(colnames(x[(i+1):D]), 1, 2), collapse="-"), collapse="", sep="")
+      colnames(x.ilr)[i] <- paste(colnames(x)[i], "_", paste(substr(colnames(x)[(i+1):D], 1, 2), collapse="-"), collapse="", sep="")
     }
   }  
   return(-x.ilr)
@@ -82,31 +86,32 @@ pivotCoord <- function(x, pivotvar = 1, fast=FALSE, base = exp(1), norm = "sqrt(
 #' @rdname pivotCoord
 #' @export
 isomLR <- function(x, fast=FALSE, base = exp(1), norm = "sqrt((D-i)/(D-i+1))"){
-    .Deprecated("pivotCoord") 
+   .Deprecated("pivotCoord") 
     pivotCoord(x = x, fast=fast, base = base, norm = norm)
 }
 
 #' @rdname pivotCoord
 #' @export
 isomLRinv <- function(x){
-  .Depricated("pivotCoordInv")
+  .Deprecated("pivotCoordInv")
   pivotCoordInv(x = x)
 }
 
 #' @rdname pivotCoord
 #' @export
-pivotCoordInv <- function(x){
+pivotCoordInv <- function(x, norm = "orthonormal"){
+  if(!(norm %in% c("orthogonal", "orthonormal"))) stop("only orthogonal and orthonormal is allowd for norm")
   x <- -x
   y <- matrix(0, nrow=nrow(x), ncol=ncol(x)+1)
   D <- ncol(x)+1
-  y[,1] <- -sqrt((D-1)/D)*x[,1]
+  if(norm == "orthonormal")  y[,1] <- -sqrt((D-1)/D)*x[,1] else y[,1] <- x[,1]
   for (i in 2:ncol(y)){
     for (j in 1:(i-1)){
-      y[,i]=y[,i]+x[,j]/sqrt((D-j+1)*(D-j))
+      y[,i]=y[,i]+x[,j]/if(norm =="orthonormal") sqrt((D-j+1)*(D-j)) else 1
     }
   }
   for (i in 2:(ncol(y)-1)){
-    y[,i]=y[,i]-sqrt((D-i)/(D-i+1))*x[,i]
+    y[,i]=y[,i] - x[,i] * if(norm =="orthonormal") sqrt((D-i)/(D-i+1)) else 1
   }
   yexp=exp(y)
   x.back=yexp/apply(yexp,1,sum) # * rowSums(derOriginaldaten)

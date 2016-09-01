@@ -226,7 +226,6 @@ function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE,
 			    x1=x[,1]
 			    x[,1]=xNA
 			    x[,indM[i]]=x1
-			
 			    if( closed == FALSE ) xilr <- isomLR(x) else xilr=x
 			
 			    #apply the PCA algorithm -> ximp

@@ -1,56 +1,6 @@
 %\VignetteEngine{knitr::knitr}
 %\VignetteIndexEntry{Imputation Methods in robCompositions}
-\documentclass{scrartcl}\usepackage[]{graphicx}\usepackage[]{color}
-%% maxwidth is the original width if it is less than linewidth
-%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
-\makeatletter
-\def\maxwidth{ %
-  \ifdim\Gin@nat@width>\linewidth
-    \linewidth
-  \else
-    \Gin@nat@width
-  \fi
-}
-\makeatother
-
-\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
-\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
-\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
-\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
-\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
-\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
-\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
-\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
-\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
-\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
-\let\hlipl\hlkwb
-
-\usepackage{framed}
-\makeatletter
-\newenvironment{kframe}{%
- \def\at@end@of@kframe{}%
- \ifinner\ifhmode%
-  \def\at@end@of@kframe{\end{minipage}}%
-  \begin{minipage}{\columnwidth}%
- \fi\fi%
- \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
- \colorbox{shadecolor}{##1}\hskip-\fboxsep
-     % There is no \\@totalrightmargin, so:
-     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
- \MakeFramed {\advance\hsize-\width
-   \@totalleftmargin\z@ \linewidth\hsize
-   \@setminipage}}%
- {\par\unskip\endMakeFramed%
- \at@end@of@kframe}
-\makeatother
-
-\definecolor{shadecolor}{rgb}{.97, .97, .97}
-\definecolor{messagecolor}{rgb}{0, 0, 0}
-\definecolor{warningcolor}{rgb}{1, 0, 1}
-\definecolor{errorcolor}{rgb}{1, 0, 0}
-\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
-
-\usepackage{alltt}
+\documentclass{scrartcl}
 \usepackage[pdftex]{hyperref}
 \usepackage{amssymb, amsfonts}
 %\usepackage[authoryear]{cite}
@@ -76,7 +26,7 @@
 %\renewcommand{\boma}[1]{\mbox{\boldmath ${#1}$}}
   
 \newcommand{\Rlogo}{\raisebox{-.1mm}{\includegraphics[width=1.2em]{logo.pdf}}}
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+ 
 \begin{document}
 
 
@@ -320,7 +270,12 @@ MCAR mechanism. The new data set is stored in the list element \texttt{zmiss} of
 
 
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning: 'isomLRinv' is deprecated.\\\#\# Use 'pivotCoordInv' instead.\\\#\# See help("{}Deprecated"{})}}\end{kframe}
+\end{knitrout}
 
 
 
@@ -418,7 +373,7 @@ set, and use the parameter $k=6$:
 \hlkwd{packageDescription}\hlstd{(}\hlstr{"robCompositions"}\hlstd{)}\hlopt{$}\hlstd{Version}
 \end{alltt}
 \begin{verbatim}
-## [1] "2.0.2"
+## [1] "2.0.3"
 \end{verbatim}
 \begin{alltt}
 \hlstd{xImp} \hlkwb{<-} \hlkwd{impKNNa}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{k}\hlstd{=}\hlnum{6}\hlstd{)}
@@ -483,359 +438,23 @@ diagnostic plots.
 
 \medskip
 The iterative model-based imputation method is applied with:
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{xImp1} \hlkwb{<-} \hlkwd{impCoda}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{method}\hlstd{=}\hlstr{'lm'}\hlstd{)}
-\hlstd{xImp2} \hlkwb{<-} \hlkwd{impCoda}\hlstd{(x}\hlopt{$}\hlstd{zmiss,} \hlkwc{method}\hlstd{=}\hlstr{'ltsReg'}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
-
-The first command uses classical least-squares regression within the 
-algorithm, the second command takes robust LTS regression.
-
-
-
-\section{Information Loss, Uncertainty, and Diagnostics}
-
-The quality of the imputed values can be judged by different criteria.
-We can use information loss criteria and compute the differences of the
-imputed to the observed data. If the observed data are known, we
-can use the bootstrap technique for measuring the uncertainty of the
-imputation. If the observed data are not known, diagnostic plots can
-be used for visualizing the imputed values.
-
-\subsection{Information Loss Measures}
-
-We compare the imputed and the original data values by two different
-criteria:
-\begin{description}
-\item[\textit{Relative Aitchison distance:} (RDA)]
-Let $M\subset \{1,\ldots ,n\}$ denote the index set referring to observations
-that include at least one missing cell, and $n_M=|M|$ be the number of such observations.
-We define the \textit{relative Aitchison distance} as
-\begin{equation}
-\label{relAitchison}
-\frac{1}{n_M}\sum\limits_{i \in M} d_A(\m{x}_{i},\hat{\m{x}}_{i})
-\end{equation}
-where $\m{x}_{i}$ denotes the original composition (before setting cells to
-missing), and $\hat{\m{x}}_{i}$ denotes the composition where only the missing
-cells are imputed. 
-
-\item[\textit{Difference in variations:} (DV)]
-We use the variation matrix $\m{T}=[t_{ij}]$, with
-\begin{displaymath}
-\label{variation}
-t_{ij}=\mathrm{var}\left(\ln\frac{x_i}{x_j}\right),\ i,j=1,\dots,D\,,
-\end{displaymath}
-and the empirical variance for $\mathrm{var}$.
-Thus, $t_{ij}$ represents the variance of the log-ratio of the parts 
-$i$ and $j$. Here, only the non-outlying original observations
-are considered for computing $\m{T}$. 
-On the other hand, 
-$\tilde{\m{T}}=[\tilde{t}_{ij}]$
-denotes the variation matrix computed for the same observations,
-where all missing cells have been imputed.
-Then we define the \textit{difference in variations} as
-\begin{equation}
-\label{diffvariation}
-\frac{2}{D(D-1)}
-\sum\limits_{i=1}^{D-1}
-\sum\limits_{j=i+1}^{D}
-|t_{ij} - \tilde{t}_{ij}|
-\end{equation}
-\end{description}
-Thus, RDA measures closeness of the imputed
-values in the Aitchison geometry, whereas the influence of the imputation
-to the multivariate data structure is expressed by DV.
-
-Using the iterative model-based algorithm for our test data set,
-we can show that the robust procedure based on LTS regression
-gives more reasonable results than its classical counterpart
-(the code for computing the measures is snipped):
-
-%\begin{tabular}{|c|c|c|}
-% \hline
-% Method & RDA & DV \\
-% \hline
-% iterative lm & 0.476 & 0.091 \\ 
-% iterative ltsReg & 0.331 & 0.01769893 \\
-% \hline
-%\end{tabular}
 
 
 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## [1] "RDA: iterative lm approach: 0.441"
-## [1] "RDA: iterative ltsReg approach: 0.329"
-## [1] "DV: iterative lm approach: 0.041"
-## [1] "DV: iterative ltsReg approach: 0.019"
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-\subsection{Measuring the Uncertainty of the Imputations}
-
-\cite{Little87} suggests to estimate standard errors for estimators via bootstrapping,
-and he outlines two approaches - a modified bootstrap approach and 
-a modified jackknife procedure - to measure consistent 
-standard errors when data will be imputed.
-
-We draw bootstrap samples from both, the original data without missings,
-and the data where some values were set to missing, hereby using the same
-random seeds.
-For the latter bootstrap samples we impute the missing values
-with mean imputation (column-wise arithmetic mean), and classical and
-robust iterative model-based imputation.
-We are interested in the geometric mean of each variable.
-Figure \ref{boxplot} shows boxplots of the resulting geometric means
-(computed only for the non-outlying observations)
-for $r=1000$ bootstrap replicates.
-The red horizontal lines indicate the geometric means for the original data
-without outliers.
-
-It is clearly visible that mean imputation - a simple method still frequently
-applied - can lead to higher uncertainty,
-and that the results are biased.
-The model-based procedures have a very similar behavior as the original data.
-
-%The bootstrap confidence intervals (Little's percentille method, 1000 Replications) for the geometric mean of the complete data (without any imputation)
-%are as follows
 
 
 
 
-\setkeys{Gin}{width=0.7\textwidth}
-\begin{figure}[h]
-\begin{center}
-%<<boxplot, fig=TRUE, echo=FALSE>>=
-%R=1000
-%set.seed(100)
-%bOrig <- bootimp(x$z2, R=R)
-%colnames(bOrig) <- paste("orig", 1:3)
-%set.seed(100)
-%bImpLm <- bootimp(x$zmiss, R=R)
-%colnames(bImpLm) <- paste("lm", 1:3)
-%set.seed(100)
-%bImpLts <- bootimp(x$zmiss, R=R, method="ltsReg")
-%colnames(bImpLts) <- paste("ltsReg", 1:3)
-%set.seed(100)
-%bImpGM <- bootimpGM(x$zmiss, R=R)
-%colnames(bImpGM) <- paste("gm", 1:3)
-%set.seed(100)
-%bImpM <- bootimpM(x$zmiss, R=R)
-%colnames(bImpM) <- paste("m", 1:3)
-%pb <- cbind(bOrig, bImpM, bImpLm, bImpLts)
-%pb <- pb[,c(1,4,7,10,  2,5,8,11, 3,6,9,12)]
-%##layout(matrix(c(1,2,3), ncol=3))
-%SEQ <- c(0.5,1.5,2.5,3.5, 5.5,6.5,7.5,8.5, 10.5,11.5,12.5,13.5)
-%plot(x=c(0,SEQ,14), y=c(0.75,rep(0.15,length(SEQ)+1)), type="n", xaxt="n",ylim=c(0,1), 
-%		 ylab="Geometric mean for bootstrap replicates", xlab="", cex.lab=1.05)
-%
-%boxplot(pb, at=SEQ, names=NULL, xaxt="n", add=TRUE, col=c(rep(gray(0.9)), rep(gray(0.7)), rep(gray(0.5)), rep(gray(0.3)) )) 
-%gm <- acomp(apply(x$z2, 2, function(x) geometricmean(x)))
-%segments(x0=-0.25, x1=4.25, y0=gm[1], y1=gm[1], col="red", lty=2)
-%segments(x0=4.75, x1=9.25, y0=gm[2], y1=gm[2], col="red", lty=2)
-%segments(x0=9.75, x1=14.5, y0=gm[3], y1=gm[3], col="red", lty=2)
-%
-%##axis(side=1, at=SEQ, labels=c(expression(g[1]^r), expression(g[2]^r), expression(g[3]^r),  expression(g[1]^r), expression(g[2]^r), expression(g[3]^r), 
-%##				expression(g[1]^r), expression(g[2]^r), expression(g[3]^r)))
-%#axis(side=1, at=c(2,7,12), labels=c("x1", "x2", "x3"), cex.axis=1.2)
-%axis(side=1, at=c(2,7,12), labels=c(expression(x[1]),expression(x[2]),expression(x[3])), cex.axis=1.2)
-%segments(x0=4.5, x1=4.5, y0=0, y1=0.80, lty=1, col="lightgray")
-%segments(x0=9.5, x1=9.5, y0=0, y1=0.80, lty=1, col="lightgray")
-%legend("top", bty="n", legend=c("original data", "mean imputation", "classical model-based imputation", "robust model-based imputation"), fill=c(gray(0.9), 
-%				gray(0.7), gray(0.5), gray(0.3)))
-%@
-\includegraphics{boxplot}
-\vspace*{-1cm}
-\caption{\label{boxplot}Boxplot comparison of the estimated column-wise geometric means of
-$1000$ bootstrap replicates of the original data set and the data sets 
-where missing values were imputated with different methods. The red line
-is the column-wise geometric mean of the original data. Outliers are excluded
-in the computation of the geometric means.}
-\end{center}
-\end{figure}
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlstd{R} \hlkwb{<-} \hlnum{5}
-\hlkwd{bootimp}\hlstd{(x}\hlopt{$}\hlstd{z2,} \hlkwc{R}\hlstd{=R)}
-\end{alltt}
-\end{kframe}
-\end{knitrout}
 
 
-%<<bootstat-erg-lm>>=
-%bootimp(x$zmiss, R=R)
-%@
-
-%With our generated data set, we see that method ``ltsReg'' includes a little bit more uncertainty:
-
-%<<bootstat-erg-ltsReg>>=
-%bootimp(x$zmiss, R=R)
-%@
-
-%However, with other choices of the data generation process, method ``ltsReg'' results in closer confidence intervals than method ``lm''.
-%Please note, that other imputation methods might include much more uncertainty.
 
 
-\subsection{Diagnostic Plots}
-
-Here we do not assume knowledge about the observed values. The goal is to visualize
-the imputed values in an appropriate way. Because of space limitations we
-only show results for the robust model-based procedure.
-
-The first diagnostic plot is a multiple
-scatterplot where the imputed values are compared with the observed ones. 
-This plot can be generated with 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{plot}\hlstd{(xImp1,} \hlkwc{which}\hlstd{=}\hlnum{1}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-4-1} 
-
-\end{knitrout}
-
-To avoid that imputed values are 
-placed on the regression hyperplane(s), one
-can add random noise to the imputed values. This can be done with the function
-\texttt{impCoda()} using the parameter \texttt{method $=$ ltsReg2} which considers
-the standard deviation of the residuals for generating the random noise. 
-% This plot can also be generated for instance for log-ratio transformed data
-% \citep{Aitchison86}, taking care of the compositional nature of the data.
-% 
-
-%' %Note that this plot cannot be applied after an isometric log-ratio transformation
-%' %because the dimension of the data is reduced by 1.
-%' 
-%' %\begin{center}
-%' %\begin{figure}[h]
-%' %<<plot1, fig=TRUE>>=
-%' %plot(xImp1, which=1)
-%' %@
-%' %\caption{Multiple Scatterplot to highlight observation which includes
-%' %imputations resulting from $k$-nearest neighbor imputation within the
-%' %Aitchison space.}
-%' %\label{repFig1}
-%' %\end{figure}
-%' %\end{center}
-%' 
-%' \begin{figure}[h]
-%' \begin{center}
-%' <<plot1,echo=FALSE>>=
-%' dimnames(xImp2$xImp)[[2]] <- c("x1","x2","x3")
-%' plot(xImp2, which=1)
-%' @
-%' \vspace*{-0.4cm}
-%' \caption{\label{repFig1b}Multiple Scatterplot to highlight imputed observations.}
-%' \end{center}
-%' \end{figure}
-
-A parallel coordinate plot \citep{Wegman90} can be generated by 
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{plot}\hlstd{(xImp1,} \hlkwc{which}\hlstd{=}\hlnum{2}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
-
-\end{knitrout}
-%' (plot not shown here). 
-The imputed values in certain variables are highlighted.
-One can select variables interactively, and imputed values in any of the 
- selected variables will be highlighted. 
-%' 
-%' %\begin{center}
-%' %\begin{figure}[h]
-%' %<<plot2, fig=TRUE>>=
-%' %plot(xImp2, which=2, interactive = FALSE)
-%' %@
-%' %\vspace*{-1cm}
-%' %\caption{Interactive parallel coordinate plot of object \texttt{xImp2} in which
-%' %observations with imputed values are highlighted in \textcolor{red}{red}.}
-%' %\label{repFig2}
-%' %\end{figure}
-%' %\end{center}
-%' 
 
 
-The third diagnostic plot (see Figure \ref{repFig4}), a ternary diagram \citep{Aitchison86},
- can be generated with 
- 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{alltt}
-\hlkwd{plot}\hlstd{(xImp1,} \hlkwc{which}\hlstd{=}\hlnum{3}\hlstd{,} \hlkwc{seg1}\hlstd{=}\hlnum{FALSE}\hlstd{)}
-\end{alltt}
-\end{kframe}
-\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
 
-\end{knitrout}
 
-The 3-part compositions are presented by three spikes, pointing in the
- directions of the corresponding three variables. The spikes of
- the imputed values are highlighted. This presentation allows gaining a multivariate
- view of the data, being helpful for interpreting possible irregularities
- of imputed values.
 
-%' %\begin{center}
-%' %\begin{figure}
-%' %<<plot4, fig=TRUE>>=
-%' %plot(xImp1, which=3, seg1=FALSE)
-%' %@
-%' %\caption{ternary plot with plotting symbols with no justification.}
-%' %\label{repFig4}
-%' %\end{figure}
-%' %\end{center}
-%' 
-%' \setkeys{Gin}{width=0.6\textwidth}
-%' \begin{figure}[h]
-%' \begin{center}
-%' <<plot4, echo=FALSE>>=
-%' par(mar=c(0,0,0,0))
-%' dimnames(xImp2$xImp)[[2]] <- c("x1","x2","x3")
-%' plot(xImp2, which=3, seg1=FALSE)
-%' @
-%' \vspace*{-3mm}
-%' \caption{\label{repFig4}Ternary diagram with special plotting symbols for highlighting imputed
-%' parts of the compositional data.}
-%' \end{center}
-%' \end{figure}
-%' 
-%' 
 
-\section{Conclusions}
 
-We provide the R-package \texttt{robCompositions} which includes advanced methods for 
-imputation for compositional data. We have shown how the imputation
-methods described in \cite{Hron09} can be applied with the package.
-The methods are especially designed for data including outliers.
-The performance of the methods is outlined in the original paper.
 
-The package includes possibilities for evaluating the quality of
-the imputed values: One can compute measures for information loss,
-use bootstrapping for estimating bias and uncertainty of parameters,
-and visualize the imputed values with diagnostic tools.
-For 3-dimensional compositions the proposed ternary plot is designed 
-to highlight how well imputations are made and which compositions were imputed.
-Note that many additional options
-can be used within these plots given by the arguments of the 
-plotting function.
-%' 
-%' %\newpage
-
-%\footnotesize
-\bibliography{refPCS}{}
-\bibliographystyle{plainnat}
-
-\end{document}
