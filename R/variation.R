@@ -43,7 +43,8 @@
         }
       }		
     }
+#    rvars <- data.frame(rvars)
     colnames(rvars) <- colnames(x)
-#    rownames(rvars) <- rownames(x)
+    rownames(rvars) <- colnames(x)
     return(rvars) 
 }
