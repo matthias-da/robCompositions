@@ -80,11 +80,12 @@
 		  )[[5]]
     } else {
       out <- matrix(, ncol = n, nrow = n)
+      gms <- apply(x, 1, function(x) gm(as.numeric(x)))
       for(i in 1:(n-1)){
         for(j in (i+1):n){
           out[i, j] <- out[j, i] <- 
-            sqrt(sum((log(as.numeric(x[i, ]) / gm(as.numeric(x[i, ]))) - 
-                       log(as.numeric(x[j, ]) / gm(as.numeric(x[j, ]))))^2))
+            sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
+                       log(as.numeric(x[j, ]) / gms[j]))^2))
         }
       }
       diag(out) <- 0
