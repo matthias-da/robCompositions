@@ -83,8 +83,8 @@
       for(i in 1:(n-1)){
         for(j in (i+1):n){
           out[i, j] <- out[j, i] <- 
-            1 / D * sum(log(as.numeric(x[i, 1:(D-1)]) / as.numeric(x[i, 2:D])) * 
-                          log(as.numeric(x[j, 1:(D-1)]) / as.numeric(x[j, 2:D])))
+            sqrt(sum((log(as.numeric(x[i, ]) / gm(as.numeric(x[i, ]))) - 
+                       log(as.numeric(x[j, ]) / gm(as.numeric(x[j, ]))))^2))
         }
       }
       diag(out) <- 0
