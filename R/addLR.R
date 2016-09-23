@@ -48,6 +48,8 @@
 #' @importFrom stats cor
 #' @importFrom stats cutree
 #' @importFrom stats dist
+#' @importFrom Rcpp sourceCpp
+#' @importFrom Rcpp evalCpp
 NULL
  
 #' Additive log-ratio transformation

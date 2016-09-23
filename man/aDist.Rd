@@ -5,7 +5,7 @@
 \alias{iprod}
 \title{Aitchison distance}
 \usage{
-aDist(x, y = NULL)
+aDist(x, y = NULL, method = "R")
 
 iprod(x, y)
 }

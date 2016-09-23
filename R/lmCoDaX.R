@@ -33,7 +33,6 @@
 #' y <- as.numeric(apply(expendituresEU,1,sum))
 #' lmCoDaX(y, expendituresEU, method="classical")
 #' lmCoDaX(y, expendituresEU, method="robust")
-#' 
 lmCoDaX <- function(y, X, method = "robust"){
 
 	ilrregression <- function(X,y){

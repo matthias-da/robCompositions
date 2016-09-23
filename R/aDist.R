@@ -57,7 +57,7 @@
 #' aDist(xOrig, xImp)
 #' 
 `aDist` <-
-  function(x, y = NULL){
+  function(x, y = NULL, method="R"){
     n <- dim(x)[1]
     p <- D <- dim(x)[2]
     rn <- rownames(x)
@@ -78,18 +78,20 @@
 				  distance,
 				  PACKAGE="robCompositions", NUOK=TRUE
 		  )[[5]]
+#     } else if(is.null(y) & method == "R"){
+#       out <- matrix(, ncol = n, nrow = n)
+#       gms <- apply(x, 1, function(x) gm(as.numeric(x)))
+#       for(i in 1:(n-1)){
+#         for(j in (i+1):n){
+#           out[i, j] <- out[j, i] <- 
+#             sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
+#                        log(as.numeric(x[j, ]) / gms[j]))^2))
+#         }
+#       }
+#       diag(out) <- 0
+#       rownames(out) <- colnames(out) <- rn
     } else {
-      out <- matrix(, ncol = n, nrow = n)
-      gms <- apply(x, 1, function(x) gm(as.numeric(x)))
-      for(i in 1:(n-1)){
-        for(j in (i+1):n){
-          out[i, j] <- out[j, i] <- 
-            sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
-                       log(as.numeric(x[j, ]) / gms[j]))^2))
-        }
-      }
-      diag(out) <- 0
-      rownames(out) <- colnames(out) <- rn
+      out <- dist(cenLR(x)$x.clr)
     }
 	  return(out)
 }	  
@@ -102,6 +104,7 @@
 #' y <- expenditures[, 2]
 #' iprod(x, y)
 iprod <- function(x, y){
+  warning("wrong formula, has to be fixed.")
   D <- length(x)
   if(D != length(y)) stop("x and y should have the same length")
   ip <- 1 / D * sum(log(as.numeric(x[1:(D-1)]) / as.numeric(x[2:D])) * 

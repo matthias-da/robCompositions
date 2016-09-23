@@ -9,6 +9,7 @@ Depends:
     ggplot2,
     data.table,
     pls
+LinkingTo: Rcpp
 Imports:
     car,
     e1071,
@@ -20,6 +21,7 @@ Imports:
     kernlab,
     MASS,
     mclust,
+    Rcpp,
     sROC,
     VIM
 Suggests:
