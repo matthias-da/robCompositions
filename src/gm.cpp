@@ -1,4 +1,5 @@
 //Includes/namespaces
+// [[Rcpp::plugins(cpp11)]]
 #include <Rcpp.h>
 using namespace Rcpp;
 
@@ -27,7 +28,7 @@ double gm(std::vector<double> const&data)
      if (data[i] <= 0)
        throw std::range_error("Positive values required");
   }
-  for(auto x:data) {
+  for(auto x:data) { 
     product *= x;
     if(product > too_large || product < too_small) {
       sum_log+= std::log(product);

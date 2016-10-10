@@ -41,7 +41,6 @@ data(expendituresEU)
 y <- as.numeric(apply(expendituresEU,1,sum))
 lmCoDaX(y, expendituresEU, method="classical")
 lmCoDaX(y, expendituresEU, method="robust")
-
 }
 \author{
 Peter Filzmoser

@@ -20,12 +20,12 @@
 # ## (the factor (fac) cannot be used for ilr transformed, since its length is longer (+1))
 # 
 
-centerAndVar <- function(x, method = mean.default){
-  z <- cenLR(x)
-  means <- matrix(apply(z$x.clr, 2, method), nrow=1)
-  gm <- apply(x, 2, gm)
-  fac <- means/gm
-  means / fac
-  class(means) <- "clr"
-  cenLRinv(means)
+center <- function(x, method = "robust"){
+  if(method != "robust") centers <- apply(x, 2, gm)
+  if(method == "robust"){
+    z <- pivotCoord(x)
+    zv <- covMcd(x)
+    centers <- apply(x[zv$mcd.wt == 1, ], 2, gm)
+  }
+  return(centers)
 }

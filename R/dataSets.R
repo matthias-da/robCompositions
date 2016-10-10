@@ -632,6 +632,118 @@ NULL
 NULL
 
 
+#' nutrient contents
+#' 
+#' Nutrients on more than 40 components and 965 generic food products
+#'
+#' \itemize{
+#' \item{\code{ID }}{ID, for internal use}
+#' \item{\code{ID_V4 }}{ID V4, for internal use}
+#' \item{\code{ID_SwissFIR }}{ID, for internal use}
+#' \item{\code{name_D }}{Name in German}
+#' \item{\code{name_F }}{Name in French}
+#' \item{\code{name_I }}{Name in Italian}
+#' \item{\code{name_E }}{Name in Spanish}
+#' \item{\code{category_D }}{Category name in German}
+#' \item{\code{category_F }}{Category name in French}
+#' \item{\code{category_I }}{Category name in Italy}
+#' \item{\code{category_E }}{Category name in Spanish}
+#' \item{\code{gravity }}{specific gravity}
+#' \item{\samp{energy_kJ }}{energy in kJ per 100g edible portion}
+#' \item{\code{energy_kcal }}{energy in kcal per 100g edible portion}
+#' \item{\code{protein }}{protein in gram per 100g edible portion}
+#' \item{\code{alcohol }}{alcohol in gram per 100g edible portion}
+#' \item{\code{water }}{water in gram per 100g edible portion}
+#' \item{\code{carbohydrates}}{crbohydrates in gram per 100g edible portion}
+#' \item{\code{starch }}{starch in gram per 100g edible portion}
+#' \item{\code{sugars }}{sugars in gram per 100g edible portion}
+#' \item{\samp{dietar_ fibres }}{dietar fibres in gram per 100g edible portion}
+#' \item{\code{fat }}{fat in gram per 100g edible portion}
+#' \item{\code{cholesterol }}{cholesterolin milligram per 100g edible portion}
+#' \item{\code{fattyacids_monounsaturated }}{fatty acids monounsatrurated in gram per 100g edible portion}
+#' \item{\code{fattyacids_saturated }}{fatty acids saturated in gram per 100g edible portion}
+#' \item{\code{fatty_acids_polyunsaturated }}{fatty acids polyunsaturated in gram per 100g edible portion}
+#' \item{\code{vitaminA }}{vitamin A in retinol equivalent per 100g edible portion}
+#' \item{\samp{all-trans_retinol_equivalents }}{all trans-retinol equivalents in gram per 100g edible portion}
+#' \item{\samp{beta-carotene-activity }}{beta-carotene activity in beta-carotene equivalent per 100g edible portion}
+#' \item{\samp{beta-carotene }}{beta-carotene in micogram per 100g edible portion}
+#' \item{\code{vitaminB1 }}{vitamin B1 in milligram per 100g edible portion}
+#' \item{\code{vitaminB2 }}{vitamin B2 in milligram per 100g edible portion}
+#' \item{\code{vitaminB6 }}{vitamin B6 in milligram per 100g edible portion}
+#' \item{\code{vitaminB12 }}{vitamin B12 in micogram per 100g edible portion}
+#' \item{\code{niacin }}{niacin in milligram per 100g edible portion}
+#' \item{\code{folate }}{folate in micogram per 100g edible portion}
+#' \item{\code{pantothenic_acid }}{pantothenic acid in milligram per 100g edible portion}
+#' \item{\code{vitaminC }}{vitamin C in milligram per 100g edible portion}
+#' \item{\code{vitaminD }}{vitamin D in micogram per 100g edible portion}
+#' \item{\code{vitaminE }}{vitamin E in alpha-tocopherol equivalent per 100g edible portion}
+#' \item{\code{Na }}{Sodium in milligram per 100g edible portion}
+#' \item{\code{K }}{Potassium in milligram per 100g edible portion}
+#' \item{\code{Cl }}{Chloride}
+#' \item{\code{Ca }}{Calcium}
+#' \item{\code{Mg }}{Magnesium}
+#' \item{\code{P }}{Phosphorus}
+#' \item{\code{Fe }}{Iron}
+#' \item{\code{I }}{Iodide in milligram per 100g edible portion}
+#' \item{\code{Zn }}{Zink}
+#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
+#' }
+#'
+#' @name nutrients
+#' @docType data
+#' @usage data(nutrients)
+#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @format A data frame with 965 observations on the following 50 variables.
+#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @keywords data
+#' @examples 
+#' 
+#' data(nutrients)
+#' str(nutrients)
+#' head(nutrients[, 41:49])
+NULL
+
+#' nutrient contents (branded)
+#' 
+#' Nutrients on more than 10 components and 9618 branded food products
+#'
+#' \itemize{
+#' \item{\code{name_D }}{name (in German)}
+#' \item{\code{category_D }}{factor specifying the category names}
+#' \item{\code{category_F }}{factor specifying the category names}
+#' \item{\code{category_I }}{factor specifying the category names}
+#' \item{\code{category_E }}{factor specifying the category names}
+#' \item{\code{gravity }}{specific gravity}
+#' \item{\code{energy_kJ }}{energy in kJ}
+#' \item{\samp{energy_kcal }}{energy in kcal}
+#' \item{\code{protein }}{protein in gram}
+#' \item{\code{alcohol }}{alcohol in gram}
+#' \item{\code{water }}{water in gram}
+#' \item{\code{carbohydrates_available }}{available carbohydrates in gram}
+#' \item{\code{sugars }}{sugars in gram}
+#' \item{\code{dietary_fibres }}{dietary fibres in gram}
+#' \item{\code{fat_total }}{total fat in gram}
+#' \item{\code{fatty_acids_saturated }}{saturated acids fat in gram}
+#' \item{\code{Na }}{Sodium in gram}
+#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
+#' }
+#'
+#' @name nutrients_branded
+#' @docType data
+#' @usage data(nutrients_branded)
+#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @format A data frame with 9618 observations on the following 18 variables.
+#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @keywords data
+#' @examples 
+#' 
+#' data(nutrients_branded)
+#' str(nutrients_branded)
+NULL
+
+
 #' Aphyric skye lavas data 
 #' 
 #' AFM compositions of 23 aphyric Skye lavas. This data set can be found on page 360 of the Aitchison book (see reference).
