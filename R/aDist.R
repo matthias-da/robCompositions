@@ -22,7 +22,7 @@
 #' @author Matthias Templ, Bernhard Meindl
 #' @export
 #' @useDynLib robCompositions
-#' @seealso \code{\link{isomLR}}
+#' @seealso \code{\link{pivotCoord}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman and Hall Ltd., London (UK). 416p.
@@ -57,7 +57,7 @@
 #' aDist(xOrig, xImp)
 #' 
 `aDist` <-
-  function(x, y = NULL, method="R"){
+  function(x, y = NULL){
     n <- dim(x)[1]
     p <- D <- dim(x)[2]
     rn <- rownames(x)

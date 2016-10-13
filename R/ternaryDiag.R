@@ -126,7 +126,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
   ## adding lines
   plotTern <- function(x, conf=line, rob=robust){
 #	  x <- x[,c(3,2,1)]
-	  z <- data.frame(isomLR(x))
+	  z <- data.frame(pivotCoord(x))
 #	  z[,2] <- z[,2]*(-1)
 	  colnames(z) <- c("x", "y")
 	  if(rob) lm1 <- MASS::rlm(y ~ x, data=z, method="MM") else lm1 <- lm(y ~ x, data=z)
@@ -134,19 +134,19 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 	  new <- data.frame(x = seq(-30, 30, length=10000)) 
 	  if(conf=="regressionpred"){
 	    pred.w.plim <- predict(lm1, new, interval="prediction")
-		s1 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,1]))
-		s2 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,2]))
-		s3 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,3]))
+		s1 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,1]))
+		s2 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,2]))
+		s3 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,3]))
      } else if(conf=="regressionconf"){
 	    pred.w.plim <- predict(lm1, new, interval="confidence")		
-		s1 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,1]))
-		s2 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,2]))
-		s3 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim[,3]))
+		s1 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,1]))
+		s2 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,2]))
+		s3 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim[,3]))
 	  } else {
 		pred.w.plim <- predict(lm1, new)	
-		s1 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim))
-		s2 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim))
-		s3 <- isomLRinv(data.frame(z1=new$x, z2=pred.w.plim))
+		s1 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim))
+		s2 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim))
+		s3 <- pivotCoordInv(data.frame(z1=new$x, z2=pred.w.plim))
 	  }
 #	  s1 <- invilr(data.frame(z1=new$x, z2=pred.w.plim[,1]))
 #	  s2 <- invilr(data.frame(z1=new$x, z2=pred.w.plim[,2]))
@@ -181,7 +181,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
   
   f <- function(x, co="black", lt=1, rob=robust){
 	  a <- constSum(x,1)
-	  a <- isomLR(x)
+	  a <- pivotCoord(x)
 	  if(rob){
 		  rc <- robustbase::covMcd(a)
 		  me <- rc$center
@@ -202,7 +202,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 	  s2 <- seq(y0,y1,length=100)
 	  
 	  s <- data.frame(s1=s1,s2=s2)
-	  ss <- isomLRinv(s)
+	  ss <- pivotCoordInv(s)
 #	ternaryDiag(arcticLake)
 	  s1 <- rowSums(ss)
 	  dat <- ss/s1
@@ -214,10 +214,10 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
   }
   ### tollerance ellipses:
   dcov <- function(x, tolerance=tol){
-	  z <- isomLR(x)
+	  z <- pivotCoord(x)
 	  dat1 <- drawMahal(z, colMeans(z), cov(z), plot=FALSE, whichlines=tolerance) 
 	  for(i in 1:length(tolerance)){
-	      e <- isomLRinv(cbind(dat1$mdX[,i], dat1$mdY[,i]))
+	      e <- pivotCoordInv(cbind(dat1$mdX[,i], dat1$mdY[,i]))
 		  xp1 <- e[, 2] + e[, 3]/2
 		  yp1 <- e[, 3] * sqrt(3)/2	  
 		  lines(xp1, yp1, xlim = c(0, 1), ylim = c(0, 0.9), #frame.plot = FALSE, 
@@ -225,7 +225,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
       }
   }
   da <- function(x, grp=group){
-	  z <- isomLR(x)
+	  z <- pivotCoord(x)
 	  lev <- levels(factor(grp))
 	  if(length(lev) != 2) stop("group must be a factor with exactly two levels")
 	  z1 <- z[grp==lev[1],]
@@ -262,7 +262,7 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 		  seq(p,0.95,) ## stopped here!
 	  }
 #	  blines <- data.frame(z1=seq(bline$x[1],bline$x[2],length=100), z2=seq(bline$y[1],bline$y[2],length=100))
-	  xblines <- isomLRinv(blines)
+	  xblines <- pivotCoordInv(blines)
 	  xp1 <- xblines[, 2] + xblines[, 3]/2
 	  yp1 <- xblines[, 3] * sqrt(3)/2	  
 	  lines(xp1, yp1, xlim = c(0, 1), ylim = c(0, 0.9), #frame.plot = FALSE, 

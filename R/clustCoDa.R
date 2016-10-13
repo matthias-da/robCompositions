@@ -45,7 +45,7 @@
 #' @examples
 #' data(expenditures)
 #' x <- expenditures
-#' rr <- clustCoDa(x, k=6, scale = "robust", transformation = "isomLR")
+#' rr <- clustCoDa(x, k=6, scale = "robust", transformation = "pivotCoord")
 #' rr2 <- clustCoDa(x, k=6, distMethod = "Aitchison", scale = "none", 
 #'                  transformation = "identity")
 #' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
@@ -54,7 +54,7 @@
 #' plot(rr, normalized = TRUE)
 #' plot(rr, normalized = TRUE, which.plot = "partMeans")
 clustCoDa <- function(x, k=NULL, method="Mclust",
-          scale = "robust", transformation = "isomLR",
+          scale = "robust", transformation = "pivotCoord",
           distMethod=NULL, iter.max=100, vals = TRUE, 
           alt = NULL, bic=NULL, verbose = TRUE){
   
@@ -70,15 +70,15 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
                      "centroid")
   if(is.null(k) & method %in% partitioning) stop("provide the number of clusters")
   if(!is.null(distMethod)){
-    if(distMethod == "Aitchison" & transformation %in% c("isomLR", "cenLR")) {
+    if(distMethod == "Aitchison" & transformation %in% c("pivotCoord", "cenLR")) {
       stop("either apply a \nlog-ratio transformation or the Aitchison distance, \nnot both")
     }
   }
-  if(is.null(distMethod) & !(transformation %in% c("isomLR", "cenLR"))) { 
+  if(is.null(distMethod) & !(transformation %in% c("pivotCoord", "cenLR"))) { 
      distMethod <- "Aitchison"
      message("Aitchison distance is used for the calculation\n of the distance matrix")
   }
-  if(is.null(distMethod) & transformation %in% c("isomLR", "cenLR")) {
+  if(is.null(distMethod) & transformation %in% c("pivotCoord", "cenLR")) {
     distMethod <- "euclidean"
   }
   
@@ -352,9 +352,9 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     #clust$bics <- clust$bics
     #clust$vp <- vp
   }
-  if(distMethod != "Aitchison" & transformation == "isomLR"){
+  if(distMethod != "Aitchison" & transformation == "pivotCoord"){
     gms <- apply(xOrig, 2, gm)
-    clust$centerSimplex <- isomLRinv(clust$center)
+    clust$centerSimplex <- pivotCoordInv(clust$center)
     gmsc <- apply(clust$centerSimplex, 2, gm)
     di <- gms/gmsc
     for(i in 1:ncol(clust$centerSimplex)){
@@ -388,7 +388,7 @@ plot.clustCoDa <- function(x, y, ...,
                            which.plot = "clusterMeans", 
                            measure = "silwidths"){
     variable <- center <- NULL
-    if(x$transformation != "isomLR"){
+    if(x$transformation != "pivotCoord"){
       centers <- as.data.frame(x$center)
     } else {
       centers <- as.data.frame(x$centerSimplex)       

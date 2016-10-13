@@ -60,7 +60,7 @@ Compositional Data} Monographs on Statistics and Applied Probability.
 Chapman \& Hall Ltd., London (UK). 416p.
 }
 \seealso{
-\code{\link{isomLRinv}}, \code{\link{cenLRinv}},
+\code{\link{pivotCoordInv}}, \code{\link{cenLRinv}},
 \code{\link{cenLR}}, \code{\link{addLR}}
 }
 \keyword{manip}

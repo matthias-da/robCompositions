@@ -32,7 +32,7 @@ Due to unknown reasons the rowSums of the percentages is not always 100.
 \examples{
 
 data(phd)
-phdImputed <- impCoda(phd[, 7:ncol(phd)])$xOrig
+str(phd)
 
 }
 \references{

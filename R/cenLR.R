@@ -13,8 +13,8 @@
 #' \item{gm}{the geometric means of the original composition.}
 #' @note The resulting transformed data set is singular by definition.
 #' @author Matthias Templ
-#' @seealso \code{\link{cenLRinv}}, \code{\link{addLR}}, \code{\link{isomLR}},
-#' \code{\link{addLRinv}}, \code{\link{isomLRinv}}
+#' @seealso \code{\link{cenLRinv}}, \code{\link{addLR}}, \code{\link{pivotCoord}},
+#' \code{\link{addLRinv}}, \code{\link{pivotCoordInv}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.
@@ -27,7 +27,7 @@
 #' inveclr <- cenLRinv(eclr)
 #' head(expenditures)
 #' head(inveclr)
-#' head(isomLRinv(eclr$x.clr))
+#' head(pivotCoordInv(eclr$x.clr))
 #' 
 cenLR <- function(x, base = exp(1)){
 	#if(dim(x)[2] < 2) stop("data must be of dimension greater equal 2")

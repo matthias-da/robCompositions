@@ -72,7 +72,7 @@ NULL
 #' as \emph{cnames} or \emph{ivar} is usefull when a back-transformation is
 #' applied on the \sQuote{same} data set.
 #' @author Matthias Templ
-#' @seealso \code{\link{addLRinv}}, \code{\link{isomLR}}
+#' @seealso \code{\link{addLRinv}}, \code{\link{pivotCoord}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.

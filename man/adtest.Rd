@@ -55,10 +55,10 @@ These functions are use by \code{\link{adtestWrapper}}.
 adtest(rnorm(100))
 data(machineOperators)
 x <- machineOperators
-adtest(isomLR(x[,1:2]))
-adtest(isomLR(x[,1:3]))
-adtest(isomLR(x))
-adtest(isomLR(x[,1:2]), locscatt="robust")
+adtest(pivotCoord(x[,1:2]))
+adtest(pivotCoord(x[,1:3]))
+adtest(pivotCoord(x))
+adtest(pivotCoord(x[,1:2]), locscatt="robust")
 
 }
 \author{

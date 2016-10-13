@@ -34,7 +34,7 @@ eclr <- cenLR(expenditures)
 inveclr <- cenLRinv(eclr)
 head(expenditures)
 head(inveclr)
-head(isomLRinv(eclr$x.clr))
+head(pivotCoordInv(eclr$x.clr))
 
 }
 \author{
@@ -46,8 +46,8 @@ Compositional Data} Monographs on Statistics and Applied Probability.
 Chapman \& Hall Ltd., London (UK). 416p.
 }
 \seealso{
-\code{\link{cenLRinv}}, \code{\link{addLR}}, \code{\link{isomLR}},
-\code{\link{addLRinv}}, \code{\link{isomLRinv}}
+\code{\link{cenLRinv}}, \code{\link{addLR}}, \code{\link{pivotCoord}},
+\code{\link{addLRinv}}, \code{\link{pivotCoordInv}}
 }
 \keyword{manip}
 

@@ -19,7 +19,7 @@
 #' @return the transformed data matrix
 #' @export
 #' @author Matthias Templ
-#' @seealso \code{\link{isomLRinv}}, \code{\link{cenLRinv}},
+#' @seealso \code{\link{pivotCoordInv}}, \code{\link{cenLRinv}},
 #' \code{\link{cenLR}}, \code{\link{addLR}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.

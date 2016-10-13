@@ -3,8 +3,8 @@
 #' Perturbation and powering for two compositions.
 #' 
 #' @aliases perturbation powering
-#' @param x a (compositional) vector containing positive values
-#' @param y a (compositional) vector containing positive values or NULL for powering
+#' @param x (compositional) vector containing positive values
+#' @param y (compositional) vector containing positive values or NULL for powering
 #' @return Result of perturbation or powering
 #' @author Matthias Templ
 #' @export
@@ -23,6 +23,7 @@ perturbation <- function(x, y){
 }
 
 #' @rdname perturbation
+#' @param a constant, numeric vector of length 1
 #' @export
 powering <- function(x, a){
   constSum(x^a)

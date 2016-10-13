@@ -24,7 +24,7 @@ double gm(std::vector<double> const&data)
   const double too_small = 1.e-64;
   double sum_log = 0.0;
   double product = 1.0;
-  for (int i=0; i<data.size(); i++) {
+  for (int i=0; i < data.size(); i++) {
      if (data[i] <= 0)
        throw std::range_error("Positive values required");
   }

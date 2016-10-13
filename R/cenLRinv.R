@@ -10,8 +10,8 @@
 #' absolute values may be preserved.
 #' @return the transformed data set.
 #' @author Matthias Templ
-#' @seealso \code{\link{cenLR}}, \code{\link{addLR}}, \code{\link{isomLR}},
-#' \code{\link{addLRinv}}, \code{\link{isomLRinv}}
+#' @seealso \code{\link{cenLR}}, \code{\link{addLR}}, \code{\link{pivotCoord}},
+#' \code{\link{addLRinv}}, \code{\link{pivotCoordInv}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.

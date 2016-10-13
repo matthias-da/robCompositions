@@ -71,7 +71,7 @@ daCoDa <- function(x, grp, coda=TRUE, method = "classical", rule="linear", ...){
     stop("matrix or data.frame expected.")
   }
   if(coda){
-    x <- isomLR(x)
+    x <- pivotCoord(x)
   }
   
   if(rule=="linear" & method=="classical"){

@@ -34,7 +34,7 @@ ternaryDiagAbline <- function(x, ...){
 	x <- cbind(SEQ,x)
 #	lines(x)
 #	print(x)
-	x <- isomLRinv(x)
+	x <- pivotCoordInv(x)
 	s <- rowSums(x)
 	if (any(s <= 0)) 
 		stop("rowSums of the input data x must be positive.")

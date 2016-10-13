@@ -46,7 +46,7 @@ lmCoDaX <- function(y, X, method = "robust"){
 	# ilr regressions:
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
-			Zj <- isomLR(cbind(X[,j],X[,-j]))
+			Zj <- pivotCoord(cbind(X[,j],X[,-j]))
 			dj <- data.frame(y=y,Z=Zj)
 			res <- lm(y~.,data=dj)
 			res.sum <- summary(res)
@@ -76,7 +76,7 @@ lmCoDaX <- function(y, X, method = "robust"){
 	# ilr regressions:
 		ilr.sum <- lmcla.sum
 		for (j in 1:ncol(X)){
-			Zj <- isomLR(cbind(X[,j],X[,-j]))
+			Zj <- pivotCoord(cbind(X[,j],X[,-j]))
 			dj <- data.frame(y=y,Z=Zj)
 			res <- robustbase::ltsReg(y~.,data=dj)
 			res.sum <- summary(res)

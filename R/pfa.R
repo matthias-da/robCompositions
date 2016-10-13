@@ -61,8 +61,8 @@
 #' 
 #' ## the following produce always the same result:
 #' res1 <- pfa(x, factors=1, covmat="covMcd")
-#' res2 <- pfa(x, factors=1, covmat=covMcd(isomLR(x))$cov)
-#' res3 <- pfa(x, factors=1, covmat=covMcd(isomLR(x)))
+#' res2 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x))$cov)
+#' res3 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x)))
 #' 
 pfa <-
 function (x, factors, robust=TRUE, data = NULL, covmat = NULL, n.obs = NA, 
@@ -70,7 +70,7 @@ function (x, factors, robust=TRUE, data = NULL, covmat = NULL, n.obs = NA,
         "Bartlett"), rotation = "varimax", maxiter = 5, control = NULL, 
     ...) 
 {
-  z <- -isomLR(x)    #ilr transformed data
+  z <- -pivotCoord(x)    #ilr transformed data
 	## orthonormal basis:
 	V <- matrix(0,nrow=ncol(x),ncol=ncol(x)-1)
 	for (i in 1:ncol(V)){

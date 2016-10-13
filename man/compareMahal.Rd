@@ -42,6 +42,6 @@ plot(m)
 Matthias Templ, Karel Hron
 }
 \seealso{
-\code{\link{impKNNa}}, \code{\link{isomLR}}
+\code{\link{impKNNa}}, \code{\link{pivotCoord}}
 }
 

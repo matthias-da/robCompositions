@@ -35,7 +35,7 @@
 #' 
 #' require(MASS)
 #' Sigma <- matrix(c(5.05,4.95,4.95,5.05), ncol=2, byrow=TRUE)
-#' z <- isomLRinv(mvrnorm(100, mu=c(0,2), Sigma=Sigma))
+#' z <- pivotCoordInv(mvrnorm(100, mu=c(0,2), Sigma=Sigma))
 #' 
 #' data(expenditures)
 #' ## first variable as pivot variable

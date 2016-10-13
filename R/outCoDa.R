@@ -35,7 +35,7 @@
 #' vector indicating outliers and non-outliers} \item{method }{method used}
 #' @note It is highly recommended to use the robust version of the procedure.
 #' @author Matthias Templ, Karel Hron
-#' @seealso \code{\link{isomLR}}
+#' @seealso \code{\link{pivotCoord}}
 #' @references Egozcue J.J., V. Pawlowsky-Glahn, G. Mateu-Figueras and C.
 #' Barcel'o-Vidal (2003) Isometric logratio transformations for compositional
 #' data analysis. \emph{Mathematical Geology}, \bold{35}(3) 279-300. \
@@ -77,7 +77,7 @@ outCoDa <- function(x, quantile=0.975, method="robust",
 	if(!is.logical(coda)){
 	  x <- coda(x)
 	}	else if (coda){ 
-	  x <- isomLR(x)
+	  x <- pivotCoord(x)
 	}  
 	cv <- covEst(x, "robust")
 	cvc <- covEst(x, "standard")

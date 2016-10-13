@@ -55,7 +55,7 @@ zeroOut <- function(x, impute="knn"){
     wt <- which(index)
     wf <- which(!index)
     sortedxs <- sortedxs[, c(wt,wf)]
-    zneworder <- isomLR(sortedxs)
+    zneworder <- pivotCoord(sortedxs)
     zcovs <- robustbase::covMcd(zneworder)
     ## took only last columns of xs
     if(length(wf) == 2){

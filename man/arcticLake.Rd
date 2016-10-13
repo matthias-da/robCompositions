@@ -28,7 +28,7 @@ str(arcticLake)
 summary(arcticLake)
 rowSums(arcticLake)
 ternaryDiag(arcticLake)
-plot(isomLR(arcticLake))
+plot(pivotCoord(arcticLake))
 }
 \author{
 Matthias Templ \email{matthias.templ@tuwien.ac.at}

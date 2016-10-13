@@ -9,11 +9,11 @@
 # fac <- means/gms
 # means /fac
 # ## but robust we need any ilr, but then to preserve the original scale is not possilbe/easy, as described at the previous mail ;)
-# isomLRinv(matrix(covMcd(isomLR(x))$center, nrow=1))
+# pivotCoordInv(matrix(covMcd(pivotCoord(x))$center, nrow=1))
 # # compare
 # apply(x, 2, gm)
 # ## Karels suggestion to take only obs that considered finally in MCD
-# mcd <- covMcd(isomLR(x))
+# mcd <- covMcd(pivotCoord(x))
 # gms_rob <- apply(x[mcd$best, ], 2, gm)
 # ## finished?
 # gms_rob

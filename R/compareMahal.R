@@ -13,7 +13,7 @@
 #' @import ggplot2
 #' @import data.table
 #' @author Matthias Templ, Karel Hron
-#' @seealso \code{\link{impKNNa}}, \code{\link{isomLR}}
+#' @seealso \code{\link{impKNNa}}, \code{\link{pivotCoord}}
 #' @examples
 #' 
 #' data(arcticLake)
@@ -65,12 +65,12 @@ compareMahal <- function(x, imp="KNNa"){
   ## mahalanobis distances in each subset:
   calcMahal <- function(x){
     if(ncol(x) > 2){
-      xilr <- isomLR(x)
+      xilr <- pivotCoord(x)
       covs <- robustbase::covMcd(xilr)
       mahcorr <- sqrt(as.numeric(mahalanobis(xilr, center=covs$center, cov=covs$cov)))
       mahcorr <- mahcorr / sqrt(qchisq(0.975, ncol(xilr)))
     } else if(ncol(x) == 2){
-      xilr <- isomLR(x)
+      xilr <- pivotCoord(x)
       covs <- covMcd(xilr)
       zscore <- (as.numeric(unlist(xilr)) - covs$center) / sqrt(covs$cov) 
       mahcorr <- abs(zscore) / qnorm(0.975)

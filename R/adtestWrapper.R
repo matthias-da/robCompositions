@@ -31,7 +31,7 @@
 #' used by the print and summary method. } \item{est}{ \dQuote{standard} for
 #' standard estimation and \dQuote{robust} for robust estimation }
 #' @author Matthias Templ and Karel Hron
-#' @seealso \code{\link{adtest}}, \code{\link{isomLR}}
+#' @seealso \code{\link{adtest}}, \code{\link{pivotCoord}}
 #' @references Anderson, T.W. and Darling, D.A. (1952) \emph{Asymptotic theory
 #' of certain goodness-of-fit criteria based on stochastic processes} Annals of
 #' Mathematical Statistics, \bold{23} 193-212.
@@ -50,7 +50,7 @@
 #' 
 adtestWrapper=function(x,alpha=0.05,R=1000, robustEst=FALSE){
   if(robustEst == TRUE ) robust <- "robust" else robust <- "standard"
-  z=isomLR(x)
+  z=pivotCoord(x)
   n=ncol(z)
   if(ncol(z)==1){
     res<-info<-list()

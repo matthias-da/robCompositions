@@ -166,7 +166,7 @@
           s <- sort(rv)[np]
           cols <- which(rv <= s)[1:np]
           xn <- xneworder[, cols]
-          if(test) xilr <- data.frame(isomLRp(xn)) else xilr <- data.frame(isomLR(xn))
+          if(test) xilr <- data.frame(isomLRp(xn)) else xilr <- data.frame(pivotCoord(xn))
           colnames(xilr)[1] <- "Y"
           call <- call(method, formula = Y ~ .)
           # perform cross-validation
@@ -208,10 +208,10 @@
         ## detection limit in ilr-space
         forphi <- cbind(rep(dlordered[i], n), xneworder[,-1,drop=FALSE])
         if(any(is.na(forphi))) break()
-        if(test) phi <- isomLRp(forphi)[,1] else phi <- isomLR(forphi)[,1] 
+        if(test) phi <- isomLRp(forphi)[,1] else phi <- pivotCoord(forphi)[,1] 
         #		part <- cbind(x[,i,drop=FALSE], x[,-i,drop=FALSE])
         xneworder[xneworder < 2*.Machine$double.eps] <- 2*.Machine$double.eps
-        if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(isomLR(xneworder))
+        if(test) xilr <- data.frame(isomLRp(xneworder)) else xilr <- data.frame(pivotCoord(xneworder))
 #        c1 <- colnames(xilr)[1]					
 #        colnames(xilr)[1] <- "V1"	
         response <- as.matrix(xilr[, 1, drop=FALSE])
@@ -250,7 +250,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinv(xilr)
+        if(test) xinv <- isomLRInvp(xilr) else xinv <- pivotCoordInv(xilr)
         ## if variation:
         if(variation == TRUE){
           xneworder <- adjustImputed(xinv, xneworder, w2[, cols])
@@ -312,7 +312,7 @@
           yhat2sel <- ifelse(yhat2sel > phi[w[, i]], phi[w[, i]], yhat2sel)
         }
         xilr[w[, i], 1] <- yhat2sel
-        if(test) xinv <- isomLRinvp(xilr) else xinv <- isomLRinv(xilr) 
+        if(test) xinv <- isomLRInvp(xilr) else xinv <- pivotCoordInv(xilr) 
         ## reordering of xOrig
         if(i %in% 2:(d-1)){
           xinv <- cbind(xinv[,2:i], xinv[,c(1,(i+1):d)])
@@ -694,8 +694,8 @@ adjust3 <- function(xImp, xOrig, wind){
 #				x[,indM[i]]=x1
 #				
 #				if(method == "roundedZero"){
-#					xilr <- isomLR(x)
-#					phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
+#					xilr <- pivotCoord(x)
+#					phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
 #					## --> x hat sich geaendert aber dl nicht.
 #					xilr2 <- data.frame(xilr)
 #					c1 <- colnames(xilr2)[1]
@@ -719,9 +719,9 @@ adjust3 <- function(xImp, xOrig, wind){
 #					}
 #				}
 #				if (method == "pls") {	
-#					xilr = isomLR(x)
+#					xilr = pivotCoord(x)
 #					ttt <- cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE])
-#					phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1]
+#					phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1]
 ##				if(verbose) cat("\n phi", phi, "in iteration", it)
 #					xilr2 <- data.frame(xilr)	
 #					c1 <- colnames(xilr2)[1]					
@@ -758,9 +758,9 @@ adjust3 <- function(xImp, xOrig, wind){
 #					
 #				}	
 #				if(method == "roundedZeroRobust"){
-#					xilr <- isomLR(x)
+#					xilr <- pivotCoord(x)
 #					x[x < .Machine$double.eps] <- 0.00000000001  ## TODO: better solution 
-#					phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
+#					phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
 #					xilr2 <- data.frame(xilr)
 #					c1 <- colnames(xilr2)[1]
 #					colnames(xilr2)[1] <- "V1"
@@ -786,7 +786,7 @@ adjust3 <- function(xImp, xOrig, wind){
 #				}
 #				
 #				xilr <- xilr2 
-#				x <- isomLRinv(xilr)	
+#				x <- pivotCoordInv(xilr)	
 #				
 #				## return the order of columns:
 #				xNA=x[,1]
@@ -894,8 +894,8 @@ adjust3 <- function(xImp, xOrig, wind){
 #		    x[,indM[i]]=x1
 #			
 #			if(method == "roundedZero"){
-#				xilr <- isomLR(x)
-#				phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
+#				xilr <- pivotCoord(x)
+#				phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
 #				## --> x hat sich geaendert aber dl nicht.
 #				xilr2 <- data.frame(xilr)
 #				c1 <- colnames(xilr2)[1]
@@ -919,9 +919,9 @@ adjust3 <- function(xImp, xOrig, wind){
 #		        }
 #			}
 #			if (method == "pls") {	
-#				xilr = isomLR(x)
+#				xilr = pivotCoord(x)
 #				ttt <- cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE])
-#				phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1]
+#				phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1]
 ##				if(verbose) cat("\n phi", phi, "in iteration", it)
 #				xilr2 <- data.frame(xilr)	
 #				c1 <- colnames(xilr2)[1]					
@@ -958,9 +958,9 @@ adjust3 <- function(xImp, xOrig, wind){
 #				
 #			}	
 #			if(method == "roundedZeroRobust"){
-#				xilr <- isomLR(x)
+#				xilr <- pivotCoord(x)
 #				x[x < .Machine$double.eps] <- 0.00000000001  ## TODO: better solution 
-#				phi <- isomLR(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
+#				phi <- pivotCoord(cbind(rep(dl[indM[i]], nrow(x)), x[,-1,drop=FALSE]))[,1] # TODO: phi auserhalb der Schleife!
 #				xilr2 <- data.frame(xilr)
 #				c1 <- colnames(xilr2)[1]
 #				colnames(xilr2)[1] <- "V1"
@@ -986,7 +986,7 @@ adjust3 <- function(xImp, xOrig, wind){
 #			}
 #			
 #			xilr <- xilr2 
-#			x <- isomLRinv(xilr)	
+#			x <- pivotCoordInv(xilr)	
 #
 #			## return the order of columns:
 #			xNA=x[,1]

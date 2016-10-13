@@ -1,9 +1,15 @@
-Changes in robCompositions version 2.0.
+Changes in robCompositions version 2.0.3
   + new function perturbation() and powering()
   + new function for inner product (iprod())
+  + new funciton balances()
   + addLR, cenLR with optional different base in logrithm
   + isomLR with more possibilites for a normalizing constant
+  + isomLR depricated, using now pivotCoord instead
+  + isomLRinv depricated, using pivotCoordInv instead
   + orthbasis() now returns also the basis vectors
+  + bug in aDist solved
+  + aDist now much faster
+  + new function center()
 
 Changes in robCompositions version 2.0.2
   + new function balZav()

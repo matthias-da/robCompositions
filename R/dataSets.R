@@ -160,7 +160,7 @@ NULL
 #' summary(arcticLake)
 #' rowSums(arcticLake)
 #' ternaryDiag(arcticLake)
-#' plot(isomLR(arcticLake))
+#' plot(pivotCoord(arcticLake))
 NULL
 
 #' Child, middle and eldery population
@@ -189,7 +189,7 @@ NULL
 #' summary(ageCatWorld)
 #' rowSums(ageCatWorld[, 1:3])
 #' ternaryDiag(ageCatWorld[, 1:3])
-#' plot(isomLR(ageCatWorld[, 1:3]))
+#' plot(pivotCoord(ageCatWorld[, 1:3]))
 NULL
 
 
@@ -901,7 +901,7 @@ NULL
 #' @examples
 #' 
 #' data(phd)
-#' phdImputed <- impCoda(phd[, 7:ncol(phd)])$xOrig
+#' str(phd)
 #' 
 NULL
 

@@ -73,7 +73,7 @@ Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd.,
 London (UK). 416p.
 }
 \seealso{
-\code{\link{adtest}}, \code{\link{isomLR}}
+\code{\link{adtest}}, \code{\link{pivotCoord}}
 }
 \keyword{htest}
 

@@ -5,7 +5,7 @@
 \alias{iprod}
 \title{Aitchison distance}
 \usage{
-aDist(x, y = NULL, method = "R")
+aDist(x, y = NULL)
 
 iprod(x, y)
 }
@@ -76,7 +76,7 @@ for compositional data using classical and robust methods
 3095-3107.
 }
 \seealso{
-\code{\link{isomLR}}
+\code{\link{pivotCoord}}
 }
 \keyword{arith}
 \keyword{math}

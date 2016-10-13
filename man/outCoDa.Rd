@@ -86,7 +86,7 @@ Rousseeuw, P.J., Van Driessen, K. (1999) A fast algorithm for the minimum
 covariance determinant estimator.  \emph{Technometrics}, \bold{41} 212-223.
 }
 \seealso{
-\code{\link{isomLR}}
+\code{\link{pivotCoord}}
 }
 \keyword{multivariate}
 

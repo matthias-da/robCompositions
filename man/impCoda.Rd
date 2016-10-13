@@ -86,7 +86,7 @@ missing values for compositional data using classical and robust methods
 3095-3107.
 }
 \seealso{
-\code{\link{impKNNa}}, \code{\link{isomLR}}
+\code{\link{impKNNa}}, \code{\link{pivotCoord}}
 }
 \keyword{iteration}
 \keyword{multivariate}

@@ -100,7 +100,7 @@ daFisher <- function(x, grp, coda=TRUE,
     stop("matrix or data.frame expected.")
   }
   if(coda){
-    x <- isomLR(x)
+    x <- pivotCoord(x)
   }
   n <- nrow(x)
   p <- ncol(x)
@@ -209,7 +209,7 @@ daFisher <- function(x, grp, coda=TRUE,
 #   	stop("matrix or data.frame expected.")
 #   }
 #   if(coda){
-#   	x <- isomLR(x)
+#   	x <- pivotCoord(x)
 #   }
 #   
 #   	p <- ncol(x)
