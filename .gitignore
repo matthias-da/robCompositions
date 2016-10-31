@@ -2,8 +2,6 @@
 vignettes/imputation.synctex.gz
 vignettes/imputation-concordance.tex
 man/zeroOut.Rd
-./man/*
-man/*
 *.o
 *.so
 *.dll
