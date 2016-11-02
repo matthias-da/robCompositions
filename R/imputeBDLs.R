@@ -18,7 +18,7 @@
 #' @param x data.frame or matrix
 #' @param maxit maximum number of iterations
 #' @param eps convergency criteria 
-#' @param method either \dQuote{lm}, \dQuote{lmrob} or \dQuote{pls}
+#' @param method either "lm", "lmrob" or "pls"
 #' @param dl Detection limit for each variable. zero for variables with
 #' variables that have no detection limit problems.
 #' @param variation, if TRUE those predictors are chosen in each step, who's variation is lowest to the predictor.

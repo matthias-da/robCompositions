@@ -9,8 +9,8 @@
 \alias{pivotCoordInv}
 \title{Pivot coordinates and their inverse}
 \usage{
-pivotCoord(x, pivotvar = 1, fast = FALSE, base = exp(1),
-  norm = "orthonormal")
+pivotCoord(x, pivotvar = 1, fast = FALSE, method = "pivot",
+  base = exp(1), norm = "orthonormal")
 
 isomLR(x, fast = FALSE, base = exp(1), norm = "sqrt((D-i)/(D-i+1))")
 
@@ -29,7 +29,10 @@ isomLRinvp(x)
 that sense that the pivotvar is shifted to the first part.}
 
 \item{fast}{if TRUE, it is approx. 10 times faster but numerical problems in case of 
-high-dimensional data numerical instabilities may occur.}
+high-dimensional data numerical instabilities may occur. Only available for method \dQuote{pivot}.}
+
+\item{method}{pivot takes the method described in the description. Method "symm" 
+uses symmetric balances (parameters pivotvar and norm have then no effect)}
 
 \item{base}{a positive or complex number: 
 the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.}
@@ -41,15 +44,14 @@ used (default). The user can also specify a self-defined constant.}
 The data represented in pivot coordinates
 }
 \description{
-An isometric log-ratio transformation and it's inverse transformation with a 
-special choice of the balances
+Isometric log-ratio transformations and it's inverse transformation with a 
+special choice of balances.
 }
 \details{
 This transformation moves D-part compositional data from the simplex
 into a (D-1)-dimensional real space isometrically. From our choice of (pivot)
 balances, all the relative information of one part is seperated from the
-remaining parts. It is useful, e.g. for estimating missing values in
-\eqn{x_1} by regression of the remaining variables.
+remaining parts.
 }
 \examples{
 
@@ -73,9 +75,11 @@ pivotCoord(expenditures, norm = "1")
 ## other normalization
 pivotCoord(expenditures, norm = "-sqrt((D-i)/(D-i+1))")
 
+# symmetric balances (results in 2-dim symmetric balances)
+pivotCoord(expenditures, method = "symm")
 }
 \author{
-Matthias Templ, Karel Hron
+Matthias Templ, Karel Hron, Peter Filzmoser
 }
 \references{
 Egozcue J.J., V. Pawlowsky-Glahn, G. Mateu-Figueras and C.

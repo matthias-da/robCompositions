@@ -10,6 +10,7 @@ Changes in robCompositions version 2.0.3
   + bug in aDist solved
   + aDist now much faster
   + new function center()
+  + method symm (symmetric balances) in pivotCoord
 
 Changes in robCompositions version 2.0.2
   + new function balZav()
