@@ -88,6 +88,9 @@ data analysis. \emph{Mathematical Geology}, \bold{35}(3) 279-300. \
 
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values
 for compositional data using classical and robust methods
+
+Kynclova, P., Hron, K., Filzmoser, P.
+Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
 \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
 3095-3107.
 }
