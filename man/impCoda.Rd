@@ -59,9 +59,6 @@ is used within the iterative procedure.  The imputated values are perturbed
 in the direction of the predictor by values drawn form a normal distribution
 with mean and standard deviation related to the corresponding residuals and
 multiplied by \code{noise}.
-
-method \sQuote{roundedZero} is experimental. It imputes rounded zeros within
-our iterative framework.
 }
 \examples{
 
