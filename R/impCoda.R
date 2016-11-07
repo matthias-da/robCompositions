@@ -19,9 +19,6 @@
 #' with mean and standard deviation related to the corresponding residuals and
 #' multiplied by \code{noise}.
 #' 
-#' method \sQuote{roundedZero} is experimental. It imputes rounded zeros within
-#' our iterative framework.
-#' 
 #' @param x data frame or matrix
 #' @param maxit maximum number of iterations
 #' @param eps convergence criteria
@@ -104,7 +101,8 @@ function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE,
 	
 	
 	if( is.vector(x) ) stop("x must be a matrix or data frame")
-	stopifnot((method %in% c("ltsReg", "ltsReg2", "classical", "lm", "roundedZero","roundedZeroRobust")))
+	stopifnot((method %in% c("ltsReg", "ltsReg2", "classical", "lm", 
+	                         "roundedZero","roundedZeroRobust")))
 	if( k > nrow(x)/4 ) warning("k might be too large")
 #	if(method == "roundedZero") init <- "roundedZero"
 
