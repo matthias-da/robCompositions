@@ -1,3 +1,8 @@
+Changes in robCompositions version 2.0.4
+  + aDist now again works for vectors
+  + added socExp and cancerNM data sets
+  + corrected documentation for ageCatWorld data
+
 Changes in robCompositions version 2.0.3
   + new function perturbation() and powering()
   + new function for inner product (iprod())
