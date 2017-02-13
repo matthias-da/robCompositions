@@ -13,9 +13,9 @@ Percentages of childs, middle generation and eldery population in 195 countries.
 }
 \details{
 \itemize{
- \item{\code{<15 }}{numeric vector of percentages of sand}
- \item{\code{15-60 }}{numeric vector of percentages of silt}
- \item{\code{60+ }}{numeric vector of percentages of clay}
+ \item{\code{<15 }}{Percentage of people with age below 15}
+ \item{\code{15-60 }}{Percentage of people with age between 15 and 60}
+ \item{\code{60+ }}{Percentage of people with age above 60}
  \item{\code{country }}{country of origin}
 }
 

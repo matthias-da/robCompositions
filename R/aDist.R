@@ -58,39 +58,42 @@
 #' 
 `aDist` <-
   function(x, y = NULL){
-    n <- dim(x)[1]
-    p <- D <- dim(x)[2]
-    rn <- rownames(x)
     if(!is.null(y)){
-    if(is.vector(x)) x <- matrix(x, ncol=length(x))
-	  if(is.vector(y)) y <- matrix(y, ncol=length(y))	  
-	  
-	  matOrig <- as.numeric(t(x))
-	  matImp <- as.numeric(t(y))
-	  dims <- as.integer(c(n, p))
-	  rowDists <-  as.numeric(rep(0.0, n))
-	  distance <- as.numeric(0.0)
-	  out <- .C("da", 
-				  matOrig,
-				  matImp,
-				  dims,
-				  rowDists,
-				  distance,
-				  PACKAGE="robCompositions", NUOK=TRUE
-		  )[[5]]
-#     } else if(is.null(y) & method == "R"){
-#       out <- matrix(, ncol = n, nrow = n)
-#       gms <- apply(x, 1, function(x) gm(as.numeric(x)))
-#       for(i in 1:(n-1)){
-#         for(j in (i+1):n){
-#           out[i, j] <- out[j, i] <- 
-#             sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
-#                        log(as.numeric(x[j, ]) / gms[j]))^2))
-#         }
-#       }
-#       diag(out) <- 0
-#       rownames(out) <- colnames(out) <- rn
+      if(is.vector(x)) x <- matrix(x, ncol=length(x))
+  	  if(is.vector(y)) y <- matrix(y, ncol=length(y))	  
+  	  n <- dim(x)[1]
+  	  p <- D <- dim(x)[2]
+  	  rn <- rownames(x)
+  	  matOrig <- as.numeric(t(x))
+  	  matImp <- as.numeric(t(y))
+  	  dims <- as.integer(c(n, p))
+  	  rowDists <-  as.numeric(rep(0.0, n))
+  	  distance <- as.numeric(0.0)
+  	  out <- .C("da", 
+  				  matOrig,
+  				  matImp,
+  				  dims,
+  				  rowDists,
+  				  distance,
+  				  PACKAGE="robCompositions", NUOK=TRUE
+  		  )[[5]]
+  #     } else if(is.null(y) & method == "R"){
+  #       out <- matrix(, ncol = n, nrow = n)
+  #       gms <- apply(x, 1, function(x) gm(as.numeric(x)))
+  #       for(i in 1:(n-1)){
+  #         for(j in (i+1):n){
+  #           out[i, j] <- out[j, i] <- 
+  #             sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
+  #                        log(as.numeric(x[j, ]) / gms[j]))^2))
+  #         }
+  #       }
+  #       diag(out) <- 0
+  #       rownames(out) <- colnames(out) <- rn
     } else {
+      if(is.vector(x)) x <- matrix(x, ncol=length(x))
+      n <- dim(x)[1]
+      p <- D <- dim(x)[2]
+      rn <- rownames(x)
       out <- dist(cenLR(x)$x.clr)
     }
 	  return(out)
@@ -99,10 +102,12 @@
 #' @rdname aDist
 #' @export
 #' @examples 
-#' data("expenditures")
+#' data("expenditures") 
+#' aDist(expenditures)  
 #' x <- expenditures[, 1]
 #' y <- expenditures[, 2]
-#' iprod(x, y)
+#' aDist(x, y)
+#' aDist(expenditures, expenditures)
 iprod <- function(x, y){
   warning("wrong formula, has to be fixed.")
   D <- length(x)

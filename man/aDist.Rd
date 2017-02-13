@@ -53,10 +53,12 @@ xImp <- impCoda(x, method="ltsReg")$xImp
 ## calculate the relative Aitchsion distance between xOrig and xImp:
 aDist(xOrig, xImp)
 
-data("expenditures")
+data("expenditures") 
+aDist(expenditures)  
 x <- expenditures[, 1]
 y <- expenditures[, 2]
-iprod(x, y)
+aDist(x, y)
+aDist(expenditures, expenditures)
 }
 \author{
 Matthias Templ, Bernhard Meindl

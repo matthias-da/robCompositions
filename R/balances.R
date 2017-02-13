@@ -10,6 +10,7 @@
 #' @details The sequential binary partition constructs an orthonormal basis in the (D-1)-dimensional hyperplane
 #' in real space.
 #' @export
+#' @author Veronika Pintar, Karel Hron, Matthias Templ
 #' @rdname
 #' @return \item{balances}{The balances represent orthonormal coordinates which allow an interpretation in sense of groups of compositional parts.
 #'                         Output is a matrix, the D-1 colums contain balance coordinates of the observations in the rows.}

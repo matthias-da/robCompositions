@@ -48,6 +48,9 @@ sbp <- data.frame(c(1,1,-1,-1),c(-1,+1,0,0),
 balances(machineOperators, sbp)
 
 }
+\author{
+Veronika Pintar, Karel Hron, Matthias Templ
+}
 \references{
 (Egozcue, J.J., Pawlowsky-Glahn, V. (2005) Groups of parts and their balances in compositional data analysis. Mathematical Geology, 37 (7), 795???828.)
 }

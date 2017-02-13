@@ -1,3 +1,34 @@
+
+#' Child, middle and eldery population
+#' 
+#' Percentages of childs, middle generation and eldery population in 195 countries.
+#'
+#' \itemize{
+#'  \item{\code{<15 }}{Percentage of people with age below 15}
+#'  \item{\code{15-60 }}{Percentage of people with age between 15 and 60}
+#'  \item{\code{60+ }}{Percentage of people with age above 60}
+#'  \item{\code{country }}{country of origin}
+#' }
+#'
+#' @name ageCatWorld
+#' @docType data
+#' @usage data(ageCatWorld)
+#' @author extracted by Karel Hron and Eva Fiserova, implemented by Matthias Templ
+#' @details The rows sum up to 100. 
+#' @format A data frame with 195 rows and 4 variables
+#' @references Fiserova, E. and Hron, K. (2012). Statistical Inference in Orthogonal Regression for Three-Part Compositional Data Using a Linear Model with Type-II Constraints. \emph{Communications in Statistics - Theory and Methods}, 41 (13-14), 2367-2385. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(ageCatWorld)
+#' str(ageCatWorld)
+#' summary(ageCatWorld)
+#' rowSums(ageCatWorld[, 1:3])
+#' ternaryDiag(ageCatWorld[, 1:3])
+#' plot(pivotCoord(ageCatWorld[, 1:3]))
+NULL
+
+
 #' alcoholreg 
 #' 
 #' Regional alcohol per capita (15+) consumption by WHO region
@@ -51,89 +82,6 @@ NULL
 #' summary(alcohol)
 NULL
 
-
-#' Production 
-#' 
-#' Production splitted by nationality on enterprise level
-#'
-#' \itemize{
-#'  \item{\code{nace }}{NACE classification, 2 digits}
-#'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
-#'  \item{\code{year }}{year}
-#'  \item{\code{month }}{month}
-#'  \item{\code{enterprise }}{enterprise ID}
-#'  \item{\code{total }}{total ...}
-#'  \item{\code{home }}{home ...}
-#'  \item{\code{EU }}{EU ...}
-#'  \item{\code{non-EU }}{non-EU ...}
-#' }
-#'
-#' @name production
-#' @docType data
-#' @usage data(production)
-#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
-#' material contained therein are protected by copyright with all rights 
-#' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
-#' It is permitted to reproduce, distribute, make publicly available 
-#' and process the content for non-commercial purposes. Prior to any use for 
-#' commercial purposes a written consent of STATISTICS AUSTRIA must be obtained. 
-#' Any use of the contained material must 
-#' be correctly reproduced and clearly cite the source STATISTICS AUSTRIA. 
-#' If tables published by STATISTICS AUSTRIA are partially used, displayed or 
-#' otherwise changed, a note must be added at an adequate position to 
-#' show data was extracted or adapted. 
-#' @format A data frame with 535 rows and 9 variables
-#' @keywords data
-#' @examples 
-#' 
-#' data(production)
-#' str(production)
-#' summary(production)
-NULL
-
-#' Special payments
-#' 
-#' Payments splitted by different NACE categories and kind of employment in Austria 2004
-#'
-#' \itemize{
-#'  \item{\code{nace }}{NACE classification, 2 digits}
-#'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
-#'  \item{\code{year }}{year}
-#'  \item{\code{month }}{month}
-#'  \item{\code{localunit }}{local unit ID}
-#'  \item{\code{spay }}{special payments (total)}
-#'  \item{\code{spay_wc }}{special payments for white colar workers}
-#'  \item{\code{spay_bc }}{special payments for blue colar workers}
-#'  \item{\code{spay_traintrade }}{special payments for trainees in trade businness}
-#'  \item{\code{spay_home }}{special payments for home workers}
-#'  \item{\code{spay_traincomm }}{special payments for trainees in commercial businness}
-#' }
-#'
-#' @name payments
-#' @docType data
-#' @usage data(payments)
-#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
-#' material contained therein are protected by copyright with all rights 
-#' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
-#' It is permitted to reproduce, distribute, make publicly available 
-#' and process the content for non-commercial purposes. Prior to any use for 
-#' commercial purposes a written consent of STATISTICS AUSTRIA must be obtained. 
-#' Any use of the contained material must 
-#' be correctly reproduced and clearly cite the source STATISTICS AUSTRIA. 
-#' If tables published by STATISTICS AUSTRIA are partially used, displayed or 
-#' otherwise changed, a note must be added at an adequate position to 
-#' show data was extracted or adapted. 
-#' @format A data frame with 535 rows and 11 variables
-#' @keywords data
-#' @examples 
-#' 
-#' data(payments)
-#' str(payments)
-#' summary(payments)
-NULL
-
 #' Arctic lake sediment data
 #' 
 #' Sand, silt, clay compositions of 39 sediment samples at different water depths in an Arctic lake.
@@ -163,34 +111,64 @@ NULL
 #' plot(pivotCoord(arcticLake))
 NULL
 
-#' Child, middle and eldery population
+
+#' Hospital discharges on cancer and distribution of age
 #' 
-#' Percentages of childs, middle generation and eldery population in 195 countries.
-#'
+#' Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure. 
+#' 
 #' \itemize{
-#'  \item{\code{<15 }}{numeric vector of percentages of sand}
-#'  \item{\code{15-60 }}{numeric vector of percentages of silt}
-#'  \item{\code{60+ }}{numeric vector of percentages of clay}
-#'  \item{\code{country }}{country of origin}
+#' \item{\code{country }}{country}                            
+#' \item{\code{year }}{year}                                      
+#' \item{\code{p1 }}{percentage of population with age below 15}                       
+#' \item{\code{p2 }}{percentage of population with age between 15 and 60}
+#' \item{\code{p3 }}{percentage of population with age above 60}                    
+#' \item{\code{discharges }}{hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants}
 #' }
-#'
-#' @name ageCatWorld
-#' @docType data
-#' @usage data(ageCatWorld)
-#' @author extracted by Karel Hron and Eva Fiserova, implemented by Matthias Templ
-#' @details The rows sum up to 100. 
-#' @format A data frame with 195 rows and 4 variables
-#' @references Fiserova, E. and Hron, K. (2012). Statistical Inference in Orthogonal Regression for Three-Part Compositional Data Using a Linear Model with Type-II Constraints. \emph{Communications in Statistics - Theory and Methods}, 41 (13-14), 2367-2385. 
-#' @keywords data
-#' @examples 
 #' 
-#' data(ageCatWorld)
-#' str(ageCatWorld)
-#' summary(ageCatWorld)
-#' rowSums(ageCatWorld[, 1:3])
-#' ternaryDiag(ageCatWorld[, 1:3])
-#' plot(pivotCoord(ageCatWorld[, 1:3]))
+#' @name cancer
+#' @docType data
+#' @details The response (discharges) is provided for the European Union countries (except Greece, Hungary and Malta) by Eurostat. As explanatory variables we use the age structure of the population in the same countries (year 2008). The age structure consists of three parts, age smaller than 15, age between 15 and 60 and age above 60 years, and they are expressed as percentages on the overall population in the countries. The data are provided by the United Nations Statistics Division.
+#' @format A data set on 24 compositions on 6 variables.
+#' @source
+#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
+#' @keywords datasets
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(cancer)
+#' str(cancer)
 NULL
+
+
+#' Malignant neoplasms cancer
+#' 
+#' Two main types of malignant neoplasms cancer affecting colon and lung, respectively, in male and female populations. 
+#' For this purpose population data (2012) from 35 OECD countries were collected.
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                                  
+#' \item{\code{colon-females }}{number of colon cancer cases in female population}                       
+#' \item{\code{lung-females }}{number of lung cancer cases in female population}                    
+#' \item{\code{colon-males }}{number of colon cancer cases in male population}
+#' \item{\code{lung-males }}{number of lung cancer cases in male population}
+#' }
+#' 
+#' @name cancerMN
+#' @docType data
+#' @details The data are obtained from the OECD website.
+#' @format A data set on 35 compositional tables on 4 parts (row-wise sorted cells) and 5 variables.
+#' @source
+#' \url{http://www.oecd.org}
+#' @keywords datasets
+#' @author conversion to R by Karel Hron and intergration by Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @examples
+#' 
+#' data(cancerMN)
+#' head(cancerMN)
+#' rowSums(cancerMN[, 2:5])
+NULL
+
 
 
 #' coffee data set
@@ -293,6 +271,71 @@ NULL
 
 
 
+#' Synthetic household expenditures toy data set
+#' 
+#' This data set from Aitchison (1986), p. 395, describes household expenditures (in former Hong Kong dollars) on five commundity groups. 
+#'
+#' \itemize{
+#' \item{\code{housing }}{housing (including fuel and light)}
+#' \item{\code{foodstuffs }}{foodstuffs}
+#' \item{\code{alcohol }}{alcohol and tobacco}
+#' \item{\code{other }}{other goods (including clothing, footwear and durable goods)}
+#' \item{\code{services }}{services (including transport and vehicles)}
+#' }
+#'
+#' @name expenditures
+#' @docType data
+#' @usage data(expenditures)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}, Karel Hron
+#' @details This data set contains household expenditures on five commodity groups of 20 single men. The variables represent housing (including fuel and light), foodstuff, alcohol and tobacco, other goods (including clothing, footwear and durable goods) and services (including transport and vehicles). Thus they represent the ratios of the men's income spent on the mentioned expenditures. 
+#' @format A data frame with 20 observations on the following 5 variables.
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(expenditures)
+#' ## imputing a missing value in the data set using k-nearest neighbor imputation:
+#' expenditures[1,3]
+#' expenditures[1,3] <- NA
+#' impKNNa(expenditures)$xImp[1,3]
+NULL
+
+
+#' Mean consumption expenditures data.
+#' 
+#' Mean consumption expenditure of households at EU-level.  The final
+#' consumption expenditure of households encompasses all domestic costs (by
+#' residents and non-residents) for individual needs.
+#' 
+#' 
+#' @name expendituresEU
+#' @docType data
+#' @format A data frame with 27 observations on the following 12 variables.
+#' \itemize{ 
+#' \item{\code{Food}}{a numeric vector} 
+#' \item{\code{Alcohol}}{a numeric vector} 
+#' \item{\code{Clothing}}{a numeric vector}
+#' \item{\code{Housing}}{a numeric vector} 
+#' \item{\code{Furnishings}}{a numeric vector} 
+#' \item{\code{Health}}{a numeric vector}
+#' \item{\code{Transport}}{a numeric vector} 
+#' \item{\code{Communications}}{a numeric vector} 
+#' \item{\code{Recreation}}{a numeric vector}
+#' \item{\code{Education}}{a numeric vector} 
+#' \item{\code{Restaurants}}{a numeric vector} 
+#' \item{\code{Other}}{a numeric vector} 
+#' }
+#' @source Eurostat
+#' @keywords datasets
+#' @examples
+#' 
+#' data(expendituresEU)
+#' 
+NULL
+
+
+
+
 #' Gemas geochemical data set
 #'
 #' Geochemical data set on agricultural and grazing land soil
@@ -355,6 +398,486 @@ NULL
 #' }
 NULL
 
+
+
+#' Haplogroups data.
+#' 
+#' Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in
+#' percentage.
+#' 
+#' Human Y-chromosome DNA can be divided in genealogical groups sharing a
+#' common ancestor, called haplogroups.
+#' 
+#' @name haplogroups
+#' @docType data
+#' @format A data frame with 38 observations on the following 12 variables.
+#' \itemize{ 
+#' \item{\code{I1 }}{pre-Germanic (Nordic)}
+#' \item{\code{I2b }}{pre-Celto-Germanic} 
+#' \item{\code{I2a1 }}{Sardinian, Basque} 
+#' \item{\code{I2a2 }}{Dinaric, Danubian}
+#' \item{\code{N1c1 }}{Uralo-Finnic, Baltic, Siberian}
+#' \item{\code{R1a }}{Balto-Slavic, Mycenaean Greek, Macedonia}
+#' \item{\code{R1b }}{Italic, Celtic, Germanic; Hitite, Armenian}
+#' \item{\code{G2a }}{Caucasian, Greco-Anatolien} 
+#' \item{\code{E1b1b }}{North and Eastern Afrika, Near Eastern, Balkanic} 
+#' \item{\code{J2 }}{Mesopotamian, Minoan Greek, Phoenician} 
+#' \item{\code{J1 }}{Semitic (Arabic, Jewish)}
+#' \item{\code{T }}{Near-Eastern, Egyptian, Ethiopian, Arabic} 
+#' }
+#' @source Eupedia:
+#' \url{http://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
+#' @keywords datasets
+#' @examples
+#' 
+#' data(haplogroups)
+#' 
+NULL
+
+
+#' Labour force by status in employment 
+#' 
+#' Labour force by status in employment for 124 countries, latest update: December 2009
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                            
+#' \item{\code{year }}{year}                                      
+#' \item{\code{employeesW }}{percentage female employees}                             
+#' \item{\code{employeesM }}{percentage male employees}
+#' \item{\code{employersW }}{percentage female employers}                    
+#' \item{\code{employersM }}{percentage male employers}
+#' \item{\code{ownW }}{percentage female own-account workers and contributing family workers}               
+#' \item{\code{ownM }}{percentage male own-account workers and contributing family workers} 
+#' \item{\code{source }}{HS: household or labour force survey. OE: official estimates. PC: population census} 
+#' }
+#' 
+#' @name laborForce
+#' @docType data
+#' @format A data set on 124 compositions on 9 variables.
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @source
+#' \url{http://unstats.un.org/unsd/demographic/products/indwm/tab5c.htm}
+#' @keywords datasets
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(laborForce)
+#' str(laborForce)
+#' 
+NULL
+
+
+
+#' Life expectancy and GDP (2008) for EU-countries
+#' 
+#' Social-economic data for compositional regression.
+#' 
+#' \itemize{
+#' \item{\code{country }}{country}                                   
+#' \item{\code{agriculture }}{GDP on agriculture, hunting, forestry, fishing (ISIC A-B, x1)}               
+#' \item{\code{manufacture }}{GDP on mining, manufacturing, utilities (ISIC C-E, x2)}
+#' \item{\code{construction }}{GDP on construction (ISIC F, x3)}              
+#' \item{\code{wholesales }}{GDP on wholesale, retail trade, restaurants and hotels (ISIC G-H, x4)}
+#' \item{\code{transport }}{GDP on transport, storage and communication (ISIC I, x5)}
+#' \item{\code{other }}{GDP on other activities (ISIC J-P, x6)}
+#' \item{\code{lifeExpMen }}{life expectancy for men and women}
+#' \item{\code{lifeExpWomen }}{life expectancy for men and women}
+#' }
+#' 
+#' @name lifeExpGdp
+#' @docType data
+#' @format A data set on 27 compositions on 9 variables.
+#' @source
+#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
+#' @keywords datasets
+#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
+#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
+#' @examples
+#' 
+#' data(lifeExpGdp)
+#' str(lifeExpGdp)
+NULL
+
+
+#' machine operators 
+#' 
+#' Compositions of eight-hour shifts of 27 machine operators
+#'
+#' \itemize{
+#' \item{\code{hqproduction }}{high-quality production}
+#' \item{\code{lqproduction }}{low-quality production}
+#' \item{\code{setting }}{machine settings}
+#' \item{\code{repair }}{machine repair}
+#' }
+#'
+#' @name machineOperators
+#' @docType data
+#' @usage data(machineOperators)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @details The data set from Aitchison (1986), p. 382, contains compositions of eight-hour shifts of 27 machine operators. The parts represent proportions of shifts in each activity:  high-quality production, low-quality production, machine setting and machine repair.
+#' @format A data frame with 27 observations on the following 4 variables.
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(machineOperators)
+#' str(machineOperators)
+#' summary(machineOperators)
+#' rowSums(machineOperators)
+NULL
+
+
+#' Metabolomics mcad data set
+#' 
+#' The aim of the experiment was to ascertain novel biomarkers of 
+#' MCAD (Medium chain acyl-CoA dehydrogenase) deficiency. 
+#' The data consists of 25 patients and 25 controls and the analysis was done by LC-MS.
+#' Rows represent patients and controls and columns represent chemical 
+#' entities with their quantity.  
+#'
+#' \itemize{
+#'  \item{\code{group }}{patient group}
+#'  \item{\code{... }}{the remaining variables columns are represented by m/z which are chemical characterizations of individual chemical components on exact mass measurements..}
+#' }
+#'
+#' @name mcad
+#' @docType data
+#' @usage data(mcad)
+#' @format A data frame with 50 observations and 279 variables
+#' @keywords data
+#' @references Najdekr L., Gardlo A., Madrova L., Friedeckyy D., Janeckova H., Correa E.S., Goodacre R., Adam T., Oxidized phosphatidylcholines suggest oxidative stress in patients with medium-chain acyl-CoA dehydrogenase deficiency, \emph{Talanta} 139, 2015, 62-66.
+#' @examples 
+#' 
+#' data(mcad)
+#' str(mcad)
+NULL
+
+
+#' Mortality and life expectancy in the EU
+#' 
+#'
+#' \itemize{
+#'  \item{\code{country }}{country name}
+#'  \item{\code{country2 }}{country name, short version}
+#'  \item{\code{sex }}{gender}
+#'  \item{\code{lifeExpectancy }}{life expectancy}
+#'  \item{\code{infectious }}{certain infectious and parasitic diseases (A00-B99)}
+#'  \item{\code{neoplasms }}{malignant neoplasms (C00-C97)}
+#'  \item{\code{endocrine }}{endocrine nutritional and metabolic diseases (E00-E90)}
+#'  \item{\code{mental }}{mental and behavioural disorders (F00-F99)}
+#'  \item{\code{nervous }}{diseases of the nervous system and the sense organs (G00-H95)}
+#'  \item{\code{circulatory }}{diseases of the circulatory system (I00-I99)}
+#'  \item{\code{respiratory }}{diseases of the respiratory system (J00-J99)}
+#'  \item{\code{digestive }}{diseases of the digestive system (K00-K93)}
+#' }
+#'
+#' @name mortality
+#' @docType data
+#' @usage data(mortality)
+#' @author Peter Filzmoser, Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 60 observations and 12 variables
+#' @references Eurostat, \url{http://ec.europa.eu/eurostat/data}
+#' @keywords data
+#' @examples 
+#' 
+#' data(mortality)
+#' str(mortality)
+#' ## totals (mortality)
+#' aggregate(mortality[,5:ncol(mortality)], 
+#'           list(mortality$country2), sum)
+NULL
+
+
+
+
+#' nutrient contents
+#' 
+#' Nutrients on more than 40 components and 965 generic food products
+#'
+#' \itemize{
+#' \item{\code{ID }}{ID, for internal use}
+#' \item{\code{ID_V4 }}{ID V4, for internal use}
+#' \item{\code{ID_SwissFIR }}{ID, for internal use}
+#' \item{\code{name_D }}{Name in German}
+#' \item{\code{name_F }}{Name in French}
+#' \item{\code{name_I }}{Name in Italian}
+#' \item{\code{name_E }}{Name in Spanish}
+#' \item{\code{category_D }}{Category name in German}
+#' \item{\code{category_F }}{Category name in French}
+#' \item{\code{category_I }}{Category name in Italy}
+#' \item{\code{category_E }}{Category name in Spanish}
+#' \item{\code{gravity }}{specific gravity}
+#' \item{\samp{energy_kJ }}{energy in kJ per 100g edible portion}
+#' \item{\code{energy_kcal }}{energy in kcal per 100g edible portion}
+#' \item{\code{protein }}{protein in gram per 100g edible portion}
+#' \item{\code{alcohol }}{alcohol in gram per 100g edible portion}
+#' \item{\code{water }}{water in gram per 100g edible portion}
+#' \item{\code{carbohydrates}}{crbohydrates in gram per 100g edible portion}
+#' \item{\code{starch }}{starch in gram per 100g edible portion}
+#' \item{\code{sugars }}{sugars in gram per 100g edible portion}
+#' \item{\samp{dietar_ fibres }}{dietar fibres in gram per 100g edible portion}
+#' \item{\code{fat }}{fat in gram per 100g edible portion}
+#' \item{\code{cholesterol }}{cholesterolin milligram per 100g edible portion}
+#' \item{\code{fattyacids_monounsaturated }}{fatty acids monounsatrurated in gram per 100g edible portion}
+#' \item{\code{fattyacids_saturated }}{fatty acids saturated in gram per 100g edible portion}
+#' \item{\code{fatty_acids_polyunsaturated }}{fatty acids polyunsaturated in gram per 100g edible portion}
+#' \item{\code{vitaminA }}{vitamin A in retinol equivalent per 100g edible portion}
+#' \item{\samp{all-trans_retinol_equivalents }}{all trans-retinol equivalents in gram per 100g edible portion}
+#' \item{\samp{beta-carotene-activity }}{beta-carotene activity in beta-carotene equivalent per 100g edible portion}
+#' \item{\samp{beta-carotene }}{beta-carotene in micogram per 100g edible portion}
+#' \item{\code{vitaminB1 }}{vitamin B1 in milligram per 100g edible portion}
+#' \item{\code{vitaminB2 }}{vitamin B2 in milligram per 100g edible portion}
+#' \item{\code{vitaminB6 }}{vitamin B6 in milligram per 100g edible portion}
+#' \item{\code{vitaminB12 }}{vitamin B12 in micogram per 100g edible portion}
+#' \item{\code{niacin }}{niacin in milligram per 100g edible portion}
+#' \item{\code{folate }}{folate in micogram per 100g edible portion}
+#' \item{\code{pantothenic_acid }}{pantothenic acid in milligram per 100g edible portion}
+#' \item{\code{vitaminC }}{vitamin C in milligram per 100g edible portion}
+#' \item{\code{vitaminD }}{vitamin D in micogram per 100g edible portion}
+#' \item{\code{vitaminE }}{vitamin E in alpha-tocopherol equivalent per 100g edible portion}
+#' \item{\code{Na }}{Sodium in milligram per 100g edible portion}
+#' \item{\code{K }}{Potassium in milligram per 100g edible portion}
+#' \item{\code{Cl }}{Chloride}
+#' \item{\code{Ca }}{Calcium}
+#' \item{\code{Mg }}{Magnesium}
+#' \item{\code{P }}{Phosphorus}
+#' \item{\code{Fe }}{Iron}
+#' \item{\code{I }}{Iodide in milligram per 100g edible portion}
+#' \item{\code{Zn }}{Zink}
+#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
+#' }
+#'
+#' @name nutrients
+#' @docType data
+#' @usage data(nutrients)
+#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @format A data frame with 965 observations on the following 50 variables.
+#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @keywords data
+#' @examples 
+#' 
+#' data(nutrients)
+#' str(nutrients)
+#' head(nutrients[, 41:49])
+NULL
+
+#' nutrient contents (branded)
+#' 
+#' Nutrients on more than 10 components and 9618 branded food products
+#'
+#' \itemize{
+#' \item{\code{name_D }}{name (in German)}
+#' \item{\code{category_D }}{factor specifying the category names}
+#' \item{\code{category_F }}{factor specifying the category names}
+#' \item{\code{category_I }}{factor specifying the category names}
+#' \item{\code{category_E }}{factor specifying the category names}
+#' \item{\code{gravity }}{specific gravity}
+#' \item{\code{energy_kJ }}{energy in kJ}
+#' \item{\samp{energy_kcal }}{energy in kcal}
+#' \item{\code{protein }}{protein in gram}
+#' \item{\code{alcohol }}{alcohol in gram}
+#' \item{\code{water }}{water in gram}
+#' \item{\code{carbohydrates_available }}{available carbohydrates in gram}
+#' \item{\code{sugars }}{sugars in gram}
+#' \item{\code{dietary_fibres }}{dietary fibres in gram}
+#' \item{\code{fat_total }}{total fat in gram}
+#' \item{\code{fatty_acids_saturated }}{saturated acids fat in gram}
+#' \item{\code{Na }}{Sodium in gram}
+#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
+#' }
+#'
+#' @name nutrients_branded
+#' @docType data
+#' @usage data(nutrients_branded)
+#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @format A data frame with 9618 observations on the following 18 variables.
+#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @keywords data
+#' @examples 
+#' 
+#' data(nutrients_branded)
+#' str(nutrients_branded)
+NULL
+
+
+#' Special payments
+#' 
+#' Payments splitted by different NACE categories and kind of employment in Austria 2004
+#'
+#' \itemize{
+#'  \item{\code{nace }}{NACE classification, 2 digits}
+#'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
+#'  \item{\code{year }}{year}
+#'  \item{\code{month }}{month}
+#'  \item{\code{localunit }}{local unit ID}
+#'  \item{\code{spay }}{special payments (total)}
+#'  \item{\code{spay_wc }}{special payments for white colar workers}
+#'  \item{\code{spay_bc }}{special payments for blue colar workers}
+#'  \item{\code{spay_traintrade }}{special payments for trainees in trade businness}
+#'  \item{\code{spay_home }}{special payments for home workers}
+#'  \item{\code{spay_traincomm }}{special payments for trainees in commercial businness}
+#' }
+#'
+#' @name payments
+#' @docType data
+#' @usage data(payments)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
+#' material contained therein are protected by copyright with all rights 
+#' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
+#' It is permitted to reproduce, distribute, make publicly available 
+#' and process the content for non-commercial purposes. Prior to any use for 
+#' commercial purposes a written consent of STATISTICS AUSTRIA must be obtained. 
+#' Any use of the contained material must 
+#' be correctly reproduced and clearly cite the source STATISTICS AUSTRIA. 
+#' If tables published by STATISTICS AUSTRIA are partially used, displayed or 
+#' otherwise changed, a note must be added at an adequate position to 
+#' show data was extracted or adapted. 
+#' @format A data frame with 535 rows and 11 variables
+#' @keywords data
+#' @examples 
+#' 
+#' data(payments)
+#' str(payments)
+#' summary(payments)
+NULL
+
+
+#' PhD Students in the EU
+#' 
+#' PhD students in Europe based on the standard klassification system splitted
+#' by different kind of studies (given as percentages).
+#' 
+#' Due to unknown reasons the rowSums of the percentages is not always 100.
+#' 
+#' \itemize{
+#' \item{\code{country }}{country of origin (German)}  
+#' \item{\code{countryEN }}{country of origin (English)}    
+#' \item{\code{country2 }}{country of origin, 2-digits}   
+#' \item{\code{total }}{total phd students (in 1.000)}              
+#' \item{\code{male }}{male phd students (in 1.000)}                   
+#' \item{\code{female }}{total phd students (in 1.000)}               
+#' \item{\code{technical }}{phd students in natural and technical sciences}
+#' \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
+#' \item{\code{human }}{phd students in human sciences including teaching}
+#' \item{\code{health }}{phd students in health and life sciences}               
+#' \item{\code{agriculture }}{phd students in agriculture} 
+#' }
+#' 
+#' @name phd
+#' @docType data
+#' @format A data set on 32 compositions and 11 variables.
+#' @source Eurostat
+#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
+#' @keywords datasets
+#' @examples
+#' 
+#' data(phd)
+#' str(phd)
+#' 
+NULL
+
+#' Production 
+#' 
+#' Production splitted by nationality on enterprise level
+#'
+#' \itemize{
+#'  \item{\code{nace }}{NACE classification, 2 digits}
+#'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
+#'  \item{\code{year }}{year}
+#'  \item{\code{month }}{month}
+#'  \item{\code{enterprise }}{enterprise ID}
+#'  \item{\code{total }}{total ...}
+#'  \item{\code{home }}{home ...}
+#'  \item{\code{EU }}{EU ...}
+#'  \item{\code{non-EU }}{non-EU ...}
+#' }
+#'
+#' @name production
+#' @docType data
+#' @usage data(production)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
+#' material contained therein are protected by copyright with all rights 
+#' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
+#' It is permitted to reproduce, distribute, make publicly available 
+#' and process the content for non-commercial purposes. Prior to any use for 
+#' commercial purposes a written consent of STATISTICS AUSTRIA must be obtained. 
+#' Any use of the contained material must 
+#' be correctly reproduced and clearly cite the source STATISTICS AUSTRIA. 
+#' If tables published by STATISTICS AUSTRIA are partially used, displayed or 
+#' otherwise changed, a note must be added at an adequate position to 
+#' show data was extracted or adapted. 
+#' @format A data frame with 535 rows and 9 variables
+#' @keywords data
+#' @examples 
+#' 
+#' data(production)
+#' str(production)
+#' summary(production)
+NULL
+
+
+
+#' Aphyric skye lavas data 
+#' 
+#' AFM compositions of 23 aphyric Skye lavas. This data set can be found on page 360 of the Aitchison book (see reference).
+#'
+#' \itemize{
+#' \item{\code{sodium-potassium }}{a numeric vector of percentages of Na2O\eqn{+}K2O}
+#' \item{\code{iron }}{a numeric vector of percentages of Fe2O3}
+#' \item{\code{magnesium }}{a numeric vector of percentages of MgO}
+#' }
+#'
+#' @name skyeLavas
+#' @docType data
+#' @usage data(skyeLavas)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 23 observations on the following 3 variables.
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @keywords data
+#' @examples 
+#' 
+#' data(skyeLavas)
+#' str(skyeLavas)
+#' summary(skyeLavas)
+#' rowSums(skyeLavas)
+NULL
+
+
+#' Social expenditures
+#' 
+#' Social expenditures according to source (public, private) 
+#' and three important branches (health, old age, incapacity related) in 
+#' selected OECD countries in 2010. Expenditures are always provided 
+#' in the respective currency.
+#'
+#' \itemize{
+#' \item{\code{country }}{Country of origin}
+#' \item{\code{currency }}{Currency unit (in Million)}
+#' \item{\code{health-public }}{Health from the public}
+#' \item{\code{old-public }}{Old age expenditures from the public}
+#' \item{\code{incap-public }}{Incapacity related expenditures from the public}
+#' \item{\code{health-private }}{Health from private sources}
+#' \item{\code{old-private }}{Old age expenditures from private sources}
+#' \item{\code{incap-private }}{Incapacity related expenditures from private sources}
+#' }
+#'
+#' @name socExp
+#' @docType data
+#' @usage data(socExp)
+#' @author conversion to R by Karel Hron Karel Hron and modifications by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A data frame with 20 observations on the following 8 variables (country + currency + row-wise sorted cells of 2x3 compositional table).
+#' @references OECD, \url{http://www.oecd.org}
+#' @keywords data
+#' @examples 
+#' 
+#' data(socExp)
+#' str(socExp)
+#' rowSums(socExp[, 3:ncol(socExp)])
+NULL
 
 
 #' Regional geochemical survey of soil C in Norway
@@ -544,455 +1067,8 @@ NULL
 NULL
 
 
-#' Metabolomics mcad data set
-#' 
-#' The aim of the experiment was to ascertain novel biomarkers of 
-#' MCAD (Medium chain acyl-CoA dehydrogenase) deficiency. 
-#' The data consists of 25 patients and 25 controls and the analysis was done by LC-MS.
-#' Rows represent patients and controls and columns represent chemical 
-#' entities with their quantity.  
-#'
-#' \itemize{
-#'  \item{\code{group }}{patient group}
-#'  \item{\code{... }}{the remaining variables columns are represented by m/z which are chemical characterizations of individual chemical components on exact mass measurements..}
-#' }
-#'
-#' @name mcad
-#' @docType data
-#' @usage data(mcad)
-#' @format A data frame with 50 observations and 279 variables
-#' @keywords data
-#' @references Najdekr L., Gardlo A., Madrova L., Friedeckyy D., Janeckova H., Correa E.S., Goodacre R., Adam T., Oxidized phosphatidylcholines suggest oxidative stress in patients with medium-chain acyl-CoA dehydrogenase deficiency, \emph{Talanta} 139, 2015, 62-66.
-#' @examples 
-#' 
-#' data(mcad)
-#' str(mcad)
-NULL
-
-
-#' Mortality and life expectancy in the EU
-#' 
-#'
-#' \itemize{
-#'  \item{\code{country }}{country name}
-#'  \item{\code{country2 }}{country name, short version}
-#'  \item{\code{sex }}{gender}
-#'  \item{\code{lifeExpectancy }}{life expectancy}
-#'  \item{\code{infectious }}{certain infectious and parasitic diseases (A00-B99)}
-#'  \item{\code{neoplasms }}{malignant neoplasms (C00-C97)}
-#'  \item{\code{endocrine }}{endocrine nutritional and metabolic diseases (E00-E90)}
-#'  \item{\code{mental }}{mental and behavioural disorders (F00-F99)}
-#'  \item{\code{nervous }}{diseases of the nervous system and the sense organs (G00-H95)}
-#'  \item{\code{circulatory }}{diseases of the circulatory system (I00-I99)}
-#'  \item{\code{respiratory }}{diseases of the respiratory system (J00-J99)}
-#'  \item{\code{digestive }}{diseases of the digestive system (K00-K93)}
-#' }
-#'
-#' @name mortality
-#' @docType data
-#' @usage data(mortality)
-#' @author Peter Filzmoser, Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @format A data frame with 60 observations and 12 variables
-#' @references Eurostat, \url{http://ec.europa.eu/eurostat/data}
-#' @keywords data
-#' @examples 
-#' 
-#' data(mortality)
-#' str(mortality)
-#' ## totals (mortality)
-#' aggregate(mortality[,5:ncol(mortality)], 
-#'           list(mortality$country2), sum)
-NULL
-
-#' machine operators 
-#' 
-#' Compositions of eight-hour shifts of 27 machine operators
-#'
-#' \itemize{
-#' \item{\code{hqproduction }}{high-quality production}
-#' \item{\code{lqproduction }}{low-quality production}
-#' \item{\code{setting }}{machine settings}
-#' \item{\code{repair }}{machine repair}
-#' }
-#'
-#' @name machineOperators
-#' @docType data
-#' @usage data(machineOperators)
-#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @details The data set from Aitchison (1986), p. 382, contains compositions of eight-hour shifts of 27 machine operators. The parts represent proportions of shifts in each activity:  high-quality production, low-quality production, machine setting and machine repair.
-#' @format A data frame with 27 observations on the following 4 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
-#' @keywords data
-#' @examples 
-#' 
-#' data(machineOperators)
-#' str(machineOperators)
-#' summary(machineOperators)
-#' rowSums(machineOperators)
-NULL
-
-
-#' nutrient contents
-#' 
-#' Nutrients on more than 40 components and 965 generic food products
-#'
-#' \itemize{
-#' \item{\code{ID }}{ID, for internal use}
-#' \item{\code{ID_V4 }}{ID V4, for internal use}
-#' \item{\code{ID_SwissFIR }}{ID, for internal use}
-#' \item{\code{name_D }}{Name in German}
-#' \item{\code{name_F }}{Name in French}
-#' \item{\code{name_I }}{Name in Italian}
-#' \item{\code{name_E }}{Name in Spanish}
-#' \item{\code{category_D }}{Category name in German}
-#' \item{\code{category_F }}{Category name in French}
-#' \item{\code{category_I }}{Category name in Italy}
-#' \item{\code{category_E }}{Category name in Spanish}
-#' \item{\code{gravity }}{specific gravity}
-#' \item{\samp{energy_kJ }}{energy in kJ per 100g edible portion}
-#' \item{\code{energy_kcal }}{energy in kcal per 100g edible portion}
-#' \item{\code{protein }}{protein in gram per 100g edible portion}
-#' \item{\code{alcohol }}{alcohol in gram per 100g edible portion}
-#' \item{\code{water }}{water in gram per 100g edible portion}
-#' \item{\code{carbohydrates}}{crbohydrates in gram per 100g edible portion}
-#' \item{\code{starch }}{starch in gram per 100g edible portion}
-#' \item{\code{sugars }}{sugars in gram per 100g edible portion}
-#' \item{\samp{dietar_ fibres }}{dietar fibres in gram per 100g edible portion}
-#' \item{\code{fat }}{fat in gram per 100g edible portion}
-#' \item{\code{cholesterol }}{cholesterolin milligram per 100g edible portion}
-#' \item{\code{fattyacids_monounsaturated }}{fatty acids monounsatrurated in gram per 100g edible portion}
-#' \item{\code{fattyacids_saturated }}{fatty acids saturated in gram per 100g edible portion}
-#' \item{\code{fatty_acids_polyunsaturated }}{fatty acids polyunsaturated in gram per 100g edible portion}
-#' \item{\code{vitaminA }}{vitamin A in retinol equivalent per 100g edible portion}
-#' \item{\samp{all-trans_retinol_equivalents }}{all trans-retinol equivalents in gram per 100g edible portion}
-#' \item{\samp{beta-carotene-activity }}{beta-carotene activity in beta-carotene equivalent per 100g edible portion}
-#' \item{\samp{beta-carotene }}{beta-carotene in micogram per 100g edible portion}
-#' \item{\code{vitaminB1 }}{vitamin B1 in milligram per 100g edible portion}
-#' \item{\code{vitaminB2 }}{vitamin B2 in milligram per 100g edible portion}
-#' \item{\code{vitaminB6 }}{vitamin B6 in milligram per 100g edible portion}
-#' \item{\code{vitaminB12 }}{vitamin B12 in micogram per 100g edible portion}
-#' \item{\code{niacin }}{niacin in milligram per 100g edible portion}
-#' \item{\code{folate }}{folate in micogram per 100g edible portion}
-#' \item{\code{pantothenic_acid }}{pantothenic acid in milligram per 100g edible portion}
-#' \item{\code{vitaminC }}{vitamin C in milligram per 100g edible portion}
-#' \item{\code{vitaminD }}{vitamin D in micogram per 100g edible portion}
-#' \item{\code{vitaminE }}{vitamin E in alpha-tocopherol equivalent per 100g edible portion}
-#' \item{\code{Na }}{Sodium in milligram per 100g edible portion}
-#' \item{\code{K }}{Potassium in milligram per 100g edible portion}
-#' \item{\code{Cl }}{Chloride}
-#' \item{\code{Ca }}{Calcium}
-#' \item{\code{Mg }}{Magnesium}
-#' \item{\code{P }}{Phosphorus}
-#' \item{\code{Fe }}{Iron}
-#' \item{\code{I }}{Iodide in milligram per 100g edible portion}
-#' \item{\code{Zn }}{Zink}
-#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
-#' }
-#'
-#' @name nutrients
-#' @docType data
-#' @usage data(nutrients)
-#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
-#' @format A data frame with 965 observations on the following 50 variables.
-#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
-#' @keywords data
-#' @examples 
-#' 
-#' data(nutrients)
-#' str(nutrients)
-#' head(nutrients[, 41:49])
-NULL
-
-#' nutrient contents (branded)
-#' 
-#' Nutrients on more than 10 components and 9618 branded food products
-#'
-#' \itemize{
-#' \item{\code{name_D }}{name (in German)}
-#' \item{\code{category_D }}{factor specifying the category names}
-#' \item{\code{category_F }}{factor specifying the category names}
-#' \item{\code{category_I }}{factor specifying the category names}
-#' \item{\code{category_E }}{factor specifying the category names}
-#' \item{\code{gravity }}{specific gravity}
-#' \item{\code{energy_kJ }}{energy in kJ}
-#' \item{\samp{energy_kcal }}{energy in kcal}
-#' \item{\code{protein }}{protein in gram}
-#' \item{\code{alcohol }}{alcohol in gram}
-#' \item{\code{water }}{water in gram}
-#' \item{\code{carbohydrates_available }}{available carbohydrates in gram}
-#' \item{\code{sugars }}{sugars in gram}
-#' \item{\code{dietary_fibres }}{dietary fibres in gram}
-#' \item{\code{fat_total }}{total fat in gram}
-#' \item{\code{fatty_acids_saturated }}{saturated acids fat in gram}
-#' \item{\code{Na }}{Sodium in gram}
-#' \item{\code{unit }}{a factor with levels \code{per 100g edible portion} \code{per 100ml food volume}}
-#' }
-#'
-#' @name nutrients_branded
-#' @docType data
-#' @usage data(nutrients_branded)
-#' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
-#' @format A data frame with 9618 observations on the following 18 variables.
-#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
-#' @keywords data
-#' @examples 
-#' 
-#' data(nutrients_branded)
-#' str(nutrients_branded)
-NULL
-
-
-#' Aphyric skye lavas data 
-#' 
-#' AFM compositions of 23 aphyric Skye lavas. This data set can be found on page 360 of the Aitchison book (see reference).
-#'
-#' \itemize{
-#' \item{\code{sodium-potassium }}{a numeric vector of percentages of Na2O\eqn{+}K2O}
-#' \item{\code{iron }}{a numeric vector of percentages of Fe2O3}
-#' \item{\code{magnesium }}{a numeric vector of percentages of MgO}
-#' }
-#'
-#' @name skyeLavas
-#' @docType data
-#' @usage data(skyeLavas)
-#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @format A data frame with 23 observations on the following 3 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
-#' @keywords data
-#' @examples 
-#' 
-#' data(skyeLavas)
-#' str(skyeLavas)
-#' summary(skyeLavas)
-#' rowSums(skyeLavas)
-NULL
-
-
-#' Synthetic household expenditures toy data set
-#' 
-#' This data set from Aitchison (1986), p. 395, describes household expenditures (in former Hong Kong dollars) on five commundity groups. 
-#'
-#' \itemize{
-#' \item{\code{housing }}{housing (including fuel and light)}
-#' \item{\code{foodstuffs }}{foodstuffs}
-#' \item{\code{alcohol }}{alcohol and tobacco}
-#' \item{\code{other }}{other goods (including clothing, footwear and durable goods)}
-#' \item{\code{services }}{services (including transport and vehicles)}
-#' }
-#'
-#' @name expenditures
-#' @docType data
-#' @usage data(expenditures)
-#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}, Karel Hron
-#' @details This data set contains household expenditures on five commodity groups of 20 single men. The variables represent housing (including fuel and light), foodstuff, alcohol and tobacco, other goods (including clothing, footwear and durable goods) and services (including transport and vehicles). Thus they represent the ratios of the men's income spent on the mentioned expenditures. 
-#' @format A data frame with 20 observations on the following 5 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
-#' @keywords data
-#' @examples 
-#' 
-#' data(expenditures)
-#' ## imputing a missing value in the data set using k-nearest neighbor imputation:
-#' expenditures[1,3]
-#' expenditures[1,3] <- NA
-#' impKNNa(expenditures)$xImp[1,3]
-NULL
-
-
-#' Mean consumption expenditures data.
-#' 
-#' Mean consumption expenditure of households at EU-level.  The final
-#' consumption expenditure of households encompasses all domestic costs (by
-#' residents and non-residents) for individual needs.
-#' 
-#' 
-#' @name expendituresEU
-#' @docType data
-#' @format A data frame with 27 observations on the following 12 variables.
-#' \itemize{ 
-#' \item{\code{Food}}{a numeric vector} 
-#' \item{\code{Alcohol}}{a numeric vector} 
-#' \item{\code{Clothing}}{a numeric vector}
-#' \item{\code{Housing}}{a numeric vector} 
-#' \item{\code{Furnishings}}{a numeric vector} 
-#' \item{\code{Health}}{a numeric vector}
-#' \item{\code{Transport}}{a numeric vector} 
-#' \item{\code{Communications}}{a numeric vector} 
-#' \item{\code{Recreation}}{a numeric vector}
-#' \item{\code{Education}}{a numeric vector} 
-#' \item{\code{Restaurants}}{a numeric vector} 
-#' \item{\code{Other}}{a numeric vector} 
-#' }
-#' @source Eurostat
-#' @keywords datasets
-#' @examples
-#' 
-#' data(expendituresEU)
-#' 
-NULL
 
 
 
 
 
-#' Haplogroups data.
-#' 
-#' Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in
-#' percentage.
-#' 
-#' Human Y-chromosome DNA can be divided in genealogical groups sharing a
-#' common ancestor, called haplogroups.
-#' 
-#' @name haplogroups
-#' @docType data
-#' @format A data frame with 38 observations on the following 12 variables.
-#' \itemize{ 
-#' \item{\code{I1 }}{pre-Germanic (Nordic)}
-#' \item{\code{I2b }}{pre-Celto-Germanic} 
-#' \item{\code{I2a1 }}{Sardinian, Basque} 
-#' \item{\code{I2a2 }}{Dinaric, Danubian}
-#' \item{\code{N1c1 }}{Uralo-Finnic, Baltic, Siberian}
-#' \item{\code{R1a }}{Balto-Slavic, Mycenaean Greek, Macedonia}
-#' \item{\code{R1b }}{Italic, Celtic, Germanic; Hitite, Armenian}
-#' \item{\code{G2a }}{Caucasian, Greco-Anatolien} 
-#' \item{\code{E1b1b }}{North and Eastern Afrika, Near Eastern, Balkanic} 
-#' \item{\code{J2 }}{Mesopotamian, Minoan Greek, Phoenician} 
-#' \item{\code{J1 }}{Semitic (Arabic, Jewish)}
-#' \item{\code{T }}{Near-Eastern, Egyptian, Ethiopian, Arabic} 
-#' }
-#' @source Eupedia:
-#' \url{http://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
-#' @keywords datasets
-#' @examples
-#' 
-#' data(haplogroups)
-#' 
-NULL
-
-
-#' PhD Students in the EU
-#' 
-#' PhD students in Europe based on the standard klassification system splitted
-#' by different kind of studies (given as percentages).
-#' 
-#' Due to unknown reasons the rowSums of the percentages is not always 100.
-#' 
-#' \itemize{
-#' \item{\code{country }}{country of origin (German)}  
-#' \item{\code{countryEN }}{country of origin (English)}    
-#' \item{\code{country2 }}{country of origin, 2-digits}   
-#' \item{\code{total }}{total phd students (in 1.000)}              
-#' \item{\code{male }}{male phd students (in 1.000)}                   
-#' \item{\code{female }}{total phd students (in 1.000)}               
-#' \item{\code{technical }}{phd students in natural and technical sciences}
-#' \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
-#' \item{\code{human }}{phd students in human sciences including teaching}
-#' \item{\code{health }}{phd students in health and life sciences}               
-#' \item{\code{agriculture }}{phd students in agriculture} 
-#' }
-#' 
-#' @name phd
-#' @docType data
-#' @format A data set on 32 compositions and 11 variables.
-#' @source Eurostat
-#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
-#' @keywords datasets
-#' @examples
-#' 
-#' data(phd)
-#' str(phd)
-#' 
-NULL
-
-
-#' Labour force by status in employment 
-#' 
-#' Labour force by status in employment for 124 countries, latest update: December 2009
-#' 
-#' \itemize{
-#' \item{\code{country }}{country}                            
-#' \item{\code{year }}{year}                                      
-#' \item{\code{employeesW }}{percentage female employees}                             
-#' \item{\code{employeesM }}{percentage male employees}
-#' \item{\code{employersW }}{percentage female employers}                    
-#' \item{\code{employersM }}{percentage male employers}
-#' \item{\code{ownW }}{percentage female own-account workers and contributing family workers}               
-#' \item{\code{ownM }}{percentage male own-account workers and contributing family workers} 
-#' \item{\code{source }}{HS: household or labour force survey. OE: official estimates. PC: population census} 
-#' }
-#' 
-#' @name laborForce
-#' @docType data
-#' @format A data set on 124 compositions on 9 variables.
-#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
-#' @source
-#' \url{http://unstats.un.org/unsd/demographic/products/indwm/tab5c.htm}
-#' @keywords datasets
-#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
-#' @examples
-#' 
-#' data(laborForce)
-#' str(laborForce)
-#' 
-NULL
-
-
-#' Hospital discharges on cancer and distribution of age
-#' 
-#' Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure. 
-#' 
-#' \itemize{
-#' \item{\code{country }}{country}                            
-#' \item{\code{year }}{year}                                      
-#' \item{\code{p1 }}{percentage of population with age below 15}                       
-#' \item{\code{p2 }}{percentage of population with age between 15 and 60}
-#' \item{\code{p3 }}{percentage of population with age above 60}                    
-#' \item{\code{discharges }}{hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants}
-#' }
-#' 
-#' @name cancer
-#' @docType data
-#' @details The response (discharges) is provided for the European Union countries (except Greece, Hungary and Malta) by Eurostat. As explanatory variables we use the age structure of the population in the same countries (year 2008). The age structure consists of three parts, age smaller than 15, age between 15 and 60 and age above 60 years, and they are expressed as percentages on the overall population in the countries. The data are provided by the United Nations Statistics Division.
-#' @format A data set on 24 compositions on 6 variables.
-#' @source
-#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
-#' @keywords datasets
-#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
-#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
-#' @examples
-#' 
-#' data(cancer)
-#' str(cancer)
-NULL
-
-
-#' Life expectancy and GDP (2008) for EU-countries
-#' 
-#' Social-economic data for compositional regression.
-#' 
-#' \itemize{
-#' \item{\code{country }}{country}                                   
-#' \item{\code{agriculture }}{GDP on agriculture, hunting, forestry, fishing (ISIC A-B, x1)}               
-#' \item{\code{manufacture }}{GDP on mining, manufacturing, utilities (ISIC C-E, x2)}
-#' \item{\code{construction }}{GDP on construction (ISIC F, x3)}              
-#' \item{\code{wholesales }}{GDP on wholesale, retail trade, restaurants and hotels (ISIC G-H, x4)}
-#' \item{\code{transport }}{GDP on transport, storage and communication (ISIC I, x5)}
-#' \item{\code{other }}{GDP on other activities (ISIC J-P, x6)}
-#' \item{\code{lifeExpMen }}{life expectancy for men and women}
-#' \item{\code{lifeExpWomen }}{life expectancy for men and women}
-#' }
-#' 
-#' @name lifeExpGdp
-#' @docType data
-#' @format A data set on 27 compositions on 9 variables.
-#' @source
-#' \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
-#' @keywords datasets
-#' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
-#' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 
-#' @examples
-#' 
-#' data(lifeExpGdp)
-#' str(lifeExpGdp)
-NULL
