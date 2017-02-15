@@ -1,7 +1,7 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 2.0.3
+Version: 2.0.4
 Date: 2016-08-30
 Depends:
     R (>= 2.10),
