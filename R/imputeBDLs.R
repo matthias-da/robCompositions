@@ -76,7 +76,13 @@
            nComp = "boot", bruteforce=FALSE,  
            noisemethod="residuals", noise=FALSE, R=10, 
            correction="normal", verbose=FALSE, test = FALSE){
-      
+    
+    ## needed for visible global function definition
+    isomLRInvp <- 1
+    isomLRinv <- function(x){
+      pivotCoordInv(x = x)
+    }
+    
     ## check if data are fine
     checkData(x, dl)
     

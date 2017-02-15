@@ -1,7 +1,8 @@
 Changes in robCompositions version 2.0.4
   + aDist now again works for vectors
-  + added socExp and cancerNM data sets
+  + added following data sets: socExp, cancerNM, employment, employment_df, instw, isic32, mortality_tab, precipitation and rcodes
   + corrected documentation for ageCatWorld data
+  + new functions coord, gmean, gmean_sum, ilr.2x2, ind2x2, indTab, int2x2, indTab, int2x2, intArray, intTab, pTab, rSDev, rSDev.test.R, SDev, stats
 
 Changes in robCompositions version 2.0.3
   + new function perturbation() and powering()
@@ -26,7 +27,7 @@ Changes in robCompositions version 2.0.2
   + pcaCoDa() with external variables
   + new data set alcoholreg 
   + new data set alcohol
-  + new data set econom        y
+  + new data set econom        
   + new data set ageCatWorld
   + new data set election
   + new data set laborForce

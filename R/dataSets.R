@@ -269,6 +269,43 @@ NULL
 #' str(election)
 NULL
 
+#' employment
+#' 
+#' Employment in different countries by gender and status.
+#'
+#' @name employment
+#' @docType data
+#' @usage data(employment)
+#' @author Valentin Todorov
+#' @format A three-dimensional table
+#' @keywords data
+#' @examples 
+#' data(employment)
+#' str(employment)
+#' employment
+NULL
+
+#' employment_df
+#' 
+#' Employment in different countries by gender and status.
+#'
+#' \itemize{
+#'  \item{\code{gender}}{factor}
+#'  \item{\code{status}}{factor, defining if part or full time work}
+#'  \item{\code{country}}{country}
+#'  \item{\code{value}}{employment}
+#' }
+#'
+#' @name employment_df
+#' @docType data
+#' @usage data(employment_df)
+#' @author Valentin Todorov, Matthias Templ
+#' @format A data.frame with 132 rows and 4 columns. 
+#' @keywords data
+#' @examples 
+#' data(employment_df)
+#' head(employment_df)
+NULL
 
 
 #' Synthetic household expenditures toy data set
@@ -434,6 +471,52 @@ NULL
 #' 
 NULL
 
+#' instw 
+#' 
+#' Value added, output and input for different ISIC codes and countries.
+#'
+#' \itemize{
+#'  \item{\code{ct}}{ct}
+#'  \item{\code{isic}}{ISIC classification, Rev 3.2}
+#'  \item{\code{VA}}{value added}
+#'  \item{\code{OUT}}{output}
+#'  \item{\code{INP}}{input}
+#'  \item{\code{IS03}}{country code}
+#'  \item{\code{mht}}{mht}
+#' }
+#'
+#' @name instw
+#' @docType data
+#' @usage data(instw)
+#' @author Valentin Todorov, Matthias Templ
+#' @format A data.frame with 1555 rows and 7 columns. 
+#' @keywords data
+#' @examples 
+#' data(instw)
+#' head(instw)
+NULL
+
+#' isic32 
+#' 
+#' ISIC codes by name
+#'
+#' \itemize{
+#'  \item{\code{code}}{ISIC code, Rev 3.2}
+#'  \item{\code{description}}{Description of ISIC codes}
+#' }
+#'
+#' @name isic32
+#' @docType data
+#' @usage data(isic32)
+#' @author Valentin Todorov, Matthias Templ
+#' @format A data.frame with 24 rows and 2 columns. 
+#' @keywords data
+#' @examples 
+#' data(instw)
+#' instw
+NULL
+
+
 
 #' Labour force by status in employment 
 #' 
@@ -587,7 +670,25 @@ NULL
 #'           list(mortality$country2), sum)
 NULL
 
-
+#' mortality table 
+#' 
+#' Mortality data by gender, unknown year
+#'
+#' \itemize{
+#'  \item{\code{female}}{mortality rates for females by age groups}
+#'  \item{\code{male}}{mortality rates for males by age groups}
+#' }
+#'
+#' @name mortality_tab
+#' @docType data
+#' @usage data(mortality_tab)
+#' @author Matthias Templ
+#' @format A table
+#' @keywords data
+#' @examples 
+#' data(mortality_tab)
+#' mortality_tab
+NULL
 
 
 #' nutrient contents
@@ -779,6 +880,32 @@ NULL
 #' 
 NULL
 
+#' precipitation
+#' 
+#' table containing counts for 24-hour precipitation for season at the rain-gouge.
+#'
+#' \itemize{
+#'  \item{\code{spring}}{numeric vector on counts for different level of precipitation}
+#'  \item{\code{summer}}{numeric vector on counts for different level of precipitation}
+#'  \item{\code{autumn}}{numeric vector on counts for different level of precipitation}
+#'  \item{\code{winter}}{numeric vector on counts for different level of precipitation}
+#' }
+#'
+#' @name precipitation
+#' @docType data
+#' @usage data(precipitation)
+#' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
+#' @format A table with 4 rows and 6 columns
+#' @references Romero R, Guijarro J A, Ramis C, Alonso S (1998). A 30-years (196493) daily rainfall
+#' data base for the Spanish Mediterranean regions: first exploratory study. 
+#' \emph{International Journal of Climatology} 18, 541560.
+#' @keywords data
+#' @examples 
+#' data(precipitation)
+#' precipitation
+#' str(precipitation)
+NULL
+
 #' Production 
 #' 
 #' Production splitted by nationality on enterprise level
@@ -819,7 +946,29 @@ NULL
 #' summary(production)
 NULL
 
-
+#' rcodes
+#' 
+#' Codes for UNIDO tables
+#'
+#' \itemize{
+#'  \item{\code{ISOCN}}{ISOCN codes}
+#'  \item{\code{OPERATOR}}{Operator}
+#'  \item{\code{ADESC}}{Country}
+#'  \item{\code{CCODE}}{Country code}
+#'  \item{\code{CDESC}}{Country destination}
+#'  \item{\code{ACODE}}{Country destination code}
+#' }
+#'
+#' @name rcodes
+#' @docType data
+#' @usage data(rcodes)
+#' @author Valentin Todorov
+#' @format A data.frame with 2717 rows and 6 columns.  
+#' @keywords data
+#' @examples 
+#' data(rcodes)
+#' str(rcodes)
+NULL
 
 #' Aphyric skye lavas data 
 #' 
@@ -849,7 +998,7 @@ NULL
 
 #' Social expenditures
 #' 
-#' Social expenditures according to source (public, private) 
+#' Social expenditures according to source (public or private) 
 #' and three important branches (health, old age, incapacity related) in 
 #' selected OECD countries in 2010. Expenditures are always provided 
 #' in the respective currency.

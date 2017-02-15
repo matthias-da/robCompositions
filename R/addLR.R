@@ -50,6 +50,10 @@
 #' @importFrom stats dist
 #' @importFrom Rcpp sourceCpp
 #' @importFrom Rcpp evalCpp
+#' @importFrom graphics box
+#' @importFrom graphics image
+#' @importFrom stats rchisq
+#' @importFrom stats rmultinom
 NULL
  
 #' Additive log-ratio transformation

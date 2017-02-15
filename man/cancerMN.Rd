@@ -15,10 +15,10 @@ For this purpose population data (2012) from 35 OECD countries were collected.
 \details{
 \itemize{
 \item{\code{country }}{country}                                  
-\item{\code{colon-females }}{number of colon cancer cases in female population}                       
-\item{\code{lung-females }}{number of lung cancer cases in female population}                    
-\item{\code{colon-males }}{number of colon cancer cases in male population}
-\item{\code{lung-males }}{number of lung cancer cases in male population}
+\item{\code{females-colon }}{number of colon cancer cases in female population}                       
+\item{\code{females-lung }}{number of lung cancer cases in female population}                    
+\item{\code{males-colon }}{number of colon cancer cases in male population}
+\item{\code{males-lung }}{number of lung cancer cases in male population}
 }
 
 The data are obtained from the OECD website.

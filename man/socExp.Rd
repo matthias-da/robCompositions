@@ -9,7 +9,7 @@
 data(socExp)
 }
 \description{
-Social expenditures according to source (public, private) 
+Social expenditures according to source (public or private) 
 and three important branches (health, old age, incapacity related) in 
 selected OECD countries in 2010. Expenditures are always provided 
 in the respective currency.
