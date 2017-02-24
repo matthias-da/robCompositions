@@ -1,10 +1,22 @@
-########################################
-###   ilr coordinates:   ###############
-########################################
+#' ilr coordinates in 2x2 tables
+#' 
+#' ilr coordinates of original, independent and interaction table using SBP1 and SBP2
+#' 
+#' @param x a 2x2 table
+#' @author Kamila Facevicova, Matthias Templ
+#' @return The ilr coordinates
+#' @references 
+#' K. Facevicova, K. Hron, V. Todorov, D. Guo, M. Templ (2014).
+#' Logratio approach to statistical analysis of 2x2 compositional tables.
+#' \emph{Journal of Applied Statistics}, Volume 41 (5), 944--958.
+#' DOI:10.1080/02664763.2013.856871
+#' @export
+#' @examples 
+#' data(employment) 
+#' ilr.2x2(employment[,,"AUT"])
+#' ilr.2x2(employment)
 
-#ilr coordinates of original, independent and interaction table using SBP1 and SBP2
-
-ilr.2x2 <- function(x, margin=3){
+ilr.2x2 <- function(x){
   ilrind <- function(x){
     z1 <- z2 <- numeric(3)
     z1[1] <- (1/3^(1/2))*log(x[1,1]/x[2,2])
@@ -47,6 +59,6 @@ ilr.2x2 <- function(x, margin=3){
   } else {
     res <- apply(x, margin, ilrmethod, type=method)
   }
-  class(res) <- "ilr2x2"
+#  class(res) <- "ilr2x2"
   res	
 }
