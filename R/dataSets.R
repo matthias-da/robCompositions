@@ -371,7 +371,35 @@ NULL
 NULL
 
 
-
+#' GDP satisfaction 
+#' 
+#' Satisfaction of GDP in 31 countries
+#' 
+#' The GDP is measured per capita from the year 2012.
+#'
+#' \itemize{
+#'  \item{\code{country }}{community code}
+#'  \item{\code{gdp }}{GDP per capita in 2012}
+#'  \item{\code{very.bad }}{satisfaction very bad}
+#'  \item{\code{bad }}{satisfaction bad}
+#'  \item{\code{moderately.bad }}{satisfaction moderately bad}
+#'  \item{\code{moderately.good }}{satisfaction moderately good}
+#'  \item{\code{good }}{satisfaction good}
+#'  \item{\code{very.good }}{satisfaction very good}
+#' }
+#'
+#' @name GDPsatis
+#' @docType data
+#' @usage data(GDPsatis)
+#' @author Peter Filzmoser, Matthias Templ
+#' @format A data frame with 31 observations and 8 variables
+#' @keywords data
+#' @source from Eurostat,\url{http://ec.europa.eu/eurostat/}
+#' @examples 
+#' 
+#' data(GDPsatis)
+#' str(GDPsatis)
+NULL
 
 #' Gemas geochemical data set
 #'
