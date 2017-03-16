@@ -1,8 +1,9 @@
 Changes in robCompositions version 2.0.4
   + aDist now again works for vectors
-  + added following data sets: socExp, cancerNM, employment, employment_df, instw, isic32, mortality_tab, precipitation and rcodes
+  + added following data sets: socExp, cancerNM, educFM, electionATbp, employment, employment_df, GDPsatis, instw, isic32, mortality_tab, precipitation and rcodes
   + corrected documentation for ageCatWorld data
   + new functions coord, gmean, gmean_sum, ilr.2x2, ind2x2, indTab, int2x2, indTab, int2x2, intArray, intTab, pTab, rSDev, rSDev.test.R, SDev, stats
+  + bug in daFisher solved and new adapted predict function
 
 Changes in robCompositions version 2.0.3
   + new function perturbation() and powering()

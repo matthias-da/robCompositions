@@ -3,7 +3,7 @@
 #' Robust biomarker identification and outlier diagnostics
 #' 
 #' @name biomarker
-#' @author 
+#' @author Jan Walach
 #' @aliases biomarker print.biomarker summary.biomarker
 #' @param x data frame
 #' @param cut cut-off value, initialy set as 0.975 quantile of standard normal distribution

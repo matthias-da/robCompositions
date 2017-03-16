@@ -7,6 +7,7 @@
 #' 
 #' @param x matrix or data.frame with 3 columns
 #' @param name names of the variables
+#' @param text default NULL, text for each point can be provided
 #' @param grid if TRUE a grid is plotted additionally in the ternary diagram
 #' @param gridCol color for the grid lines
 #' @param mcex label size
@@ -43,7 +44,7 @@
 #' ternaryDiag(x, grid=FALSE, line="pca")
 #' ternaryDiag(x, grid=FALSE, col=grp, pch=grp, line="pca", lty=2, lwd=2)
 #' 
-ternaryDiag <- function(x, name=colnames(x), grid=TRUE, 
+ternaryDiag <- function(x, name=colnames(x), text = NULL, grid=TRUE, 
 		                gridCol=grey(0.6), mcex=1.2, line="none", 
 						robust=TRUE, group=NULL, tol=0.975, ...)
 {
@@ -78,7 +79,10 @@ ternaryDiag <- function(x, name=colnames(x), grid=TRUE,
 	par(pty="s")
 	plot(xp,yp,xlim=c(0,1),ylim=c(0,0.9), 
 			frame.plot=FALSE, xaxt="n", yaxt="n", xlab="", ylab="", ...)
-	
+	if(!is.null(text)){
+	  if(length(text) != nrow(dat)) stop(paste("text not of length", nrow(dat)))
+	  text(xp, yp, text)
+	}
 	segments(0,0,1,0)
 	segments(0,0,1/2,sqrt(3)/2)
 	segments(1/2,sqrt(3)/2,1,0)

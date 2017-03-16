@@ -11,7 +11,7 @@
 #' in real space.
 #' @export
 #' @author Veronika Pintar, Karel Hron, Matthias Templ
-#' @rdname
+#' @rdname balances
 #' @return \item{balances}{The balances represent orthonormal coordinates which allow an interpretation in sense of groups of compositional parts.
 #'                         Output is a matrix, the D-1 colums contain balance coordinates of the observations in the rows.}
 #'         \item{V}{A Dx(D-1) contrast matrix associated with the orthonormal basis, corresponding to the sequential binary partition (in clr coordinates).}

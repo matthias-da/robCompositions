@@ -8,11 +8,11 @@ Depends:
     robustbase,
     ggplot2,
     data.table,
+    e1071,
     pls
 LinkingTo: Rcpp
 Imports:
     car,
-    e1071,
     rrcov,
     cluster,
     cvTools,

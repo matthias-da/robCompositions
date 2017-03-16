@@ -228,6 +228,34 @@ NULL
 #' str(economy)
 NULL
 
+#' educFM 
+#' 
+#' Education level of father (F) and mother (M) in percentages of low
+#' (l), medium (m), and high (h) of 31 countries in Europe.
+#' 
+#' \itemize{
+#'  \item{\code{country }}{community code}
+#'  \item{\code{F.l }}{percentage of females with low edcuation level}
+#'  \item{\code{F.m }}{percentage of females with medium edcuation level}
+#'  \item{\code{F.h }}{percentage of females with high edcuation level}
+#'  \item{\code{F.l }}{percentage of males with low edcuation level}
+#'  \item{\code{F.m }}{percentage of males with medium edcuation level}
+#'  \item{\code{F.h }}{percentage of males with high edcuation level}
+#' }
+#'
+#' @name educFM
+#' @docType data
+#' @usage data(educFM)
+#' @author Peter Filzmoser, Matthias Templ
+#' @format A data frame with 31 observations and 8 variables
+#' @keywords data
+#' @source from Eurostat,\url{http://ec.europa.eu/eurostat/}
+#' @examples 
+#' 
+#' data(educFM)
+#' str(educFM)
+NULL
+
 #' Election data
 #' 
 #' Results of a election in Germany 2013 in different
