@@ -12,7 +12,7 @@ daFisher(x, grp, coda = TRUE, method = "classical", plotScore = FALSE,
 
 \method{print}{daFisher}(x, ...)
 
-\method{predict}{daFisher}(object, newdata)
+\method{predict}{daFisher}(object, ..., newdata)
 
 \method{summary}{daFisher}(object, ...)
 }

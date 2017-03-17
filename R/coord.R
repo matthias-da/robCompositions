@@ -33,6 +33,8 @@
 #' SBPr
 #' result <- coord(x, SBPr,SBPc)
 #' result
+#' data(socExp)
+#' 
 coord <- function(x, SBPr, SBPc)
 {
   I <- nrow(x)

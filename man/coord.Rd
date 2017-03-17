@@ -45,6 +45,8 @@ SBPr <- rbind(c(1,1,1,-1,-1),c(1,1,-1,0,0),c(1,-1,0,0,0),c(0,0,0,1,-1))
 SBPr
 result <- coord(x, SBPr,SBPc)
 result
+data(socExp)
+
 }
 \author{
 Kamila Facevicova, and minor adaption by Matthias Templ

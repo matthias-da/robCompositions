@@ -361,7 +361,7 @@ print.daFisher <- function(x,...){
 #' @param object object of class \dQuote{daFisher}
 #' @param newdata new data in the appropriate form (CoDa, etc)
 #' @export
-predict.daFisher <- function(object,newdata){
+predict.daFisher <- function(object, ..., newdata){
   # res ... result object of daFisher
   # newdata ... new data in the appropriate form (CoDa, etc)
   
