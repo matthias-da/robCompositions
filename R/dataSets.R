@@ -617,6 +617,45 @@ NULL
 
 
 
+
+#' Government spending
+#' 
+#' Government expenditures based on COFOG categories
+#' 
+#' The general government sector consists of central, 
+#' state and local governments, and the social security funds controlled 
+#' by these units. The data are based on the system of national accounts, 
+#' a set of internationally agreed concepts, definitions, classifications 
+#' and rules for national accounting. The classification of functions of government 
+#' (COFOG) is used as classification system. 
+#' The central government spending by category is measured as a percentage 
+#' of total expenditures.
+#' 
+#' @name govexp
+#' @docType data
+#' @format A (tidy) data frame with 5140 observations on the following 4 variables.
+#' \itemize{ 
+#' \item{\code{country }}{Country of origin}
+#' \item{\code{category }}{The COFOG expenditures are divided into 
+#' in the following ten categories: general public services; 
+#' defence; public order and safety; economic affairs; 
+#' environmental protection; housing and community amenities; 
+#' health; recreation, culture and religion; education; and 
+#' social protection. } 
+#' \item{\code{year }}{Year} 
+#' \item{\code{value }}{COFOG spendings/expenditures}
+#' }
+#' @author translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
+#' @source OECD:
+#' \url{https://data.oecd.org/}
+#' @keywords datasets
+#' @examples
+#' 
+#' data(govexp)
+#' str(govexp)
+NULL
+
+
 #' Haplogroups data.
 #' 
 #' Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in
@@ -1209,6 +1248,52 @@ NULL
 NULL
 
 
+#' Teaching stuff
+#' 
+#' Teaching stuff in selected countries
+#' 
+#' Teaching staff include professional personnel directly 
+#' involved in teaching students, including classroom 
+#' teachers, special education teachers and other 
+#' teachers who work with students as a whole class, 
+#' in small groups, or in one-to-one teaching. 
+#' Teaching staff also include department chairs 
+#' of whose duties include some teaching, but 
+#' it does not include non-professional personnel 
+#' who support teachers in providing instruction 
+#' to students, such as teachers' aides and other 
+#' paraprofessional personnel. Academic staff include 
+#' personnel whose primary assignment is instruction, 
+#' research or public service, holding an academic 
+#' rank with such titles as professor, associate 
+#' professor, assistant professor, instructor, 
+#' lecturer, or the equivalent of any of these 
+#' academic ranks. The category includes personnel 
+#' with other titles (e.g. dean, director, associate 
+#' dean, assistant dean, chair or head of department), 
+#' if their principal activity is instruction or research.
+#' 
+#' @name teachingStuff
+#' @docType data
+#' @format A (tidy) data frame with 1216 observations on the following 4 variables.
+#' \itemize{ 
+#' \item{\code{country }}{Country of origin}
+#' \item{\code{subject }}{school type: primary, lower secondary, higher secondary and tertiary } 
+#' \item{\code{year }}{Year} 
+#' \item{\code{value }}{Number of stuff}
+#' }
+#' @author translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
+#' @references OECD (2017), Teaching staff (indicator). doi: 10.1787/6a32426b-en (Accessed on 27 March 2017)
+#' @source OECD:
+#' \url{https://data.oecd.org/}
+#' @keywords datasets
+#' @examples
+#' 
+#' data(teachingStuff)
+#' str(teachingStuff)
+NULL
+
+
 #' Regional geochemical survey of soil C in Norway
 #' 
 #' A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
@@ -1396,7 +1481,48 @@ NULL
 NULL
 
 
-
+#' Unemployed young people
+#' 
+#' Youth not in employment, education or training (NEET) in 43 countries from 1997 till 2015
+#' 
+#' This indicator presents the share of young people who are 
+#' not in employment, education or training (NEET), as 
+#' a percentage of the total number of young people 
+#' in the corresponding age group, by gender. 
+#' Young people in education include those attending 
+#' part-time or full-time education, but exclude those 
+#' in non-formal education and in educational activities 
+#' of very short duration. Employment is defined according 
+#' to the OECD/ILO Guidelines and covers all those who 
+#' have been in paid work for at least one hour in the 
+#' reference week of the survey or were temporarily 
+#' absent from such work. Therefore NEET youth can be 
+#' either unemployed or inactive and not involved in 
+#' education or training. Young people who are neither 
+#' in employment nor in education or training are at 
+#' risk of becoming socially excluded – individuals 
+#' with income below the poverty-line and lacking the 
+#' skills to improve their economic situation.
+#' 
+#' @name teachingStuff
+#' @docType data
+#' @format A (tidy) data frame with 1216 observations on the following 4 variables.
+#' \itemize{ 
+#' \item{\code{country }}{Country of origin}
+#' \item{\code{age }}{age group } 
+#' \item{\code{year }}{Year} 
+#' \item{\code{value }}{percentage of unemployed}
+#' }
+#' @author translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
+#' @references OECD (2017), Youth not in employment, education or training (NEET) (indicator). doi: 10.1787/72d1033a-en (Accessed on 27 March 2017)
+#' @source OECD:
+#' \url{https://data.oecd.org/}
+#' @keywords datasets
+#' @examples
+#' 
+#' data(teachingStuff)
+#' str(teachingStuff)
+NULL
 
 
 

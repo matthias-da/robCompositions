@@ -76,7 +76,7 @@ NULL
 #' d2 <- daFisher(X,grp=grp,method="robust",coda=FALSE)
 #' d2
 #' summary(d2)
-#' predict(d2, X)
+#' predict(d2, newdata = X)
 #' 
 #' ## example with olive data:
 #'\dontrun{
