@@ -4,10 +4,18 @@
 \alias{ilr.2x2}
 \title{ilr coordinates in 2x2 tables}
 \usage{
-ilr.2x2(x)
+ilr.2x2(x, margin = 1, type = "independence", version = "book")
 }
 \arguments{
 \item{x}{a 2x2 table}
+
+\item{margin}{for 2x2 tables available for a whole set of another dimension.
+For example, if 2x2 tables are available for every country.}
+
+\item{type}{choose between \dQuote{independence} or \dQuote{interaction} table}
+
+\item{version}{the version used in the \dQuote{paper} below or the version of
+the upcoming \dQuote{book}.}
 }
 \value{
 The ilr coordinates
@@ -18,7 +26,9 @@ ilr coordinates of original, independent and interaction table using SBP1 and SB
 \examples{
 data(employment) 
 ilr.2x2(employment[,,"AUT"])
-ilr.2x2(employment)
+ilr.2x2(employment[,,"AUT"], version = "paper")
+ilr.2x2(employment, margin = 3, version = "paper")
+ilr.2x2(employment[,,"AUT"], type = "interaction")
 }
 \author{
 Kamila Facevicova, Matthias Templ
