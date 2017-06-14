@@ -3,7 +3,7 @@
 \docType{data}
 \name{payments}
 \alias{payments}
-\title{Special payments}
+\title{special payments}
 \format{A data frame with 535 rows and 11 variables}
 \source{
 statCube data base at \url{www.statistik.ac.at}. The product and all 

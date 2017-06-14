@@ -3,7 +3,7 @@
 \docType{data}
 \name{govexp}
 \alias{govexp}
-\title{Government spending}
+\title{government spending}
 \format{A (tidy) data frame with 5140 observations on the following 4 variables.
 \itemize{ 
 \item{\code{country }}{Country of origin}

@@ -12,11 +12,9 @@ from Eurostat,\url{http://ec.europa.eu/eurostat/}
 data(GDPsatis)
 }
 \description{
-Satisfaction of GDP in 31 countries
+Satisfaction of GDP in 31 countries. The GDP is measured per capita from the year 2012.
 }
 \details{
-The GDP is measured per capita from the year 2012.
-
 \itemize{
  \item{\code{country }}{community code}
  \item{\code{gdp }}{GDP per capita in 2012}

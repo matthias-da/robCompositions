@@ -3,7 +3,7 @@
 \docType{data}
 \name{precipitation}
 \alias{precipitation}
-\title{precipitation}
+\title{24-hour precipitation}
 \format{A table with 4 rows and 6 columns}
 \usage{
 data(precipitation)

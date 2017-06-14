@@ -3,7 +3,7 @@
 \docType{data}
 \name{skyeLavas}
 \alias{skyeLavas}
-\title{Aphyric skye lavas data}
+\title{aphyric skye lavas data}
 \format{A data frame with 23 observations on the following 3 variables.}
 \usage{
 data(skyeLavas)

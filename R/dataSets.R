@@ -1,5 +1,4 @@
-
-#' Child, middle and eldery population
+#' child, middle and eldery population
 #' 
 #' Percentages of childs, middle generation and eldery population in 195 countries.
 #'
@@ -29,9 +28,7 @@
 NULL
 
 
-#' alcoholreg 
-#' 
-#' Regional alcohol per capita (15+) consumption by WHO region
+#' regional alcohol per capita (15+) consumption by WHO region
 #'
 #' \itemize{
 #'  \item{\code{country }}{Country}
@@ -54,10 +51,7 @@ NULL
 NULL
 
 
-
-#' alcohol 
-#' 
-#' Alcohol consumptions by country and type of alcohol
+#' alcohol consumptions by country and type of alcohol
 #'
 #' \itemize{
 #'  \item{\code{country }}{Country}
@@ -82,7 +76,7 @@ NULL
 #' summary(alcohol)
 NULL
 
-#' Arctic lake sediment data
+#' arctic lake sediment data
 #' 
 #' Sand, silt, clay compositions of 39 sediment samples at different water depths in an Arctic lake.
 #' This data set can be found on page 359 of the Aitchison book (see reference).
@@ -112,7 +106,7 @@ NULL
 NULL
 
 
-#' Hospital discharges on cancer and distribution of age
+#' hospital discharges on cancer and distribution of age
 #' 
 #' Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure. 
 #' 
@@ -141,7 +135,7 @@ NULL
 NULL
 
 
-#' Malignant neoplasms cancer
+#' malignant neoplasms cancer
 #' 
 #' Two main types of malignant neoplasms cancer affecting colon and lung, respectively, in male and female populations. 
 #' For this purpose population data (2012) from 35 OECD countries were collected.
@@ -182,69 +176,68 @@ NULL
 #' @docType data
 #' @format A data frame with 606 observations on the following 62 variables.
 #' \describe{ 
-#' \item{*ID}{a numeric vector} 
-#' \item{XCOO}{a numeric vector} 
-#' \item{YCOO}{a numeric vector} 
-#' \item{Ag}{concentration in mg/kg} 
-#' \item{Al}{concentration in mg/kg} 
-#' \item{Al_XRF}{concentration in wt. percentage} 
-#' \item{As}{concentration in mg/kg} 
-#' \item{B}{concentration in mg/kg}
-#' \item{Ba}{concentration in mg/kg} 
-#' \item{Ba_INAA}{concentration in mg/kg}
-#' \item{Be}{concentration in mg/kg} 
-#' \item{Bi}{concentration in mg/kg}
-#' \item{Ca}{concentration in mg/kg} 
-#' \item{Ca_XRF}{concentration in wt. percentage} 
-#' \item{Cd}{concentration in mg/kg} 
-#' \item{Ce_INAA}{concentration in mg/kg} 
-#' \item{Co}{concentration in mg/kg} 
-#' \item{Co_INAA}{concentration in mg/kg} 
-#' \item{Cr}{concentration in mg/kg}
-#' \item{Cr_INAA}{concentration in mg/kg}
-#' \item{Cu}{concentration in mg/kg}
-#' \item{Eu_INAA}{concentration in mg/kg} 
-#' \item{Fe}{concentration in mg/kg} 
-#' \item{Fe_XRF}{concentration in wt. percentage} 
-#' \item{Hf_INAA}{concentration in mg/kg} 
-#' \item{K}{concentration in mg/kg} 
-#' \item{K_XRF}{concentration in wt. percentage} 
-#' \item{La}{concentration in mg/kg} 
-#' \item{La_INAA}{concentration in mg/kg} 
-#' \item{Li}{concentration in mg/kg} 
-#' \item{Lu_INAA}{concentration in mg/kg} 
-#' \item{Mg}{concentration in mg/kg} 
-#' \item{Mg_XRF}{concentration in wt. percentage} 
-#' \item{Mn}{concentration in mg/kg} 
-#' \item{Mn_XRF}{concentration in wt. percentage} 
-#' \item{Na}{concentration in mg/kg} 
-#' \item{Na_XRF}{concentration in wt. percentage} 
-#' \item{Nd_INAA}{concentration in mg/kg} 
-#' \item{Ni}{concentration in mg/kg} 
-#' \item{P}{concentration in mg/kg} 
-#' \item{P_XRF}{concentration in wt. percentage} 
-#' \item{Pb}{concentration in mg/kg} 
-#' \item{S}{concentration in mg/kg} 
-#' \item{Sc}{concentration in mg/kg} 
-#' \item{Sc_INAA}{concentration in mg/kg} 
-#' \item{Si}{concentration in mg/kg} 
-#' \item{Si_XRF}{concentration in wt. percentage} 
-#' \item{Sm_INAA}{concentration in mg/kg}
-#' \item{Sr}{concentration in mg/kg} 
-#' \item{Th_INAA}{concentration in mg/kg} 
-#' \item{Ti}{concentration in mg/kg} 
-#' \item{Ti_XRF}{concentration in wt. percentage} 
-#' \item{V}{concentration in mg/kg} 
-#' \item{Y}{concentration in mg/kg} 
-#' \item{Yb_INAA}{concentration in mg/kg} 
-#' \item{Zn}{concentration in mg/kg} 
-#' \item{LOI}{concentration in wt. percentage}
-#' \item{pH}{ph value}
-#' \item{*ELEV}{elevation} 
-#' \item{*COUN}{country}
-#' \item{*ASP}{a numeric vector} 
-#' \item{TOPC}{a numeric vector}
-#' \item{LITO}{information on lithography} 
+#' \item{*ID }{a numeric vector} 
+#' \item{XCOO }{a numeric vector} 
+#' \item{YCOO }{a numeric vector} 
+#' \item{Ag }{concentration in mg/kg} 
+#' \item{Al }{concentration in mg/kg} 
+#' \item{Al_XRF }{concentration in wt. percentage} 
+#' \item{As }{concentration in mg/kg} 
+#' \item{B }{concentration in mg/kg}
+#' \item{Ba }{concentration in mg/kg} 
+#' \item{Ba_INAA }{concentration in mg/kg}
+#' \item{Be }{concentration in mg/kg} 
+#' \item{Bi }{concentration in mg/kg}
+#' \item{Ca }{concentration in mg/kg} 
+#' \item{Ca_XRF }{concentration in wt. percentage} 
+#' \item{Cd }{concentration in mg/kg} 
+#' \item{Ce_INAA }{concentration in mg/kg} 
+#' \item{Co }{concentration in mg/kg} 
+#' \item{Co_INAA }{concentration in mg/kg} 
+#' \item{Cr }{concentration in mg/kg}
+#' \item{Cr_INAA }{concentration in mg/kg}
+#' \item{Cu }{concentration in mg/kg}
+#' \item{Eu_INAA }{concentration in mg/kg} 
+#' \item{Fe }{concentration in mg/kg} 
+#' \item{Fe_XRF }{concentration in wt. percentage} 
+#' \item{Hf_INAA }{concentration in mg/kg} 
+#' \item{K }{concentration in mg/kg} 
+#' \item{K_XRF }{concentration in wt. percentage} 
+#' \item{La }{concentration in mg/kg} 
+#' \item{La_INAA }{concentration in mg/kg} 
+#' \item{Li }{concentration in mg/kg} 
+#' \item{Lu_INAA }{concentration in mg/kg} 
+#' \item{Mg }{concentration in mg/kg} 
+#' \item{Mg_XRF }{concentration in wt. percentage} 
+#' \item{Mn }{concentration in mg/kg} 
+#' \item{Mn_XRF }{concentration in wt. percentage} 
+#' \item{Na }{concentration in mg/kg} 
+#' \item{Na_XRF }{concentration in wt. percentage} 
+#' \item{Nd_INAA }{concentration in mg/kg} 
+#' \item{Ni }{concentration in mg/kg} 
+#' \item{P }{concentration in mg/kg} 
+#' \item{P_XRF }{concentration in wt. percentage} 
+#' \item{Pb }{concentration in mg/kg} 
+#' \item{S }{concentration in mg/kg} 
+#' \item{Sc }{concentration in mg/kg} 
+#' \item{Sc_INAA }{concentration in mg/kg} 
+#' \item{Si }{concentration in mg/kg} 
+#' \item{Si_XRF }{concentration in wt. percentage} 
+#' \item{Sm_INAA }{concentration in mg/kg}
+#' \item{Sr }{concentration in mg/kg} 
+#' \item{Th_INAA }{concentration in mg/kg} 
+#' \item{Ti }{concentration in mg/kg} 
+#' \item{Ti_XRF }{concentration in wt. percentage} 
+#' \item{V }{concentration in mg/kg} 
+#' \item{Y }{concentration in mg/kg} 
+#' \item{Yb_INAA }{concentration in mg/kg} 
+#' \item{Zn }{concentration in mg/kg} 
+#' \item{LOI }{concentration in wt. percentage}
+#' \item{pH }{ph value}
+#' \item{*COUN }{country}
+#' \item{*ASP }{a numeric vector} 
+#' \item{TOPC }{a numeric vector}
+#' \item{LITO }{information on lithography} 
 #' }
 #' @note For a more detailed description of this data set, see
 #' \code{\link[mvoutlier]{chorizon}} in package \code{mvoutlier}.
@@ -258,7 +251,8 @@ NULL
 #' 
 #' data(chorizonDL, package = "robCompositions")
 #' dim(chorizonDL)
-#' 
+#' colnames(chorizonDL)
+#' zeroPatterns(chorizonDL)
 NULL
 
 
@@ -291,7 +285,7 @@ NULL
 #' summary(coffee)
 NULL
 
-#' Economic indicators
+#' economic indicators
 #' 
 #' Household and government consumptions, gross captial formation and import and exports of goods 
 #' and services.
@@ -319,7 +313,7 @@ NULL
 #' str(economy)
 NULL
 
-#' educFM 
+#' education level of father (F) and mother (M) 
 #' 
 #' Education level of father (F) and mother (M) in percentages of low
 #' (l), medium (m), and high (h) of 31 countries in Europe.
@@ -347,7 +341,7 @@ NULL
 #' str(educFM)
 NULL
 
-#' Election data
+#' election data
 #' 
 #' Results of a election in Germany 2013 in different
 #' federal states 
@@ -421,9 +415,7 @@ NULL
 NULL
 
 
-#' employment
-#' 
-#' Employment in different countries by gender and status.
+#' employment in different countries by gender and status.
 #'
 #' @name employment
 #' @docType data
@@ -437,8 +429,6 @@ NULL
 #' employment
 NULL
 
-#' employment_df
-#' 
 #' Employment in different countries by gender and status.
 #'
 #' \itemize{
@@ -460,7 +450,7 @@ NULL
 NULL
 
 
-#' Synthetic household expenditures toy data set
+#' synthetic household expenditures toy data set
 #' 
 #' This data set from Aitchison (1986), p. 395, describes household expenditures (in former Hong Kong dollars) on five commundity groups. 
 #'
@@ -490,7 +480,7 @@ NULL
 NULL
 
 
-#' Mean consumption expenditures data.
+#' mean consumption expenditures data.
 #' 
 #' Mean consumption expenditure of households at EU-level.  The final
 #' consumption expenditure of households encompasses all domestic costs (by
@@ -525,9 +515,7 @@ NULL
 
 #' GDP satisfaction 
 #' 
-#' Satisfaction of GDP in 31 countries
-#' 
-#' The GDP is measured per capita from the year 2012.
+#' Satisfaction of GDP in 31 countries. The GDP is measured per capita from the year 2012.
 #'
 #' \itemize{
 #'  \item{\code{country }}{community code}
@@ -553,7 +541,7 @@ NULL
 #' str(GDPsatis)
 NULL
 
-#' Gemas geochemical data set
+#' gemas geochemical data set
 #'
 #' Geochemical data set on agricultural and grazing land soil
 #'
@@ -618,7 +606,7 @@ NULL
 
 
 
-#' Government spending
+#' government spending
 #' 
 #' Government expenditures based on COFOG categories
 #' 
@@ -656,7 +644,7 @@ NULL
 NULL
 
 
-#' Haplogroups data.
+#' haplogroups data.
 #' 
 #' Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in
 #' percentage.
@@ -690,9 +678,7 @@ NULL
 #' 
 NULL
 
-#' instw 
-#' 
-#' Value added, output and input for different ISIC codes and countries.
+#' value added, output and input for different ISIC codes and countries.
 #'
 #' \itemize{
 #'  \item{\code{ct}}{ct}
@@ -715,8 +701,6 @@ NULL
 #' head(instw)
 NULL
 
-#' isic32 
-#' 
 #' ISIC codes by name
 #'
 #' \itemize{
@@ -737,7 +721,7 @@ NULL
 
 
 
-#' Labour force by status in employment 
+#' labour force by status in employment 
 #' 
 #' Labour force by status in employment for 124 countries, latest update: December 2009
 #' 
@@ -770,7 +754,7 @@ NULL
 
 
 
-#' Life expectancy and GDP (2008) for EU-countries
+#' life expectancy and GDP (2008) for EU-countries
 #' 
 #' Social-economic data for compositional regression.
 #' 
@@ -829,7 +813,7 @@ NULL
 NULL
 
 
-#' Metabolomics mcad data set
+#' metabolomics mcad data set
 #' 
 #' The aim of the experiment was to ascertain novel biomarkers of 
 #' MCAD (Medium chain acyl-CoA dehydrogenase) deficiency. 
@@ -855,7 +839,7 @@ NULL
 NULL
 
 
-#' Mortality and life expectancy in the EU
+#' mortality and life expectancy in the EU
 #' 
 #'
 #' \itemize{
@@ -1022,7 +1006,7 @@ NULL
 NULL
 
 
-#' Special payments
+#' special payments
 #' 
 #' Payments splitted by different NACE categories and kind of employment in Austria 2004
 #'
@@ -1065,7 +1049,7 @@ NULL
 NULL
 
 
-#' PhD Students in the EU
+#' PhD students in the EU
 #' 
 #' PhD students in Europe based on the standard klassification system splitted
 #' by different kind of studies (given as percentages).
@@ -1099,7 +1083,32 @@ NULL
 #' 
 NULL
 
-#' precipitation
+#' PhD students in the EU (totals)
+#' 
+#' PhD students in Europe by different kind of studies.
+#' 
+#' \itemize{
+#' \item{\code{technical }}{phd students in natural and technical sciences}
+#' \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
+#' \item{\code{human }}{phd students in human sciences including teaching}
+#' \item{\code{health }}{phd students in health and life sciences}               
+#' \item{\code{agriculture }}{phd students in agriculture} 
+#' }
+#' 
+#' @name phd_totals
+#' @docType data
+#' @format A data set on 29 compositions and 5 variables.
+#' @source Eurostat
+#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values for compositional data using classical and robust methods. \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages 3095-3107.
+#' @keywords datasets
+#' @examples
+#' 
+#' data("phd_totals")
+#' str(phd_totals)
+#' 
+NULL
+
+#' 24-hour precipitation
 #' 
 #' table containing counts for 24-hour precipitation for season at the rain-gouge.
 #'
@@ -1125,9 +1134,7 @@ NULL
 #' str(precipitation)
 NULL
 
-#' Production 
-#' 
-#' Production splitted by nationality on enterprise level
+#' production splitted by nationality on enterprise level
 #'
 #' \itemize{
 #'  \item{\code{nace }}{NACE classification, 2 digits}
@@ -1165,9 +1172,7 @@ NULL
 #' summary(production)
 NULL
 
-#' rcodes
-#' 
-#' Codes for UNIDO tables
+#' codes for UNIDO tables
 #'
 #' \itemize{
 #'  \item{\code{ISOCN}}{ISOCN codes}
@@ -1189,7 +1194,7 @@ NULL
 #' str(rcodes)
 NULL
 
-#' Aphyric skye lavas data 
+#' aphyric skye lavas data 
 #' 
 #' AFM compositions of 23 aphyric Skye lavas. This data set can be found on page 360 of the Aitchison book (see reference).
 #'
@@ -1215,7 +1220,7 @@ NULL
 NULL
 
 
-#' Social expenditures
+#' social expenditures
 #' 
 #' Social expenditures according to source (public or private) 
 #' and three important branches (health, old age, incapacity related) in 
@@ -1248,7 +1253,7 @@ NULL
 NULL
 
 
-#' Teaching stuff
+#' teaching stuff
 #' 
 #' Teaching stuff in selected countries
 #' 
@@ -1294,7 +1299,7 @@ NULL
 NULL
 
 
-#' Regional geochemical survey of soil C in Norway
+#' regional geochemical survey of soil C in Norway
 #' 
 #' A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
 #'
@@ -1386,7 +1391,7 @@ NULL
 NULL
 
 
-#' Regional geochemical survey of soil O in Norway
+#' regional geochemical survey of soil O in Norway
 #' 
 #' A regional-scale geochemical survey of O horizon samples in Nord-Trondelag, Central Norway
 #'
@@ -1481,7 +1486,7 @@ NULL
 NULL
 
 
-#' Unemployed young people
+#' unemployed of young people
 #' 
 #' Youth not in employment, education or training (NEET) in 43 countries from 1997 till 2015
 #' 
@@ -1500,11 +1505,11 @@ NULL
 #' either unemployed or inactive and not involved in 
 #' education or training. Young people who are neither 
 #' in employment nor in education or training are at 
-#' risk of becoming socially excluded – individuals 
+#' risk of becoming socially excluded - individuals 
 #' with income below the poverty-line and lacking the 
 #' skills to improve their economic situation.
 #' 
-#' @name teachingStuff
+#' @name unemployed
 #' @docType data
 #' @format A (tidy) data frame with 1216 observations on the following 4 variables.
 #' \itemize{ 
@@ -1520,8 +1525,8 @@ NULL
 #' @keywords datasets
 #' @examples
 #' 
-#' data(teachingStuff)
-#' str(teachingStuff)
+#' data(unemployed)
+#' str(unemployed)
 NULL
 
 

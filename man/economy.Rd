@@ -3,7 +3,7 @@
 \docType{data}
 \name{economy}
 \alias{economy}
-\title{Economic indicators}
+\title{economic indicators}
 \format{A data frame with 30 observations and 7 variables}
 \usage{
 data(economy)

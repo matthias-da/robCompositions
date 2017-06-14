@@ -89,7 +89,7 @@ ilr.2x2 <- function(x, margin = 1, type = "independence", version = "book"){
     switch(type,
            ilrind = ilrind(x),
            ilrorigPaper = ilrorigPaper(x),
-           ilrindPaper = ilrindPaper(x),
+        #   ilrindPaper = ilrindPaper(x),
            ilrint = ilrint(x),
            ilrintPaper = ilrintPaper(x),
            ilrorig = ilrorig(x))

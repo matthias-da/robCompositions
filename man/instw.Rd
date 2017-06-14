@@ -3,15 +3,12 @@
 \docType{data}
 \name{instw}
 \alias{instw}
-\title{instw}
+\title{value added, output and input for different ISIC codes and countries.}
 \format{A data.frame with 1555 rows and 7 columns.}
 \usage{
 data(instw)
 }
 \description{
-Value added, output and input for different ISIC codes and countries.
-}
-\details{
 \itemize{
  \item{\code{ct}}{ct}
  \item{\code{isic}}{ISIC classification, Rev 3.2}

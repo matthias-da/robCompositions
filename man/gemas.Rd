@@ -3,7 +3,7 @@
 \docType{data}
 \name{gemas}
 \alias{gemas}
-\title{Gemas geochemical data set}
+\title{gemas geochemical data set}
 \format{A data frame with 2108 observations and 30 variables}
 \usage{
 data(gemas)

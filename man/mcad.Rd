@@ -3,7 +3,7 @@
 \docType{data}
 \name{mcad}
 \alias{mcad}
-\title{Metabolomics mcad data set}
+\title{metabolomics mcad data set}
 \format{A data frame with 50 observations and 279 variables}
 \usage{
 data(mcad)

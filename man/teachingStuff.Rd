@@ -3,7 +3,7 @@
 \docType{data}
 \name{teachingStuff}
 \alias{teachingStuff}
-\title{Teaching stuff}
+\title{teaching stuff}
 \format{A (tidy) data frame with 1216 observations on the following 4 variables.
 \itemize{ 
 \item{\code{country }}{Country of origin}
@@ -14,14 +14,9 @@
 \source{
 OECD:
 \url{https://data.oecd.org/}
-
-OECD:
-\url{https://data.oecd.org/}
 }
 \description{
 Teaching stuff in selected countries
-
-Youth not in employment, education or training (NEET) in 43 countries from 1997 till 2015
 }
 \details{
 Teaching staff include professional personnel directly 
@@ -44,43 +39,17 @@ academic ranks. The category includes personnel
 with other titles (e.g. dean, director, associate 
 dean, assistant dean, chair or head of department), 
 if their principal activity is instruction or research.
-
-This indicator presents the share of young people who are 
-not in employment, education or training (NEET), as 
-a percentage of the total number of young people 
-in the corresponding age group, by gender. 
-Young people in education include those attending 
-part-time or full-time education, but exclude those 
-in non-formal education and in educational activities 
-of very short duration. Employment is defined according 
-to the OECD/ILO Guidelines and covers all those who 
-have been in paid work for at least one hour in the 
-reference week of the survey or were temporarily 
-absent from such work. Therefore NEET youth can be 
-either unemployed or inactive and not involved in 
-education or training. Young people who are neither 
-in employment nor in education or training are at 
-risk of becoming socially excluded – individuals 
-with income below the poverty-line and lacking the 
-skills to improve their economic situation.
 }
 \examples{
-
-data(teachingStuff)
-str(teachingStuff)
 
 data(teachingStuff)
 str(teachingStuff)
 }
 \author{
 translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
-
-translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
 }
 \references{
 OECD (2017), Teaching staff (indicator). doi: 10.1787/6a32426b-en (Accessed on 27 March 2017)
-
-OECD (2017), Youth not in employment, education or training (NEET) (indicator). doi: 10.1787/72d1033a-en (Accessed on 27 March 2017)
 }
 \keyword{datasets}
 

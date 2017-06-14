@@ -3,7 +3,7 @@
 \docType{data}
 \name{production}
 \alias{production}
-\title{Production}
+\title{production splitted by nationality on enterprise level}
 \format{A data frame with 535 rows and 9 variables}
 \source{
 statCube data base at \url{www.statistik.ac.at}. The product and all 
@@ -22,9 +22,6 @@ show data was extracted or adapted.
 data(production)
 }
 \description{
-Production splitted by nationality on enterprise level
-}
-\details{
 \itemize{
  \item{\code{nace }}{NACE classification, 2 digits}
  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}

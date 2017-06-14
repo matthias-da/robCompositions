@@ -3,15 +3,12 @@
 \docType{data}
 \name{isic32}
 \alias{isic32}
-\title{isic32}
+\title{ISIC codes by name}
 \format{A data.frame with 24 rows and 2 columns.}
 \usage{
 data(isic32)
 }
 \description{
-ISIC codes by name
-}
-\details{
 \itemize{
  \item{\code{code}}{ISIC code, Rev 3.2}
  \item{\code{description}}{Description of ISIC codes}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{educFM}
 \alias{educFM}
-\title{educFM}
+\title{education level of father (F) and mother (M)}
 \format{A data frame with 31 observations and 8 variables}
 \source{
 from Eurostat,\url{http://ec.europa.eu/eurostat/}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{alcohol}
 \alias{alcohol}
-\title{alcohol}
+\title{alcohol consumptions by country and type of alcohol}
 \format{A data frame with 193 rows and 6 variables}
 \source{
 Transfered from the World Health Organisation website.
@@ -12,9 +12,6 @@ Transfered from the World Health Organisation website.
 data(alcohol)
 }
 \description{
-Alcohol consumptions by country and type of alcohol
-}
-\details{
 \itemize{
  \item{\code{country }}{Country}
  \item{\code{year }}{Year}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{expenditures}
 \alias{expenditures}
-\title{Synthetic household expenditures toy data set}
+\title{synthetic household expenditures toy data set}
 \format{A data frame with 20 observations on the following 5 variables.}
 \usage{
 data(expenditures)

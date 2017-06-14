@@ -3,7 +3,7 @@
 \docType{data}
 \name{cancerMN}
 \alias{cancerMN}
-\title{Malignant neoplasms cancer}
+\title{malignant neoplasms cancer}
 \format{A data set on 35 compositional tables on 4 parts (row-wise sorted cells) and 5 variables.}
 \source{
 \url{http://www.oecd.org}

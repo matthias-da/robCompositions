@@ -3,7 +3,7 @@
 \docType{data}
 \name{ageCatWorld}
 \alias{ageCatWorld}
-\title{Child, middle and eldery population}
+\title{child, middle and eldery population}
 \format{A data frame with 195 rows and 4 variables}
 \usage{
 data(ageCatWorld)

@@ -6,69 +6,68 @@
 \title{C-horizon of the Kola data with rounded zeros}
 \format{A data frame with 606 observations on the following 62 variables.
 \describe{ 
-\item{*ID}{a numeric vector} 
-\item{XCOO}{a numeric vector} 
-\item{YCOO}{a numeric vector} 
-\item{Ag}{concentration in mg/kg} 
-\item{Al}{concentration in mg/kg} 
-\item{Al_XRF}{concentration in wt. percentage} 
-\item{As}{concentration in mg/kg} 
-\item{B}{concentration in mg/kg}
-\item{Ba}{concentration in mg/kg} 
-\item{Ba_INAA}{concentration in mg/kg}
-\item{Be}{concentration in mg/kg} 
-\item{Bi}{concentration in mg/kg}
-\item{Ca}{concentration in mg/kg} 
-\item{Ca_XRF}{concentration in wt. percentage} 
-\item{Cd}{concentration in mg/kg} 
-\item{Ce_INAA}{concentration in mg/kg} 
-\item{Co}{concentration in mg/kg} 
-\item{Co_INAA}{concentration in mg/kg} 
-\item{Cr}{concentration in mg/kg}
-\item{Cr_INAA}{concentration in mg/kg}
-\item{Cu}{concentration in mg/kg}
-\item{Eu_INAA}{concentration in mg/kg} 
-\item{Fe}{concentration in mg/kg} 
-\item{Fe_XRF}{concentration in wt. percentage} 
-\item{Hf_INAA}{concentration in mg/kg} 
-\item{K}{concentration in mg/kg} 
-\item{K_XRF}{concentration in wt. percentage} 
-\item{La}{concentration in mg/kg} 
-\item{La_INAA}{concentration in mg/kg} 
-\item{Li}{concentration in mg/kg} 
-\item{Lu_INAA}{concentration in mg/kg} 
-\item{Mg}{concentration in mg/kg} 
-\item{Mg_XRF}{concentration in wt. percentage} 
-\item{Mn}{concentration in mg/kg} 
-\item{Mn_XRF}{concentration in wt. percentage} 
-\item{Na}{concentration in mg/kg} 
-\item{Na_XRF}{concentration in wt. percentage} 
-\item{Nd_INAA}{concentration in mg/kg} 
-\item{Ni}{concentration in mg/kg} 
-\item{P}{concentration in mg/kg} 
-\item{P_XRF}{concentration in wt. percentage} 
-\item{Pb}{concentration in mg/kg} 
-\item{S}{concentration in mg/kg} 
-\item{Sc}{concentration in mg/kg} 
-\item{Sc_INAA}{concentration in mg/kg} 
-\item{Si}{concentration in mg/kg} 
-\item{Si_XRF}{concentration in wt. percentage} 
-\item{Sm_INAA}{concentration in mg/kg}
-\item{Sr}{concentration in mg/kg} 
-\item{Th_INAA}{concentration in mg/kg} 
-\item{Ti}{concentration in mg/kg} 
-\item{Ti_XRF}{concentration in wt. percentage} 
-\item{V}{concentration in mg/kg} 
-\item{Y}{concentration in mg/kg} 
-\item{Yb_INAA}{concentration in mg/kg} 
-\item{Zn}{concentration in mg/kg} 
-\item{LOI}{concentration in wt. percentage}
-\item{pH}{ph value}
-\item{*ELEV}{elevation} 
-\item{*COUN}{country}
-\item{*ASP}{a numeric vector} 
-\item{TOPC}{a numeric vector}
-\item{LITO}{information on lithography} 
+\item{*ID }{a numeric vector} 
+\item{XCOO }{a numeric vector} 
+\item{YCOO }{a numeric vector} 
+\item{Ag }{concentration in mg/kg} 
+\item{Al }{concentration in mg/kg} 
+\item{Al_XRF }{concentration in wt. percentage} 
+\item{As }{concentration in mg/kg} 
+\item{B }{concentration in mg/kg}
+\item{Ba }{concentration in mg/kg} 
+\item{Ba_INAA }{concentration in mg/kg}
+\item{Be }{concentration in mg/kg} 
+\item{Bi }{concentration in mg/kg}
+\item{Ca }{concentration in mg/kg} 
+\item{Ca_XRF }{concentration in wt. percentage} 
+\item{Cd }{concentration in mg/kg} 
+\item{Ce_INAA }{concentration in mg/kg} 
+\item{Co }{concentration in mg/kg} 
+\item{Co_INAA }{concentration in mg/kg} 
+\item{Cr }{concentration in mg/kg}
+\item{Cr_INAA }{concentration in mg/kg}
+\item{Cu }{concentration in mg/kg}
+\item{Eu_INAA }{concentration in mg/kg} 
+\item{Fe }{concentration in mg/kg} 
+\item{Fe_XRF }{concentration in wt. percentage} 
+\item{Hf_INAA }{concentration in mg/kg} 
+\item{K }{concentration in mg/kg} 
+\item{K_XRF }{concentration in wt. percentage} 
+\item{La }{concentration in mg/kg} 
+\item{La_INAA }{concentration in mg/kg} 
+\item{Li }{concentration in mg/kg} 
+\item{Lu_INAA }{concentration in mg/kg} 
+\item{Mg }{concentration in mg/kg} 
+\item{Mg_XRF }{concentration in wt. percentage} 
+\item{Mn }{concentration in mg/kg} 
+\item{Mn_XRF }{concentration in wt. percentage} 
+\item{Na }{concentration in mg/kg} 
+\item{Na_XRF }{concentration in wt. percentage} 
+\item{Nd_INAA }{concentration in mg/kg} 
+\item{Ni }{concentration in mg/kg} 
+\item{P }{concentration in mg/kg} 
+\item{P_XRF }{concentration in wt. percentage} 
+\item{Pb }{concentration in mg/kg} 
+\item{S }{concentration in mg/kg} 
+\item{Sc }{concentration in mg/kg} 
+\item{Sc_INAA }{concentration in mg/kg} 
+\item{Si }{concentration in mg/kg} 
+\item{Si_XRF }{concentration in wt. percentage} 
+\item{Sm_INAA }{concentration in mg/kg}
+\item{Sr }{concentration in mg/kg} 
+\item{Th_INAA }{concentration in mg/kg} 
+\item{Ti }{concentration in mg/kg} 
+\item{Ti_XRF }{concentration in wt. percentage} 
+\item{V }{concentration in mg/kg} 
+\item{Y }{concentration in mg/kg} 
+\item{Yb_INAA }{concentration in mg/kg} 
+\item{Zn }{concentration in mg/kg} 
+\item{LOI }{concentration in wt. percentage}
+\item{pH }{ph value}
+\item{*COUN }{country}
+\item{*ASP }{a numeric vector} 
+\item{TOPC }{a numeric vector}
+\item{LITO }{information on lithography} 
 }}
 \source{
 Kola Project (1993-1998)
@@ -87,7 +86,8 @@ For a more detailed description of this data set, see
 
 data(chorizonDL, package = "robCompositions")
 dim(chorizonDL)
-
+colnames(chorizonDL)
+zeroPatterns(chorizonDL)
 }
 \references{
 Reimann, C., Filzmoser, P., Garrett, R.G. and Dutter, R. (2008)

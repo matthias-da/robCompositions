@@ -3,7 +3,7 @@
 \docType{data}
 \name{arcticLake}
 \alias{arcticLake}
-\title{Arctic lake sediment data}
+\title{arctic lake sediment data}
 \format{A data frame with 39 rows and 3 variables}
 \usage{
 data(arcticLake)

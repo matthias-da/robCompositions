@@ -3,7 +3,7 @@
 \docType{data}
 \name{alcoholreg}
 \alias{alcoholreg}
-\title{alcoholreg}
+\title{regional alcohol per capita (15+) consumption by WHO region}
 \format{A data frame with 6 rows and 4 variables}
 \source{
 Transfered from the World Health Organisation website.
@@ -12,9 +12,6 @@ Transfered from the World Health Organisation website.
 data(alcoholreg)
 }
 \description{
-Regional alcohol per capita (15+) consumption by WHO region
-}
-\details{
 \itemize{
  \item{\code{country }}{Country}
  \item{\code{year }}{Year}

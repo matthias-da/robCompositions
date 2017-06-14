@@ -3,7 +3,7 @@
 \docType{data}
 \name{socExp}
 \alias{socExp}
-\title{Social expenditures}
+\title{social expenditures}
 \format{A data frame with 20 observations on the following 8 variables (country + currency + row-wise sorted cells of 2x3 compositional table).}
 \usage{
 data(socExp)

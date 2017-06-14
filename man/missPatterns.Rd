@@ -20,6 +20,7 @@ zeros or missings in the variables} \item{tabcombPlus}{the pattern structure
 - all combinations of zeros or missings in the variables including the size
 of those combinations/patterns, i.e. the number of observations that belongs
 to each pattern.} \item{rsum}{the number of zeros or missing values in each
+row of the data set.} \item{rindex}{the index of zeros or missing values in each
 row of the data set}
 }
 \description{

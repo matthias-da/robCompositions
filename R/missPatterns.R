@@ -15,6 +15,7 @@
 #' - all combinations of zeros or missings in the variables including the size
 #' of those combinations/patterns, i.e. the number of observations that belongs
 #' to each pattern.} \item{rsum}{the number of zeros or missing values in each
+#' row of the data set.} \item{rindex}{the index of zeros or missing values in each
 #' row of the data set}
 #' @author Matthias Templ. The code is based on a previous version from Andreas
 #' Alfons and Matthias Templ from package VIM
@@ -52,7 +53,8 @@ missPatterns <- function(x){
 	amountComb <- cbind(data.frame(tabcomb), csum=as.numeric(csum))
 	rsum <- apply(w, 1, sum)
 	## TODO: N variable dazu, + 2. zeilenweise, spaltenweise
-	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, rsum=rsum)
+	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, 
+	     rsum=rsum, rindex=rsum != 0)
 }
 
 #' @rdname missPatterns
@@ -78,7 +80,10 @@ zeroPatterns <- function(x){
 	## Karels beiden MUSS-Variablen ;-):
 	csum <- lapply(groups, length)
 	amountComb <- cbind(data.frame(tabcomb), csum=as.numeric(csum))
-	rsum <- apply(w, 1, sum)
+  ## accound for NA
+	w[is.na(w)] <- FALSE
+	rsum2 <<- apply(w, 1, sum)
 	## TODO: N variable dazu, + 2. zeilenweise, spaltenweise
-	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, rsum=rsum)
+	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, 
+	     rsum=rsum2, rindex=rsum2 != 0)
 }

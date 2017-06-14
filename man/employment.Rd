@@ -3,13 +3,13 @@
 \docType{data}
 \name{employment}
 \alias{employment}
-\title{employment}
+\title{employment in different countries by gender and status.}
 \format{A three-dimensional table}
 \usage{
 data(employment)
 }
 \description{
-Employment in different countries by gender and status.
+employment in different countries by gender and status.
 }
 \examples{
 data(employment)

@@ -3,7 +3,7 @@
 \docType{data}
 \name{haplogroups}
 \alias{haplogroups}
-\title{Haplogroups data.}
+\title{haplogroups data.}
 \format{A data frame with 38 observations on the following 12 variables.
 \itemize{ 
 \item{\code{I1 }}{pre-Germanic (Nordic)}

@@ -3,7 +3,7 @@
 \docType{data}
 \name{mortality}
 \alias{mortality}
-\title{Mortality and life expectancy in the EU}
+\title{mortality and life expectancy in the EU}
 \format{A data frame with 60 observations and 12 variables}
 \usage{
 data(mortality)

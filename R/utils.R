@@ -1,7 +1,3 @@
-
-
-
-
 drawMahal <- 
 		function(x,x.mean,x.cov,whichlines=c(0.975,0.90,0.75),m=360,plot=TRUE,
 				xlab="",ylab="",cex.lab=1.2, ...){

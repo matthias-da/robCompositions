@@ -111,6 +111,11 @@ replaced_plsfull <- imputeBDLs(x, dl=dl, eps=1,
 \author{
 Matthias Templ
 }
+\references{
+Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
+Imputation of rounded zeros for high-dimensional compositional data. 
+\emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+}
 \seealso{
 \code{\link{imputeBDLs}}
 }
