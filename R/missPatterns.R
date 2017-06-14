@@ -82,7 +82,8 @@ zeroPatterns <- function(x){
 	amountComb <- cbind(data.frame(tabcomb), csum=as.numeric(csum))
   ## accound for NA
 	w[is.na(w)] <- FALSE
-	rsum2 <<- apply(w, 1, sum)
+	rsum2 <- NULL
+	rsum2 <- apply(w, 1, sum)
 	## TODO: N variable dazu, + 2. zeilenweise, spaltenweise
 	list(groups=groups, cn=cn, tabcomb=tabcomb, tabcombPlus=amountComb, 
 	     rsum=rsum2, rindex=rsum2 != 0)

@@ -13,7 +13,6 @@
 \item{Al }{concentration in mg/kg} 
 \item{Al_XRF }{concentration in wt. percentage} 
 \item{As }{concentration in mg/kg} 
-\item{B }{concentration in mg/kg}
 \item{Ba }{concentration in mg/kg} 
 \item{Ba_INAA }{concentration in mg/kg}
 \item{Be }{concentration in mg/kg} 
@@ -64,6 +63,7 @@
 \item{Zn }{concentration in mg/kg} 
 \item{LOI }{concentration in wt. percentage}
 \item{pH }{ph value}
+\item{ELEV }{elevation}
 \item{*COUN }{country}
 \item{*ASP }{a numeric vector} 
 \item{TOPC }{a numeric vector}

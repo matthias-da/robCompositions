@@ -51,9 +51,6 @@ rdcm <- function(x, y){
     if (p == 0) {
       stop("exponent p is zero")
     }
-    if (is.infinite(p)) {
-      return(maximum.norm(x))
-    }
     return((sum(abs(Xmat)^p))^(1/p))
   }
   # new code
