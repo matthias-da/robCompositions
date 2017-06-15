@@ -28,7 +28,7 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
-Maintainer: Matthias Templ <templ@tuwien.ac.at>
+Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust
     methods, imputation, methods to replace rounded zeros, (robust) outlier
     detection for compositional data, (robust) principal component analysis for
