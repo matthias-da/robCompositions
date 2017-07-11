@@ -541,7 +541,7 @@ NULL
 #' str(GDPsatis)
 NULL
 
-#' gemas geochemical data set
+#' GEMAS geochemical data set
 #'
 #' Geochemical data set on agricultural and grazing land soil
 #'
@@ -1051,7 +1051,7 @@ NULL
 
 #' PhD students in the EU
 #' 
-#' PhD students in Europe based on the standard klassification system splitted
+#' PhD students in Europe based on the standard classification system splitted
 #' by different kind of studies (given as percentages).
 #' 
 #' Due to unknown reasons the rowSums of the percentages is not always 100.

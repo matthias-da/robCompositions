@@ -26,7 +26,7 @@
 #' space} \item{eigenvalues }{eigenvalues of the clr covariance matrix}
 #' \item{method }{method} \item{princompOutputClr }{output of \code{princomp}
 #' needed in \code{plot.pcaCoDa}}
-#' @author K. Hron, P. Filzmoser, M. Templ
+#' @author K. Hron, P. Filzmoser, M. Templ. and a contribution for dimnames in external variables by Amelia Landre.
 #' @seealso \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @importFrom stats princomp
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
@@ -68,100 +68,106 @@
 #' res
 #' biplot(res, scale=0)
 
-pcaCoDa <- function(x, method="robust", mult_comp=NULL, external=NULL){
- 
-  if(is.vector(external) & length(external)!=nrow(x)){ 
-      stop("external and x must have the same number of observations")
+pcaCoDa2 <- function (x, method = "robust", mult_comp = NULL, external = NULL) 
+{
+  if (is.vector(external) & length(external) != nrow(x)) {
+    stop("external and x must have the same number of observations")
   }
-  if(!is.null(mult_comp) & !is.list(mult_comp)) stop("if specified, mult_comp must be a list")
-  
-  # Closure problem with ilr transformation
-  ilrV <- function(x){
-    # ilr transformation
-    x.ilr=matrix(NA,nrow=nrow(x),ncol=ncol(x)-1)
-    for (i in 1:ncol(x.ilr)){
-      x.ilr[,i]=sqrt((i)/(i+1))*log(((apply(as.matrix(x[,1:i]), 1, prod))^(1/i))/(x[,i+1]))
+  if (!is.null(mult_comp) & !is.list(mult_comp)) 
+    stop("if specified, mult_comp must be a list")
+  ilrV <- function(x) {
+    x.ilr = matrix(NA, nrow = nrow(x), ncol = ncol(x) - 1)
+    for (i in 1:ncol(x.ilr)) {
+      x.ilr[, i] = sqrt((i)/(i + 1)) * log(((apply(as.matrix(x[, 
+                                                               1:i]), 1, prod))^(1/i))/(x[, i + 1]))
     }
     return(x.ilr)
   }
-  if(is.null(mult_comp)){
+  if (is.null(mult_comp)) {
     xilr <- ilrV(x)
-  }else{
-    xilr <- do.call("cbind",lapply(mult_comp,function(xx)ilrV(x[,xx])))
   }
-  if(!is.null(external)){
+  else {
+    xilr <- do.call("cbind", lapply(mult_comp, function(xx) ilrV(x[, 
+                                                                   xx])))
+  }
+  if (!is.null(external)) {
     xilr <- cbind(xilr, external)
   }
-  if( method == "robust"){
-    cv <- robustbase::covMcd(xilr, cor=FALSE)
-    pcaIlr <- suppressWarnings(princomp(xilr, covmat=cv, cor=FALSE))
+  if (method == "robust") {
+    cv <- robustbase::covMcd(xilr, cor = FALSE)
+    pcaIlr <- suppressWarnings(princomp(xilr, covmat = cv, 
+                                        cor = FALSE))
     eigenvalues <- eigen(cv$cov)$values
-  } else if (method =="mve"){
+  }
+  else if (method == "mve") {
     cv <- MASS::cov.mve(xilr)
-    pcaIlr <- suppressWarnings(princomp(xilr, covmat=cv, cor=FALSE))
+    pcaIlr <- suppressWarnings(princomp(xilr, covmat = cv, 
+                                        cor = FALSE))
     eigenvalues <- eigen(cv$cov)$values
-  } else {
-    pcaIlr <- princomp(xilr, cor=FALSE)
+  }
+  else {
+    pcaIlr <- princomp(xilr, cor = FALSE)
     eigenvalues <- eigen(cov(xilr))$values
   }
-  # construct orthonormal basis
-  if(is.null(mult_comp)){
-    #V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-length(external)-1)
-    V <- matrix(0, nrow=ncol(x), ncol=ncol(x)-1)
-    for( i in 1:ncol(V) ){
-      V[1:i,i] <- 1/i
-      V[i+1,i] <- (-1)
-      V[,i] <- V[,i]*sqrt(i/(i+1))
+  if (is.null(mult_comp)) {
+    V <- matrix(0, nrow = ncol(x), ncol = ncol(x) - 1)
+    for (i in 1:ncol(V)) {
+      V[1:i, i] <- 1/i
+      V[i + 1, i] <- (-1)
+      V[, i] <- V[, i] * sqrt(i/(i + 1))
     }
-  }else{
-    V <- matrix(0, nrow=length(unlist(mult_comp)), ncol=length(unlist(mult_comp))-length(mult_comp))
-    l <- sapply(mult_comp,length)
-    start <- c(1,cumsum(l[-length(l)]))
+  }
+  else {
+    V <- matrix(0, nrow = length(unlist(mult_comp)), ncol = length(unlist(mult_comp)) - 
+                  length(mult_comp))
+    l <- sapply(mult_comp, length)
+    start <- c(1, cumsum(l[-length(l)]))
     cumsum(l[-length(l)])
-    end <- cumsum(l-1)
-    start2 <- c(1,cumsum(l[-length(l)])+1)
+    end <- cumsum(l - 1)
+    start2 <- c(1, cumsum(l[-length(l)]) + 1)
     end2 <- cumsum(l)
-    for(j in 1:length(mult_comp)){
+    for (j in 1:length(mult_comp)) {
       ind <- start[j]:end[j]
       ind2 <- start2[j]:end2[j]
-      for( i in 1:length(ind)){
-        V[ind2[1:i],ind[i]] <- 1/i
-        V[ind2[i]+1,ind[i]] <- (-1)
-        V[,ind[i]] <- V[,ind[i]]*sqrt(i/(i+1))
+      for (i in 1:length(ind)) {
+        V[ind2[1:i], ind[i]] <- 1/i
+        V[ind2[i] + 1, ind[i]] <- (-1)
+        V[, ind[i]] <- V[, ind[i]] * sqrt(i/(i + 1))
       }
     }
   }
-  
- 
-  # robust ilr result - back-transformed to clr-space
-  if(!is.null(external)){
+  if (!is.null(external)) {
     nload <- nrow(pcaIlr$loadings)
-    if(dim(external)[2] < 2) index <- 1
+    if (dim(external)[2] < 2) 
+      index <- 1
     else index <- ncol(external)
-    loadings <- V %*% pcaIlr$loadings[-c((nload-index+1):nload),] # transform without external loadings
-    loadings <- rbind(loadings, pcaIlr$loadings[(nload-index+1):nload,]) 
+    loadings <- V %*% pcaIlr$loadings[-c((nload - index + 
+                                            1):nload), ]
+    loadings <- rbind(loadings, pcaIlr$loadings[(nload - 
+                                                   index + 1):nload, ])
   }
-  else{
+  else {
     loadings <- V %*% pcaIlr$loadings
   }
-  if(is.null(mult_comp)){
-    if(!is.null(names(x)) & !is.null(external)) dimnames(loadings)[[1]] <- c(names(x), names(external))
-    else if(!is.null(names(x))) dimnames(loadings)[[1]] <- names(x)
-  }else{
-    if(!is.null(names(x))) dimnames(loadings)[[1]] <- colnames(x)[unlist(mult_comp)]
+  if (is.null(mult_comp)) {
+    if (!is.null(names(x)) & !is.null(external)) 
+      dimnames(loadings)[[1]] <- c(names(x), names(external))
+    else if (!is.null(names(x))) 
+      dimnames(loadings)[[1]] <- names(x)
+  }
+  else {
+    ## modifications added :
+    if (!is.null(names(x)) & !is.null(external)) 
+      dimnames(loadings)[[1]] <- c(colnames(x)[unlist(mult_comp)], names(external))
+    else if (!is.null(names(x))) 
+      dimnames(loadings)[[1]] <- colnames(x)[unlist(mult_comp)]
   }
   pcaClr <- pcaIlr
-#  pcaClr$scores <- pcaIlr$scores %*% t(V)
-  pcaClr$scores <- pcaIlr$scores 
+  pcaClr$scores <- pcaIlr$scores
   pcaClr$loadings <- loadings
-  
-  res <- list(scores = pcaClr$scores,
-      loadings = loadings,
-      eigenvalues = eigenvalues,
-      method = method,
-      princompOutputClr = pcaClr,
-      mult_comp = mult_comp
-  )
+  res <- list(scores = pcaClr$scores, loadings = loadings, 
+              eigenvalues = eigenvalues, method = method, princompOutputClr = pcaClr, 
+              mult_comp = mult_comp)
   class(res) <- "pcaCoDa"
   invisible(res)
 }

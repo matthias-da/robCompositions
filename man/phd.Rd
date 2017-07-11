@@ -9,7 +9,7 @@
 Eurostat
 }
 \description{
-PhD students in Europe based on the standard klassification system splitted
+PhD students in Europe based on the standard classification system splitted
 by different kind of studies (given as percentages).
 }
 \details{
