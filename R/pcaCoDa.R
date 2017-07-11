@@ -68,7 +68,7 @@
 #' res
 #' biplot(res, scale=0)
 
-pcaCoDa2 <- function (x, method = "robust", mult_comp = NULL, external = NULL) 
+pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL) 
 {
   if (is.vector(external) & length(external) != nrow(x)) {
     stop("external and x must have the same number of observations")
