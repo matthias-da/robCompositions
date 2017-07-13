@@ -37,9 +37,6 @@ head(inveclr)
 head(pivotCoordInv(eclr$x.clr))
 
 }
-\author{
-Matthias Templ
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
@@ -49,5 +46,7 @@ Chapman \& Hall Ltd., London (UK). 416p.
 \code{\link{cenLRinv}}, \code{\link{addLR}}, \code{\link{pivotCoord}},
 \code{\link{addLRinv}}, \code{\link{pivotCoordInv}}
 }
+\author{
+Matthias Templ
+}
 \keyword{manip}
-

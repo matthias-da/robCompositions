@@ -35,11 +35,10 @@ ternaryDiagEllipse(x)
 ternaryDiag(x, grid=FALSE, line="ellipse")
 
 }
-\author{
-Peter Filzmoser, Matthias Templ
-}
 \seealso{
 \code{\link{ternaryDiag}}
 }
+\author{
+Peter Filzmoser, Matthias Templ
+}
 \keyword{aplot}
-

@@ -3,6 +3,7 @@
 \name{missPatterns}
 \alias{missPatterns}
 \alias{zeroPatterns}
+\alias{zeroPatterns}
 \title{missing or zero pattern structure.}
 \usage{
 missPatterns(x)
@@ -40,12 +41,11 @@ expenditures[expenditures < 300] <- NA
 missPatterns(expenditures)
 
 }
+\seealso{
+\code{\link[VIM]{aggr}}
+}
 \author{
 Matthias Templ. The code is based on a previous version from Andreas
 Alfons and Matthias Templ from package VIM
 }
-\seealso{
-\code{\link[VIM]{aggr}}
-}
 \keyword{multivariate}
-

@@ -45,11 +45,10 @@ if their principal activity is instruction or research.
 data(teachingStuff)
 str(teachingStuff)
 }
-\author{
-translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
-}
 \references{
 OECD (2017), Teaching staff (indicator). doi: 10.1787/6a32426b-en (Accessed on 27 March 2017)
 }
+\author{
+translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
+}
 \keyword{datasets}
-

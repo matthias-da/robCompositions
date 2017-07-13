@@ -35,4 +35,3 @@ str(educFM)
 Peter Filzmoser, Matthias Templ
 }
 \keyword{data}
-

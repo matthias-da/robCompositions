@@ -35,4 +35,3 @@ str(GDPsatis)
 Peter Filzmoser, Matthias Templ
 }
 \keyword{data}
-

@@ -29,12 +29,11 @@ xi
 xi2 <- pivotCoord(expenditures)
 xi2
 }
+\seealso{
+\code{\link{pivotCoord}}, \code{\link{cenLR}}
+}
 \author{
 Karel Hron, Matthias Templ. Some code lines of this function are a copy 
 from function gsi.buildilr from
 }
-\seealso{
-\code{\link{pivotCoord}}, \code{\link{cenLR}}
-}
 \keyword{manip}
-

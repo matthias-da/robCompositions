@@ -31,9 +31,6 @@ x[1,3] <- NA
 xi <- impKNNa(x)$xImp
 ced(expenditures, xi, ni = sum(is.na(x)))
 }
-\author{
-Matthias Templ
-}
 \references{
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods
@@ -47,5 +44,7 @@ Imputation of rounded zeros for high-dimensional compositional data.
 \seealso{
 \code{\link{rdcm}}
 }
+\author{
+Matthias Templ
+}
 \keyword{manip}
-

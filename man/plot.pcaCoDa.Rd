@@ -28,9 +28,6 @@ plot(p1, type="lines")
 
 
 }
-\author{
-M. Templ, K. Hron
-}
 \references{
 Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component Analysis for
 Compositional Data with Outliers. \emph{Environmetrics}, \bold{20} (6),
@@ -39,5 +36,7 @@ Compositional Data with Outliers. \emph{Environmetrics}, \bold{20} (6),
 \seealso{
 \code{\link{pcaCoDa}}, \code{\link{biplot.pcaCoDa}}
 }
+\author{
+M. Templ, K. Hron
+}
 \keyword{aplot}
-

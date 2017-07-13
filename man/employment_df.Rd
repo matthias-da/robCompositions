@@ -24,4 +24,3 @@ head(employment_df)
 Valentin Todorov, Matthias Templ
 }
 \keyword{data}
-

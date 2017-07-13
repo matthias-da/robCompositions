@@ -2,8 +2,9 @@
 % Please edit documentation in R/daFisher.R
 \name{daFisher}
 \alias{daFisher}
-\alias{predict.daFisher}
 \alias{print.daFisher}
+\alias{print.daFisher}
+\alias{predict.daFisher}
 \alias{summary.daFisher}
 \title{Discriminant analysis by Fisher Rule.}
 \usage{
@@ -116,9 +117,6 @@ summary(res)
 predict(res, x)
 }
 }
-\author{
-Peter Filzmoser, Matthias Templ.
-}
 \references{
 Filzmoser, P. and Hron, K. and Templ, M. (2012) 
 Discriminant analysis for compositional data and robust parameter estimation. 
@@ -134,5 +132,7 @@ Series B, 10:159-203.
 \seealso{
 \code{\link[rrcov]{Linda}}
 }
+\author{
+Peter Filzmoser, Matthias Templ.
+}
 \keyword{multivariate}
-

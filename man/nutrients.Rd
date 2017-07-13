@@ -74,11 +74,10 @@ data(nutrients)
 str(nutrients)
 head(nutrients[, 41:49])
 }
-\author{
-Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 }
+\author{
+Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{data}
-

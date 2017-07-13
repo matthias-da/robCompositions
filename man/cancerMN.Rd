@@ -33,4 +33,3 @@ rowSums(cancerMN[, 2:5])
 conversion to R by Karel Hron and intergration by Matthias Templ \email{matthias.templ@tuwien.ac.at}
 }
 \keyword{datasets}
-

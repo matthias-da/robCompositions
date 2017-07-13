@@ -74,9 +74,6 @@ res2 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x))$cov)
 res3 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x)))
 
 }
-\author{
-Peter Filzmoser, Karel Hron, Matthias Templ
-}
 \references{
 C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter (2008):
 Statistical Data Analysis Explained.  \emph{Applied Environmental Statistics
@@ -86,5 +83,7 @@ P. Filzmoser, K. Hron, C. Reimann, R. Garrett (2009): Robust Factor Analysis
 for Compositional Data.  \emph{Computers and Geosciences}, \bold{35} (9),
 1854--1861.
 }
+\author{
+Peter Filzmoser, Karel Hron, Matthias Templ
+}
 \keyword{multivariate}
-

@@ -3,6 +3,7 @@
 \name{coord}
 \alias{coord}
 \alias{print.coord}
+\alias{print.coord}
 \title{Coordinate representation of CoDa tables}
 \usage{
 coord(x, SBPr, SBPc)
@@ -48,12 +49,11 @@ result
 data(socExp)
 
 }
-\author{
-Kamila Facevicova, and minor adaption by Matthias Templ
-}
 \references{
 Kamila Facevicova, Karel Hron, Valentin Todorov, Matthias Templ (201x)
 General approach to coordinate representation of compositional tables. 
 Submitted to \emph{JRSS B}.
 }
-
+\author{
+Kamila Facevicova, and minor adaption by Matthias Templ
+}

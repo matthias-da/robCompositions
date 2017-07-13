@@ -4,7 +4,7 @@ Title: Robust Estimation for Compositional Data
 Version: 2.0.5
 Date: 2017-06-14
 Depends:
-    R (>= 2.10),
+    R (>= 3.0.0),
     robustbase,
     ggplot2,
     data.table,
@@ -42,4 +42,4 @@ Description: Methods for analysis of compositional data including robust
 License: GPL-2
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1

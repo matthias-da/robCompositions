@@ -59,10 +59,6 @@ ternaryDiag(x, grid=FALSE, line="pca")
 ternaryDiag(x, grid=FALSE, col=grp, pch=grp, line="pca", lty=2, lwd=2)
 
 }
-\author{
-Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>
-\url{http://www.statistik.tuwien.ac.at/public/filz/}, Matthias Templ
-}
 \references{
 C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter:
 Statistical Data Analysis Explained. Applied Environmental Statistics with
@@ -71,6 +67,9 @@ R. John Wiley and Sons, Chichester, 2008.
 \seealso{
 \code{\link[StatDA]{ternary}}
 }
+\author{
+Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>
+\url{http://www.statistik.tuwien.ac.at/public/filz/}, Matthias Templ
+}
 \keyword{aplot}
 \keyword{multivariate}
-

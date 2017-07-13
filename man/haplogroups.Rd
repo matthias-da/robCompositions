@@ -37,4 +37,3 @@ data(haplogroups)
 
 }
 \keyword{datasets}
-

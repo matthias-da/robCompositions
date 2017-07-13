@@ -2,8 +2,8 @@
 % Please edit documentation in R/robCompositions-package.R
 \docType{package}
 \name{robCompositions-package}
-\alias{robCompositions}
 \alias{robCompositions-package}
+\alias{robCompositions}
 \title{Robust Estimation for Compositional Data.}
 \description{
 The package contains methods for imputation of compositional data including
@@ -82,11 +82,6 @@ Sigma <- matrix(c(5.05,4.95,4.95,5.05), ncol=2, byrow=TRUE)
 z <- pivotCoordInv(mvrnorm(100, mu=c(0,2), Sigma=Sigma))
 
 }
-\author{
-Matthias Templ, Peter Filzmoser, Karel Hron,
-
-Maintainer: Matthias Templ <templ@tuwien.ac.at>
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
@@ -112,5 +107,9 @@ C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter (2008): Statistical
 Data Analysis Explained.  \emph{Applied Environmental Statistics with R}.
 John Wiley and Sons, Chichester, 2008.
 }
-\keyword{package}
+\author{
+Matthias Templ, Peter Filzmoser, Karel Hron,
 
+Maintainer: Matthias Templ <templ@tuwien.ac.at>
+}
+\keyword{package}

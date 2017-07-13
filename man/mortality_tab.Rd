@@ -25,4 +25,3 @@ mortality_tab
 Matthias Templ
 }
 \keyword{data}
-

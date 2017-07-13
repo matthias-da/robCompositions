@@ -30,11 +30,10 @@ rowSums(ageCatWorld[, 1:3])
 ternaryDiag(ageCatWorld[, 1:3])
 plot(pivotCoord(ageCatWorld[, 1:3]))
 }
-\author{
-extracted by Karel Hron and Eva Fiserova, implemented by Matthias Templ
-}
 \references{
 Fiserova, E. and Hron, K. (2012). Statistical Inference in Orthogonal Regression for Three-Part Compositional Data Using a Linear Model with Type-II Constraints. \emph{Communications in Statistics - Theory and Methods}, 41 (13-14), 2367-2385.
 }
+\author{
+extracted by Karel Hron and Eva Fiserova, implemented by Matthias Templ
+}
 \keyword{data}
-

@@ -29,14 +29,13 @@ variation(expenditures)
 variation(expenditures, robust=FALSE)
 
 }
-\author{
-Matthias Templ
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
 Chapman \& Hall Ltd., London (UK). 416p.
 }
+\author{
+Matthias Templ
+}
 \keyword{multivariate}
 \keyword{robust}
-

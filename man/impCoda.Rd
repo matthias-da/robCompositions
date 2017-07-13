@@ -73,9 +73,6 @@ impS <- sum(xi[1,-3])
 xi[,3] * s1/impS
 
 }
-\author{
-Matthias Templ, Karel Hron
-}
 \references{
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods
@@ -85,7 +82,9 @@ missing values for compositional data using classical and robust methods
 \seealso{
 \code{\link{impKNNa}}, \code{\link{pivotCoord}}
 }
+\author{
+Matthias Templ, Karel Hron
+}
 \keyword{iteration}
 \keyword{multivariate}
 \keyword{robust}
-

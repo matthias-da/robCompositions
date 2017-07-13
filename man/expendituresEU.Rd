@@ -33,4 +33,3 @@ data(expendituresEU)
 
 }
 \keyword{datasets}
-

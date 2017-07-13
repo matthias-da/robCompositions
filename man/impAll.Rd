@@ -33,9 +33,6 @@ This function is mainly used by the compositionsGUI.
 ## see the compositionsGUI
 
 }
-\author{
-Jiri Eichler
-}
 \references{
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods,
@@ -50,5 +47,7 @@ Statistics}, 56 (2012), S. 2688 - 2704.
 \seealso{
 \code{\link{impCoda}}, \code{\link{impRZilr}}
 }
+\author{
+Jiri Eichler
+}
 \keyword{manip}
-

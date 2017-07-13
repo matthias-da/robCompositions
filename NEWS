@@ -5,12 +5,13 @@ Changes in robCompositions version 2.0.4
   + ilr.2x2 now fits to the formulas in the book, and not for the paper
   + bug in daFisher resolved
   + bug in external variables in pcaCoDa solved
+  + registering C-code
 
 Changes in robCompositions version 2.0.4
   + aDist now again works for vectors
   + added following data sets: 
   socExp, 
-  cancerNM, 
+  cancerMN, 
   educFM, 
   electionATbp, 
   employment, 

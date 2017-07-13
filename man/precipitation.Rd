@@ -24,13 +24,12 @@ data(precipitation)
 precipitation
 str(precipitation)
 }
-\author{
-Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 Romero R, Guijarro J A, Ramis C, Alonso S (1998). A 30-years (196493) daily rainfall
 data base for the Spanish Mediterranean regions: first exploratory study. 
 \emph{International Journal of Climatology} 18, 541560.
 }
+\author{
+Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{data}
-

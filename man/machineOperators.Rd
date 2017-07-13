@@ -28,11 +28,10 @@ str(machineOperators)
 summary(machineOperators)
 rowSums(machineOperators)
 }
-\author{
-Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p.
 }
+\author{
+Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{data}
-

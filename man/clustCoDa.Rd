@@ -3,6 +3,7 @@
 \name{clustCoDa}
 \alias{clustCoDa}
 \alias{plot.clustCoDa}
+\alias{plot.clustCoDa}
 \title{Cluster analysis for compositional data}
 \usage{
 clustCoDa(x, k = NULL, method = "Mclust", scale = "robust",
@@ -73,14 +74,13 @@ plot(rr)
 plot(rr, normalized = TRUE)
 plot(rr, normalized = TRUE, which.plot = "partMeans")
 }
-\author{
-Matthias Templ (accessing the basic features of hclust, Mclust, kmeans, etc. that 
-are all written by others)
-}
 \references{
 Templ, Filzmoser, Reimann (2008) 
 \emph{Cluster analysis applied to regional geochemical data: Problems and possibilities"}, 
 Applied Geochemistry, 23 (2008), pages 2198 - 2213.
 }
+\author{
+Matthias Templ (accessing the basic features of hclust, Mclust, kmeans, etc. that 
+are all written by others)
+}
 \keyword{multivariate}
-

@@ -42,4 +42,3 @@ str(govexp)
 translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
 }
 \keyword{datasets}
-

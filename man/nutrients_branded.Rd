@@ -41,11 +41,10 @@ Nutrients on more than 10 components and 9618 branded food products
 data(nutrients_branded)
 str(nutrients_branded)
 }
-\author{
-Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 }
+\author{
+Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{data}
-

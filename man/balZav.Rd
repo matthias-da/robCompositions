@@ -18,4 +18,3 @@ New average symmetric coordinates
 \author{
 Petra Kynclova
 }
-

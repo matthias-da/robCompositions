@@ -43,11 +43,10 @@ skills to improve their economic situation.
 data(unemployed)
 str(unemployed)
 }
-\author{
-translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
-}
 \references{
 OECD (2017), Youth not in employment, education or training (NEET) (indicator). doi: 10.1787/72d1033a-en (Accessed on 27 March 2017)
 }
+\author{
+translated from \url{https://data.oecd.org/} and restructured by Matthias Templ
+}
 \keyword{datasets}
-

@@ -26,14 +26,13 @@ plot(cl)
 cl2 <- clustCoDa_qmode(x, method = "single")
 plot(cl2)
 }
-\author{
-Matthias Templ (accessing the basic features of hclust that 
-are all written by other authors)
-}
 \references{
 Filzmoser, Hron, Templ
 \emph{Applied Compositional Data Analysis}, 
 Springer-Verlag, upcoming book.
 }
+\author{
+Matthias Templ (accessing the basic features of hclust that 
+are all written by other authors)
+}
 \keyword{multivariate}
-

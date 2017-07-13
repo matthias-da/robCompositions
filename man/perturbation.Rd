@@ -3,6 +3,7 @@
 \name{perturbation}
 \alias{perturbation}
 \alias{powering}
+\alias{powering}
 \title{Perturbation and powering}
 \usage{
 perturbation(x, y)
@@ -29,14 +30,13 @@ y <- expenditures[2, ]
 perturbation(x, y)
 powering(x, 2)
 }
-\author{
-Matthias Templ
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
 Chapman and Hall Ltd., London (UK). 416p.
 }
+\author{
+Matthias Templ
+}
 \keyword{arith}
 \keyword{math}
-

@@ -24,4 +24,3 @@ gm(c(3,5,3,6,7))
 \author{
 Matthias Templ
 }
-

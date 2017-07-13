@@ -61,9 +61,6 @@ adtest(pivotCoord(x))
 adtest(pivotCoord(x[,1:2]), locscatt="robust")
 
 }
-\author{
-Karel Hron, Matthias Templ
-}
 \references{
 Anderson, T.W. and Darling, D.A. (1952) Asymptotic theory of
 certain goodness-of-fit criteria based on stochastic processes. \emph{Annals
@@ -72,5 +69,7 @@ of Mathematical Statistics}, \bold{23} 193-212.
 \seealso{
 \code{\link{adtestWrapper}}
 }
+\author{
+Karel Hron, Matthias Templ
+}
 \keyword{htest}
-

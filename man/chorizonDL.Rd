@@ -98,4 +98,3 @@ with R}. Wiley.
 \code{\link[mvoutlier]{chorizon}}, \code{\link[VIM]{chorizonDL}}
 }
 \keyword{datasets}
-

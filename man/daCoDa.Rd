@@ -69,9 +69,6 @@ predict(cof.cla)@ct
 predict(cof.rob)@ct
 }
 }
-\author{
-Jutta Gamper
-}
 \references{
 Filzmoser, P. and Hron, K. and Templ, M. (2012) 
 Discriminant analysis for compositional data and robust parameter estimation. 
@@ -81,5 +78,7 @@ Discriminant analysis for compositional data and robust parameter estimation.
 \code{\link[rrcov]{LdaClassic}}, \code{\link[rrcov]{Linda}}, 
 \code{\link[rrcov]{QdaClassic}}, \code{\link[rrcov]{QdaCov}}
 }
+\author{
+Jutta Gamper
+}
 \keyword{multivariate}
-

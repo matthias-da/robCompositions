@@ -31,4 +31,3 @@ constSum(expenditures, 100)
 Matthias Templ
 }
 \keyword{manip}
-

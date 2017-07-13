@@ -14,6 +14,8 @@
 \arguments{
 \item{x}{object of class \sQuote{imp}}
 
+\item{\dots}{other parameters to be passed through to plotting functions.}
+
 \item{which}{if a subset of the plots is required, specify a subset of the
 numbers 1:3.}
 
@@ -71,8 +73,6 @@ button is pressed and returns the corresponding index of the observation.
 \item{seg.l}{length of the plotting symbol (spikes) for the ternary plot.}
 
 \item{seg1}{if TRUE, the spikes of the plotting symbol are justified.}
-
-\item{\dots}{other parameters to be passed through to plotting functions.}
 }
 \value{
 None (invisible NULL).
@@ -116,9 +116,6 @@ plot(xi, which=3)
 plot(xi, which=3, seg1=FALSE)
 
 }
-\author{
-Matthias Templ
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
@@ -131,6 +128,8 @@ coordinates} Journal of the American Statistical Association 85, 664--675.
 \code{\link{impCoda}}, \code{\link{impKNNa}}, \
 \code{\link[car]{scatterplot.matrix}}
 }
+\author{
+Matthias Templ
+}
 \keyword{aplot}
 \keyword{hplot}
-

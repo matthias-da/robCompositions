@@ -3,6 +3,7 @@
 \name{aDist}
 \alias{aDist}
 \alias{iprod}
+\alias{iprod}
 \title{Aitchison distance}
 \usage{
 aDist(x, y = NULL)
@@ -60,9 +61,6 @@ y <- expenditures[, 2]
 aDist(x, y)
 aDist(expenditures, expenditures)
 }
-\author{
-Matthias Templ, Bernhard Meindl
-}
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
@@ -80,6 +78,8 @@ for compositional data using classical and robust methods
 \seealso{
 \code{\link{pivotCoord}}
 }
+\author{
+Matthias Templ, Bernhard Meindl
+}
 \keyword{arith}
 \keyword{math}
-

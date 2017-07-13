@@ -21,12 +21,14 @@ on symmetric balances.
 \examples{
 data(expenditures)
 corCoDa(expenditures)
-}
-\author{
-Petra Kynclova
+x <- arcticLake 
+corCoDa(x)
+
 }
 \references{
 Kynclova, P., Hron, K., Filzmoser, P.
 Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
 }
-
+\author{
+Petra Kynclova
+}

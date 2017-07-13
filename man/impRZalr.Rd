@@ -63,12 +63,11 @@ xia <- impRZalr(x, pos=3, dl=c(5,47), eps=0.05)
 xia$xImp
 
 }
-\author{
-Matthias Templ and Karel Hron
-}
 \seealso{
 \code{\link{impRZilr}}
 }
+\author{
+Matthias Templ and Karel Hron
+}
 \keyword{manip}
 \keyword{multivariate}
-

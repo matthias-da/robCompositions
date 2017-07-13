@@ -31,9 +31,6 @@ xi$xImp
 adjust(xi)$xImp
 
 }
-\author{
-Matthias Templ
-}
 \references{
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods
@@ -43,5 +40,7 @@ Proof, ISSN: 0167-9473, DOI:10.1016/j.csda.2009.11.023
 \seealso{
 \code{\link{impCoda}}
 }
+\author{
+Matthias Templ
+}
 \keyword{manip}
-

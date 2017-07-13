@@ -27,4 +27,3 @@ data(expenditures)
 \author{
 Matthias Templ
 }
-

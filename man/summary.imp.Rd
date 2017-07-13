@@ -32,11 +32,10 @@ summary(xi)
 # plot(xi, which=1:2)
 
 }
-\author{
-Matthias Templ
-}
 \seealso{
 \code{\link{impCoda}}, \code{\link{impKNNa}}
 }
+\author{
+Matthias Templ
+}
 \keyword{print}
-

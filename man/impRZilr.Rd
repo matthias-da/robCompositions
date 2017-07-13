@@ -76,12 +76,11 @@ xia <- impRZilr(x, dl=c(5,44,0), eps=0.01, method="lm")
 xia$x
 
 }
-\author{
-Matthias Templ and Peter Filzmoser
-}
 \seealso{
 \code{\link{impRZalr}}
 }
+\author{
+Matthias Templ and Peter Filzmoser
+}
 \keyword{manip}
 \keyword{multivariate}
-

@@ -2,8 +2,10 @@
 % Please edit documentation in R/outCoDa.R
 \name{outCoDa}
 \alias{outCoDa}
+\alias{print.outCoDa}
 \alias{plot.outCoDa}
 \alias{print.outCoDa}
+\alias{plot.outCoDa}
 \title{Outlier detection for compositional data}
 \usage{
 outCoDa(x, quantile = 0.975, method = "robust", h = 1/2, coda = TRUE)
@@ -71,9 +73,6 @@ oD
 oD <- outCoDa(expenditures, coda = log)
 
 }
-\author{
-Matthias Templ, Karel Hron
-}
 \references{
 Egozcue J.J., V. Pawlowsky-Glahn, G. Mateu-Figueras and C.
 Barcel'o-Vidal (2003) Isometric logratio transformations for compositional
@@ -88,5 +87,7 @@ covariance determinant estimator.  \emph{Technometrics}, \bold{41} 212-223.
 \seealso{
 \code{\link{pivotCoord}}
 }
+\author{
+Matthias Templ, Karel Hron
+}
 \keyword{multivariate}
-

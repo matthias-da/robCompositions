@@ -32,11 +32,10 @@ Heavily used internally in function impRZilr.
 ## we refer to impRZilr()
 
 }
-\author{
-Matthias Templ
-}
 \seealso{
 \code{\link{impRZilr}}
 }
+\author{
+Matthias Templ
+}
 \keyword{manip}
-

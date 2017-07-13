@@ -26,4 +26,3 @@ str(rcodes)
 Valentin Todorov
 }
 \keyword{data}
-

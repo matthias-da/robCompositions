@@ -30,11 +30,10 @@ data(coffee)
 str(coffee)
 summary(coffee)
 }
-\author{
-Matthias Templ \email{matthias.templ@tuwien.ac.at}, Karel Hron
-}
 \references{
 M. Korhonov\'a, K. Hron, D. Klimc\'ikov\'a, L. Muller, P. Bedn\'ar, and P. Bart\'ak (2009). Coffee aroma - statistical analysis of compositional data. \emph{Talanta}, 80(2): 710--715.
 }
+\author{
+Matthias Templ \email{matthias.templ@tuwien.ac.at}, Karel Hron
+}
 \keyword{data}
-

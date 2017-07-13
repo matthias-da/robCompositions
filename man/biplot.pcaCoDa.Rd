@@ -40,9 +40,6 @@ biplot(pc, xlabs=rownames(arcticLake))
 
 
 }
-\author{
-M. Templ, K. Hron
-}
 \references{
 Aitchison, J. and Greenacre, M. (2002). Biplots of compositional
 data. \emph{Applied Statistics}, \bold{51}, 375-392. \
@@ -54,5 +51,7 @@ Compositional Data with Outliers. \emph{Environmetrics}, \bold{20} (6),
 \seealso{
 \code{\link{pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 }
+\author{
+M. Templ, K. Hron
+}
 \keyword{aplot}
-

@@ -3,9 +3,9 @@
 \name{compareMahal}
 \alias{compareMahal}
 \alias{getEstimates}
+\alias{print.estimates}
 \alias{plot.estimates}
 \alias{plot.mahal}
-\alias{print.estimates}
 \title{Compares Mahalanobis distances from two approaches}
 \usage{
 compareMahal(x, imp = "KNNa")
@@ -38,10 +38,9 @@ arcticLake[11:20, 2] <- 0
 m <- compareMahal(arcticLake)
 plot(m)
 }
-\author{
-Matthias Templ, Karel Hron
-}
 \seealso{
 \code{\link{impKNNa}}, \code{\link{pivotCoord}}
 }
-
+\author{
+Matthias Templ, Karel Hron
+}

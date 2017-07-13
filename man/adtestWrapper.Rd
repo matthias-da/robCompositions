@@ -4,6 +4,8 @@
 \alias{adtestWrapper}
 \alias{print.adtestWrapper}
 \alias{summary.adtestWrapper}
+\alias{print.adtestWrapper}
+\alias{summary.adtestWrapper}
 \title{Wrapper for Anderson-Darling tests}
 \usage{
 adtestWrapper(x, alpha = 0.05, R = 1000, robustEst = FALSE)
@@ -60,9 +62,6 @@ a
 summary(a)
 
 }
-\author{
-Matthias Templ and Karel Hron
-}
 \references{
 Anderson, T.W. and Darling, D.A. (1952) \emph{Asymptotic theory
 of certain goodness-of-fit criteria based on stochastic processes} Annals of
@@ -75,5 +74,7 @@ London (UK). 416p.
 \seealso{
 \code{\link{adtest}}, \code{\link{pivotCoord}}
 }
+\author{
+Matthias Templ and Karel Hron
+}
 \keyword{htest}
-

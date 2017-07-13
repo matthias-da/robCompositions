@@ -39,4 +39,3 @@ str(electionATbp)
 Peter Filzmoser
 }
 \keyword{data}
-

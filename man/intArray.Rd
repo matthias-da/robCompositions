@@ -25,9 +25,6 @@ tab1 <- indTab(precipitation)
 tabINT <- intTab(tab1prob, tab1)
 intArray(tabINT)
 }
-\author{
-Matthias Templ
-}
 \references{
 Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
 Independence in Contingency Tables Using Simplicial Geometry. 
@@ -37,4 +34,6 @@ DOI:10.1080/03610926.2013.824980
 \seealso{
 \code{\link{intTab}}
 }
-
+\author{
+Matthias Templ
+}

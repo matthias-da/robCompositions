@@ -3,6 +3,7 @@
 \name{pcaCoDa}
 \alias{pcaCoDa}
 \alias{print.pcaCoDa}
+\alias{print.pcaCoDa}
 \alias{summary.pcaCoDa}
 \title{Robust principal component analysis for compositional data}
 \usage{
@@ -79,9 +80,6 @@ res <- pcaCoDa(election[,1:6], method="classical", external=election[,7:8])
 res
 biplot(res, scale=0)
 }
-\author{
-K. Hron, P. Filzmoser, M. Templ. and a contribution for dimnames in external variables by Amelia Landre.
-}
 \references{
 Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
 Analysis for Compositional Data with Outliers. \emph{Environmetrics},
@@ -94,5 +92,7 @@ Kynclova, P., Filzmoser, P., Hron, K. (2016) Compositional biplots including ext
 \seealso{
 \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 }
+\author{
+K. Hron, P. Filzmoser, M. Templ. and a contribution for dimnames in external variables by Amelia Landre.
+}
 \keyword{multivariate}
-

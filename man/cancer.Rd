@@ -28,11 +28,10 @@ The response (discharges) is provided for the European Union countries (except G
 data(cancer)
 str(cancer)
 }
-\author{
-conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012.
 }
+\author{
+conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{datasets}
-

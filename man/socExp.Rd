@@ -32,11 +32,10 @@ data(socExp)
 str(socExp)
 rowSums(socExp[, 3:ncol(socExp)])
 }
-\author{
-conversion to R by Karel Hron Karel Hron and modifications by Matthias Templ \email{matthias.templ@tuwien.ac.at}
-}
 \references{
 OECD, \url{http://www.oecd.org}
 }
+\author{
+conversion to R by Karel Hron Karel Hron and modifications by Matthias Templ \email{matthias.templ@tuwien.ac.at}
+}
 \keyword{data}
-

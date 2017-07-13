@@ -67,9 +67,6 @@ xi <- impKNNa(x)$xImp
 xi[1,3]
 
 }
-\author{
-Matthias Templ
-}
 \references{
 Aitchison, J. and Barcelo-Vidal, C. and Martin-Fernandez, J.A.
 and Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance,
@@ -83,6 +80,8 @@ for compositional data using classical and robust methods
 \seealso{
 \code{\link{impCoda}}
 }
+\author{
+Matthias Templ
+}
 \keyword{manip}
 \keyword{multivariate}
-

@@ -38,9 +38,6 @@ Method \dQuote{rmultinom} should be preferred, while method \dQuote{permutation}
 data(precipitation)
 rSDev.test(precipitation)
 }
-\author{
-Matthias Templ, Karel Hron
-}
 \references{
 Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
 Independence in Contingency Tables Using Simplicial Geometry. 
@@ -50,5 +47,7 @@ DOI:10.1080/03610926.2013.824980
 \seealso{
 \code{\link{rSDev}}
 }
+\author{
+Matthias Templ, Karel Hron
+}
 \keyword{htest}
-
