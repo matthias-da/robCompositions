@@ -39,7 +39,7 @@ Description: Methods for analysis of compositional data including robust
     isomLR, and their inverse transformations). In addition, visualisation and
     diagnostic tools are implemented as well as high and low-level plot functions
     for the ternary diagram.
-License: GPL-2
+License: GPL-2 or newer
 LazyLoad: yes
 LazyData: true
 RoxygenNote: 6.0.1
