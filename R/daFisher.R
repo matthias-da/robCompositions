@@ -80,11 +80,11 @@ NULL
 #' 
 #' ## example with olive data:
 #'\dontrun{
-#' data(olives, package = "classifly")
+#' data(olive, package = "RnavGraph")
 #' # exclude zeros (alternatively impute them if 
 #' # the detection limit is known using impRZilr())
-#' ind <- which(olives==0, arr.ind = TRUE)[,1]
-#' olives <- olives[-ind, ]
+#' ind <- which(olive == 0, arr.ind = TRUE)[,1]
+#' olives <- olive[-ind, ]
 #' x <- olives[, 4:10]
 #' grp <- olives$Region # 3 groups
 #' res <- daFisher(x,grp)
@@ -94,7 +94,7 @@ NULL
 #' res <- daFisher(x, grp, method = "robust")
 #' res
 #' summary(res)
-#' predict(res, x)
+#' predict(res, newdata = x)
 #' res <- daFisher(x,grp, plotScore = TRUE, method = "robust")
 #' 
 #' # 9 regions
@@ -102,7 +102,7 @@ NULL
 #' res <- daFisher(x, grp, plotScore = TRUE)
 #' res
 #' summary(res)
-#' predict(res, x)
+#' predict(res, newdata = x)
 #' }
 
 
@@ -175,9 +175,13 @@ daFisher <- function(x, grp, coda=TRUE,
   
   # besser:
   B.svd <- svd(B)
-  B12 <- B.svd$u[,1:l]%*%diag(sqrt(B.svd$d[1:l]))%*%t(B.svd$u[,1:l])
-  Bm12 <- B.svd$u[,1:l]%*%diag(1/sqrt(B.svd$d[1:l]))%*%t(B.svd$u[,1:l])
-  K <- eigen(B12%*%solve(W)%*%B12)
+  l1 <- length(B.svd$d>1e-6)
+  B12 <- B.svd$u[, 1:l1] %*% diag(sqrt(B.svd$d[1:l1])) %*% t(B.svd$u[, 1:l1])
+  Bm12 <- B.svd$u[, 1:l1] %*% diag(1/sqrt(B.svd$d[1:l1])) %*% t(B.svd$u[, 1:l1])
+  K <- eigen(B12 %*% solve(W) %*% t(B12))
+  l2 <- min(g - 1, p)
+  l <- min(length(K$val>1e-6),l2)
+  
   Vs <- Bm12%*%K$vec[,1:l]
   V <- t(t(Vs)/(sqrt(diag(t(Vs)%*%W%*%Vs))))
   

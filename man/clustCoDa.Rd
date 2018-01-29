@@ -75,6 +75,10 @@ plot(rr, normalized = TRUE)
 plot(rr, normalized = TRUE, which.plot = "partMeans")
 }
 \references{
+M. Templ, P. Filzmoser, C. Reimann.
+Cluster analysis applied to regional geochemical data: Problems and possibilities. 
+\emph{Applied Geochemistry}, \strong{23} (8), 2198--2213, 2008
+
 Templ, Filzmoser, Reimann (2008) 
 \emph{Cluster analysis applied to regional geochemical data: Problems and possibilities"}, 
 Applied Geochemistry, 23 (2008), pages 2198 - 2213.

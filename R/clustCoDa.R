@@ -25,6 +25,10 @@
 #' cluster statistics.
 #' @author Matthias Templ (accessing the basic features of hclust, Mclust, kmeans, etc. that 
 #' are all written by others)
+#' @references 
+#' M. Templ, P. Filzmoser, C. Reimann.
+#' Cluster analysis applied to regional geochemical data: Problems and possibilities. 
+#' \emph{Applied Geochemistry}, \strong{23} (8), 2198--2213, 2008
 #' @export
 #' @references Templ, Filzmoser, Reimann (2008) 
 #' \emph{Cluster analysis applied to regional geochemical data: Problems and possibilities"}, 

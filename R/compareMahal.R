@@ -13,6 +13,10 @@
 #' @import ggplot2
 #' @import data.table
 #' @author Matthias Templ, Karel Hron
+#' @references 
+#' M. Templ, K. Hron, P. Filzmoser. 
+#' Exploratory Tools for Outlier Detection in Compositional Data with Structural Zeros".
+#' \emph{Journal of Applied Statistics}, \strong{44} (4), 734--752, 2017
 #' @seealso \code{\link{impKNNa}}, \code{\link{pivotCoord}}
 #' @examples
 #' 

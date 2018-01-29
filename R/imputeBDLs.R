@@ -36,7 +36,9 @@
 #' @param correction normal or density
 #' @param verbose additional print output during calculations.
 #' @param test an internal test situation (this parameter will be deleted soon)
-#' @importFrom cvTools cvFit
+#' @importFrom cvTools cvFit 
+#' @importFrom zCompositions multRepl
+#' @importFrom fpc pamk
 #' @import pls
 #' @return \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit
@@ -53,6 +55,27 @@
 #' @importFrom sROC kCDF
 #' @importFrom MASS rlm
 #' @examples
+#' 
+#' p <- 10
+#' n <- 50
+#' k <- 2
+#' T <- matrix(rnorm(n*k), ncol=k)
+#' B <- matrix(runif(p*k,-1,1),ncol=k)
+#' X <- T %*% t(B)
+#' E <-  matrix(rnorm(n*p, 0,0.1), ncol=p)
+#' XE <- X + E
+#' data <- data.frame(pivotCoordInv(XE))
+#' col <- ncol(data)
+#' row <- nrow(data)
+#' DL <- matrix(rep(0),ncol=col,nrow=1)
+#' for(j in seq(1,col,2))
+#' {DL[j] <- quantile(data[,j],probs=0.06,na.rm=FALSE)}
+#' 
+#' for(j in 1:col)        
+#' {data[data[,j]<DL[j],j] <- 0}
+#' 
+#' imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="subPLS")
+#' imp
 #' 
 #' data(mcad)
 #' \dontrun{
@@ -73,8 +96,11 @@
 #'   method="pls", verbose=FALSE, R=50, 
 #'   variation=FALSE)$x 
 #' }
+#' 
+#' 
+#' 
 `imputeBDLs` <-
-  function(x, maxit=10, eps=0.1, method="pls", 
+  function(x, maxit=10, eps=0.1, method="pls_clust", 
            dl=rep(0.05, ncol(x)), variation=TRUE,	nPred=NULL, 
            nComp = "boot", bruteforce=FALSE,  
            noisemethod="residuals", noise=FALSE, R=10, 
@@ -86,11 +112,28 @@
       pivotCoordInv(x = x)
     }
     
+    ## check if all is fine:
+    # check if values are in (0, dl[i]):
+    checkDL <- function(x, dl, indexNA){
+      check <- logical(ncol(x))
+      for(i in 1:ncol(x)){
+        critvals <- x[indexNA[,i],i] > dl[i]
+        check[i] <- any(critvals)
+        if(check[i]){ 
+          x[which(x[indexNA[,i],i] > dl[i]),i] <- dl[i]
+        }
+      }
+      if(any(check) & verbose){
+        message(paste(sum(critvals), "/", sum(w), "replaced values has been corrected"))      
+      }
+      x
+    }
+    
     ## check if data are fine
     checkData(x, dl)
     
     ## some specific checks
-    stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "variation")))
+    stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "subPLS", "variation")))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
     if(!(correction %in% c("normal","density"))){
       stop("correction method must be normal or density")
@@ -118,6 +161,124 @@
     n <- nrow(x) 
     d <- ncol(x)
     rs <- rowSums(x, na.rm = TRUE)
+    
+    if(method == "subPLS"){
+      w <- x == 0
+      indexFinalCheck <- x == 0
+      mulzero <- zCompositions::multRepl(x,label=0,dl=dl)
+      dd <- as.dist(robCompositions::variation(mulzero))
+      g <- fpc::pamk(dd)$nc
+      pos <- as.matrix(cutree(hclust(dd, method="ward.D"),g))
+      indNA <- apply(x,2,function(x){any(x==0)})
+      gz <- intersect(order(-table(pos[indNA])),which(table(pos)>1))
+      
+      fun.PLS <- function(x,data,dl,pos,b,R)
+      {
+        data_b <- data[,pos==b]
+        data_nb <- data[,pos!=b]
+        col1 <- ncol(data_b)
+        row <- nrow(data_b)
+        u <- cbind(cenLR(data_b)$x,cenLR(data_nb)$x)
+        u1 <- u[,1:col1]
+        n <- bootnComp(u[,-(1:col1),drop=FALSE],u1,R,plotting=FALSE)$res
+        pls <- mvr(u1~ u[,-(1:col1)],ncomp=n,method="simpls")
+        mean <- matrix(predict(pls,ncomp=n),ncol=col1)
+        sigma <- cov(u1-mean)
+        sig_b <- x[,pos==b]==0
+        cz <- which(colSums(sig_b)!=0)
+        rz <- which(rowSums(sig_b)!=0)
+        lj <- dl[pos==b]
+        for(j in cz)
+        {
+          linjie <- clr(cbind(rep(lj[j],row),data_b[,-j,drop=FALSE]))[,1,drop=FALSE]
+          u1[sig_b[,j],j] <- mean[sig_b[,j],j]-sqrt(sigma[j,j])*(dnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j]))/pnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j])))
+        }
+        for(i in rz)
+        {if(rowSums(sig_b)[i]<col1)
+        {u1[i,!sig_b[i,]] <- (sum(!sig_b[i,])*u1[i,!sig_b[i,]]-rep(sum(u1[i,]),sum(!sig_b[i,])))/(sum(!sig_b[i,]))}
+        }
+        chabu <- adjustImputed(clrInv(u1)[rowSums(sig_b)<col1,],x[rowSums(sig_b)<col1,pos==b],sig_b[rowSums(sig_b)<col1,])
+        data[rowSums(sig_b)<col1,pos==b] <- chabu
+        return(data)
+      }
+      
+      it <- 1
+      criteria <- 99999999
+      impute <- mulzero
+      while(it <= maxit & criteria >= eps){
+        xold <- impute
+        for (m in 1:length(gz))
+        {impute <- fun.PLS(x,impute,dl,pos,gz[m],R)}
+        it <- it+1
+        criteria <- sum(((xold-impute)/impute)^2, na.rm = TRUE)
+      }
+      impute <- checkDL(impute, dl, indexFinalCheck)
+        res <- list(x=impute, criteria=criteria, iter=it,
+                    maxit=maxit, wind=w, nComp=nC, nPred=nPred,
+                    variation=variation,
+                    method=method, dl=dl)
+        class(res) <- "replaced"
+        return(res)
+    }
+    
+    # if(method == "pls_clust"){
+    #   indexFinalCheck <- x == 0
+    #   mulzero <- zCompositions::multRepl(x,label=0,dl=dl)
+    #   dd <- as.dist(robCompositions::variation(mulzero))
+    #   g <- fpc::pamk(dd)$nc
+    #   pos <- as.matrix(cutree(hclust(dd, method="ward.D"),g))
+    #   indNA <- apply(x,2,function(x){any(x==0)})
+    #   gz <- intersect(order(-table(pos[indNA])),which(table(pos)>1))
+    #   
+    #   fun.PLS <- function(x,data,dl,pos,b,R)
+    #   {
+    #     data_b <- data[,pos==b]
+    #     data_nb <- data[,pos!=b]
+    #     col1 <- ncol(data_b)
+    #     row <- nrow(data_b)
+    #     u <- cbind(cenLR(data_b)$x.clr, cenLR(data_nb)$x.clr)
+    #     u1 <- u[,1:col1]
+    #     n <- bootnComp(u[,-(1:col1),drop=FALSE],u1,R,plotting=FALSE)$res
+    #     pls <- mvr(u1~ u[,-(1:col1)],ncomp=n,method="simpls")
+    #     mean <- matrix(predict(pls,ncomp=n),ncol=col1)
+    #     sigma <- cov(u1-mean)
+    #     sig_b <- x[,pos==b]==0
+    #     cz <- which(colSums(sig_b)!=0) 
+    #     rz <- which(rowSums(sig_b)!=0)
+    #     lj <- dl[pos==b]
+    #     for(j in cz)
+    #     {
+    #       linjie <- clr(cbind(rep(lj[j],row),data_b[,-j,drop=FALSE]))[,1,drop=FALSE]
+    #       u1[sig_b[,j],j] <- mean[sig_b[,j],j]-sqrt(sigma[j,j])*(dnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j]))/pnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j])))
+    #     }
+    #     for(i in rz)
+    #     {if(rowSums(sig_b)[i]<col1)
+    #     {u1[i,!sig_b[i,]] <- (sum(!sig_b[i,])*u1[i,!sig_b[i,]]-rep(sum(u1[i,]),sum(!sig_b[i,])))/(sum(!sig_b[i,]))}
+    #     }
+    #     chabu <- adjustImputed(clrInv(u1)[rowSums(sig_b)<col1,],x[rowSums(sig_b)<col1,pos==b],sig_b[rowSums(sig_b)<col1,])
+    #     data[rowSums(sig_b)<col1,pos==b] <- chabu
+    #     return(data)
+    #   }
+    #   
+    #   it <- 1
+    #   criteria <- 99999999
+    #   impute <- mulzero
+    #   while(it <= maxit & criteria >= eps){
+    #     xold <- impute
+    #     for (m in 1:length(gz))
+    #     {impute <- fun.PLS(x,impute,dl,pos,gz[m],R)}
+    #     it <- it+1
+    #     criteria <- sum(((xold-impute)/impute)^2, na.rm = TRUE)
+    #   }
+    #   impute <- checkDL(impute, dl, indexFinalCheck)
+    #   
+    #   res <- list(x=impute, criteria=criteria, iter=it, 
+    #               maxit=maxit, wind=w, nComp=nC, nPred=nPred,
+    #               variation=variation,
+    #               method=method, dl=dl)
+    #   class(res) <- "replaced"
+    #   return(res)
+    # }
     
     ## set zeros to NA for easier handling
     x[x == 0] <- NA
@@ -344,22 +505,7 @@
     if(verbose){
       message(paste(sum(w)), "values below detection limit has been imputed \n below the corresponding detection limits")
     }
-    ## check if all is fine:
-    # check if values are in (0, dl[i]):
-    checkDL <- function(x, dl, indexNA){
-      check <- logical(ncol(x))
-      for(i in 1:ncol(x)){
-        critvals <- x[indexNA[,i],i] > dl[i]
-        check[i] <- any(critvals)
-        if(check[i]){ 
-          x[which(x[indexNA[,i],i] > dl[i]),i] <- dl[i]
-        }
-      }
-      if(any(check) & verbose){
-        message(paste(sum(critvals), "/", sum(w), "replaced values has been corrected"))      
-      }
-      x
-    }
+
 
     x <- checkDL(x, dl, indexFinalCheck)
 

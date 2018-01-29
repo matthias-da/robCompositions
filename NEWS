@@ -1,4 +1,7 @@
-Changes in robCompositions version 2.0.4
+Changes in robCompositions version 2.0.6
+  + new method for imputation of rounded zeros in imputeBDLs
+
+Changes in robCompositions version 2.0.5
   + improved documentation
   + version of robCompositions fits now to the Springer book
   + orthbasis now times -1
