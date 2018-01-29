@@ -10,10 +10,11 @@
 \alias{print.replaced}
 \title{EM-based replacement of rounded zeros in compositional data}
 \usage{
-imputeBDLs(x, maxit = 10, eps = 0.1, method = "pls", dl = rep(0.05,
-  ncol(x)), variation = TRUE, nPred = NULL, nComp = "boot",
-  bruteforce = FALSE, noisemethod = "residuals", noise = FALSE, R = 10,
-  correction = "normal", verbose = FALSE, test = FALSE)
+imputeBDLs(x, maxit = 10, eps = 0.1, method = "pls_clust",
+  dl = rep(0.05, ncol(x)), variation = TRUE, nPred = NULL,
+  nComp = "boot", bruteforce = FALSE, noisemethod = "residuals",
+  noise = FALSE, R = 10, correction = "normal", verbose = FALSE,
+  test = FALSE)
 
 adjustImputed(xImp, xOrig, wind)
 
@@ -91,6 +92,27 @@ imputed, the algorithm starts again until the imputations do not change.
 }
 \examples{
 
+p <- 10
+n <- 50
+k <- 2
+T <- matrix(rnorm(n*k), ncol=k)
+B <- matrix(runif(p*k,-1,1),ncol=k)
+X <- T \%*\% t(B)
+E <-  matrix(rnorm(n*p, 0,0.1), ncol=p)
+XE <- X + E
+data <- data.frame(pivotCoordInv(XE))
+col <- ncol(data)
+row <- nrow(data)
+DL <- matrix(rep(0),ncol=col,nrow=1)
+for(j in seq(1,col,2))
+{DL[j] <- quantile(data[,j],probs=0.06,na.rm=FALSE)}
+
+for(j in 1:col)        
+{data[data[,j]<DL[j],j] <- 0}
+
+imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="subPLS")
+imp
+
 data(mcad)
 \dontrun{
 ## generate rounded zeros artificially:
@@ -110,6 +132,9 @@ replaced_plsfull <- imputeBDLs(x, dl=dl, eps=1,
   method="pls", verbose=FALSE, R=50, 
   variation=FALSE)$x 
 }
+
+
+
 }
 \references{
 Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 

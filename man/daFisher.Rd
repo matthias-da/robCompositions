@@ -92,11 +92,11 @@ predict(d2, newdata = X)
 
 ## example with olive data:
 \dontrun{
-data(olives, package = "classifly")
+data(olive, package = "RnavGraph")
 # exclude zeros (alternatively impute them if 
 # the detection limit is known using impRZilr())
-ind <- which(olives==0, arr.ind = TRUE)[,1]
-olives <- olives[-ind, ]
+ind <- which(olive == 0, arr.ind = TRUE)[,1]
+olives <- olive[-ind, ]
 x <- olives[, 4:10]
 grp <- olives$Region # 3 groups
 res <- daFisher(x,grp)
@@ -106,7 +106,7 @@ res <- daFisher(x, grp, plotScore = TRUE)
 res <- daFisher(x, grp, method = "robust")
 res
 summary(res)
-predict(res, x)
+predict(res, newdata = x)
 res <- daFisher(x,grp, plotScore = TRUE, method = "robust")
 
 # 9 regions
@@ -114,7 +114,7 @@ grp <- olives$Area
 res <- daFisher(x, grp, plotScore = TRUE)
 res
 summary(res)
-predict(res, x)
+predict(res, newdata = x)
 }
 }
 \references{
