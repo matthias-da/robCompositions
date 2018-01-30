@@ -16,6 +16,7 @@
 #' @importFrom graphics segments
 #' @importFrom graphics text
 #' @importFrom stats aggregate  
+#' @importFrom stats as.formula  
 #' @importFrom stats complete.cases  
 #' @importFrom stats cov    
 #' @importFrom stats cov.wt  

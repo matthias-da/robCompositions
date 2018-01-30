@@ -45,10 +45,14 @@
 #' }{maximum number of iterations} \item{wind}{index of zeros}
 #' \item{nComp}{number of components for method pls} \item{method}{chosen
 #' method}
-#' @author Matthias Templ
+#' @author Matthias Templ, method subPLS from Jiajia Chen
 #' @references Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
 #' Imputation of rounded zeros for high-dimensional compositional data. 
 #' \emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+#' 
+#' Jiajia Chen, Xiaoqin Zhang, Karel Hron ORCID Icon, Matthias Templ and Shengjia Li (2017). 
+#' Regression imputation with Q-mode clustering for rounded zero replacement in high-dimensional compositional data. 
+#' \emph{Journal of Applied Statistics}. DOI: 10.1080/02664763.2017.1410524
 #' @seealso \code{\link{imputeBDLs}}
 #' @keywords manip multivariate
 #' @export
@@ -76,10 +80,18 @@
 #' 
 #' imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="subPLS")
 #' imp
+#' imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="pls", variation = FALSE)
+#' imp
+#' imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="lm")
+#' imp
+#' imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="lmrob")
+#' imp
 #' 
 #' data(mcad)
 #' \dontrun{
+#' ## longer computation times...
 #' ## generate rounded zeros artificially:
+#' x <- mcad
 #' x <- x[1:25, 2:ncol(x)]
 #' dl <- apply(x, 2, quantile, 0.1)
 #' for(i in seq(1, ncol(x), 2)){
@@ -100,7 +112,7 @@
 #' 
 #' 
 `imputeBDLs` <-
-  function(x, maxit=10, eps=0.1, method="pls_clust", 
+  function(x, maxit=10, eps=0.1, method="subPLS", 
            dl=rep(0.05, ncol(x)), variation=TRUE,	nPred=NULL, 
            nComp = "boot", bruteforce=FALSE,  
            noisemethod="residuals", noise=FALSE, R=10, 
@@ -133,7 +145,7 @@
     checkData(x, dl)
     
     ## some specific checks
-    stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "subPLS", "variation")))
+    stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "subPLS")))
     if(method=="pls" & ncol(x)<5) stop("too less variables/parts for method pls")
     if(!(correction %in% c("normal","density"))){
       stop("correction method must be normal or density")
@@ -180,8 +192,13 @@
         row <- nrow(data_b)
         u <- cbind(cenLR(data_b)$x,cenLR(data_nb)$x)
         u1 <- u[,1:col1]
-        n <- bootnComp(u[,-(1:col1),drop=FALSE],u1,R,plotting=FALSE)$res
-        pls <- mvr(u1~ u[,-(1:col1)],ncomp=n,method="simpls")
+        n <- bootnComp(u[,-(1:col1),drop=FALSE],as.matrix(u1),R,plotting=FALSE)$res
+        # form <- paste(paste(colnames(u1), collapse = "+"), "~", paste(colnames(u), collapse = "+"))
+        # form <- as.formula(form)
+        # pls <- mvr(form, data=cbind(u1, u), method="simpls", 
+        #            ncomp=n) 
+        pls <- mvr(as.matrix(u1)~ as.matrix(u[,-(1:col1)]),ncomp=n,method="simpls")
+       # pls <- mvr(u1~ u[,-(1:col1)],ncomp=n,method="simpls")
         mean <- matrix(predict(pls,ncomp=n),ncol=col1)
         sigma <- cov(u1-mean)
         sig_b <- x[,pos==b]==0
@@ -190,14 +207,14 @@
         lj <- dl[pos==b]
         for(j in cz)
         {
-          linjie <- clr(cbind(rep(lj[j],row),data_b[,-j,drop=FALSE]))[,1,drop=FALSE]
+          linjie <- as.matrix(cenLR(cbind(rep(lj[j],row),data_b[,-j,drop=FALSE]))$x[,1,drop=FALSE])
           u1[sig_b[,j],j] <- mean[sig_b[,j],j]-sqrt(sigma[j,j])*(dnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j]))/pnorm((linjie[sig_b[,j]]-mean[sig_b[,j],j])/sqrt(sigma[j,j])))
         }
         for(i in rz)
         {if(rowSums(sig_b)[i]<col1)
         {u1[i,!sig_b[i,]] <- (sum(!sig_b[i,])*u1[i,!sig_b[i,]]-rep(sum(u1[i,]),sum(!sig_b[i,])))/(sum(!sig_b[i,]))}
         }
-        chabu <- adjustImputed(clrInv(u1)[rowSums(sig_b)<col1,],x[rowSums(sig_b)<col1,pos==b],sig_b[rowSums(sig_b)<col1,])
+        chabu <- adjustImputed(cenLRinv(u1)[rowSums(sig_b)<col1,],x[rowSums(sig_b)<col1,pos==b],sig_b[rowSums(sig_b)<col1,])
         data[rowSums(sig_b)<col1,pos==b] <- chabu
         return(data)
       }
@@ -340,7 +357,9 @@
           colnames(xilr)[1] <- "Y"
           call <- call(method, formula = Y ~ .)
           # perform cross-validation
-          cve[np] <- suppressWarnings(cvFit(call, data = xilr, y = xilr$Y, cost = cvTools::rtmspe,
+          cve[np] <- suppressWarnings(cvFit(call, data = xilr, 
+                                            y = xilr$Y, 
+                                            cost = cvTools::rtmspe,
                     K = 5, R = 1, costArgs = list(trim = 0.1), seed = 1234)$cv)
         }
         nPred[i] <- which.min(cve)
@@ -667,10 +686,20 @@ bootnComp <- function(X, y, R=99, plotting=FALSE){
     bootind <- sample(ind)
     #    XX <- X
     #    yy <- y
-    ds <- cbind(X[bootind,], as.numeric(y[bootind]))
-    colnames(ds)[ncol(ds)] <- "V1"
-    res1 <- mvr(V1~., data=data.frame(ds), method="simpls", 
-                validation="CV")
+    if(is.null(ncol(y))){
+      ds <- cbind(X[bootind,], as.numeric(y[bootind]))
+      colnames(ds)[ncol(ds)] <- "V1"
+      res1 <- mvr(V1~., data=data.frame(ds), method="simpls", 
+                  validation="CV")
+    } else {
+      ds <- cbind(X[bootind,], as.matrix(y[bootind,])) 
+      form <- paste(paste(colnames(ds[, (ncol(X)+1):ncol(ds)]), collapse = "+"), "~", paste(colnames(ds[, 1:ncol(X)]), collapse = "+"))
+      form <- as.formula(form)
+      res1 <- mvr(form, data=data.frame(ds), method="simpls", 
+                  validation="CV") 
+    }
+
+
     d[1:res1$ncomp, i] <- res1$validation$PRESS
     nc[i] <- which.min(res1$validation$PRESS)
     #    d[1:reg1$ncomp,i] <- as.numeric(apply(reg1$validation$pred, 3, 

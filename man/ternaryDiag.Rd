@@ -68,8 +68,7 @@ R. John Wiley and Sons, Chichester, 2008.
 \code{\link[StatDA]{ternary}}
 }
 \author{
-Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>
-\url{http://www.statistik.tuwien.ac.at/public/filz/}, Matthias Templ
+Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>, Matthias Templ
 }
 \keyword{aplot}
 \keyword{multivariate}
