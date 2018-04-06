@@ -29,6 +29,16 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Author: Matthias Templ, Karel Hron, Peter Filzmoser
+Authors@R: c(
+  person("Matthias", "Templ", email="matthias.templ@gmail.com", role=c("aut", "cre")),
+  person("Peter", "Filzmoser", email = "Bernhard.Meindl@statistik.gv.at", role="aut"),
+  person("Karel", "Hron", email="Alexander.Kowarik@statistik.gv.at", role="aut"),
+  person("Petra", "Kynclova", email="kynclova.petra@gmail.com", "ctb"),
+  person("Jiri", "Eichler", email = "ejirkae@seznam.cz", "ctb"),
+  person("Valentin", "Todorov", email = "V.todorov@unido.org ", "dtc"),
+  person("Jan", "Walach", email ="walach.jan@gmail.com ", "ctb"),
+  person("Veronika", "Pinter", email ="vroni.pintar@gmx.at", "ctb"),
+  person("Jiajia", "Chen", email ="chenjiajia0401@163.com", "ctb"))
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust
     methods, imputation, methods to replace rounded zeros, (robust) outlier
