@@ -47,7 +47,4 @@ Statistics}, 56 (2012), S. 2688 - 2704.
 \seealso{
 \code{\link{impCoda}}, \code{\link{impRZilr}}
 }
-\author{
-Jiri Eichler
-}
 \keyword{manip}

@@ -14,7 +14,6 @@
 #' @param x data frame
 #' @return The imputed data set.
 #' @note This function is mainly used by the compositionsGUI.
-#' @author Jiri Eichler
 #' @seealso \code{\link{impCoda}}, \code{\link{impRZilr}}
 #' @export
 #' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of

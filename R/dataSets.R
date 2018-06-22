@@ -420,7 +420,6 @@ NULL
 #' @name employment
 #' @docType data
 #' @usage data(employment)
-#' @author Valentin Todorov
 #' @format A three-dimensional table
 #' @keywords data
 #' @examples 
@@ -441,7 +440,6 @@ NULL
 #' @name employment_df
 #' @docType data
 #' @usage data(employment_df)
-#' @author Valentin Todorov, Matthias Templ
 #' @format A data.frame with 132 rows and 4 columns. 
 #' @keywords data
 #' @examples 
@@ -693,7 +691,6 @@ NULL
 #' @name instw
 #' @docType data
 #' @usage data(instw)
-#' @author Valentin Todorov, Matthias Templ
 #' @format A data.frame with 1555 rows and 7 columns. 
 #' @keywords data
 #' @examples 
@@ -711,7 +708,6 @@ NULL
 #' @name isic32
 #' @docType data
 #' @usage data(isic32)
-#' @author Valentin Todorov, Matthias Templ
 #' @format A data.frame with 24 rows and 2 columns. 
 #' @keywords data
 #' @examples 
@@ -1186,7 +1182,6 @@ NULL
 #' @name rcodes
 #' @docType data
 #' @usage data(rcodes)
-#' @author Valentin Todorov
 #' @format A data.frame with 2717 rows and 6 columns.  
 #' @keywords data
 #' @examples 

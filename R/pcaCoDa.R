@@ -138,9 +138,14 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL)
   }
   if (!is.null(external)) {
     nload <- nrow(pcaIlr$loadings)
-    if (dim(external)[2] < 2) 
+    if (is.null(dim(external)[2])){ 
       index <- 1
-    else index <- ncol(external)
+      nam <- "ext"
+    }
+    else{ 
+      index <- ncol(external)
+      nam <- names(external)
+    }
     loadings <- V %*% pcaIlr$loadings[-c((nload - index + 
                                             1):nload), ]
     loadings <- rbind(loadings, pcaIlr$loadings[(nload - 
@@ -151,7 +156,7 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL)
   }
   if (is.null(mult_comp)) {
     if (!is.null(names(x)) & !is.null(external)) 
-      dimnames(loadings)[[1]] <- c(names(x), names(external))
+      dimnames(loadings)[[1]] <- c(names(x), nam)
     else if (!is.null(names(x))) 
       dimnames(loadings)[[1]] <- names(x)
   }

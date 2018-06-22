@@ -22,7 +22,4 @@ data(rcodes)
 data(rcodes)
 str(rcodes)
 }
-\author{
-Valentin Todorov
-}
 \keyword{data}

@@ -67,8 +67,7 @@
 #' @param seg1 if TRUE, the spikes of the plotting symbol are justified.
 #' @return None (invisible NULL).
 #' @author Matthias Templ
-#' @seealso \code{\link{impCoda}}, \code{\link{impKNNa}}, \
-#' \code{\link[car]{scatterplot.matrix}}
+#' @seealso \code{\link{impCoda}}, \code{\link{impKNNa}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
 #' Chapman \& Hall Ltd., London (UK). 416p.

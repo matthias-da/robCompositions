@@ -181,3 +181,164 @@ class(xImp)
 methods(class = "imp")
 xImp
 
+## ----imp-----------------------------------------------------------------
+xImp1 <- impCoda(x$zmiss, method='lm')
+xImp2 <- impCoda(x$zmiss, method='ltsReg')
+
+## ----da, echo=FALSE------------------------------------------------------
+cda <- function(xOrig, xImp, w){
+  da <- function(x,y){
+	d <- 0
+	p <- length(x)
+	for(i in 1:(p-1)){
+		for(j in (i+1):p){
+			d <- d + (log(x[i]/x[j]) - log(y[i]/y[j]))^2
+		}
+	}
+	d=d/p
+	sqrt(d)
+  }
+  das <- 0
+  for(i in 1:nrow(xOrig)){
+	das <- das + da(x=xOrig[i,], y=xImp[i,])
+  }
+  das/w
+}
+
+## ----variations, echo=FALSE----------------------------------------------
+v1 <- variation(constSum(x$z2[1:95,]), robust=FALSE)
+v2 <- variation(constSum(xImp1$xImp[1:95,]), robust=FALSE)
+v22 <- variation(constSum(xImp2$xImp[1:95,]), robust=FALSE)
+variations1 <- sum(abs(v1[upper.tri(v1, diag=FALSE)] - v2[upper.tri(v2, diag=FALSE)]), na.rm=TRUE)/length(c(upper.tri(v2, diag=FALSE))) 
+variations2 <- sum(abs(v1[upper.tri(v1, diag=FALSE)] - v22[upper.tri(v22, diag=FALSE)]), na.rm=TRUE)/length(c(upper.tri(v22, diag=FALSE))) 
+
+## ----erg-variations, echo=FALSE------------------------------------------
+paste("RDA: iterative lm approach:", round(cda(x$z2, xImp1$xImp, xImp1$w),3))
+paste("RDA: iterative ltsReg approach:", round(cda(x$z2, xImp2$xImp, xImp2$w), 3))
+paste("DV: iterative lm approach:", round(variations1, 3))
+paste("DV: iterative ltsReg approach:", round(variations2, 3))
+
+## ----bootstrap-old, echo=FALSE-------------------------------------------
+bootimp <- function(x, R = 100, method = "lm") {
+     d <- dim(x)[2]
+     n <- dim(x)[1]
+     thetaM <- matrix(NA, ncol = 2, nrow = d)
+     xs <- theta_hat1 <- matrix(0, nrow = n, ncol = d)
+     med <- matrix(NA, ncol = d, nrow = R)
+     for (i in 1:R) {
+                ind <- sample(1:n, replace = TRUE)
+                forbid <- c(91:100)
+                induse <- ind[apply(outer(ind,forbid,"!=")==FALSE,1,sum)==0]
+                s1 <- x[ind, ]
+             simp <- impCoda(s1, method=method)$xImp
+             med[i, ] <- apply(simp[induse,], 2, geometricmean)
+     }
+     thetaHat <- apply(med, 2, mean)
+     for (i in 1:d) {
+         thetaM[i, 1] <- quantile(med[, i], 0.025)
+         thetaM[i, 2] <- quantile(med[, i], 0.975)
+     }
+     res <- list(geometricmean = thetaHat, ci = thetaM)
+     res
+}
+
+## ----bootstrap-new, echo=FALSE-------------------------------------------
+bootimp <- function(x, R = 100, method = "lm") {
+     d <- dim(x)[2]
+     n <- dim(x)[1]
+     thetaM <- matrix(NA, ncol = 2, nrow = d)
+     xs <- theta_hat1 <- matrix(0, nrow = n, ncol = d)
+     med <- matrix(NA, ncol = d, nrow = R)
+     for (i in 1:R) {
+                ind <- sample(1:n, replace = TRUE)
+                forbid <- c(91:100)
+                induse <- ind[apply(outer(ind,forbid,"!=")==FALSE,1,sum)==0]
+                s1 <- x[ind, ]
+             simp <- impCoda(s1, method=method)$xImp
+             med[i, ] <- apply(simp[induse,], 2, geometricmean)
+     }
+     invisible(as.data.frame(constSum(med)))
+	 ##thetaHatMed <- apply(med, 2, mean)
+     ##for (i in 1:d) {
+     ##    thetaM[i, 1] <- quantile(med[, i], 0.025)
+     ##    thetaM[i, 2] <- quantile(med[, i], 0.975)
+     ##}
+     ##res <- list(geometricmean = thetaHat, ci = thetaM)
+     ##res
+}
+bootimpEM <- function(x, R = 100) {
+	d <- dim(x)[2]
+	n <- dim(x)[1]
+	thetaM <- matrix(NA, ncol = 2, nrow = d)
+	xs <- theta_hat1 <- matrix(0, nrow = n, ncol = d)
+	med <- matrix(NA, ncol = d, nrow = R)
+	for (i in 1:R) {
+                ind <- sample(1:n, replace = TRUE)
+                forbid <- c(91:100)
+                induse <- ind[apply(outer(ind,forbid,"!=")==FALSE,1,sum)==0]
+                s1 <- x[ind, ]
+	## und das hier produziert Unsinn:
+		s <- prelim.norm(s1) 
+		thetahat <- em.norm(s, showits=FALSE)   
+		simp <- imp.norm(s, thetahat, s)[[1]] 
+		print(simp)
+		med[i, ] <- apply(simp[induse,], 2, geometricmean)
+	}
+	invisible(as.data.frame(constSum(med)))
+}
+geometricmean <- function (x) {
+	if (any(na.omit(x == 0)))
+		0
+	else exp(mean(log(unclass(x)[is.finite(x) & x > 0])))
+}
+bootimpGM <- function(x, R = 100) {
+	d <- dim(x)[2]
+	n <- dim(x)[1]
+	thetaM <- matrix(NA, ncol = 2, nrow = d)
+	xs <- theta_hat1 <- matrix(0, nrow = n, ncol = d)
+	med <- matrix(NA, ncol = d, nrow = R)
+	for (i in 1:R) {
+                ind <- sample(1:n, replace = TRUE)
+                forbid <- c(91:100)
+                induse <- ind[apply(outer(ind,forbid,"!=")==FALSE,1,sum)==0]
+                s1 <- x[ind, ]
+		w <- is.na(s1)
+		gm <- apply(s1, 2, function(x) {
+					geometricmean(x[complete.cases(x)])
+				})
+		xmean <- x
+		for(j in 1:ncol(x)){
+			xmean[w[,j], j] <- gm[j]
+		}
+		med[i, ] <- apply(xmean[induse,], 2, geometricmean)
+	}
+	invisible(as.data.frame(constSum(med)))
+}
+bootimpM <- function(x, R = 100) {
+        d <- dim(x)[2]
+        n <- dim(x)[1]
+        thetaM <- matrix(NA, ncol = 2, nrow = d)
+        xs <- theta_hat1 <- matrix(0, nrow = n, ncol = d)
+        med <- matrix(NA, ncol = d, nrow = R)
+        for (i in 1:R) {
+		ind <- sample(1:n, replace = TRUE)	
+		forbid <- c(91:100)
+		induse <- ind[apply(outer(ind,forbid,"!=")==FALSE,1,sum)==0]
+                s1 <- x[ind, ]
+                simp <- impute(s1, what="mean")
+                med[i, ] <- apply(simp[induse,], 2, geometricmean)
+        }
+        invisible(as.data.frame(constSum(med)))
+}
+
+
+## ----bootstat-erg--------------------------------------------------------
+R <- 5
+bootimp(x$z2, R=R)
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+plot(xImp1, which=2)
+
+## ----message=FALSE, warning=FALSE----------------------------------------
+plot(xImp1, which=3, seg1=FALSE)
+

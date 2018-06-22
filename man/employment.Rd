@@ -16,7 +16,4 @@ data(employment)
 str(employment)
 employment
 }
-\author{
-Valentin Todorov
-}
 \keyword{data}

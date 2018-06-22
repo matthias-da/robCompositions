@@ -125,8 +125,7 @@ Wegman, E. J. (1990) \emph{Hyperdimensional data analysis using parallel
 coordinates} Journal of the American Statistical Association 85, 664--675.
 }
 \seealso{
-\code{\link{impCoda}}, \code{\link{impKNNa}}, \
-\code{\link[car]{scatterplot.matrix}}
+\code{\link{impCoda}}, \code{\link{impKNNa}}
 }
 \author{
 Matthias Templ

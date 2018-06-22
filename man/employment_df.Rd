@@ -20,7 +20,4 @@ data(employment_df)
 data(employment_df)
 head(employment_df)
 }
-\author{
-Valentin Todorov, Matthias Templ
-}
 \keyword{data}

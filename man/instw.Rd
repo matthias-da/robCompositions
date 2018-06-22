@@ -23,7 +23,4 @@ data(instw)
 data(instw)
 head(instw)
 }
-\author{
-Valentin Todorov, Matthias Templ
-}
 \keyword{data}

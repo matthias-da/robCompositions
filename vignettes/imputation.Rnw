@@ -898,12 +898,12 @@ Here we do not assume knowledge about the observed values. The goal is to visual
 the imputed values in an appropriate way. Because of space limitations we
 only show results for the robust model-based procedure.
 
-The first diagnostic plot is a multiple
-scatterplot where the imputed values are compared with the observed ones. 
-This plot can be generated with 
-<<message=FALSE, warning=FALSE>>=
-plot(xImp1, which=1)
-@
+% The first diagnostic plot is a multiple
+% scatterplot where the imputed values are compared with the observed ones. 
+% This plot can be generated with 
+% <<message=FALSE, warning=FALSE>>=
+% plot(xImp1, which=2)
+% @
 
 To avoid that imputed values are 
 placed on the regression hyperplane(s), one

@@ -4,11 +4,20 @@
 \alias{missPatterns}
 \alias{zeroPatterns}
 \alias{zeroPatterns}
+\alias{print.outCoDa}
+\alias{summary.outCoDa}
+\alias{plot.missInfo}
 \title{missing or zero pattern structure.}
 \usage{
 missPatterns(x)
 
 zeroPatterns(x)
+
+\method{print}{missPatterns}(x, ...)
+
+\method{summary}{missPatterns}(object, ...)
+
+\method{plot}{missPatterns}(x, y, ...)
 }
 \arguments{
 \item{x}{a data frame or matrix.}

@@ -18,7 +18,4 @@ data(isic32)
 data(instw)
 instw
 }
-\author{
-Valentin Todorov, Matthias Templ
-}
 \keyword{data}
