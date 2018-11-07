@@ -3,7 +3,6 @@
 \name{perturbation}
 \alias{perturbation}
 \alias{powering}
-\alias{powering}
 \title{Perturbation and powering}
 \usage{
 perturbation(x, y)

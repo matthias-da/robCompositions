@@ -4,8 +4,8 @@
 \alias{stats}
 \title{Classical estimates for tables}
 \usage{
-stats(x, margins = NULL, statistics = c("phi", "cramer", "chisq", "yates"),
-  maggr = mean)
+stats(x, margins = NULL, statistics = c("phi", "cramer", "chisq",
+  "yates"), maggr = mean)
 }
 \arguments{
 \item{x}{a data.frame, matrix or table}

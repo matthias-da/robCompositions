@@ -4,7 +4,8 @@
 \alias{daCoDa}
 \title{Linear and quadratic discriminant analysis for compositional data.}
 \usage{
-daCoDa(x, grp, coda = TRUE, method = "classical", rule = "linear", ...)
+daCoDa(x, grp, coda = TRUE, method = "classical", rule = "linear",
+  ...)
 }
 \arguments{
 \item{x}{a matrix or data frame containing the explanatory variables}

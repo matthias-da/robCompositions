@@ -142,7 +142,7 @@
     }
     
     ## check if data are fine
-    checkData(x, dl)
+    # checkData(x, dl)
     
     ## some specific checks
     stopifnot((method %in% c("lm", "MM", "lmrob", "pls", "subPLS")))
@@ -407,9 +407,13 @@
         predictors <- as.matrix(xilr[, -1, drop=FALSE])
         if(method=="lm"){ 
           reg1 <- lm(response ~ predictors)
+          reg1 <- lm(response ~ predictors, subset=wn[,i]) 
+          s <- sqrt(sum(reg1$residuals^2)/(sum(wn[,i])-ncol(predictors)-1))  
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="MM" | method=="lmrob"){
-          reg1 <- MASS::rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
+          #reg1 <- MASS::rlm(response ~ predictors, method="MM",maxit = 100)#rlm(V1 ~ ., data=xilr2, method="MM",maxit = 100)
+          reg1 <- MASS::rlm(response ~ predictors, method="MM", maxit = 100, subset=wn[,i])
+          s <- reg1$s 
           yhat <- predict(reg1, new.data=data.frame(predictors))
         } else if(method=="pls"){
           if(it == 1 & pre){ ## evaluate ncomp.
@@ -417,18 +421,24 @@
                                plotting=FALSE)$res #$res2
           }
           if(verbose) cat("   ;   ncomp:", nC[i])
-          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nC[i], method="simpls")
+          # reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), ncomp=nC[i], method="simpls")
+          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors),
+                     ncomp = nC[i], method = "simpls",subset=wn[,i])
+          s <- sqrt(sum(reg1$res^2)/nrow(xilr))
           yhat <- predict(reg1, new.data=data.frame(predictors), ncomp=nC[i])
         }
         
-        #		s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
-        s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
+        #	s <- sqrt(sum(reg1$res^2)/abs(nrow(xilr)-ncol(xilr))) ## quick and dirty: abs()
+        # s <- sqrt(sum(reg1$res^2)/nrow(xilr)) 
         yhat <- as.numeric(yhat)
         ex <- (phi - yhat)/s 
         if(correction=="normal"){
-          yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
+          yhat2sel <- ifelse(dnorm(ex[w[, i]]) > 0.00001,
                              yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
                              yhat[w[, i]])
+          # yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps,
+          #                    yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
+          #                    yhat[w[, i]])
         } else if(correction=="density"){
           den <- density(ex[w[,i]])
           distr <- sROC::kCDF(ex[w,i])

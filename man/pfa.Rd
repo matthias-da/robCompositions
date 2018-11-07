@@ -4,9 +4,10 @@
 \alias{pfa}
 \title{Factor analysis for compositional data}
 \usage{
-pfa(x, factors, robust = TRUE, data = NULL, covmat = NULL, n.obs = NA,
-  subset, na.action, start = NULL, scores = c("none", "regression",
-  "Bartlett"), rotation = "varimax", maxiter = 5, control = NULL, ...)
+pfa(x, factors, robust = TRUE, data = NULL, covmat = NULL,
+  n.obs = NA, subset, na.action, start = NULL, scores = c("none",
+  "regression", "Bartlett"), rotation = "varimax", maxiter = 5,
+  control = NULL, ...)
 }
 \arguments{
 \item{x}{(robustly) scaled input data}

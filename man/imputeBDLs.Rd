@@ -5,15 +5,13 @@
 \alias{print.replaced}
 \alias{checkData}
 \alias{adjustImputed}
-\alias{adjustImputed}
-\alias{checkData}
-\alias{print.replaced}
 \title{EM-based replacement of rounded zeros in compositional data}
 \usage{
-imputeBDLs(x, maxit = 10, eps = 0.1, method = "subPLS", dl = rep(0.05,
-  ncol(x)), variation = TRUE, nPred = NULL, nComp = "boot",
-  bruteforce = FALSE, noisemethod = "residuals", noise = FALSE, R = 10,
-  correction = "normal", verbose = FALSE, test = FALSE)
+imputeBDLs(x, maxit = 10, eps = 0.1, method = "subPLS",
+  dl = rep(0.05, ncol(x)), variation = TRUE, nPred = NULL,
+  nComp = "boot", bruteforce = FALSE, noisemethod = "residuals",
+  noise = FALSE, R = 10, correction = "normal", verbose = FALSE,
+  test = FALSE)
 
 adjustImputed(xImp, xOrig, wind)
 

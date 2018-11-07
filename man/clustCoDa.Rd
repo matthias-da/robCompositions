@@ -3,7 +3,6 @@
 \name{clustCoDa}
 \alias{clustCoDa}
 \alias{plot.clustCoDa}
-\alias{plot.clustCoDa}
 \title{Cluster analysis for compositional data}
 \usage{
 clustCoDa(x, k = NULL, method = "Mclust", scale = "robust",

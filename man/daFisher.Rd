@@ -3,13 +3,12 @@
 \name{daFisher}
 \alias{daFisher}
 \alias{print.daFisher}
-\alias{print.daFisher}
 \alias{predict.daFisher}
 \alias{summary.daFisher}
 \title{Discriminant analysis by Fisher Rule.}
 \usage{
-daFisher(x, grp, coda = TRUE, method = "classical", plotScore = FALSE,
-  ...)
+daFisher(x, grp, coda = TRUE, method = "classical",
+  plotScore = FALSE, ...)
 
 \method{print}{daFisher}(x, ...)
 

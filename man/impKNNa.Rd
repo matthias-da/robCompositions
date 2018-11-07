@@ -4,8 +4,9 @@
 \alias{impKNNa}
 \title{Imputation of missing values in compositional data using knn methods}
 \usage{
-impKNNa(x, method = "knn", k = 3, metric = "Aitchison", agg = "median",
-  primitive = FALSE, normknn = TRUE, das = FALSE, adj = "median")
+impKNNa(x, method = "knn", k = 3, metric = "Aitchison",
+  agg = "median", primitive = FALSE, normknn = TRUE, das = FALSE,
+  adj = "median")
 }
 \arguments{
 \item{x}{data frame or matrix}

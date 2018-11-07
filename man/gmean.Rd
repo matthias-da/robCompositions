@@ -3,7 +3,6 @@
 \name{gmean_sum}
 \alias{gmean_sum}
 \alias{gmean}
-\alias{gmean_sum}
 \title{geometric mean}
 \usage{
 gmean_sum(x, margin = NULL)

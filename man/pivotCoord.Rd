@@ -6,11 +6,7 @@
 \alias{isomLRinv}
 \alias{isomLRp}
 \alias{isomLRinvp}
-\alias{isomLR}
-\alias{isomLRinv}
 \alias{pivotCoordInv}
-\alias{isomLRp}
-\alias{isomLRinvp}
 \title{Pivot coordinates and their inverse}
 \usage{
 pivotCoord(x, pivotvar = 1, fast = FALSE, method = "pivot",

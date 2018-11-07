@@ -3,7 +3,6 @@
 \name{coord}
 \alias{coord}
 \alias{print.coord}
-\alias{print.coord}
 \title{Coordinate representation of CoDa tables}
 \usage{
 coord(x, SBPr, SBPc)

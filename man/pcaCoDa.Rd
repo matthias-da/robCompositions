@@ -3,7 +3,6 @@
 \name{pcaCoDa}
 \alias{pcaCoDa}
 \alias{print.pcaCoDa}
-\alias{print.pcaCoDa}
 \alias{summary.pcaCoDa}
 \title{Robust principal component analysis for compositional data}
 \usage{

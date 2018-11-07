@@ -4,8 +4,8 @@
 \alias{ternaryDiagEllipse}
 \title{Adds tolerance ellipses to a ternary diagram.}
 \usage{
-ternaryDiagEllipse(x, tolerance = c(0.9, 0.95, 0.975), locscatt = "MCD",
-  ...)
+ternaryDiagEllipse(x, tolerance = c(0.9, 0.95, 0.975),
+  locscatt = "MCD", ...)
 }
 \arguments{
 \item{x}{Three-part composition. Object of class \dQuote{matrix} or

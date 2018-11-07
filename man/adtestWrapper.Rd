@@ -4,8 +4,6 @@
 \alias{adtestWrapper}
 \alias{print.adtestWrapper}
 \alias{summary.adtestWrapper}
-\alias{print.adtestWrapper}
-\alias{summary.adtestWrapper}
 \title{Wrapper for Anderson-Darling tests}
 \usage{
 adtestWrapper(x, alpha = 0.05, R = 1000, robustEst = FALSE)

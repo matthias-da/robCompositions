@@ -3,7 +3,6 @@
 \name{aDist}
 \alias{aDist}
 \alias{iprod}
-\alias{iprod}
 \title{Aitchison distance}
 \usage{
 aDist(x, y = NULL)
