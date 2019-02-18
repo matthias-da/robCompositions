@@ -1,6 +1,6 @@
 #' imputeUDLs
 #' 
-#' Imputation of values above an upper detection limit in compositional data
+#' @title Imputation of values above an upper detection limit in compositional data
 #' 
 #' @details An imputation method for right-censored compositional data. 
 #' Statistical analysis is not possible with values reported in data, 
