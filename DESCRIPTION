@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Robust Estimation for Compositional Data
-Version: 2.0.9
-Date: 2018-06-21
+Version: 2.0.10
+Date: 2019-02-18
 Depends:
     R (>= 3.0.0),
     robustbase,
@@ -35,7 +35,8 @@ Authors@R: c(
   person("Petra", "Kynclova", email="kynclova.petra@gmail.com", role="ctb"),
   person("Jan", "Walach", email ="walach.jan@gmail.com ", role="ctb"),
   person("Veronika", "Pintar", email ="vroni.pintar@gmx.at", role="ctb"),
-  person("Jiajia", "Chen", email ="chenjiajia0401@163.com", role="ctb"))
+  person("Jiajia", "Chen", email ="chenjiajia0401@163.com", role="ctb"),	
+  person("Dominika", "Miksova", email ="miksovadominika1@gmail.com", role="ctb"))
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust
     methods, imputation, methods to replace rounded zeros, (robust) outlier
