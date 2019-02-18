@@ -1,17 +1,17 @@
 #' EM-based replacement of rounded zeros in compositional data
 #' 
 #' Parametric replacement of rounded zeros for compositional data using
-#' classical and robust methods based on ilr-transformations with special
+#' classical and robust methods based on ilr coordinates with a special
 #' choice of balances.
 #' 
 #' Statistical analysis of compositional data including zeros runs into
-#' problems, because log-ratios cannot be applied.  Usually, rounded zeros are
-#' considerer as missing not at random missing values.
+#' problems, because log-ratios cannot be applied. Usually, rounded zeros are
+#' considered as missing not at random missing values.
 #' 
 #' The algorithm iteratively imputes parts with rounded zeros whereas in each
-#' step (1) an specific ilr transformation is applied (2) tobit regression is
+#' step (1) compositional data are expressed in pivot coordinates (2) tobit regression is
 #' applied (3) the rounded zeros are replaced by the expected values (4) the
-#' corresponding inverse ilr transformation is applied. After all parts are
+#' corresponding inverse ilr mapping is applied. After all parts are
 #' imputed, the algorithm starts again until the imputations do not change.
 #' 
 #' @param x data.frame or matrix
@@ -40,6 +40,14 @@
 #' method}
 #' @author Matthias Templ and Peter Filzmoser
 #' @seealso \code{\link{impRZalr}}
+#' @references 
+#' Martin-Fernandez, J.A., Hron, K., Templ, M., Filzmoser, P., Palarea-Albaladejo, J. (2012)
+#' Model-based replacement of rounded zeros in compositional data: Classical and robust approaches. 
+#' \emph{Computational Statistics and Data Analysis}, 56 (9), 2688-2704.
+#'
+#' Templ, M., Hron, K., Filzmoser, P., Gardlo, A. (2016) Imputation of rounded zeros
+#' for high-dimensional compositional data. \emph{Chemometrics and Intelligent
+#' Laboratory Systems}, 155, 183-190.
 #' @keywords manip multivariate
 #' @export
 #' @importFrom sROC kCDF
