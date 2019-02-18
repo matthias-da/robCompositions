@@ -1,17 +1,18 @@
 #' @title relative difference between covariance matrices
 #' @name rdcm
-#' @description The sample covariance matrices are computed with the same isometric transformed observations. 
+#' @description The sample covariance matrices are computed from compositions expressed in the same isometric logratio coordinates. 
 #' @param x matrix or data frame
 #' @param y matrix or data frame of the same size as x.
 #' @return the error measures value
 #' @author Matthias Templ
 #' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
 #' missing values for compositional data using classical and robust methods
-#' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+#' \emph{Computational Statistics and Data Analysis}, 54 (12),
 #' 3095-3107.
+#'
 #' Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
 #' Imputation of rounded zeros for high-dimensional compositional data. 
-#' \emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+#' \emph{Chemometrics and Intelligent Laboratory Systems}, 155, 183-190.
 #' 
 #' @seealso \code{\link{rdcm}}
 #' @keywords manip
