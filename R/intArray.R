@@ -1,9 +1,10 @@
 #' Interaction array
 #' 
-#' Estimates the interaction compositional table
+#' Estimates the interaction compositional table 
+#' with normalization for further analysis according to Egozcue et al. (2015)
 #' 
 #' @param x an object of class \dQuote{intTab}
-#' @details Estimates the interaction array using its ilr coordinates.
+#' @details Estimates the interaction table using its ilr coordinates.
 #' @author Matthias Templ
 #' @seealso \code{\link{intTab}}
 #' @return The interaction array
