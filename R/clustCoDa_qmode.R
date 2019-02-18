@@ -1,6 +1,6 @@
 #' Q-mode cluster analysis for compositional parts
 #' 
-#' Clustering in using the variation matrix of compositional parts
+#' Clustering using the variation matrix of compositional parts
 #' 
 #' @aliases clustCoDa_qmode plot.clustCoDa_qmode 
 #' @param x compositional data represented as a data.frame
@@ -9,9 +9,9 @@
 #' @author Matthias Templ (accessing the basic features of hclust that 
 #' are all written by other authors)
 #' @export
-#' @references Filzmoser, Hron, Templ
+#' @references Filzmoser, P., Hron, K. Templ, M. (2018)
 #' \emph{Applied Compositional Data Analysis}, 
-#' Springer-Verlag, upcoming book.
+#' Springer, Cham.
 #' 
 #' @keywords multivariate
 #' @importFrom stats hclust
