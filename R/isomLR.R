@@ -14,7 +14,7 @@
 #' @param method pivot takes the method described in the description. Method "symm" 
 #' uses symmetric pivot coordinates (parameters pivotvar and norm have then no effect)
 #' @param fast if TRUE, it is approx. 10 times faster but numerical problems in case of 
-#' high-dimensional data numerical instabilities may occur. Only available for method \dQuote{pivot}.
+#' high-dimensional data may occur. Only available for method \dQuote{pivot}.
 #' @param base a positive or complex number: 
 #' the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.
 #' @param norm if FALSE then the normalizing constant is not used, if TRUE \code{sqrt((D-i)/(D-i+1))} is 
