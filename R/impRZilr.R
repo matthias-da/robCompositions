@@ -25,7 +25,7 @@
 #' \dQuote{boot}, the number of pls components are estimated using a
 #' bootstraped cross validation approach.
 #' @param bruteforce sets imputed values above the detection limit to the
-#' detection limit. Replacement above the detection limit are only exeptionally
+#' detection limit. Replacement above the detection limit only exceptionally
 #' occur due to numerical instabilities. The default is FALSE!
 #' @param noisemethod adding noise to imputed values. Experimental
 #' @param noise TRUE to activate noise (experimental)
