@@ -1,6 +1,6 @@
-#' Additive logistic transformaton
+#' Inverse additive logratio mapping
 #' 
-#' Inverse additive log-ratio transformation, often called additive logistic
+#' Inverse additive logratio mapping, often called additive logistic
 #' transformation.
 #' 
 #' The function allows also to preserve absolute values when class info is
@@ -16,7 +16,7 @@
 #' column of the data in the simplex.
 #' @param useClassInfo if FALSE, the class information of object \code{x} is
 #' not used.
-#' @return the transformed data matrix
+#' @return the resulting compositional data matrix
 #' @export
 #' @author Matthias Templ
 #' @seealso \code{\link{pivotCoordInv}}, \code{\link{cenLRinv}},
