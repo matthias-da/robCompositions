@@ -42,9 +42,9 @@
 #' @importFrom VIM kNN
 #' @importFrom robustbase ltsReg
 #' @seealso \code{\link{impKNNa}}, \code{\link{pivotCoord}}
-#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
+#' @references Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of
 #' missing values for compositional data using classical and robust methods
-#' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+#' \emph{Computational Statistics and Data Analysis}, 54 (12),
 #' 3095-3107.
 #' @keywords robust multivariate iteration
 #' @examples
