@@ -1,4 +1,4 @@
-#' Classical and robust regression of non-compositional response on
+#' Classical and robust regression of non-compositional (real) response on
 #' compositional predictors
 #' 
 #' Delivers appropriate inference for regression of y on a compositional matrix
@@ -7,7 +7,7 @@
 #' Compositional explanatory variables should not be directly used in a linear
 #' regression model because any inference statistic can become misleading.
 #' While various approaches for this problem were proposed, here an approach
-#' based on the isometric logratio (ilr) transformation is used.
+#' based on the pivot coordinates is used.
 #' 
 #' @aliases lmCoDaX ilrregression robilrregression
 #' @param y The response which should be non-compositional
@@ -20,7 +20,7 @@
 #' @author Peter Filzmoser
 #' @seealso \code{\link{lm}}
 #' @references Filzmoser, P., Hron, K., Thompsonc, K. (2012) Linear regression
-#' with compositional explanatory variables.  \emph{Journal of Applied
+#' with compositional explanatory variables. \emph{Journal of Applied
 #' Statistics}, 39, 1115-1128.
 #' @keywords models
 #' @export
