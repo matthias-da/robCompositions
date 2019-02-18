@@ -8,13 +8,13 @@
 #' @param x data frame or matrix, typically compositional data
 #' @param y binary partition
 #' @details The sequential binary partition constructs an orthonormal basis in the (D-1)-dimensional hyperplane
-#' in real space.
+#' in real space, resulting in orthonormal coordinates with respect to the Aitchison geometry of compositional data.
 #' @export
 #' @author Veronika Pintar, Karel Hron, Matthias Templ
 #' @rdname balances
 #' @return \item{balances}{The balances represent orthonormal coordinates which allow an interpretation in sense of groups of compositional parts.
 #'                         Output is a matrix, the D-1 colums contain balance coordinates of the observations in the rows.}
-#'         \item{V}{A Dx(D-1) contrast matrix associated with the orthonormal basis, corresponding to the sequential binary partition (in clr coordinates).}
+#'         \item{V}{A Dx(D-1) contrast matrix associated with the orthonormal basis, corresponding to the sequential binary partition (in clr coefficients).}
 #' @references (Egozcue, J.J., Pawlowsky-Glahn, V. (2005) Groups of parts and their balances in compositional data analysis. Mathematical Geology, 37 (7), 795???828.)
 #' @examples
 #' data(expenditures, package = "robCompositions")
