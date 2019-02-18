@@ -14,9 +14,9 @@
 #' @import data.table
 #' @author Matthias Templ, Karel Hron
 #' @references 
-#' M. Templ, K. Hron, P. Filzmoser. 
-#' Exploratory Tools for Outlier Detection in Compositional Data with Structural Zeros".
-#' \emph{Journal of Applied Statistics}, \strong{44} (4), 734--752, 2017
+#' Templ, M., Hron, K., Filzmoser, P. (2017) 
+#' Exploratory tools for outlier detection in compositional data with structural zeros".
+#' \emph{Journal of Applied Statistics}, \strong{44} (4), 734--752
 #' @seealso \code{\link{impKNNa}}, \code{\link{pivotCoord}}
 #' @examples
 #' 
