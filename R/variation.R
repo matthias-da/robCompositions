@@ -7,7 +7,7 @@
 #' \code{\link[stats]{mad}} is used when parameter robust is set to TRUE.
 #' 
 #' @param x data frame or matrix with positive entries
-#' @param robust if FALSE, standard measures are used.
+#' @param robust if FALSE, standard measures (classical variances) are used.
 #' @return The (robust) variation matrix.
 #' @author Matthias Templ
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
@@ -28,12 +28,13 @@
       for( i in 1:ncol(x)){
         for( j in 1:ncol(x)){
           if( i < j ){
-            rvars[i,j] <- (mad(log(x[,i]/x[,j])))^2
+             #rvars[i,j] <- (mad(log(x[,i]/x[,j])))^2
+            rvars[i,j] <- robustbase::covMcd(log(x[,i]/x[,j]))$cov
             rvars[j,i] <- rvars[i,j]
           }
         }
       }
-    } else{
+    } else {
       for( i in 1:ncol(x)){
         for( j in 1:ncol(x)){
           if( i < j ){ 
