@@ -1,4 +1,4 @@
-#' geometric mean
+#' Geometric mean
 #' 
 #' Computes the geometric mean(s) of a numeric vector, matrix or data.frame
 #' 
