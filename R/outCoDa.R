@@ -4,17 +4,17 @@
 #' statistical methods.
 #' 
 #' The outlier detection procedure is based on (robust) Mahalanobis distances
-#' after a isometric logratio transformation of the data.  Observations with
+#' in isometric logratio coordinates.  Observations with
 #' squared Mahalanobis distance greater equal a certain quantile of the
-#' Chi-squared distribution are marked as outliers.
+#' chi-squared distribution are marked as outliers.
 #' 
 #' If method \dQuote{robust} is chosen, the outlier detection is based on the
-#' homogeneous majority of the compositional data set.  If method
+#' homogeneous majority of the compositional data set. If method
 #' \dQuote{standard} is used, standard measures of location and scatter are
 #' applied during the outlier detection procedure.
 #' 
 #' plot method: the Mahalanobis distance are plotted against the index.
-#' The dashed line indicates the (1 - alpha) quantile of the Chi-squared
+#' The dashed line indicates the (1 - alpha) quantile of the chi-squared
 #' distribution. Observations with Mahalanobis distance greater than this
 #' quantile could be considered as compositional outliers.
 #' 
@@ -36,15 +36,15 @@
 #' @note It is highly recommended to use the robust version of the procedure.
 #' @author Matthias Templ, Karel Hron
 #' @seealso \code{\link{pivotCoord}}
-#' @references Egozcue J.J., V. Pawlowsky-Glahn, G. Mateu-Figueras and C.
-#' Barcel'o-Vidal (2003) Isometric logratio transformations for compositional
-#' data analysis. \emph{Mathematical Geology}, \bold{35}(3) 279-300. \
+#' @references Egozcue J.J., Pawlowsky-Glahn, V., Mateu-Figueras, G.,
+#' Barcelo-Vidal, C. (2003) Isometric logratio transformations for compositional
+#' data analysis. \emph{Mathematical Geology}, 35 (3) 279-300. 
 #' 
 #' Filzmoser, P., and Hron, K. (2008) Outlier detection for compositional data
-#' using robust methods. \emph{Math. Geosciences}, \bold{40} 233-248.\
+#' using robust methods. \emph{Math. Geosciences}, 40, 233-248.
 #' 
 #' Rousseeuw, P.J., Van Driessen, K. (1999) A fast algorithm for the minimum
-#' covariance determinant estimator.  \emph{Technometrics}, \bold{41} 212-223.
+#' covariance determinant estimator.  \emph{Technometrics}, 41, 212-223.
 #' @keywords multivariate
 #' @export
 #' @examples
