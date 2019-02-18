@@ -1,4 +1,4 @@
-#' compositional error deviation
+#' Compositional error deviation
 #' 
 #' Normalized Aitchison distance between two data sets
 #'  
@@ -7,14 +7,14 @@
 #' @param ni normalization parameter. See details below.
 #' @return the compositinal error distance
 #' @author Matthias Templ
-#' @references Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
+#' @references Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of
 #' missing values for compositional data using classical and robust methods
-#' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+#' \emph{Computational Statistics and Data Analysis}, 54 (12),
 #' 3095-3107.
 #' 
-#' Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
+#' Templ, M., Hron, K., Filzmoser, P., Gardlo, A. (2016). 
 #' Imputation of rounded zeros for high-dimensional compositional data. 
-#' \emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+#' \emph{Chemometrics and Intelligent Laboratory Systems}, 155, 183-190.
 #' 
 #' @seealso \code{\link{rdcm}}
 #' @details This function has been mainly written for procudures 
