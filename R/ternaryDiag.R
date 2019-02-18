@@ -1,7 +1,7 @@
 #' Ternary diagram
 #' 
 #' This plot shows the relative proportions of three variables (compositional
-#' parts) in one diagramm.  Before plotting, the data are scaled.
+#' parts) in one diagramm. Before plotting, the data are scaled.
 #' 
 #' The relative proportions of each variable are plotted.
 #' 
@@ -22,9 +22,9 @@
 #' @param \dots further parameters, see, e.g., \code{par()}
 #' @author Peter Filzmoser <\email{P.Filzmoser@@tuwien.ac.at}>, Matthias Templ
 #' @seealso \code{\link[StatDA]{ternary}}
-#' @references C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter:
-#' Statistical Data Analysis Explained. Applied Environmental Statistics with
-#' R. John Wiley and Sons, Chichester, 2008.
+#' @references Reimann, C., Filzmoser, P., Garrett, R.G., Dutter, R. (2008)
+#' \emph{Statistical Data Analysis Explained. Applied Environmental Statistics with
+#' R}. John Wiley and Sons, Chichester.
 #' @keywords multivariate aplot
 #' @export
 #' @examples
