@@ -39,13 +39,13 @@
 #' @author Matthias Templ
 #' @export
 #' @seealso \code{\link{impCoda}}
-#' @references Aitchison, J. and Barcelo-Vidal, C. and Martin-Fernandez, J.A.
-#' and Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance,
-#' Mathematical Geology 32(3):271-275.
+#' @references Aitchison, J., Barcelo-Vidal, C., Martin-Fernandez, J.A.,
+#' Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance,
+#' \emph{Mathematical Geology}, 32(3), 271-275.
 #' 
-#' Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values
+#' Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of missing values
 #' for compositional data using classical and robust methods
-#' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+#' \emph{Computational Statistics and Data Analysis}, 54 (12),
 #' 3095-3107.
 #' @keywords manip multivariate
 #' @examples
