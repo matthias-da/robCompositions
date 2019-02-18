@@ -1,6 +1,7 @@
 Changes in robCompositions version 2.0.10
   + updated documentation
   + going back to old version of imputeBDLs
+  + mcd based robust variation (instead of mad) in function variation
 
 Changes in robCompositions version 2.0.9
   + new method in imputeBDLs
