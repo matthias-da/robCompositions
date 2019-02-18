@@ -50,7 +50,7 @@
 #' ## set some missing values:
 #' x[1,3] <- x[3,5] <- x[2,4] <- x[5,3] <- x[8,3] <- NA
 #' 
-#' ## impute them:
+#' ## impute the missing values:
 #' xImp <- impCoda(x, method="ltsReg")$xImp
 #' 
 #' ## calculate the relative Aitchsion distance between xOrig and xImp:
