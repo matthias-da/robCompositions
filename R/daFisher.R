@@ -3,7 +3,7 @@ NULL
 
 #' Discriminant analysis by Fisher Rule.
 #' 
-#' Discriminant analysis by Fishers rule using CoDa methods.
+#' Discriminant analysis by Fishers rule using the logratio approach to compositional data.
 #' 
 #' The Fisher rule leads only to linear boundaries. However, this method allows
 #' for dimension reduction and thus for a better visualization of the
@@ -12,8 +12,8 @@ NULL
 #' required, although the method looses its optimality in case of deviations
 #' from normality.
 #' 
-#' The classical Fisher discriminant rule is invariant to ilr and clr
-#' transformations. The robust rule is invariant to ilr transformations if
+#' The classical Fisher discriminant rule is invariant to ilr coordinates and clr
+#' coefficients. The robust rule is invariant to ilr transformations if
 #' affine equivariant robust estimators of location and covariance are taken.
 #' 
 #' Robustification is done (method \dQuote{robust}) by estimating the
@@ -51,14 +51,14 @@ NULL
 #' @seealso \code{\link[rrcov]{Linda}}
 #' @references Filzmoser, P. and Hron, K. and Templ, M. (2012) 
 #' Discriminant analysis for compositional data and robust parameter estimation. 
-#' \emph{Computational Statistics}, Vol. 27(4), pp. 585-604, 2012.
+#' \emph{Computational Statistics}, 27(4), 585-604.
 #' 
 #' Fisher, R. A. (1938) The statistical utiliziation of multiple measurements.
-#' \emph{Annals of Eugenics}, 8:376-386.
+#' \emph{Annals of Eugenics}, 8, 376-386.
 #' 
 #' Rao, C.R. (1948) The utilization of multiple measurements in problems of
 #' biological classification. \emph{Journal of the Royal Statistical Society},
-#' Series B, 10:159-203.
+#' Series B, 10, 159-203.
 #' @keywords multivariate
 #' @export
 #' @import rrcov MASS
