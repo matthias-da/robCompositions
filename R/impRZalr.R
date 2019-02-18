@@ -1,4 +1,4 @@
-#' alr EM-based Imputation for Rounded Zeros
+#' alr EM-based imputation of rounded zeros
 #' 
 #' A modified EM alr-algorithm for replacing rounded zeros in compositional
 #' data sets.
@@ -9,9 +9,9 @@
 #' applies an additive log-ratio transformation to the compositions. Then the
 #' rounded zeros are imputed using a modified EM algorithm.
 #' 
-#' @param x Compositional data
-#' @param pos Position of the rationing variable for alr transformation
-#' @param dl Detection limit for each part
+#' @param x compositional data
+#' @param pos position of the rationing variable for alr transformation
+#' @param dl detection limit for each part
 #' @param eps convergence criteria
 #' @param maxit maximum number of iterations
 #' @param bruteforce if TRUE, imputations over dl are set to dl. If FALSE,
