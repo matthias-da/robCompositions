@@ -3,6 +3,7 @@
 #' 
 #' @param x compositional data
 #' @return \item{Z.av}{A matrix of new average symmetric coordinates.}
+#' @export
 #' @author Petra Kynclova
 
 
