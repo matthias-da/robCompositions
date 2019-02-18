@@ -1,4 +1,4 @@
-#' Coordinate representation of CoDa tables
+#' Coordinate representation of compositional tables
 #' 
 #' General approach to orthonormal coordinates for compositional tables
 #' 
@@ -7,20 +7,20 @@
 #' @param SBPr sequential binary partition for rows
 #' @param SBPc sequential binary partition for columns
 #' @param ... further arguments passed to the print function
-#' @details A contingency or propability table is by definition a compositional data set. This approach consider
-#' the related special properties of compositional tables. It constructs orthonomal coordinates for compositional tables using
-#' the isometric log-ratio approach for given sequential binary partitions on rows and columns.
+#' @details A contingency or propability table can be considered as a two-factor composition, we refer to compositional tables. 
+#' This function constructs orthonomal coordinates for compositional tables using
+#' the balances approach for given sequential binary partitions on rows and columns of the compositional table.
 #' @author Kamila Facevicova, and minor adaption by Matthias Templ
-#' @return Row and column balances, odds ratios, particularly
+#' @return Row and column balances and odds ratios as coordinate representations of the independence and interaction tables, respectively.
 #' \item{row_balances}{row balances}
 #' \item{row_bin}{binary partition for rows}
 #' \item{col_balances}{column balances}
 #' \item{col_bin}{binary parition for columns}
 #' \item{odds_ratios_coord}{odds ratio coordinates} 
 #' @references 
-#' Kamila Facevicova, Karel Hron, Valentin Todorov, Matthias Templ (201x)
+#' Facevicova, K., Hron, K., Todorov, V., Templ, M. (2018)
 #' General approach to coordinate representation of compositional tables. 
-#' Submitted to \emph{JRSS B}.
+#' \emph{Scandinavian Journal of Statistics}, 45(4), 879-899.
 #' @export
 #' @examples 
 #' x <- rbind(c(1,5,3,6,8,4),c(6,4,9,5,8,12),c(15,2,68,42,11,6),
