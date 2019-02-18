@@ -10,14 +10,13 @@
 #' \sQuote{classical} that is function \code{prop.table()} from package base or method \dQuote{half} that add 1/2 to each cell
 #' to avoid zero problems.
 #' @details Because of the compositional nature of probability tables, the independence tables should 
-#' be estimated using geometric margins.
+#' be estimated using geometric marginals.
 #' @author Matthias Templ
 #' @return The independence table(s) with either relative or absolute frequencies.
 #' @references 
-#' Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
-#' Independence in Contingency Tables Using Simplicial Geometry. 
-#' \emph{Communications in Statistics - Theory and Methods}, Vol. 44 (18), 3978--3996.
-#' DOI:10.1080/03610926.2013.824980
+#' Egozcue, J.J., Pawlowsky-Glahn, V., Templ, M., Hron, K. (2015)
+#' Independence in contingency tables using simplicial geometry. 
+#' \emph{Communications in Statistics - Theory and Methods}, 44 (18), 3978--3996.
 #' 
 #' @export
 #' @examples 
