@@ -1,6 +1,6 @@
 #' Pivot coordinates and their inverse
 #' 
-#' Isometric log-ratio transformations and it's inverse transformation with a 
+#' Isometric logratio coordinates and the inverse mapping with a 
 #' special choice of balances.
 #' 
 #' This transformation moves D-part compositional data from the simplex
