@@ -1,7 +1,7 @@
 #' Correlations for compositional data
 #' 
 #' This function computes correlation coefficients between compositional parts based
-#' on symmetric balances.
+#' on symmetric pivot coordinates.
 #' 
 #' @param x a matrix or data frame with compositional data
 #' @param ... additional arguments for the function \code{\link{cor}}
@@ -11,9 +11,9 @@
 #' @examples
 #' data(expenditures)
 #' corCoDa(expenditures)
-#' @references Kynclova, P., Hron, K., Filzmoser, P.
-#' Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
-#' 
+#' @references Kynclova, P., Hron, K., Filzmoser, P. (2017)
+#' Correlation between compositional parts based on symmetric balances.
+#' \emph{Mathematical Geosciences}, 49(6), 777-796.
 #' @examples
 #' x <- arcticLake 
 #' corCoDa(x)
