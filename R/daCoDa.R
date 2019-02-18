@@ -3,13 +3,13 @@
 #' Linear and quadratic discriminant analysis for compositional data using either robust or 
 #' classical estimation.
 #' 
-#' An ilr-transformation is applied to compositional data (if \code{coda==TRUE}). For linear 
+#' Compositional data are expressed in orthonormal (ilr) coordinates (if \code{coda==TRUE}). For linear 
 #' discriminant analysis the functions LdaClassic (classical) and Linda (robust) from the 
 #' package rrcov are used. Similarly, quadratic discriminant analysis 
 #' uses the functions QdaClassic and QdaCov (robust) from the same package.
 #' 
-#' The classical linear and quadratic discriminant rules are invariant to ilr and clr
-#' transformations. The robust rules are invariant to ilr transformations if
+#' The classical linear and quadratic discriminant rules are invariant to ilr coordinates and clr
+#' coefficients. The robust rules are invariant to ilr transformations if
 #' affine equivariant robust estimators of location and covariance are taken.
 #' 
 #' @param x a matrix or data frame containing the explanatory variables
@@ -24,9 +24,9 @@
 #' @author Jutta Gamper
 #' @seealso \code{\link[rrcov]{LdaClassic}}, \code{\link[rrcov]{Linda}}, 
 #' \code{\link[rrcov]{QdaClassic}}, \code{\link[rrcov]{QdaCov}}
-#' @references Filzmoser, P. and Hron, K. and Templ, M. (2012) 
+#' @references Filzmoser, P., Hron, K., Templ, M. (2012) 
 #' Discriminant analysis for compositional data and robust parameter estimation. 
-#' \emph{Computational Statistics}, Vol. 27(4), pp. 585-604, 2012.
+#' \emph{Computational Statistics}, 27(4), 585-604.
 #' @keywords multivariate
 #' @export
 #' @importFrom rrcov Linda LdaClassic QdaClassic QdaCov
