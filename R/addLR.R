@@ -57,9 +57,9 @@
 #' @importFrom stats rmultinom
 NULL
  
-#' Additive log-ratio transformation
+#' Additive log-ratio coordinates
 #' 
-#' The additive log-ratio transformation moves D-part compositional data from
+#' The additive log-ratio coordinates map D-part compositional data from
 #' the simplex into a (D-1)-dimensional real space.
 #' 
 #' The compositional parts are divided by the rationing part before the
@@ -70,11 +70,11 @@ NULL
 #' @param base a positive or complex number: 
 #' the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.
 #' @return A list of class \dQuote{alr} which includes the following content:
-#' \item{x.alr}{the transformed data} \item{varx}{the rationing variable}
+#' \item{x.alr}{the resulting coordinates} \item{varx}{the rationing variable}
 #' \item{ivar}{the index of the rationing variable, indicating the column
 #' number of the rationing variable in the data matrix \emph{x}}
 #' \item{cnames}{the column names of \emph{x}} The additional information such
-#' as \emph{cnames} or \emph{ivar} is usefull when a back-transformation is
+#' as \emph{cnames} or \emph{ivar} is useful when an inverse mapping is
 #' applied on the \sQuote{same} data set.
 #' @author Matthias Templ
 #' @seealso \code{\link{addLRinv}}, \code{\link{pivotCoord}}
