@@ -1,4 +1,4 @@
-#' Interaction table
+#' Interaction array
 #' 
 #' Estimates the interaction compositional table
 #' 
