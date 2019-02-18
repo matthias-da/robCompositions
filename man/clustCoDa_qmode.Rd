@@ -16,7 +16,7 @@ clustCoDa_qmode(x, method = "ward.D2")
 a hclust object
 }
 \description{
-Clustering in using the variation matrix of compositional parts
+Clustering using the variation matrix of compositional parts
 }
 \examples{
 data(expenditures) 
@@ -27,9 +27,9 @@ cl2 <- clustCoDa_qmode(x, method = "single")
 plot(cl2)
 }
 \references{
-Filzmoser, Hron, Templ
+Filzmoser, P., Hron, K. Templ, M. (2018)
 \emph{Applied Compositional Data Analysis}, 
-Springer-Verlag, upcoming book.
+Springer, Cham.
 }
 \author{
 Matthias Templ (accessing the basic features of hclust that 

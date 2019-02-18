@@ -14,7 +14,7 @@ balances(x, y)
 \value{
 \item{balances}{The balances represent orthonormal coordinates which allow an interpretation in sense of groups of compositional parts.
                         Output is a matrix, the D-1 colums contain balance coordinates of the observations in the rows.}
-        \item{V}{A Dx(D-1) contrast matrix associated with the orthonormal basis, corresponding to the sequential binary partition (in clr coordinates).}
+        \item{V}{A Dx(D-1) contrast matrix associated with the orthonormal basis, corresponding to the sequential binary partition (in clr coefficients).}
 }
 \description{
 Given a D-dimensional compositional data set and a sequential binary partition,
@@ -23,7 +23,7 @@ in the (D-1)-dimensional real space.
 }
 \details{
 The sequential binary partition constructs an orthonormal basis in the (D-1)-dimensional hyperplane
-in real space.
+in real space, resulting in orthonormal coordinates with respect to the Aitchison geometry of compositional data.
 }
 \examples{
 data(expenditures, package = "robCompositions")

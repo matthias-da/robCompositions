@@ -2,7 +2,7 @@
 % Please edit documentation in R/cenLRinv.R
 \name{cenLRinv}
 \alias{cenLRinv}
-\title{Inverse centred log-ratio transformation}
+\title{Inverse centred logratio mapping}
 \usage{
 cenLRinv(x, useClassInfo = TRUE)
 }
@@ -15,10 +15,10 @@ is used to determine if the class information should be used. If yes, also
 absolute values may be preserved.}
 }
 \value{
-the transformed data set.
+the resulting compositional data set.
 }
 \description{
-Applies the inverse centred log-ratio transformation.
+Applies the inverse centred logratio mapping.
 }
 \examples{
 

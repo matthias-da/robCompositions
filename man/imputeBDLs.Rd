@@ -73,7 +73,7 @@ method}
 }
 \description{
 Parametric replacement of rounded zeros for compositional data using
-classical and robust methods based on ilr-transformations with special
+classical and robust methods based on ilr coordinates with a special
 choice of balances.
 }
 \details{
@@ -82,9 +82,9 @@ problems, because log-ratios cannot be applied.  Usually, rounded zeros are
 considerer as missing not at random missing values.
 
 The algorithm iteratively imputes parts with rounded zeros whereas in each
-step (1) an specific ilr transformation is applied (2) tobit regression is
+step (1) compositional data are expressed in pivot coordinates (2) tobit regression is
 applied (3) the rounded zeros are replaced by the expected values (4) the
-corresponding inverse ilr transformation is applied. After all parts are
+corresponding inverse ilr mapping is applied. After all parts are
 imputed, the algorithm starts again until the imputations do not change.
 }
 \examples{
@@ -142,13 +142,13 @@ replaced_plsfull <- imputeBDLs(x, dl=dl, eps=1,
 
 }
 \references{
-Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
+Templ, M., Hron, K., Filzmoser, P., Gardlo, A. (2016). 
 Imputation of rounded zeros for high-dimensional compositional data. 
-\emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+\emph{Chemometrics and Intelligent Laboratory Systems}, 155, 183-190.
 
-Jiajia Chen, Xiaoqin Zhang, Karel Hron ORCID Icon, Matthias Templ and Shengjia Li (2017). 
+Chen, J., Zhang, X., Hron, K., Templ, M., Li, S. (2018). 
 Regression imputation with Q-mode clustering for rounded zero replacement in high-dimensional compositional data. 
-\emph{Journal of Applied Statistics}. DOI: 10.1080/02664763.2017.1410524
+\emph{Journal of Applied Statistics}, 45 (11), 2067-2080.
 }
 \seealso{
 \code{\link{imputeBDLs}}

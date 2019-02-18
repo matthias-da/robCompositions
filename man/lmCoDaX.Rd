@@ -4,7 +4,7 @@
 \alias{lmCoDaX}
 \alias{ilrregression}
 \alias{robilrregression}
-\title{Classical and robust regression of non-compositional response on
+\title{Classical and robust regression of non-compositional (real) response on
 compositional predictors}
 \usage{
 lmCoDaX(y, X, method = "robust")
@@ -30,7 +30,7 @@ X.
 Compositional explanatory variables should not be directly used in a linear
 regression model because any inference statistic can become misleading.
 While various approaches for this problem were proposed, here an approach
-based on the isometric logratio (ilr) transformation is used.
+based on the pivot coordinates is used.
 }
 \examples{
 
@@ -44,7 +44,7 @@ lmCoDaX(y, expendituresEU, method="robust")
 }
 \references{
 Filzmoser, P., Hron, K., Thompsonc, K. (2012) Linear regression
-with compositional explanatory variables.  \emph{Journal of Applied
+with compositional explanatory variables. \emph{Journal of Applied
 Statistics}, 39, 1115-1128.
 }
 \seealso{

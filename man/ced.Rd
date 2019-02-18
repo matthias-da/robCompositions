@@ -2,7 +2,7 @@
 % Please edit documentation in R/ced.R
 \name{ced}
 \alias{ced}
-\title{compositional error deviation}
+\title{Compositional error deviation}
 \usage{
 ced(x, y, ni)
 }
@@ -32,14 +32,14 @@ xi <- impKNNa(x)$xImp
 ced(expenditures, xi, ni = sum(is.na(x)))
 }
 \references{
-Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
+Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods
-\emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+\emph{Computational Statistics and Data Analysis}, 54 (12),
 3095-3107.
 
-Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
+Templ, M., Hron, K., Filzmoser, P., Gardlo, A. (2016). 
 Imputation of rounded zeros for high-dimensional compositional data. 
-\emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+\emph{Chemometrics and Intelligent Laboratory Systems}, 155, 183-190.
 }
 \seealso{
 \code{\link{rdcm}}

@@ -51,4 +51,4 @@ Description: Methods for analysis of compositional data including robust
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1

@@ -21,11 +21,11 @@ deficit (minus) regarding to the estimated probability table and the independece
 }
 }
 \description{
-Estimates the interaction table based on clr and inverse clr transformations.
+Estimates the interaction table based on clr and inverse clr coefficients.
 }
 \details{
 Because of the compositional nature of probability tables, the independence tables should 
-be estimated using geometric margins.
+be estimated using geometric marginals.
 }
 \examples{
 data(precipitation)
@@ -34,10 +34,9 @@ tab1 <- indTab(precipitation)
 intTab(tab1prob, tab1)
 }
 \references{
-Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
-Independence in Contingency Tables Using Simplicial Geometry. 
-\emph{Communications in Statistics - Theory and Methods}, Vol. 44 (18), 3978--3996.
-DOI:10.1080/03610926.2013.824980
+Egozcue, J.J., Pawlowsky-Glahn, V., Templ, M., Hron, K. (2015)
+Independence in contingency tables using simplicial geometry. 
+\emph{Communications in Statistics - Theory and Methods}, 44 (18), 3978--3996.
 }
 \author{
 Matthias Templ

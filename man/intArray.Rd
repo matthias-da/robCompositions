@@ -13,10 +13,11 @@ intArray(x)
 The interaction array
 }
 \description{
-Estimates the interaction array
+Estimates the interaction compositional table 
+with normalization for further analysis according to Egozcue et al. (2015)
 }
 \details{
-Estimates the interaction array using an ilr transformation of the interaction table.
+Estimates the interaction table using its ilr coordinates.
 }
 \examples{
 data(precipitation) 
@@ -26,10 +27,9 @@ tabINT <- intTab(tab1prob, tab1)
 intArray(tabINT)
 }
 \references{
-Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
-Independence in Contingency Tables Using Simplicial Geometry. 
-\emph{Communications in Statistics - Theory and Methods}, Vol. 44 (18), 3978--3996.
-DOI:10.1080/03610926.2013.824980
+Egozcue, J.J., Pawlowsky-Glahn, V., Templ, M., Hron, K. (2015)
+Independence in contingency tables using simplicial geometry. 
+\emph{Communications in Statistics - Theory and Methods}, 44 (18), 3978--3996.
 }
 \seealso{
 \code{\link{intTab}}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ilr.2x2.R
 \name{ilr.2x2}
 \alias{ilr.2x2}
-\title{ilr coordinates in 2x2 tables}
+\title{ilr coordinates in 2x2 compositional tables}
 \usage{
 ilr.2x2(x, margin = 1, type = "independence", version = "book")
 }
@@ -15,13 +15,13 @@ For example, if 2x2 tables are available for every country.}
 \item{type}{choose between \dQuote{independence} or \dQuote{interaction} table}
 
 \item{version}{the version used in the \dQuote{paper} below or the version of
-the upcoming \dQuote{book}.}
+the \dQuote{book}.}
 }
 \value{
 The ilr coordinates
 }
 \description{
-ilr coordinates of original, independent and interaction table using SBP1 and SBP2
+ilr coordinates of original, independent and interaction compositional table using SBP1 and SBP2
 }
 \examples{
 data(employment) 
@@ -31,10 +31,9 @@ ilr.2x2(employment, margin = 3, version = "paper")
 ilr.2x2(employment[,,"AUT"], type = "interaction")
 }
 \references{
-K. Facevicova, K. Hron, V. Todorov, D. Guo, M. Templ (2014).
+Facevicova, K., Hron, K., Todorov, V., Guo, D., Templ, M. (2014).
 Logratio approach to statistical analysis of 2x2 compositional tables.
-\emph{Journal of Applied Statistics}, Volume 41 (5), 944--958.
-DOI:10.1080/02664763.2013.856871
+\emph{Journal of Applied Statistics}, 41 (5), 944--958.
 }
 \author{
 Kamila Facevicova, Matthias Templ

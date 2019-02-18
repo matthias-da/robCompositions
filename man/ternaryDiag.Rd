@@ -37,7 +37,7 @@ the tolerance ellipse}
 }
 \description{
 This plot shows the relative proportions of three variables (compositional
-parts) in one diagramm.  Before plotting, the data are scaled.
+parts) in one diagramm. Before plotting, the data are scaled.
 }
 \details{
 The relative proportions of each variable are plotted.
@@ -60,9 +60,9 @@ ternaryDiag(x, grid=FALSE, col=grp, pch=grp, line="pca", lty=2, lwd=2)
 
 }
 \references{
-C. Reimann, P. Filzmoser, R.G. Garrett, and R. Dutter:
-Statistical Data Analysis Explained. Applied Environmental Statistics with
-R. John Wiley and Sons, Chichester, 2008.
+Reimann, C., Filzmoser, P., Garrett, R.G., Dutter, R. (2008)
+\emph{Statistical Data Analysis Explained. Applied Environmental Statistics with
+R}. John Wiley and Sons, Chichester.
 }
 \seealso{
 \code{\link[StatDA]{ternary}}

@@ -44,8 +44,8 @@ biplot(pc, xlabs=rownames(arcticLake))
 Aitchison, J. and Greenacre, M. (2002). Biplots of compositional
 data. \emph{Applied Statistics}, \bold{51}, 375-392. \
 
-Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component Analysis for
-Compositional Data with Outliers. \emph{Environmetrics}, \bold{20} (6),
+Filzmoser, P., Hron, K., Reimann, C. (2009) Principal component analysis for
+compositional data with outliers. \emph{Environmetrics}, \bold{20} (6),
 621--632.
 }
 \seealso{

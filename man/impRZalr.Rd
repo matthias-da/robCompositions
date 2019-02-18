@@ -2,18 +2,18 @@
 % Please edit documentation in R/impRZalr.R
 \name{impRZalr}
 \alias{impRZalr}
-\title{alr EM-based Imputation for Rounded Zeros}
+\title{alr EM-based imputation of rounded zeros}
 \usage{
 impRZalr(x, pos = ncol(x), dl = rep(0.05, ncol(x) - 1), eps = 1e-04,
   maxit = 50, bruteforce = FALSE, method = "lm", step = FALSE,
   nComp = "boot", R = 10, verbose = FALSE)
 }
 \arguments{
-\item{x}{Compositional data}
+\item{x}{compositional data}
 
-\item{pos}{Position of the rationing variable for alr transformation}
+\item{pos}{position of the rationing variable for alr transformation}
 
-\item{dl}{Detection limit for each part}
+\item{dl}{detection limit for each part}
 
 \item{eps}{convergence criteria}
 
@@ -62,6 +62,11 @@ x[x[,2] < 47, 2] <- 0
 xia <- impRZalr(x, pos=3, dl=c(5,47), eps=0.05)
 xia$xImp
 
+}
+\references{
+Palarea-Albaladejo, J., Martin-Fernandez, J.A. Gomez-Garcia, J. (2007) 
+A parametric approach for dealing with compositional rounded zeros. 
+\emph{Mathematical Geology}, 39(7), 625–645.
 }
 \seealso{
 \code{\link{impRZilr}}

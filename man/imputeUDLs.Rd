@@ -2,7 +2,7 @@
 % Please edit documentation in R/imputeUDLs.R
 \name{imputeUDLs}
 \alias{imputeUDLs}
-\title{imputeUDLs}
+\title{Imputation of values above an upper detection limit in compositional data}
 \usage{
 imputeUDLs(x, maxit = 10, eps = 0.1, method = "lm", dl = NULL,
   variation = TRUE, nPred = NULL, nComp = "boot",
@@ -57,16 +57,16 @@ classical and robust methods (possibly also the pls method) based on ilr-transfo
 choice of balances.
 }
 \details{
-Imputation of values above an upper detection limit in compositional data
+imputeUDLs
 
 An imputation method for right-censored compositional data. 
 Statistical analysis is not possible with values reported in data, 
 for example as ">10000". These values are replaced using tobit regression.
 
 The algorithm iteratively imputes parts with values above upper detection limit
-whereas in each step (1) a specific ilr transformation is applied (2) tobit regression is
+whereas in each step (1) compositional data are expressed in pivot coordinates (2) tobit regression is
 applied (3) the values above upper detection limit are replaced by the expected values (4) the
-corresponding inverse ilr transformation is applied. After all parts are
+corresponding inverse ilr mapping is applied. After all parts are
 imputed, the algorithm starts again until the imputations only change marginally.
 }
 \examples{
@@ -87,11 +87,11 @@ imp.lm <- res.lm$x
 \references{
 Martin-Fernandez, J.A.,  Hron K.,  Templ, M., Filzmoser, P.  and Palarea-Albaladejo, J. (2012).
 Model-based replacement of rounded zeros in compositional data:  Classical and robust approaches.
-\emph{Computational Statistics and Data Analysis}, 56:2688-2704.
+\emph{Computational Statistics and Data Analysis}, 56, 2688-2704.
 
 Templ, M. and Hron, K. and Filzmoser and Gardlo, A. (2016). 
 Imputation of rounded zeros for high-dimensional compositional data. 
-\emph{Chemometrics and Intelligent Laboratory Systems}, 54 (12) 3095-3107.
+\emph{Chemometrics and Intelligent Laboratory Systems}, 155, 183-190.
 }
 \seealso{
 \code{\link{imputeBDLs}}

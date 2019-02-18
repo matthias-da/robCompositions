@@ -9,7 +9,7 @@ variation(x, robust = TRUE)
 \arguments{
 \item{x}{data frame or matrix with positive entries}
 
-\item{robust}{if FALSE, standard measures are used.}
+\item{robust}{if FALSE, standard measures (classical variances) are used.}
 }
 \value{
 The (robust) variation matrix.

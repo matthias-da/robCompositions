@@ -37,7 +37,7 @@ This function applies robust principal component analysis for compositional
 data.
 }
 \details{
-The compositional data set is transformed using the ilr tranformation.
+The compositional data set is expressed in isometric logratio coordinates.
 Afterwards, robust principal component analysis is performed.  Resulting
 loadings and scores are back-transformed to the clr space where the
 compositional biplot can be shown.
@@ -47,7 +47,7 @@ parts in the data. To give an illustrative example, lets assume that one
 variable group measures angles of the inner ear-bones of animals which sum
 up to 100 and another one having percentages of a whole on the thickness of
 the inner ear-bones included. Then two groups of variables exists which are
-both compositional parts. The ilr-transformation is then internally applied
+both compositional parts. The isometric logratio coordinates are then internally applied
 to each group independently whenever the \code{mult_comp} is set correctly.
 }
 \examples{
@@ -80,8 +80,8 @@ res
 biplot(res, scale=0)
 }
 \references{
-Filzmoser, P., Hron, K., Reimann, C. (2009) Principal Component
-Analysis for Compositional Data with Outliers. \emph{Environmetrics},
+Filzmoser, P., Hron, K., Reimann, C. (2009) Principal component
+analysis for compositional data with outliers. \emph{Environmetrics},
 \bold{20}, 621-632.
 
 Kynclova, P., Filzmoser, P., Hron, K. (2016) Compositional biplots including external non-compositional variables. 
@@ -92,6 +92,6 @@ Kynclova, P., Filzmoser, P., Hron, K. (2016) Compositional biplots including ext
 \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 }
 \author{
-K. Hron, P. Filzmoser, M. Templ. and a contribution for dimnames in external variables by Amelia Landre.
+Karel Hron, Peter Filzmoser, Matthias Templ and a contribution for dimnames in external variables by Amelia Landre.
 }
 \keyword{multivariate}

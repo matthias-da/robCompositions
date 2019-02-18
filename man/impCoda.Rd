@@ -74,9 +74,9 @@ xi[,3] * s1/impS
 
 }
 \references{
-Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
+Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods
-\emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+\emph{Computational Statistics and Data Analysis}, 54 (12),
 3095-3107.
 }
 \seealso{

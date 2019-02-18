@@ -14,7 +14,7 @@ The imputed data set.
 }
 \description{
 Parametric replacement of rounded zeros and missing values for compositional
-data using classical and robust methods based on ilr-transformations with
+data using classical and robust methods based on ilr coordinates with
 special choice of balances. Values under detection limit should be saved
 with the negative value of the detection limit (per variable). Missing
 values should be coded as NA.
@@ -34,15 +34,15 @@ This function is mainly used by the compositionsGUI.
 
 }
 \references{
-Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of
+Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of
 missing values for compositional data using classical and robust methods,
-\emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
+\emph{Computational Statistics and Data Analysis}, 54 (12),
 3095-3107.
 
-Martin-Fernandez, J.A.  and Hron, K. and Templ, M. and Filzmoser, P. and
+Martin-Fernandez, J.A., Hron, K., Templ, M., Filzmoser, P.,
 Palarea-Albaladejo, J. (2012) Model-based replacement of rounded zeros in
 compositional data: Classical and robust approaches, \emph{Computational
-Statistics}, 56 (2012), S. 2688 - 2704.
+Statistics}, 56 (2012), 2688 - 2704.
 }
 \seealso{
 \code{\link{impCoda}}, \code{\link{impRZilr}}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/addLR.R
 \name{addLR}
 \alias{addLR}
-\title{Additive log-ratio transformation}
+\title{Additive logratio coordinates}
 \usage{
 addLR(x, ivar = ncol(x), base = exp(1))
 }
@@ -16,15 +16,15 @@ the base with respect to which logarithms are computed. Defaults to \code{exp(1)
 }
 \value{
 A list of class \dQuote{alr} which includes the following content:
-\item{x.alr}{the transformed data} \item{varx}{the rationing variable}
+\item{x.alr}{the resulting coordinates} \item{varx}{the rationing variable}
 \item{ivar}{the index of the rationing variable, indicating the column
 number of the rationing variable in the data matrix \emph{x}}
 \item{cnames}{the column names of \emph{x}} The additional information such
-as \emph{cnames} or \emph{ivar} is usefull when a back-transformation is
+as \emph{cnames} or \emph{ivar} is useful when an inverse mapping is
 applied on the \sQuote{same} data set.
 }
 \description{
-The additive log-ratio transformation moves D-part compositional data from
+The additive logratio coordinates map D-part compositional data from
 the simplex into a (D-1)-dimensional real space.
 }
 \details{

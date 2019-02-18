@@ -2,7 +2,7 @@
 % Please edit documentation in R/addLRinv.R
 \name{addLRinv}
 \alias{addLRinv}
-\title{Additive logistic transformaton}
+\title{Inverse additive logratio mapping}
 \usage{
 addLRinv(x, cnames = NULL, ivar = NULL, useClassInfo = TRUE)
 }
@@ -22,10 +22,10 @@ column of the data in the simplex.}
 not used.}
 }
 \value{
-the transformed data matrix
+the resulting compositional data matrix
 }
 \description{
-Inverse additive log-ratio transformation, often called additive logistic
+Inverse additive logratio mapping, often called additive logistic
 transformation.
 }
 \details{

@@ -29,10 +29,10 @@ isomLRinvp(x)
 that sense that the pivotvar is shifted to the first part.}
 
 \item{fast}{if TRUE, it is approx. 10 times faster but numerical problems in case of 
-high-dimensional data numerical instabilities may occur. Only available for method \dQuote{pivot}.}
+high-dimensional data may occur. Only available for method \dQuote{pivot}.}
 
 \item{method}{pivot takes the method described in the description. Method "symm" 
-uses symmetric balances (parameters pivotvar and norm have then no effect)}
+uses symmetric pivot coordinates (parameters pivotvar and norm have then no effect)}
 
 \item{base}{a positive or complex number: 
 the base with respect to which logarithms are computed. Defaults to \code{exp(1)}.}
@@ -44,14 +44,13 @@ used (default). The user can also specify a self-defined constant.}
 The data represented in pivot coordinates
 }
 \description{
-Isometric log-ratio transformations and it's inverse transformation with a 
-special choice of balances.
+Pivot coordinates as a special case of isometric logratio coordinates and their inverse mapping.
 }
 \details{
-This transformation moves D-part compositional data from the simplex
-into a (D-1)-dimensional real space isometrically. From our choice of (pivot)
-balances, all the relative information of one part is seperated from the
-remaining parts.
+Pivot coordinates map D-part compositional data from the simplex
+into a (D-1)-dimensional real space isometrically. From our choice of pivot
+coordinates, all the relative information about one of parts (or about two parts) is aggregated in the first coordinate
+(or in the first two coordinates in case of symmetric pivot coordinates, respectively).
 }
 \examples{
 
@@ -75,21 +74,16 @@ pivotCoord(expenditures, norm = "1")
 ## other normalization
 pivotCoord(expenditures, norm = "-sqrt((D-i)/(D-i+1))")
 
-# symmetric balances (results in 2-dim symmetric balances)
+# symmetric balances (results in 2-dim symmetric pivot coordinates)
 pivotCoord(expenditures, method = "symm")
 }
 \references{
-Egozcue J.J., V. Pawlowsky-Glahn, G. Mateu-Figueras and C.
-Barcel'o-Vidal (2003) Isometric logratio transformations for compositional
-data analysis. \emph{Mathematical Geology}, \bold{35}(3) 279-300. \
+Egozcue J.J., Pawlowsky-Glahn, V., Mateu-Figueras, G.,
+Barcel'o-Vidal, C. (2003) Isometric logratio transformations for compositional
+data analysis. \emph{Mathematical Geology}, \bold{35}(3) 279-300. 
 
-Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values
-for compositional data using classical and robust methods
-
-Kynclova, P., Hron, K., Filzmoser, P.
-Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
-\emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
-3095-3107.
+Filzmoser, P., Hron, K., Templ, M. (2018) \emph{Applied Compositional Data Analysis}.
+Springer, Cham.
 }
 \author{
 Matthias Templ, Karel Hron, Peter Filzmoser

@@ -21,9 +21,9 @@ clustCoDa(x, k = NULL, method = "Mclust", scale = "robust",
 cmeansUfcl, pam, clara, fanny, ward.D2, single, hclustComplete, 
 average, mcquitty, median, centroid}
 
-\item{scale}{If orthonormal coordinates should be normalized.}
+\item{scale}{if orthonormal coordinates should be normalized.}
 
-\item{transformation}{default is the isometric log-ratio transformation. Can only used when distMethod 
+\item{transformation}{default are the isometric logratio coordinates. Can only used when distMethod 
 is not Aitchison.}
 
 \item{distMethod}{Distance measure to be used. If \dQuote{Aitchison}, then transformation should be \dQuote{identity}.}
@@ -78,8 +78,8 @@ M. Templ, P. Filzmoser, C. Reimann.
 Cluster analysis applied to regional geochemical data: Problems and possibilities. 
 \emph{Applied Geochemistry}, \strong{23} (8), 2198--2213, 2008
 
-Templ, Filzmoser, Reimann (2008) 
-\emph{Cluster analysis applied to regional geochemical data: Problems and possibilities"}, 
+Templ, M., Filzmoser, P., Reimann, C. (2008) 
+\emph{Cluster analysis applied to regional geochemical data: Problems and possibilities}, 
 Applied Geochemistry, 23 (2008), pages 2198 - 2213.
 }
 \author{

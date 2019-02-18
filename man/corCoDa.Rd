@@ -16,7 +16,7 @@ A compositional correlation matrix.
 }
 \description{
 This function computes correlation coefficients between compositional parts based
-on symmetric balances.
+on symmetric pivot coordinates.
 }
 \examples{
 data(expenditures)
@@ -26,8 +26,9 @@ corCoDa(x)
 
 }
 \references{
-Kynclova, P., Hron, K., Filzmoser, P.
-Correlation between compositional parts based on symmetric balances. Submitted to \emph{Mathematical Geosciences}.
+Kynclova, P., Hron, K., Filzmoser, P. (2017)
+Correlation between compositional parts based on symmetric balances.
+\emph{Mathematical Geosciences}, 49(6), 777-796.
 }
 \author{
 Petra Kynclova

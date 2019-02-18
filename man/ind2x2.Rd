@@ -2,7 +2,7 @@
 % Please edit documentation in R/ind2x2.R
 \name{ind2x2}
 \alias{ind2x2}
-\title{Independence 2x2 table}
+\title{Independence 2x2 compositional table}
 \usage{
 ind2x2(x, margin = 3, pTabMethod = c("dirichlet", "half", "classical"))
 }
@@ -27,10 +27,9 @@ data(employment)
 ind2x2(employment)
 }
 \references{
-K. Facevicova, K. Hron, V. Todorov, D. Guo, M. Templ (2014).
+Facevicova, K., Hron, K., Todorov, V., Guo, D., Templ, M. (2014).
 Logratio approach to statistical analysis of 2x2 compositional tables.
-\emph{Journal of Applied Statistics}, Volume 41 (5), 944--958.
-DOI:10.1080/02664763.2013.856871
+\emph{Journal of Applied Statistics}, 41 (5), 944--958.
 }
 \author{
 Kamila Facevicova, Matthias Templ
