@@ -57,9 +57,9 @@
 #' @importFrom stats rmultinom
 NULL
  
-#' Additive log-ratio coordinates
+#' Additive logratio coordinates
 #' 
-#' The additive log-ratio coordinates map D-part compositional data from
+#' The additive logratio coordinates map D-part compositional data from
 #' the simplex into a (D-1)-dimensional real space.
 #' 
 #' The compositional parts are divided by the rationing part before the
