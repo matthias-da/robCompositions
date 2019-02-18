@@ -1,6 +1,6 @@
-#' Inverse centred log-ratio transformation
+#' Inverse centred logratio mapping
 #' 
-#' Applies the inverse centred log-ratio transformation.
+#' Applies the inverse centred logratio mapping.
 #' 
 #' 
 #' @param x an object of class \dQuote{clr}, \dQuote{data.frame} or
@@ -8,7 +8,7 @@
 #' @param useClassInfo if the object is of class \dQuote{clr}, the useClassInfo
 #' is used to determine if the class information should be used. If yes, also
 #' absolute values may be preserved.
-#' @return the transformed data set.
+#' @return the resulting compositional data set.
 #' @author Matthias Templ
 #' @seealso \code{\link{cenLR}}, \code{\link{addLR}}, \code{\link{pivotCoord}},
 #' \code{\link{addLRinv}}, \code{\link{pivotCoordInv}}
