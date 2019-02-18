@@ -1,17 +1,16 @@
-#' Interaction array
+#' Interaction table
 #' 
-#' Estimates the interaction array
+#' Estimates the interaction compositional table
 #' 
 #' @param x an object of class \dQuote{intTab}
-#' @details Estimates the interaction array using an ilr transformation of the interaction table.
+#' @details Estimates the interaction array using its ilr coordinates.
 #' @author Matthias Templ
 #' @seealso \code{\link{intTab}}
 #' @return The interaction array
 #' @references 
-#' Juan Jose Egozcuea, Vera Pawlowsky-Glahn, Matthias Templ, Karel Hron (2015)
-#' Independence in Contingency Tables Using Simplicial Geometry. 
-#' \emph{Communications in Statistics - Theory and Methods}, Vol. 44 (18), 3978--3996.
-#' DOI:10.1080/03610926.2013.824980
+#' Egozcue, J.J., Pawlowsky-Glahn, V., Templ, M., Hron, K. (2015)
+#' Independence in contingency tables using simplicial geometry. 
+#' \emph{Communications in Statistics - Theory and Methods}, 44 (18), 3978--3996.
 #' 
 #' @export
 #' @examples 
