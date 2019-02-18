@@ -1,20 +1,19 @@
-#' ilr coordinates in 2x2 tables
+#' ilr coordinates in 2x2 compositional tables
 #' 
-#' ilr coordinates of original, independent and interaction table using SBP1 and SBP2
+#' ilr coordinates of original, independent and interaction compositional table using SBP1 and SBP2
 #' 
 #' @param x a 2x2 table
 #' @param margin for 2x2 tables available for a whole set of another dimension.
 #' For example, if 2x2 tables are available for every country.
 #' @param type choose between \dQuote{independence} or \dQuote{interaction} table 
 #' @param version the version used in the \dQuote{paper} below or the version of
-#' the upcoming \dQuote{book}. 
+#' the \dQuote{book}. 
 #' @author Kamila Facevicova, Matthias Templ
 #' @return The ilr coordinates
 #' @references 
-#' K. Facevicova, K. Hron, V. Todorov, D. Guo, M. Templ (2014).
+#' Facevicova, K., Hron, K., Todorov, V., Guo, D., Templ, M. (2014).
 #' Logratio approach to statistical analysis of 2x2 compositional tables.
-#' \emph{Journal of Applied Statistics}, Volume 41 (5), 944--958.
-#' DOI:10.1080/02664763.2013.856871
+#' \emph{Journal of Applied Statistics}, 41 (5), 944--958.
 #' @export
 #' @examples 
 #' data(employment) 
