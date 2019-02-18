@@ -3,8 +3,8 @@
 #' Computes the Aitchison distance between two observations, between two data
 #' sets or within observations of one data set.
 #' 
-#' This distance measure accounts for the relative scale property of the
-#' Aitchison distance. It measures the distance between two compositions if
+#' This distance measure accounts for the relative scale property of compositional
+#' data. It computes the Aitchison distance between two compositions if
 #' \code{x} and \code{y} are vectors. It evaluates the sum of the distances between
 #' \code{x} and \code{y} for each row of \code{x} and \code{y} if \code{x} and
 #' \code{y} are matrices or data frames. It computes a n times n distance matrix (with n
@@ -30,11 +30,6 @@
 #' Aitchison, J. and Barcelo-Vidal, C. and Martin-Fernandez, J.A. and
 #' Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance.
 #' \emph{Mathematical Geology}, \bold{32}, 271-275.
-#' 
-#' Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values
-#' for compositional data using classical and robust methods
-#' \emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
-#' 3095-3107.
 #' @keywords math arith
 #' @examples
 #' 
