@@ -1,5 +1,11 @@
+Changes in robCompositions version 2.0.9
+  + updated documentation
+  + going back to old version of imputeBDLs
+
 Changes in robCompositions version 2.0.8
-  + pcaCoDa is now also working with only one external variable
+  + new method in imputeBDLs
+  + minor change in imputeBDLs
+  + new function imputeUDLs
 
 Changes in robCompositions version 2.0.8
   + old Rd files management to meet new CRAN policy
