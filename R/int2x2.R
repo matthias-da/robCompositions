@@ -12,10 +12,9 @@
 #' @author Kamila Facevicova, Matthias Templ
 #' @return The independence table(s) with either relative or absolute frequencies.
 #' @references 
-#' K. Facevicova, K. Hron, V. Todorov, D. Guo, M. Templ (2014).
+#' Facevicova, K., Hron, K., Todorov, V., Guo, D., Templ, M. (2014).
 #' Logratio approach to statistical analysis of 2x2 compositional tables.
-#' \emph{Journal of Applied Statistics}, Volume 41 (5), 944--958.
-#' DOI:10.1080/02664763.2013.856871
+#' \emph{Journal of Applied Statistics}, 41 (5), 944--958.
 #' @export
 #' @examples 
 #' data(employment) 
