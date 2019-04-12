@@ -956,7 +956,7 @@ NULL
 #' @name manu_abs
 #' @docType data
 #' @usage data(manu_abs)
-#' @source Elaboration based on the INDSTAT 4 database (UNIDO 2018a), see also UNIDO, 2018b.
+#' @source Elaboration based on the INDSTAT 4 database (UNIDO 2012a), see also UNIDO, 2012b.
 #' UNIDO (2012a), INDSTAT 4 Industrial Statistics Database at 3- and 4-digit level of 
 #' ISIC Revision 3 and 4. Vienna. Available from http://stat.unido.org. 
 #' UNIDO (2012b) International Yearbook of Industrial Statistics, Edward Elgar Publishing Ltd, UK.
