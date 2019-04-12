@@ -447,6 +447,41 @@ NULL
 #' head(employment_df)
 NULL
 
+#' Employment in different countries by Sex, Age, Contract, Value
+#' @description Estimated number of employees in 42 countries in 2015, 
+#' distributed according to gender (Women/Men), 
+#' age (15-24, 25-54, 55+) and type of contract (Full- and part-time).
+#' @details For each country in the sample, an estimated number of
+#' employees in the year 2015 was available, divided according to gender and age of
+#' employees and the type of the contract. More specifically, we distinguish males
+#' (M) and females (F), young (category 15 - 24), middle-aged (25 - 54) and older
+#' (55+) employees, and full-time (FT) and part-time (PT) contracts. 
+#' The data form a sample of 42 cubes with two rows (gender), two columns (type)                                                                                                                                          of contract) and three slices (age), which allow for a deeper analysis of the overall
+#' employment structure, not just from the perspective of each factor separately, but
+#' also from the perspective of the relations/interactions between them. 
+#' Thorough analysis of the sample is described in Facevicova (2019).
+#'
+#' \itemize{
+#'  \item{\code{Country}}{factor}
+#'  \item{\code{Sex}}{gender}
+#'  \item{\code{Age}}{age class}
+#'  \item{\code{Contract}}{factor, defining if part or full time work}
+#'  \item{\code{Value}}{Number of employees in the given category (in thousands)}
+#' }
+#'
+#' @name employment2
+#' @docType data
+#' @usage data(employment2)
+#' @format A data.frame with 504 rows and 5 columns. 
+#' @keywords data
+#' @references Facevicova, K., Filzmoser, P. and K. Hron (2019) 
+#' Compositional Cubes: Three-factorial Compositional Data. Under review.
+#' @author Kamila Facevicova
+#' @source http://stats.oecd.org
+#' @examples 
+#' data(employment2)
+#' head(employment2)
+NULL
 
 #' synthetic household expenditures toy data set
 #' 
@@ -896,6 +931,60 @@ NULL
 #' str(machineOperators)
 #' summary(machineOperators)
 #' rowSums(machineOperators)
+NULL
+
+#' Distribution of manufacturing output
+#' 
+#' The data consists of values of the manufacturing output in 42 countries in 2009. 
+#' The output, given in national currencies, is structured according to the 
+#' 3-digit ISIC category and its components. The categories are 
+#' 151 processed meat, fish, fruit, vegetables, fats; 
+#' 152 Dairy products; 
+#' 153 Grain mill products, starches, animal feeds; 
+#' 154 Other food products and 
+#' 155 Beverages. 
+#' The output components are Labour, Surplus and Input. 
+#' Thorough analysis of the sample is described in Facevicova (2018).
+#'
+#' \itemize{
+#' \item{\code{country }}{Country}
+#' \item{\code{isic }}{3-digit ISIC category}
+#' \item{\code{output }}{The output components}
+#' \item{\code{value}}{Value of manufacturing output in the national currency}
+#' }
+#'
+#' @name manu_abs
+#' @docType data
+#' @usage data(manu_abs)
+#' @source Elaboration based on the INDSTAT 4 database (UNIDO 2018a), see also UNIDO, 2018b.
+#' UNIDO (2012a), INDSTAT 4 Industrial Statistics Database at 3- and 4-digit level of 
+#' ISIC Revision 3 and 4. Vienna. Available from http://stat.unido.org. 
+#' UNIDO (2012b) International Yearbook of Industrial Statistics, Edward Elgar Publishing Ltd, UK.
+#' @author Kamila Facevicova
+#' @format A data frame with 630 observations of 4 variables.
+#' @references Facevicova, K., Hron, K., Todorov, V. and M. Templ (2019) 
+#' General approach to coordinate representation of compositional tables. 
+#' Scandinavian Journal of Statistics, 45(4), 2018.
+#' @keywords data
+#' @examples 
+#' data(manu_abs)
+#' 
+#' ### Compositional tables approach
+#' ### analysis of the relative structure
+#' 
+#' result <- CoDaTaCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+#' col.factor = 'isic', value='value')
+#' 
+#' result$Bootstrap
+#' 
+#' ### Classical approach
+#' ### generalized linear mixed effect model
+#' \dontrun{
+#' library(lme4)
+#' m <- glmer(value~output*as.factor(isic)+(1|country),
+#' data=manu_abs,family=poisson)
+#' summary(m)
+#' }
 NULL
 
 

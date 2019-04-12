@@ -1,13 +1,3 @@
-#' New average symmetric coordinates
-#' 
-#' 
-#' @param x compositional data
-#' @return \item{Z.av}{A matrix of new average symmetric coordinates.}
-#' @export
-#' @author Petra Kynclova
-
-
-
 balZav <- function(x){
   D <- ncol(x)
   Z.av <- matrix(NA,ncol=2,nrow=nrow(x))

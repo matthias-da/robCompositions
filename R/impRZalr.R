@@ -32,7 +32,7 @@
 #' @seealso \code{\link{impRZilr}}
 #' @references Palarea-Albaladejo, J., Martin-Fernandez, J.A. Gomez-Garcia, J. (2007) 
 #' A parametric approach for dealing with compositional rounded zeros. 
-#' \emph{Mathematical Geology}, 39(7), 625–645.
+#' \emph{Mathematical Geology}, 39(7), 625-645.
 #' @keywords manip multivariate
 #' @export
 #' @importFrom MASS stepAIC
