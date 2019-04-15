@@ -39,7 +39,7 @@ data(manu_abs)
 ### Compositional tables approach
 ### analysis of the relative structure
 
-result <- TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+result <- tabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
 col.factor = 'isic', value='value', test = TRUE)
 
 result$Bootstrap
