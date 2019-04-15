@@ -6,7 +6,7 @@
 \title{Distribution of manufacturing output}
 \format{A data frame with 630 observations of 4 variables.}
 \source{
-Elaboration based on the INDSTAT 4 database (UNIDO 2018a), see also UNIDO, 2018b.
+Elaboration based on the INDSTAT 4 database (UNIDO 2012a), see also UNIDO, 2012b.
 UNIDO (2012a), INDSTAT 4 Industrial Statistics Database at 3- and 4-digit level of 
 ISIC Revision 3 and 4. Vienna. Available from http://stat.unido.org. 
 UNIDO (2012b) International Yearbook of Industrial Statistics, Edward Elgar Publishing Ltd, UK.
@@ -40,7 +40,7 @@ data(manu_abs)
 ### Compositional tables approach
 ### analysis of the relative structure
 
-result <- CoDaTaCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+result <- TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
 col.factor = 'isic', value='value')
 
 result$Bootstrap
@@ -55,9 +55,9 @@ summary(m)
 }
 }
 \references{
-Facevicova, K., Hron, K., Todorov, V. and M. Templ (2019) 
+Facevicova, K., Hron, K., Todorov, V. and M. Templ (2018) 
 General approach to coordinate representation of compositional tables. 
-Scandinavian Journal of Statistics, 45(4), 2018.
+Scandinavian Journal of Statistics, 45(4).
 }
 \author{
 Kamila Facevicova

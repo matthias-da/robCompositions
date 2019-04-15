@@ -962,9 +962,9 @@ NULL
 #' UNIDO (2012b) International Yearbook of Industrial Statistics, Edward Elgar Publishing Ltd, UK.
 #' @author Kamila Facevicova
 #' @format A data frame with 630 observations of 4 variables.
-#' @references Facevicova, K., Hron, K., Todorov, V. and M. Templ (2019) 
+#' @references Facevicova, K., Hron, K., Todorov, V. and M. Templ (2018) 
 #' General approach to coordinate representation of compositional tables. 
-#' Scandinavian Journal of Statistics, 45(4), 2018.
+#' Scandinavian Journal of Statistics, 45(4).
 #' @keywords data
 #' @examples 
 #' data(manu_abs)
@@ -972,7 +972,7 @@ NULL
 #' ### Compositional tables approach
 #' ### analysis of the relative structure
 #' 
-#' result <- CoDaTaCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+#' result <- TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
 #' col.factor = 'isic', value='value')
 #' 
 #' result$Bootstrap

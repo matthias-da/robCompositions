@@ -1,11 +1,18 @@
-#' CoDaCuCoord
+#' CubeCoord
 #' 
-#' @title Coordinate representation of a compositional cube
+#' @name CubeCoord
+#' @rdname CubeCoord
+#' @importFrom tidyr unite
+#' @importFrom tidyr spread
+#' @importFrom graphics boxplot
+#' @title Coordinate representation of a compositional cube and of a sample of compositional cubes
+#' @aliases CubeCoord 
+#' @aliases CubeCoordWrapper
 #' @importFrom tidyr unite
 #' @importFrom tidyr spread
 #' @author Kamila Facevicova
 #' @references Facevicova, K., Filzmoser, P. and K. Hron (2019) Compositional Cubes: Three-factorial Compositional Data. Under review.
-#' @description CoDaCuCoord computes a system of orthonormal coordinates of a compositional cube. 
+#' @description CubeCoord computes a system of orthonormal coordinates of a compositional cube. 
 #' Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
 #' 
 #' @param x a data frame containing variables representing row, column and slice factors of the respective compositional cube and variable with the values of the composition.
@@ -22,9 +29,8 @@
 #' @keywords multivariate, coordinates
 #' @export
 #' @seealso 
-#' \code{\link{CoDaTaCoord}} 
-#' \code{\link{CoDaTaCoordWrapper}} 
-#' \code{\link{CoDaCuCoordWrapper}}
+#' \code{\link{TabCoord}} 
+#' \code{\link{TabCoordWrapper}} 
 #' @return 
 #' \item{Coordinates}{an array of orthonormal coordinates.} 
 #' \item{Grap.rep}{graphical representation of the coordinates. 
@@ -40,13 +46,15 @@
 #' \item{Contrast.matrix}{contrast matrix.}
 #' \item{Log.ratios}{an array of pure log-ratios between groups of parts without the normalizing constant.}
 #' \item{Coda.cube}{cube form of the given composition.}
+#' \item{Bootstrap}{array of sample means, standard deviations and bootstrap confidence intervals.}
+#' \item{Cubes}{Cube form of the given compositions.}
 #' @examples 
 #' ### example from Fa\v cevicov\'a (2019)
 #' data(employment2)
 #' CZE <- employment2[which(employment2$Country == 'CZE'), ]
 #' 
 #' # pivot coordinates
-#' CoDaCuCoord(CZE, "Sex", 'Contract', "Age", 'Value')
+#' CubeCoord(CZE, "Sex", 'Contract', "Age", 'Value')
 #' 
 #' # coordinates with given SBP
 #' 
@@ -54,8 +62,8 @@
 #' c <- t(c(1,-1))
 #' s <- rbind(c(1,-1,-1), c(0,1,-1))
 #' 
-#' CoDaCuCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
-CoDaCuCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, print.res=FALSE)
+#' CubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
+CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, print.res=FALSE)
 {                                                                             
   
   # Control and subsidiary parameters setting
@@ -327,21 +335,179 @@ CoDaCuCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, 
   return(result)
   
 }
-
-
-#####################
-### Examples 
-
-# load('employment.rda')
-# CZE <- employment[which(employment$Country=='CZE'),]
-
-### pivot coordinates
-# CoDaCuCoord(CZE, "Sex", 'Contract', "Age", 'Value')
-
-### coordinates with given SBP
-
-# r <- t(c(1,-1))
-# c <- t(c(1,-1))
-# s <- rbind(c(1,-1,-1), c(0,1,-1))
-
-# CoDaCuCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
+#' @rdname CubeCoord
+#' @param X a data frame containing variables representing row, column and slice factors 
+#' of the respective compositional cubes, variable with the values 
+#' of the composition and variable distinguishing the observations.
+#' @param obs.ID name of the variable distinguishing the observations. Needs to be stated with the quotation marks.
+#' @param test logical, default is FALSE. If TRUE, the bootstrap analysis of coordinates is provided.
+#' @param n.boot number of bootstrap samples.
+#' @description Wrapper (CubeCoordWrapper): For each compositional cube in the sample CubeCoordWrapper computes 
+#' a system of orthonormal coordinates and provide a simple descriptive analysis. 
+#' Computation of either pivot coordinates or a coordinate system based on the 
+#' given SBP is possible.
+#' @details Wrapper (CubeCoordWrapper): Each of n IJK-part compositional cubes from the sample is 
+#' with respect to its three-factorial nature isometrically transformed 
+#' from the simplex into a (IJK-1)-dimensional real space. 
+#' Sample mean values and standard deviations are computed and using 
+#' bootstrap an estimate of 95 \% confidence interval is given. 
+#' @export
+#' @examples 
+#' ### example from Fa\v cevicov\'a (2019)
+#' data(employment2)
+#' ### Compositional tables approach,
+#' ### analysis of the relative structure.
+#' ### An example from Facevi\v cov\'a (2019)
+#' 
+#' # pivot coordinates
+#' CubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  
+#' test=TRUE)
+#' 
+#' # coordinates with given SBP (defined in the paper)
+#' 
+#' r <- t(c(1,-1))
+#' c <- t(c(1,-1))
+#' s <- rbind(c(1,-1,-1), c(0,1,-1))
+#' 
+#' res <- CubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 
+#' "Age", 'Value', r,c,s, test=TRUE)
+#' 
+#' ### Classical approach,
+#' ### generalized linear mixed effect model.
+#' 
+#' \dontrun{
+#' library(lme4)
+#' employment2$y <- round(employment2$Value*1000)
+#' glmer(y~Sex*Age*Contract+(1|Country),data=employment2,family=poisson)
+#' }
+#' 
+#' ### other relations within cube (in the log-ratio form)
+#' ### e.g. ratio between women and man in the group FT, 15to24
+#' ### and ratio between age groups 15to24 and 55plus
+#' 
+#' # transformation matrix
+#' T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
+#' T\%*\%t(res$Contrast.matrix)\%*\%res$Bootstrap[,1]
+CubeCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, slice.factor=NULL, 
+                             value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, 
+                             test=FALSE, n.boot=1000){
+  
+  # Control and subsidiary parameters setting
+  if(is.null(obs.ID)) stop('Name of the observation ID variable is not defined!')
+  if(is.null(row.factor)) stop('Name of the row factor is not defined!')
+  if(is.null(col.factor)) stop('Name of the column factor is not defined!')
+  if(is.null(slice.factor)) stop('Name of the slice factor is not defined!')
+  if(is.null(value)) stop('Name of the value variable is not defined!')
+  
+  
+  X[,obs.ID] <- as.factor(X[,obs.ID])
+  X[,row.factor] <- as.factor(X[,row.factor])
+  X[,col.factor] <- as.factor(X[,col.factor])
+  X[,slice.factor] <- as.factor(X[,slice.factor])
+  
+  N <- nlevels(X[,obs.ID])
+  I <- nlevels(X[,row.factor]) # number of row factor levels
+  J <- nlevels(X[,col.factor]) # number of column factor levels
+  K <- nlevels(X[,slice.factor]) # number of slice factor levels
+  
+  
+  if(!identical(as.numeric(table(X[,c(row.factor,obs.ID)])),as.numeric(rep(J*K,(I*N))))) stop('The CoDa Cubes are not defined properly, some values are missing!')
+  if(!identical(as.numeric(table(X[,c(col.factor,obs.ID)])),as.numeric(rep(I*K,(J*N))))) stop('The CoDa Cubes are not defined properly, some values are missing!')
+  if(!is.null(SBPr)&(nrow(SBPr)!= (I-1)||ncol(SBPr)!=I)) 
+  {warning('The row SBP is not defined properly, pivot coordinates are used!')
+    SBPr <- NULL}
+  if(!is.null(SBPc)&(nrow(SBPc)!= (J-1)||ncol(SBPc)!=J)) 
+  {warning('The column SBP is not defined properly, pivot coordinates are used!')
+    SBPc <- NULL}
+  if(!is.null(SBPs)&(nrow(SBPs)!= (K-1)||ncol(SBPs)!=K)) 
+  {warning('The slice SBP is not defined properly, pivot coordinates are used!')
+    SBPs <- NULL}
+  
+  
+  Coordinates <- NULL
+  Log.ratios <- NULL
+  Row.balances <- NULL
+  Column.balances <- NULL
+  Slice.balances <- NULL
+  Row.column.OR <- NULL
+  Row.slice.OR <- NULL
+  Column.slice.OR <- NULL
+  Row.col.slice.OR <- NULL
+  Tables <- array(NA, c(nlevels(X[,row.factor]), nlevels(X[,col.factor])*nlevels(X[,slice.factor]), N))
+  
+  for(i in 1:N)
+  {
+    obs <- which(X[,obs.ID]==levels(X[,obs.ID])[i])
+    new <- CubeCoord(x=X[obs,], row.factor=row.factor, col.factor=col.factor, slice.factor=slice.factor, value=value, SBPr=SBPr, SBPc=SBPc, SBPs=SBPs, pivot=pivot, print.res=FALSE)
+    Coordinates <- cbind(Coordinates, new$Coordinates)
+    Log.ratios <- cbind(Log.ratios, new$Log.ratios)
+    Row.balances <- cbind(Row.balances, new$Row.balances)
+    Column.balances <- cbind(Column.balances, new$Column.balances)
+    Slice.balances <- cbind(Slice.balances, new$Slice.balances)
+    Row.column.OR <- cbind(Row.column.OR, new$Row.column.OR)
+    Row.slice.OR <- cbind(Row.slice.OR, new$Row.slice.OR)
+    Column.slice.OR <- cbind(Column.slice.OR, new$Column.slice.OR)
+    Row.col.slice.OR <- cbind(Row.col.slice.OR, new$Row.col.slice.OR)
+    Tables[,,i] <- as.matrix(new$Coda.cube)
+    
+  }
+  Coordinates <- t(Coordinates)
+  
+  rownames(Coordinates) <- levels(X[,obs.ID])
+  colnames(Log.ratios) <- levels(X[,obs.ID])
+  colnames(Row.balances) <- levels(X[,obs.ID])
+  colnames(Column.balances) <- levels(X[,obs.ID])
+  colnames(Slice.balances) <- levels(X[,obs.ID])
+  colnames(Row.column.OR) <- levels(X[,obs.ID])
+  colnames(Row.slice.OR) <- levels(X[,obs.ID])
+  colnames(Column.slice.OR) <- levels(X[,obs.ID])
+  colnames(Row.col.slice.OR) <- levels(X[,obs.ID])
+  dimnames(Tables)[[1]] <- levels(X[,row.factor])
+  dimnames(Tables)[[2]] <- colnames(new$Grap.rep[[1]])
+  dimnames(Tables)[[3]] <- levels(X[,obs.ID])
+  
+  res <- list('Coordinates'=Coordinates, 'Log.ratios'=t(Log.ratios), 'Row.balances'=t(Row.balances),
+              'Column.balances'=t(Column.balances), 'Slice.balances'=t(Slice.balances),
+              'Row.column.OR'=t(Row.column.OR), 'Row.slice.OR'=t(Row.slice.OR), 'Column.slice.OR'=t(Column.slice.OR),
+              'Row.col.slice.OR'=t(Row.col.slice.OR),
+              'Grap.rep'=new$Grap.rep, 'Contrast.matrix'=new$Contrast.matrix, 'Cubes'=Tables )
+  
+  if(test==TRUE)
+  {
+    # sample characteristics
+    mean <- apply(Coordinates, 2, mean)
+    sd <- apply(Coordinates, 2, sd)
+    
+    #set.seed(123)
+    
+    I <- nlevels(X[,row.factor]) # number of row factor values
+    J <- nlevels(X[,col.factor]) # number of column factor values
+    K <- nlevels(X[,slice.factor]) # number of slice factor values
+    
+    # pocet opakovani bootstrapu
+    opakovani <- n.boot
+    
+    xlab <- c(paste('z', 1:(I-1), '^r', sep=''), paste('z', 1:(J-1), '^c', sep=''), paste('z', 1:(K-1), '^s', sep=''),
+              paste('z', sort(outer(c(1:(I-1)),c(1:(J-1)), FUN=function(x,y)paste(x,y,sep=''))), '^rc', sep=''),
+              paste('z', sort(outer(c(1:(I-1)),c(1:(K-1)), FUN=function(x,y)paste(x,y,sep=''))), '^rs', sep=''),
+              paste('z', sort(outer(c(1:(J-1)),c(1:(K-1)), FUN=function(x,y)paste(x,y,sep=''))), '^cs', sep=''),
+              paste('z', sort(outer(outer(c(1:(I-1)),c(1:(J-1)), FUN=function(x,y)paste(x,y,sep='')),c(1:(K-1)), FUN=function(x,y)paste(x,y,sep=''))), '^rcs', sep=''))
+    
+    boxplot(Coordinates, notch=TRUE, names=xlab)
+    abline(a=0, b=0, lty="dashed")
+    
+    means <- t(replicate(opakovani,apply(Coordinates[sample(N,replace=TRUE),],2,mean)))
+    CIl <- apply(means,2,quantile,0.025)
+    CIu <- apply(means,2,quantile,0.975)
+    Bootstrap <- cbind(mean, sd, CIl, CIu)
+    
+    res <- list('Coordinates'=Coordinates, 'Log.ratios'=t(Log.ratios), 'Row.balances'=t(Row.balances),
+                'Column.balances'=t(Column.balances), 'Slice.balances'=t(Slice.balances),
+                'Row.column.OR'=t(Row.column.OR), 'Row.slice.OR'=t(Row.slice.OR), 'Column.slice.OR'=t(Column.slice.OR),
+                'Row.col.slice.OR'=t(Row.col.slice.OR),
+                'Grap.rep'=new$Grap.rep, 'Contrast.matrix'=new$Contrast.matrix, 'Cubes'=Tables, 'Bootstrap'=Bootstrap)
+  }
+  
+  
+  return(res)
+}
