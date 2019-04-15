@@ -1,18 +1,18 @@
-#' CubeCoord
+#' cubeCoord
 #' 
-#' @name CubeCoord
-#' @rdname CubeCoord
+#' @name cubeCoord
+#' @rdname cubeCoord
 #' @importFrom tidyr unite
 #' @importFrom tidyr spread
 #' @importFrom graphics boxplot
 #' @title Coordinate representation of a compositional cube and of a sample of compositional cubes
-#' @aliases CubeCoord 
-#' @aliases CubeCoordWrapper
+#' @aliases cubeCoord 
+#' @aliases cubeCoordWrapper
 #' @importFrom tidyr unite
 #' @importFrom tidyr spread
 #' @author Kamila Facevicova
 #' @references Facevicova, K., Filzmoser, P. and K. Hron (2019) Compositional Cubes: Three-factorial Compositional Data. Under review.
-#' @description CubeCoord computes a system of orthonormal coordinates of a compositional cube. 
+#' @description cubeCoord computes a system of orthonormal coordinates of a compositional cube. 
 #' Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
 #' 
 #' @param x a data frame containing variables representing row, column and slice factors of the respective compositional cube and variable with the values of the composition.
@@ -29,8 +29,8 @@
 #' @keywords multivariate, coordinates
 #' @export
 #' @seealso 
-#' \code{\link{TabCoord}} 
-#' \code{\link{TabCoordWrapper}} 
+#' \code{\link{tabCoord}} 
+#' \code{\link{tabCoordWrapper}} 
 #' @return 
 #' \item{Coordinates}{an array of orthonormal coordinates.} 
 #' \item{Grap.rep}{graphical representation of the coordinates. 
@@ -57,7 +57,7 @@
 #' CZE <- employment2[which(employment2$Country == 'CZE'), ]
 #' 
 #' # pivot coordinates
-#' CubeCoord(CZE, "Sex", 'Contract', "Age", 'Value')
+#' cubeCoord(CZE, "Sex", 'Contract', "Age", 'Value')
 #' 
 #' # coordinates with given SBP
 #' 
@@ -65,8 +65,8 @@
 #' c <- t(c(1,-1))
 #' s <- rbind(c(1,-1,-1), c(0,1,-1))
 #' 
-#' CubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
-CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, print.res=FALSE)
+#' cubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
+cubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, print.res=FALSE)
 {                                                                             
   
   # Control and subsidiary parameters setting
@@ -338,18 +338,18 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
   return(result)
   
 }
-#' @rdname CubeCoord
+#' @rdname cubeCoord
 #' @param X a data frame containing variables representing row, column and slice factors 
 #' of the respective compositional cubes, variable with the values 
 #' of the composition and variable distinguishing the observations.
 #' @param obs.ID name of the variable distinguishing the observations. Needs to be stated with the quotation marks.
 #' @param test logical, default is FALSE. If TRUE, the bootstrap analysis of coordinates is provided.
 #' @param n.boot number of bootstrap samples.
-#' @description Wrapper (CubeCoordWrapper): For each compositional cube in the sample CubeCoordWrapper computes 
+#' @description Wrapper (cubeCoordWrapper): For each compositional cube in the sample cubeCoordWrapper computes 
 #' a system of orthonormal coordinates and provide a simple descriptive analysis. 
 #' Computation of either pivot coordinates or a coordinate system based on the 
 #' given SBP is possible.
-#' @details Wrapper (CubeCoordWrapper): Each of n IJK-part compositional cubes from the sample is 
+#' @details Wrapper (cubeCoordWrapper): Each of n IJK-part compositional cubes from the sample is 
 #' with respect to its three-factorial nature isometrically transformed 
 #' from the simplex into a (IJK-1)-dimensional real space. 
 #' Sample mean values and standard deviations are computed and using 
@@ -367,7 +367,7 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
 #' ### An example from Facevi\v cov\'a (2019)
 #' 
 #' # pivot coordinates
-#' CubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  
+#' cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  
 #' test=TRUE)
 #' 
 #' # coordinates with given SBP (defined in the paper)
@@ -376,7 +376,7 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
 #' c <- t(c(1,-1))
 #' s <- rbind(c(1,-1,-1), c(0,1,-1))
 #' 
-#' res <- CubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 
+#' res <- cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 
 #' "Age", 'Value', r,c,s, test=TRUE)
 #' 
 #' ### Classical approach,
@@ -395,7 +395,7 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
 #' # transformation matrix
 #' T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
 #' T %*% t(res$Contrast.matrix) %*%res$Bootstrap[,1]
-CubeCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, slice.factor=NULL, 
+cubeCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, slice.factor=NULL, 
                              value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, 
                              test=FALSE, n.boot=1000){
   
@@ -445,7 +445,7 @@ CubeCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, s
   for(i in 1:N)
   {
     obs <- which(X[,obs.ID]==levels(X[,obs.ID])[i])
-    new <- CubeCoord(x=X[obs,], row.factor=row.factor, col.factor=col.factor, slice.factor=slice.factor, value=value, SBPr=SBPr, SBPc=SBPc, SBPs=SBPs, pivot=pivot, print.res=FALSE)
+    new <- cubeCoord(x=X[obs,], row.factor=row.factor, col.factor=col.factor, slice.factor=slice.factor, value=value, SBPr=SBPr, SBPc=SBPc, SBPs=SBPs, pivot=pivot, print.res=FALSE)
     Coordinates <- cbind(Coordinates, new$Coordinates)
     Log.ratios <- cbind(Log.ratios, new$Log.ratios)
     Row.balances <- cbind(Row.balances, new$Row.balances)

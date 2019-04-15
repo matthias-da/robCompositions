@@ -1,5 +1,5 @@
-Changes in robCompositions version 2.0.11
-  + new functions CubeCoord, CubeCoordWrapper, TabCoord, TabCoordWrapper 
+Changes in robCompositions version 2.1.0
+  + new functions cubeCoord, cubeCoordWrapper, tabCoord, tabCoordWrapper 
   + new data set employment2
   + new data set manu_abs
 

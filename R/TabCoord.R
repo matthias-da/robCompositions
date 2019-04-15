@@ -1,15 +1,15 @@
-#' TabCoord
+#' tabCoord
 #' 
-#' @name TabCoord
-#' @rdname TabCoord
+#' @name tabCoord
+#' @rdname tabCoord
 #' @title Coordinate representation of compositional tables and a sample of compositional tables
 #' @author Kamila Facevicova
-#' @aliases TabCoord 
-#' @aliases TabCoordWrapper
+#' @aliases tabCoord 
+#' @aliases tabCoordWrapper
 #' @references Facevicova, K., Hron, K., Todorov, V. and M. Templ (2018) 
 #' General approach to coordinate representation of compositional tables. 
 #' Scandinavian Journal of Statistics, 45(4), 879--899.
-#' @description TabCoord computes a system of orthonormal coordinates of a compositional table. 
+#' @description tabCoord computes a system of orthonormal coordinates of a compositional table. 
 #' Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
 #' 
 #' @param x a data frame containing variables representing row and column factors of the respective compositional table and variable with the values of the composition.
@@ -27,8 +27,8 @@
 #' @keywords multivariate, coordinates
 #' @export
 #' @seealso 
-#' \code{\link{CubeCoord}} 
-#' \code{\link{CubeCoordWrapper}} 
+#' \code{\link{cubeCoord}} 
+#' \code{\link{cubeCoordWrapper}} 
 #' @return 
 #' \item{Coordinates}{an array of orthonormal coordinates.}
 #' \item{Grap.rep}{graphical representation of the coordinates. Parts denoted by \verb{+} form the groups in the numerator of the respective computational formula, parts \verb{-} form the denominator and parts \verb{.} are not involved in the given coordinate.}
@@ -49,13 +49,13 @@
 #' manu_USA$output <- factor(manu_USA$output, levels=c('LAB', 'SUR', 'INP'))
 #' 
 #' # pivot coordinates
-#' TabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value')
+#' tabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value')
 #' 
 #' # SBPs defined in paper
 #' r <- rbind(c(-1,-1,1), c(-1,1,0))
 #' c <- rbind(c(-1,-1,-1,-1,1), c(-1,-1,-1,1,0), c(-1,-1,1,0,0), c(-1,1,0,0,0))
-#' TabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value', SBPr=r, SBPc=c)
-TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL, 
+#' tabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value', SBPr=r, SBPc=c)
+tabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL, 
                         value=NULL, SBPr=NULL, SBPc=NULL, 
                         pivot=FALSE, print.res=FALSE){
   
@@ -226,11 +226,11 @@ TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL,
 }
 
 
-#' @rdname TabCoord
-#' @description TabCoordWrapper: For each compositional table in the sample \code{TabCoordWrapper} 
+#' @rdname tabCoord
+#' @description tabCoordWrapper: For each compositional table in the sample \code{tabCoordWrapper} 
 #' computes a system of orthonormal coordinates and provide a simple descriptive analysis. 
 #' Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
-#' @details TabCoordWrapper: Each of n IJ-part compositional tables from the sample is with 
+#' @details tabCoordWrapper: Each of n IJ-part compositional tables from the sample is with 
 #' respect to its two-factorial nature isometrically transformed from the simplex 
 #' into a (IJ-1)-dimensional real space. Sample mean values and standard deviations are 
 #' computed and using bootstrap an estimate of 95 \% confidence interval is given. 
@@ -255,14 +255,14 @@ TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL,
 #' manu_abs$output <- factor(manu_abs$output, levels=c('LAB', 'SUR', 'INP'))
 #' 
 #' # pivot coordinates
-#' TabCoordWrapper(manu_abs, obs.ID='country',
+#' tabCoordWrapper(manu_abs, obs.ID='country',
 #' row.factor = 'output', col.factor = 'isic', value='value')
 #' 
 #' # SBPs defined in paper
 #' r <- rbind(c(-1,-1,1), c(-1,1,0))
 #' c <- rbind(c(-1,-1,-1,-1,1), c(-1,-1,-1,1,0), 
 #' c(-1,-1,1,0,0), c(-1,1,0,0,0))
-#' TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+#' tabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
 #' col.factor = 'isic', value='value', SBPr=r, SBPc=c, test=TRUE)
 #' 
 #' ### Classical approach,
@@ -272,7 +272,7 @@ TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL,
 #' library(lme4)
 #' glmer(value~output*as.factor(isic)+(1|country),data=manu_abs,family=poisson)
 #' }
-TabCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, value=NULL, 
+tabCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, value=NULL, 
                                SBPr=NULL, SBPc=NULL, pivot=FALSE, test=FALSE, n.boot=1000)
 {
   # Control and subsidiary parameters setting
@@ -304,7 +304,7 @@ TabCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, va
   for(i in 1:N)
   {
     obs <- which(X[,obs.ID]==levels(X[,obs.ID])[i])
-    new <- TabCoord(x=X[obs,], row.factor=row.factor, col.factor=col.factor, value=value, SBPr=SBPr, SBPc=SBPc, pivot=pivot, print.res=FALSE)
+    new <- tabCoord(x=X[obs,], row.factor=row.factor, col.factor=col.factor, value=value, SBPr=SBPr, SBPc=SBPc, pivot=pivot, print.res=FALSE)
     Coordinates <- cbind(Coordinates, new$Coordinates)
     Log.ratios <- cbind(Log.ratios, new$Log.ratios)
     Ind.coord <- cbind(Ind.coord, new$Ind.coord)

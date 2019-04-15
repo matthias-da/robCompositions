@@ -650,11 +650,11 @@ NULL
 #' @name gjovik
 #' @docType data
 #' @format A data frame with 615 observations and 63 variables.
-#' \itemize{ 
+#' \itemize{
 #' \item{\code{ID }}{a numeric vector}
 #' \item{\code{MAT }}{type of material}
 #' \item{\code{mE32wgs }}{longitude} 
-#' \item{\code{mN32wgs}}lattitude} 
+#' \item{\code{mN32wgs }}{latitude} 
 #' \item{\code{XCOO }}{X coordinates}
 #' \item{\code{YCOO }}{Y coordinates}
 #' \item{\code{ALT }}{altitute}
@@ -970,7 +970,7 @@ NULL
 #' ### Compositional tables approach
 #' ### analysis of the relative structure
 #' 
-#' result <- TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
+#' result <- tabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
 #' col.factor = 'isic', value='value', test = TRUE)
 #' 
 #' result$Bootstrap
