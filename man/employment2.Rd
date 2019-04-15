@@ -19,19 +19,18 @@ age (15-24, 25-54, 55+) and type of contract (Full- and part-time).
 \details{
 For each country in the sample, an estimated number of
 employees in the year 2015 was available, divided according to gender and age of
-employees and the type of the contract. More specifically, we distinguish males
-(M) and females (F), young (category 15 - 24), middle-aged (25 - 54) and older
-(55+) employees, and full-time (FT) and part-time (PT) contracts. 
+employees and the type of the contract. 
 The data form a sample of 42 cubes with two rows (gender), two columns (type)                                                                                                                                          of contract) and three slices (age), which allow for a deeper analysis of the overall
 employment structure, not just from the perspective of each factor separately, but
 also from the perspective of the relations/interactions between them. 
 Thorough analysis of the sample is described in Facevicova (2019).
 
 \itemize{
- \item{\code{Country}}{factor}
- \item{\code{Sex}}{gender}
- \item{\code{Age}}{age class}
- \item{\code{Contract}}{factor, defining if part or full time work}
+ \item{\code{Country}}{Country}
+ \item{\code{Sex}}{gender, males (M) and females (F)}
+ \item{\code{Age}}{age class, young (category 15 - 24), middle-aged (25 - 54) and older
+(55+) employees}
+ \item{\code{Contract}}{factor, defining the type of contract, full-time (FT) and part-time (PT) contracts}
  \item{\code{Value}}{Number of employees in the given category (in thousands)}
 }
 }

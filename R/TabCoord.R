@@ -40,6 +40,9 @@
 #' \item{Bootstrap}{array of sample means, standard deviations and bootstrap confidence intervals.}
 #' \item{Tables}{Table form of the given compositions.}
 #' @examples 
+#' ###################
+#' ### Coordinate representation of a CoDa Table
+#' 
 #' # example from Fa\v cevicov\'a (2018):
 #' data(manu_abs)
 #' manu_USA <- manu_abs[which(manu_abs$country=='USA'),]
@@ -224,6 +227,13 @@ TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL,
 
 
 #' @rdname TabCoord
+#' @description TabCoordWrapper: For each compositional table in the sample \code{TabCoordWrapper} 
+#' computes a system of orthonormal coordinates and provide a simple descriptive analysis. 
+#' Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
+#' @details TabCoordWrapper: Each of n IJ-part compositional tables from the sample is with 
+#' respect to its two-factorial nature isometrically transformed from the simplex 
+#' into a (IJ-1)-dimensional real space. Sample mean values and standard deviations are 
+#' computed and using bootstrap an estimate of 95 \% confidence interval is given. 
 #' @param X a data frame containing variables representing row and column factors of the respective compositional tables, variable with the values 
 #' of the composition and variable distinguishing the observations.
 #' @param obs.ID name of the variable distinguishing the observations. Needs to be stated with the quotation marks.
@@ -231,6 +241,10 @@ TabCoord <- function(x=NULL, row.factor=NULL, col.factor=NULL,
 #' @param n.boot number of bootstrap samples.
 #' @export
 #' @examples 
+#' 
+#' ###################
+#' ### Analysis of a sample of CoDa Tables
+#' 
 #' # example from Fa\v cevicov\'a (2018):
 #' data(manu_abs)
 #' 

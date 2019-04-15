@@ -49,6 +49,9 @@
 #' \item{Bootstrap}{array of sample means, standard deviations and bootstrap confidence intervals.}
 #' \item{Cubes}{Cube form of the given compositions.}
 #' @examples 
+#' ###################
+#' ### Coordinate representation of a CoDa Cube
+#' 
 #' ### example from Fa\v cevicov\'a (2019)
 #' data(employment2)
 #' CZE <- employment2[which(employment2$Country == 'CZE'), ]
@@ -353,6 +356,10 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
 #' bootstrap an estimate of 95 \% confidence interval is given. 
 #' @export
 #' @examples 
+#' 
+#' ###################
+#' ### Analysis of a sample of CoDa Cubes
+#' 
 #' ### example from Fa\v cevicov\'a (2019)
 #' data(employment2)
 #' ### Compositional tables approach,
@@ -387,7 +394,7 @@ CubeCoord <- function(x, row.factor=NULL, col.factor=NULL, slice.factor=NULL, va
 #' 
 #' # transformation matrix
 #' T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
-#' T\%*\%t(res$Contrast.matrix)\%*\%res$Bootstrap[,1]
+#' T %*% t(res$Contrast.matrix) %*%res$Bootstrap[,1]
 CubeCoordWrapper <- function(X, obs.ID=NULL, row.factor=NULL, col.factor=NULL, slice.factor=NULL, 
                              value=NULL, SBPr=NULL, SBPc=NULL, SBPs=NULL, pivot=FALSE, 
                              test=FALSE, n.boot=1000){

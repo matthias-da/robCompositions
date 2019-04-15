@@ -17,20 +17,19 @@ data(manu_abs)
 \description{
 The data consists of values of the manufacturing output in 42 countries in 2009. 
 The output, given in national currencies, is structured according to the 
-3-digit ISIC category and its components. The categories are 
-151 processed meat, fish, fruit, vegetables, fats; 
-152 Dairy products; 
-153 Grain mill products, starches, animal feeds; 
-154 Other food products and 
-155 Beverages. 
-The output components are Labour, Surplus and Input. 
+3-digit ISIC category and its components. 
 Thorough analysis of the sample is described in Facevicova (2018).
 }
 \details{
 \itemize{
 \item{\code{country }}{Country}
-\item{\code{isic }}{3-digit ISIC category}
-\item{\code{output }}{The output components}
+\item{\code{isic }}{3-digit ISIC category. The categories are 
+151 processed meat, fish, fruit, vegetables, fats; 
+152 Dairy products; 
+153 Grain mill products, starches, animal feeds; 
+154 Other food products and 
+155 Beverages. }
+\item{\code{output }}{The output components are Labour, Surplus and Input.}
 \item{\code{value}}{Value of manufacturing output in the national currency}
 }
 }
@@ -41,7 +40,7 @@ data(manu_abs)
 ### analysis of the relative structure
 
 result <- TabCoordWrapper(manu_abs, obs.ID='country',row.factor = 'output', 
-col.factor = 'isic', value='value')
+col.factor = 'isic', value='value', test = TRUE)
 
 result$Bootstrap
 

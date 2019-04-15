@@ -84,6 +84,9 @@ Sample mean values and standard deviations are computed and using
 bootstrap an estimate of 95 \% confidence interval is given.
 }
 \examples{
+###################
+### Coordinate representation of a CoDa Cube
+
 ### example from Fa\\v cevicov\\'a (2019)
 data(employment2)
 CZE <- employment2[which(employment2$Country == 'CZE'), ]
@@ -98,6 +101,10 @@ c <- t(c(1,-1))
 s <- rbind(c(1,-1,-1), c(0,1,-1))
 
 CubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
+
+###################
+### Analysis of a sample of CoDa Cubes
+
 ### example from Fa\\v cevicov\\'a (2019)
 data(employment2)
 ### Compositional tables approach,
@@ -132,7 +139,7 @@ glmer(y~Sex*Age*Contract+(1|Country),data=employment2,family=poisson)
 
 # transformation matrix
 T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
-T\\\%*\\\%t(res$Contrast.matrix)\\\%*\\\%res$Bootstrap[,1]
+T \%*\% t(res$Contrast.matrix) \%*\%res$Bootstrap[,1]
 }
 \references{
 Facevicova, K., Filzmoser, P. and K. Hron (2019) Compositional Cubes: Three-factorial Compositional Data. Under review.

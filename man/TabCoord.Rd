@@ -53,6 +53,10 @@ of the composition and variable distinguishing the observations.}
 \description{
 TabCoord computes a system of orthonormal coordinates of a compositional table. 
 Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
+
+TabCoordWrapper: For each compositional table in the sample \code{TabCoordWrapper} 
+computes a system of orthonormal coordinates and provide a simple descriptive analysis. 
+Computation of either pivot coordinates or a coordinate system based on the given SBP is possible.
 }
 \details{
 TabCoord
@@ -61,8 +65,16 @@ This transformation moves the IJ-part compositional tables
 from the simplex into a (IJ-1)-dimensional real space isometrically 
 with respect to its two-factorial nature. 
 The coordinate system is formed by two types of coordinates - balances and log odds-ratios.
+
+TabCoordWrapper: Each of n IJ-part compositional tables from the sample is with 
+respect to its two-factorial nature isometrically transformed from the simplex 
+into a (IJ-1)-dimensional real space. Sample mean values and standard deviations are 
+computed and using bootstrap an estimate of 95 \% confidence interval is given.
 }
 \examples{
+###################
+### Coordinate representation of a CoDa Table
+
 # example from Fa\\v cevicov\\'a (2018):
 data(manu_abs)
 manu_USA <- manu_abs[which(manu_abs$country=='USA'),]
@@ -75,6 +87,10 @@ TabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value')
 r <- rbind(c(-1,-1,1), c(-1,1,0))
 c <- rbind(c(-1,-1,-1,-1,1), c(-1,-1,-1,1,0), c(-1,-1,1,0,0), c(-1,1,0,0,0))
 TabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value', SBPr=r, SBPc=c)
+
+###################
+### Analysis of a sample of CoDa Tables
+
 # example from Fa\\v cevicov\\'a (2018):
 data(manu_abs)
 
