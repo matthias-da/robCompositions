@@ -3,8 +3,8 @@
 #' Estimates the variation matrix with robust methods.
 #' 
 #' The variation matrix is estimated for a given compositional data set.
-#' Instead of using the classical standard deviations the
-#' \code{\link[stats]{mad}} is used when parameter robust is set to TRUE.
+#' Instead of using the classical standard deviations the miniminm covariance estimator
+#' is used (\code{\link[stats]{robustbase::covMcd}}) is used when parameter robust is set to TRUE.
 #' 
 #' @param x data frame or matrix with positive entries
 #' @param robust if FALSE, standard measures (classical variances) are used.
