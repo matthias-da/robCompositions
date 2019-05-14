@@ -156,7 +156,7 @@ imputeUDLs <- function (x, maxit = 10, eps = 0.1, method = "lm",
         for (i in which(indNA)) {
             xneworder <- cbind(x[, i, drop = FALSE], x[, -i, 
                 drop = FALSE])
-            rv <- variation(x, robust = FALSE)[1, ]
+            rv <- variation(x, method = "Pairwise")[1, ]
             cve <- numeric()
             ###for (np in seq(3, min(c(27, ncol(x), floor(nrow(x)/2))), 3)) {
             for (np in c(3:ncol(x))) {
@@ -193,7 +193,7 @@ imputeUDLs <- function (x, maxit = 10, eps = 0.1, method = "lm",
             xneworder <- cbind(x[, i, drop = FALSE], x[, -i, drop = FALSE])
             if (variation) {
                 orig <- xneworder
-                rv <- variation(x, robust = FALSE)[1, ]
+                rv <- variation(x, method = "Pairwise")[1, ]
                 s <- sort(rv)[nPred[i]]
                 cols <- which(rv <= s)[1:nPred[i]]
                 xneworder <- xneworder[, cols]

@@ -347,7 +347,7 @@
       rtmspe <- NULL
       for(i in which(indNA)){
         xneworder <- cbind(x[, i, drop=FALSE], x[, -i, drop=FALSE]) 
-        rv <- variation(x, robust = FALSE)[1,]
+        rv <- variation(x, method = "Pairwise")[1,]
         cve <- numeric()
         for(np in seq(3, min(c(27,ncol(x),floor(nrow(x)/2))), 3)){
           s <- sort(rv)[np]
@@ -387,7 +387,7 @@
         ## if based on variation matrix:
         if(variation){
           orig <- xneworder  
-          rv <- variation(x, robust = FALSE)[1,]
+          rv <- variation(x, method = "Pairwise")[1,]
           s <- sort(rv)[nPred[i]]
           cols <- which(rv <= s)[1:nPred[i]]
           xneworder <- xneworder[, cols]

@@ -663,9 +663,9 @@ gives more reasonable results than its classical counterpart
 
 
 <<variations, echo=FALSE>>=
-v1 <- variation(constSum(x$z2[1:95,]), robust=FALSE)
-v2 <- variation(constSum(xImp1$xImp[1:95,]), robust=FALSE)
-v22 <- variation(constSum(xImp2$xImp[1:95,]), robust=FALSE)
+v1 <- variation(constSum(x$z2[1:95,]), method="Pairwise")
+v2 <- variation(constSum(xImp1$xImp[1:95,]), method="Pairwise")
+v22 <- variation(constSum(xImp2$xImp[1:95,]),  method="Pairwise")
 variations1 <- sum(abs(v1[upper.tri(v1, diag=FALSE)] - v2[upper.tri(v2, diag=FALSE)]), na.rm=TRUE)/length(c(upper.tri(v2, diag=FALSE))) 
 variations2 <- sum(abs(v1[upper.tri(v1, diag=FALSE)] - v22[upper.tri(v22, diag=FALSE)]), na.rm=TRUE)/length(c(upper.tri(v22, diag=FALSE))) 
 @

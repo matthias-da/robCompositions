@@ -209,7 +209,7 @@
         ## if based on variation matrix:
         if(variation == TRUE){
         orig <- x  
-        rv <- variation(x, robust = FALSE)[1,]
+        rv <- variation(x, method = "Pairwise")[1,]
         s <- sort(rv)[11]
         cols <- which(rv <= s)[1:11]
         x <- x[, cols]

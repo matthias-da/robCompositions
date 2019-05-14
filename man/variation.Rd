@@ -4,12 +4,12 @@
 \alias{variation}
 \title{Robust and classical variation matrix}
 \usage{
-variation(x, robust = TRUE)
+variation(x, method = "robustPivot")
 }
 \arguments{
 \item{x}{data frame or matrix with positive entries}
 
-\item{robust}{if FALSE, standard measures (classical variances) are used.}
+\item{method}{method used for estimating covariances. See details.}
 }
 \value{
 The (robust) variation matrix.
@@ -21,21 +21,34 @@ Estimates the variation matrix with robust methods.
 The variation matrix is estimated for a given compositional data set.
 Instead of using the classical standard deviations the
 \code{\link[stats]{mad}} is used when parameter robust is set to TRUE.
+
+For method \code{robustPivot} forumala 5.8. of the book (see second reference) is used. Here 
+robust (mcd-based) covariance estimation is done on pivot coordinates. 
+Method \code{robustPairwise} uses a mcd covariance estimation on pairwise log-ratios.
+Methods \code{Pivot} (see second reference) and \code{Pairwise} (see first reference) 
+are the non-robust counterparts. 
+Naturally, \code{Pivot} and \code{Pairwise} gives the same results, but 
+the computational time is much less for method \code{Pairwise}.
 }
 \examples{
 
 data(expenditures)
-variation(expenditures)
-variation(expenditures, robust=FALSE)
+variation(expenditures) # default is method "robustPivot"
+variation(expenditures, method = "Pivot")
+variation(expenditures, method = "robustPairwise")
+variation(expenditures, method = "Pairwise") # same results as Pivot
 
 }
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
 Chapman \& Hall Ltd., London (UK). 416p.
+
+#' Filzmoser, P., Hron, K., Templ, M. (2018) \emph{Applied Compositional Data Analysis}.
+Springer, Cham.
 }
 \author{
-Matthias Templ
+Karel Hron, Matthias Templ
 }
 \keyword{multivariate}
 \keyword{robust}
