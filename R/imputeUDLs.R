@@ -75,43 +75,43 @@
 #' imp.lm <- res.lm$x
 #' 
 #' 
-imputeUDLs <- function (x, maxit = 10, eps = 0.1, method = "lm", 
-    dl = NULL,  variation = TRUE, nPred = NULL, nComp = "boot", 
-    bruteforce = FALSE, noisemethod = "residuals", noise = FALSE, 
-    R = 10, correction = "normal", verbose = FALSE) {
-  
+imputeUDLs <-
+  function (x, maxit = 10, eps = 0.1, method = "lm", dl = NULL, 
+            variation = TRUE, nPred = NULL, nComp = "boot", bruteforce = FALSE, 
+            noisemethod = "residuals", noise = FALSE, R = 10, correction = "normal", 
+            verbose = FALSE) 
+  {
     isomLRInvp <- 1
     isomLRinv <- function(x) {
-        pivotCoordInv(x = x)
+      pivotCoordInv(x = x)
     }
-    #checkData(x, dl)
     stopifnot((method %in% c("lm", "MM", "lmrob", "pls")))
-    if(is.null(dl)){   
+    if (is.null(dl)) {
       is.na(x) <- sapply(x, is.infinite)
-      dl <- apply(x,2,max,na.rm=TRUE)
+      dl <- apply(x, 2, max, na.rm = TRUE)
     }
     if (method == "pls" & ncol(x) < 5) 
-        stop("too few variables/parts for method pls")
+      stop("too few variables/parts for method pls")
     if (!(correction %in% c("normal", "density"))) {
-        stop("correction method must be normal or density")
+      stop("correction method must be normal or density")
     }
     if (method == "pls" & variation) {
-        stop("if variation is TRUE then pls is not supported.")
+      stop("if variation is TRUE then pls is not supported.")
     }
     if (is.null(nComp)) {
-        pre <- FALSE
-        nC <- NULL
+      pre <- FALSE
+      nC <- NULL
     }
     else if (nComp == "boot") {
-        nC <- integer(ncol(x))
-        pre <- TRUE
+      nC <- integer(ncol(x))
+      pre <- TRUE
     }
     else if (length(nComp) == ncol(x)) {
-        nC <- nComp
-        pre <- FALSE
+      nC <- nComp
+      pre <- FALSE
     }
     else {
-        pre <- FALSE
+      pre <- FALSE
     }
     n <- nrow(x)
     d <- ncol(x)
@@ -123,212 +123,233 @@ imputeUDLs <- function (x, maxit = 10, eps = 0.1, method = "lm",
     o <- order(wcol)
     x <- x[, o]
     if (verbose) 
-        cat("number of variables > UDL:\n", sum(wcol != 0))
+      cat("number of variables > UDL:\n", sum(wcol != 0))
     dlordered <- dl[o]
     w <- is.na(x)
     wn <- !is.na(x)
     xcheck <- x
     w2 <- is.na(x)
     indNA <- apply(x, 2, function(x) {
-        any(is.na(x))
+      any(is.na(x))
     })
     for (i in 1:length(dl)) {
-        ind <- is.na(x[, i])
-        if (length(ind) > 0) 
-            x[ind, i] <- dlordered[i] * 1.2 
+      ind <- is.na(x[, i])
+      if (length(ind) > 0) 
+        x[ind, i] <- dlordered[i] * 1.2
     }
     xOrig <- x
     if (!is.null(nPred) & length(nPred) == 1) {
-        nPred <- rep(nPred, ncol(x))
+      nPred <- rep(nPred, ncol(x))
     }
     if (!is.null(nPred) & length(nPred) > 1) {
-        stop("nPred must be NULL or a vector of length 1.")
+      stop("nPred must be NULL or a vector of length 1.")
     }
     if (is.null(nPred) & variation) {
-        ptmcv <- proc.time()
-        if (verbose) 
-            cat("\n cross validation to estimate number of predictors\n")
-        ii <- 1
-        if (verbose) 
-            pb <- txtProgressBar(min = 0, max = sum(indNA), style = 3)
-        nPred <- numeric(nrow(x))
-        rtmspe <- NULL
-        for (i in which(indNA)) {
-            xneworder <- cbind(x[, i, drop = FALSE], x[, -i, 
-                drop = FALSE])
-            rv <- variation(x, method = "Pairwise")[1, ]
-            cve <- numeric()
-            ###for (np in seq(3, min(c(27, ncol(x), floor(nrow(x)/2))), 3)) {
-            for (np in c(3:ncol(x))) {
-                s <- sort(rv)[np]
-                cols <- which(rv <= s)[1:np]
-                xn <- xneworder[, cols]
-                xilr <- data.frame(pivotCoord(xn))
-                colnames(xilr)[1] <- "Y"
-                call <- call(method, formula = Y ~ .)
-                cve[np] <- suppressWarnings(cvFit(call, data = xilr, 
-                  y = xilr$Y, cost = cvTools::rtmspe, K = 5, 
-                  R = 1, costArgs = list(trim = 0.1), seed = 1234)$cv)
-            }
-            nPred[i] <- which.min(cve)
-            if (verbose) 
-                setTxtProgressBar(pb, ii)
-            ii <- ii + 1
+      ptmcv <- proc.time()
+      if (verbose) 
+        cat("\n cross validation to estimate number of predictors\n")
+      ii <- 1
+      if (verbose) 
+        pb <- txtProgressBar(min = 0, max = sum(indNA), style = 3)
+      nPred <- numeric(nrow(x))
+      rtmspe <- NULL
+      for (i in which(indNA)) {
+        xneworder <- cbind(x[, i, drop = FALSE], x[, -i, 
+                                                   drop = FALSE])
+        rv <- variation(x, method = "Pivot")[1, ]
+        cve <- numeric()
+        for (np in c(3:ncol(x))) {
+          s <- sort(rv)[np]
+          cols <- which(rv <= s)[1:np]
+          xn <- xneworder[, cols]
+          xilr <- data.frame(pivotCoord(xn))
+          colnames(xilr)[1] <- "Y"
+          call <- call(method, formula = Y ~ .)
+          cve[np] <- suppressWarnings(cvFit(call, data = xilr, 
+                                            y = xilr$Y, cost = cvTools::rtmspe, K = 5, 
+                                            R = 1, costArgs = list(trim = 0.1), seed = 1234)$cv)
         }
+        nPred[i] <- which.min(cve)
         if (verbose) 
-            close(pb)
-        ptmcv <- proc.time() - ptmcv
+          setTxtProgressBar(pb, ii)
+        ii <- ii + 1
+      }
+      if (verbose) 
+        close(pb)
+      ptmcv <- proc.time() - ptmcv
     }
     if (verbose) 
-        cat("\n start the iteration:")
+      cat("\n start the iteration:")
     it <- 1
     criteria <- 99999999
     while (it <= maxit & criteria >= eps) {
+      if (verbose) 
+        cat("\n iteration", it, "; criteria =", criteria)
+      xold <- x
+      for (i in which(indNA)) {
         if (verbose) 
-            cat("\n iteration", it, "; criteria =", criteria)
-        xold <- x
-        for (i in which(indNA)) {
-            if (verbose) 
-                cat("\n replacement on (sorted) part", i)
-            xneworder <- cbind(x[, i, drop = FALSE], x[, -i, drop = FALSE])
-            if (variation) {
-                orig <- xneworder
-                rv <- variation(x, method = "Pairwise")[1, ]
-                s <- sort(rv)[nPred[i]]
-                cols <- which(rv <= s)[1:nPred[i]]
-                xneworder <- xneworder[, cols]
-            }
-            forphi <- cbind(rep(dlordered[i], n), xneworder[, -1, drop = FALSE])
-            if (any(is.na(forphi))) 
-                (break)()
-            phi <- pivotCoord(forphi)[, 1]
-            xneworder[xneworder < 2 * .Machine$double.eps] <- 2 * .Machine$double.eps
-            xilr <- data.frame(pivotCoord(xneworder))
-            response <- as.matrix(xilr[, 1, drop = FALSE])
-            predictors <- as.matrix(xilr[, -1, drop = FALSE])
-            if (method == "lm") {
-                reg1 <- lm(response ~ predictors, subset=wn[,i])
-                s <- sqrt(sum(reg1$residuals^2)/(sum(wn[,i])-ncol(predictors)-1))
-                yhat <- predict(reg1, newdata = data.frame(predictors))
-            }
-            else if (method == "MM") {
-                reg1 <- MASS::rlm(response ~ predictors, method="MM", maxit = 100,
-                        subset=wn[,i])
-                s <- reg1$s 
-                yhat <- predict(reg1, newdata = data.frame(predictors))
-            }
-            else if (method == "lmrob") {
-              reg1 <- robustbase::lmrob(response ~ predictors,max.it=500,
-                      maxit.scale=500,subset=wn[,i])
-              s <- reg1$scale 
-              yhat <- predict(reg1, newdata = data.frame(predictors))
-            }
-            else if (method == "pls") {
-                if (it == 1 & pre) {
-                  nC[i] <- bootnComp(xilr[, 2:ncol(xilr), drop = FALSE], 
-                    y = xilr[, 1], R, plotting = FALSE)$res
-                }
-                if (verbose) 
-                  cat("   ;   ncomp:", nC[i])
-                reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), 
-                  ncomp = nC[i], method = "simpls",subset=wn[,i])
-                yhat <- predict(reg1, newdata = data.frame(predictors), 
-                  ncomp = nC[i])
-                s <- sqrt(sum(reg1$res^2)/nrow(xilr))
-            }
-            yhat <- as.numeric(yhat)
-            ex <- (phi - yhat)/s
-            if (correction == "normal") {
-                yhat2sel <- ifelse(dnorm(ex[w[, i]]) > 0.00001, ###.Machine$double.eps, 
-                  yhat[w[, i]] + s * dnorm(ex[w[, i]])/(1-pnorm(ex[w[, i]])), yhat[w[, i]])
-            }
-            else if (correction == "density") {
-                den <- density(ex[w[, i]])
-                distr <- sROC::kCDF(ex[w, i])
-            }
-            if (any(is.na(yhat)) || any(yhat == "Inf")) 
-                stop("Problems in ilr because of infinite or NA estimates")
-            xilr[w[, i], 1] <- yhat2sel
-            xinv <- pivotCoordInv(xilr)
-            if (variation == TRUE) {
-                xneworder <- adjustImputed(xinv, xneworder, w2[, cols])
-                orig[, cols] <- xneworder
-                xinv <- orig
-            }
-            if (i %in% 2:(d - 1)) {
-                xinv <- cbind(xinv[, 2:i], xinv[, c(1, (i + 1):d)])
-            }
-            if (i == d) {
-                xinv <- cbind(xinv[, 2:d], xinv[, 1])
-            }
-            if (!variation) {
-                x <- adjustImputed(xinv, xOrig, w2)
-            }
-            else {
-                x <- xinv
-            }
+          cat("\n replacement on (sorted) part", i)
+        xneworder <- cbind(x[, i, drop = FALSE], x[, -i, 
+                                                   drop = FALSE])
+        if (variation) {
+          orig <- xneworder
+          rv <- variation(x, method = "Pivot")[1, ]
+          s <- sort(rv)[nPred[i]]
+          cols <- which(rv <= s)[1:nPred[i]]
+          xneworder <- xneworder[, cols]
         }
-        it <- it + 1
-        criteria <- sum(((xold - x)/x)^2, na.rm = TRUE)
-        if (verbose & criteria != 0) 
-            cat("\n iteration", it, "; criteria =", criteria)
+        forphi <- cbind(rep(dlordered[i], n), xneworder[, 
+                                                        -1, drop = FALSE])
+        if (any(is.na(forphi))) 
+          (break)()
+        phi <- pivotCoord(forphi)[, 1]
+        xneworder[xneworder < 2 * .Machine$double.eps] <- 2 * 
+          .Machine$double.eps
+        xilr <- data.frame(pivotCoord(xneworder))
+        response <- as.matrix(xilr[, 1, drop = FALSE])
+        predictors <- as.matrix(xilr[, -1, drop = FALSE])
+        if (method == "lm") {
+          reg1 <- lm(response ~ predictors) ##PF # ,subset = wn[,i])
+          s <- sqrt(sum(reg1$residuals^2)/(sum(wn[, i]) - 
+                                             ncol(predictors) - 1))
+          yhat <- predict(reg1, newdata = data.frame(predictors))
+        }
+        else if (method == "MM") {
+          reg1 <- MASS::rlm(response ~ predictors, method = "MM", 
+                            maxit = 100 ) ## PF$ , subset = wn[, i])
+          s <- reg1$s
+          yhat <- predict(reg1, newdata = data.frame(predictors))
+        }
+        else if (method == "lmrob") {
+          reg1 <- robustbase::lmrob(response ~ predictors, 
+                                    max.it = 500, maxit.scale = 500) ## PF# , subset = wn[,i])
+          s <- reg1$scale
+          yhat <- predict(reg1, newdata = data.frame(predictors))
+        }
+        else if (method == "pls") {
+          if (it == 1 & pre) {
+            ## begin PF #
+            #nC[i] <- bootnComp(xilr[, 2:ncol(xilr), drop = FALSE], 
+            #  y = xilr[, 1], R, plotting = FALSE)$res
+            nC[i] <- bootnComp(xilr[, 2:ncol(xilr), drop = FALSE], 
+                               y = xilr[, 1], R, plotting = FALSE)$res3
+            ## end PF #
+          }
+          if (verbose) 
+            cat("   ;   ncomp:", nC[i])
+          reg1 <- mvr(as.matrix(response) ~ as.matrix(predictors), 
+                      ncomp = nC[i], method = "simpls") ## PF# , subset = wn[,i])
+          yhat <- predict(reg1, newdata = data.frame(predictors), 
+                          ncomp = nC[i])
+          ##PF# s <- sqrt(sum(reg1$residuals^2)/nrow(xilr))
+          s <- sqrt(sum(reg1$residuals^2)/length(reg1$residuals))
+        }
+        yhat <- as.numeric(yhat)
+        # plot(response,yhat);abline(c(0,1))
+        ex <- (phi - yhat)/s
+        if (correction == "normal") {
+          yhat2sel <- ifelse(dnorm(ex[w[, i]]) > 1e-05, 
+                             yhat[w[, i]] + s * dnorm(ex[w[, i]])/(1 - pnorm(ex[w[,i]])), yhat[w[, i]])
+        }
+        else if (correction == "density") {
+          den <- density(ex[w[, i]])
+          ##PF# distr <- sROC::kCDF(ex[w, i])
+          distr <- sROC::kCDF(ex[w[, i]])
+        }
+        if (any(is.na(yhat)) || any(yhat == "Inf")) 
+          stop("Problems in ilr because of infinite or NA estimates")
+        ## begin PF #
+        if (any(yhat2sel <= phi[w[, i]])) {
+          yhat2sel <- ifelse(yhat2sel < phi[w[, i]], phi[w[,i]], yhat2sel)
+        }
+        ## end PF #
+        xilr[w[, i], 1] <- yhat2sel
+        xinv <- pivotCoordInv(xilr)
+        if (variation == TRUE) {
+          xneworder <- adjustImputed(xinv, xneworder, w2[, 
+                                                         cols])
+          orig[, cols] <- xneworder
+          xinv <- orig
+        }
+        if (i %in% 2:(d - 1)) {
+          xinv <- cbind(xinv[, 2:i], xinv[, c(1, (i + 1):d)])
+        }
+        if (i == d) {
+          xinv <- cbind(xinv[, 2:d], xinv[, 1])
+        }
+        if (!variation) {
+          x <- adjustImputed(xinv, xOrig, w2)
+        }
+        else {
+          x <- xinv
+        }
+      }
+      it <- it + 1
+      criteria <- sum(((xold - x)/x)^2, na.rm = TRUE)
+      if (verbose & criteria != 0) 
+        cat("\n iteration", it, "; criteria =", criteria)
     }
     if (noise) {
-        for (i in which(indNA)) {
-            if (verbose) 
-                cat("\n add noise on variable", i)
-            inderr <- w[, i]
-            if (noisemethod == "residuals") {
-                error <- sample(residuals(reg1)[inderr], size = wcol[i], 
-                  replace = TRUE)
-                reg1$res[inderr] <- error
-            }
-            else {
-                mu <- median(residuals(reg1)[inderr])
-                sigma <- mad(residuals(reg1)[inderr])
-                error <- rnorm(wcol[i], mean = mu, sd = sigma)
-                reg1$res[inderr] <- error
-            }
-            yhat[inderr] <- yhat[inderr] + error
-            s <- sqrt(sum(reg1$res^2)/nrow(xilr))
-            ex <- (phi - yhat)/s
-            yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps, 
-                yhat[w[, i]] + s * dnorm(ex[w[, i]])/(1-pnorm(ex[w[, i]])), yhat[w[, i]])
-            if (any(is.na(yhat)) || any(yhat == "Inf")) 
-                stop("Problems in ilr because of infinite or NA estimates")
-            xilr[w[, i], 1] <- yhat2sel
-            xinv <- pivotCoordInv(xilr)
-            if (i %in% 2:(d - 1)) {
-                xinv <- cbind(xinv[, 2:i], xinv[, c(1, (i + 1):d)])
-            }
-            if (i == d) {
-                xinv <- cbind(xinv[, 2:d], xinv[, 1])
-            }
+      for (i in which(indNA)) {
+        if (verbose) 
+          cat("\n add noise on variable", i)
+        inderr <- w[, i]
+        if (noisemethod == "residuals") {
+          error <- sample(residuals(reg1)[inderr], size = wcol[i], 
+                          replace = TRUE)
+          reg1$res[inderr] <- error
         }
+        else {
+          mu <- median(residuals(reg1)[inderr])
+          sigma <- mad(residuals(reg1)[inderr])
+          error <- rnorm(wcol[i], mean = mu, sd = sigma)
+          reg1$res[inderr] <- error
+        }
+        yhat[inderr] <- yhat[inderr] + error
+        s <- sqrt(sum(reg1$res^2)/nrow(xilr))
+        ex <- (phi - yhat)/s
+        yhat2sel <- ifelse(dnorm(ex[w[, i]]) > .Machine$double.eps, 
+                           yhat[w[, i]] + s * dnorm(ex[w[, i]])/(1 - pnorm(ex[w[, 
+                                                                                i]])), yhat[w[, i]])
+        if (any(is.na(yhat)) || any(yhat == "Inf")) 
+          stop("Problems in ilr because of infinite or NA estimates")
+        xilr[w[, i], 1] <- yhat2sel
+        xinv <- pivotCoordInv(xilr)
+        if (i %in% 2:(d - 1)) {
+          xinv <- cbind(xinv[, 2:i], xinv[, c(1, (i + 1):d)])
+        }
+        if (i == d) {
+          xinv <- cbind(xinv[, 2:d], xinv[, 1])
+        }
+      }
     }
     x <- x[, order(o)]
     colnames(x) <- cn
     if (verbose) {
-               message(paste(sum(w)), "values above detection limit have been imputed \n above the corresponding detection limits")
+      message(paste(sum(w)), "values above detection limit have been imputed \n above the corresponding detection limits")
     }
     checkDL <- function(x, dl, indexNA) {
-        check <- logical(ncol(x))
-        for (i in 1:ncol(x)) {
-            critvals <- x[indexNA[, i], i] < dl[i]
-            check[i] <- any(critvals)
-            if (check[i]) {
-                x[which(x[indexNA[, i], i] < dl[i]), i] <- dl[i]
-            }
+      check <- logical(ncol(x))
+      for (i in 1:ncol(x)) {
+        critvals <- x[indexNA[, i], i] < dl[i]
+        check[i] <- any(critvals)
+        if (check[i]) {
+          ## PF begin #
+          # x[which(x[indexNA[, i], i] < dl[i]), i] <- dl[i]
+          ind <- x[indexNA[, i], i] < dl[i]
+          x[indexNA[,i],i][ind] <- dl[i]
+          ## PF end $
         }
-        if (any(check) & verbose) {
-            message(paste(sum(critvals), "/", sum(w), "replaced values has been corrected"))
-        }
-        x
+      }
+      if (any(check) & verbose) {
+        message(paste(sum(critvals), "/", sum(w), "replaced values has been corrected"))
+      }
+      x
     }
     x <- checkDL(x, dl, indexFinalCheck)
     res <- list(x = x, criteria = criteria, iter = it, maxit = maxit, 
-        wind = w, nComp = nC, nPred = nPred, variation = variation, 
-        method = method, dl = dl)
+                wind = w, nComp = nC, nPred = nPred, variation = variation, 
+                method = method, dl = dl)
     return(res)
-}
+  }
 
