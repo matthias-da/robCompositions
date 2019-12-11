@@ -111,7 +111,8 @@ daFisher <- function(x, grp, coda=TRUE,
                      # rule="fisher",
                      plotScore = FALSE, ...){
   ## some checks
-  if(class(x) == "data.frame") x <- as.matrix(x)
+  clInfo <- class(x)[1]
+  if(clInfo == "data.frame") x <- as.matrix(x)
   ## Fisher LDA:
   if(length(grp) != dim(x)[1]){
     stop(paste("grp must be of length", dim(x)[1]))
@@ -236,7 +237,7 @@ daFisher <- function(x, grp, coda=TRUE,
 #                    method = "classical",
 #                    plotScore = FALSE){
 #   ## some checks
-#   if(class(x) == "data.frame") x <- as.matrix(x)
+#   if(clInfo == "data.frame") x <- as.matrix(x)
 #   ## Fisher LDA:
 #   if(length(grp) != dim(x)[1]){
 #     stop(paste("grp must be of length", dim(x)[1]))

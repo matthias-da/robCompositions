@@ -46,7 +46,7 @@ stats <- function(x, margins=NULL,
       m2 <- margins[,2]			
     }
     if(!is.null(margins) || !is.list(margins) || !is.matrix(margins) || !is.data.frame(margins)){
-      stop(paste("class", class(margins), "of margins is not supported"))
+      stop(paste("class", class(margins)[1], "of margins is not supported"))
     }
     if((length(m1) != nrow(x) || length(m2) != ncol(x))) stop("wrong length of margins")
   }

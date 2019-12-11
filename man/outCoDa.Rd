@@ -6,8 +6,7 @@
 \alias{plot.outCoDa}
 \title{Outlier detection for compositional data}
 \usage{
-outCoDa(x, quantile = 0.975, method = "robust", h = 1/2,
-  coda = TRUE)
+outCoDa(x, quantile = 0.975, method = "robust", h = 1/2, coda = TRUE)
 
 \method{print}{outCoDa}(x, ...)
 

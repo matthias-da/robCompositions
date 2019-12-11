@@ -5,14 +5,33 @@
 \alias{cubeCoordWrapper}
 \title{Coordinate representation of a compositional cube and of a sample of compositional cubes}
 \usage{
-cubeCoord(x, row.factor = NULL, col.factor = NULL,
-  slice.factor = NULL, value = NULL, SBPr = NULL, SBPc = NULL,
-  SBPs = NULL, pivot = FALSE, print.res = FALSE)
+cubeCoord(
+  x,
+  row.factor = NULL,
+  col.factor = NULL,
+  slice.factor = NULL,
+  value = NULL,
+  SBPr = NULL,
+  SBPc = NULL,
+  SBPs = NULL,
+  pivot = FALSE,
+  print.res = FALSE
+)
 
-cubeCoordWrapper(X, obs.ID = NULL, row.factor = NULL,
-  col.factor = NULL, slice.factor = NULL, value = NULL,
-  SBPr = NULL, SBPc = NULL, SBPs = NULL, pivot = FALSE,
-  test = FALSE, n.boot = 1000)
+cubeCoordWrapper(
+  X,
+  obs.ID = NULL,
+  row.factor = NULL,
+  col.factor = NULL,
+  slice.factor = NULL,
+  value = NULL,
+  SBPr = NULL,
+  SBPc = NULL,
+  SBPs = NULL,
+  pivot = FALSE,
+  test = FALSE,
+  n.boot = 1000
+)
 }
 \arguments{
 \item{x}{a data frame containing variables representing row, column and slice factors of the respective compositional cube and variable with the values of the composition.}
@@ -87,7 +106,7 @@ bootstrap an estimate of 95 \% confidence interval is given.
 ###################
 ### Coordinate representation of a CoDa Cube
 
-### example from Fa\\v cevicov\\'a (2019)
+### example from Fa\\v cevicov\'a (2019)
 data(employment2)
 CZE <- employment2[which(employment2$Country == 'CZE'), ]
 
@@ -105,11 +124,11 @@ cubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
 ###################
 ### Analysis of a sample of CoDa Cubes
 
-### example from Fa\\v cevicov\\'a (2019)
+### example from Fa\\v cevicov\'a (2019)
 data(employment2)
 ### Compositional tables approach,
 ### analysis of the relative structure.
-### An example from Facevi\\v cov\\'a (2019)
+### An example from Facevi\\v cov\'a (2019)
 
 # pivot coordinates
 cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  

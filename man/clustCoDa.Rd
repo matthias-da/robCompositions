@@ -5,12 +5,28 @@
 \alias{plot.clustCoDa}
 \title{Cluster analysis for compositional data}
 \usage{
-clustCoDa(x, k = NULL, method = "Mclust", scale = "robust",
-  transformation = "pivotCoord", distMethod = NULL, iter.max = 100,
-  vals = TRUE, alt = NULL, bic = NULL, verbose = TRUE)
+clustCoDa(
+  x,
+  k = NULL,
+  method = "Mclust",
+  scale = "robust",
+  transformation = "pivotCoord",
+  distMethod = NULL,
+  iter.max = 100,
+  vals = TRUE,
+  alt = NULL,
+  bic = NULL,
+  verbose = TRUE
+)
 
-\method{plot}{clustCoDa}(x, y, ..., normalized = FALSE,
-  which.plot = "clusterMeans", measure = "silwidths")
+\method{plot}{clustCoDa}(
+  x,
+  y,
+  ...,
+  normalized = FALSE,
+  which.plot = "clusterMeans",
+  measure = "silwidths"
+)
 }
 \arguments{
 \item{x}{compositional data represented as a data.frame}

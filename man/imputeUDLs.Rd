@@ -4,10 +4,22 @@
 \alias{imputeUDLs}
 \title{Imputation of values above an upper detection limit in compositional data}
 \usage{
-imputeUDLs(x, maxit = 10, eps = 0.1, method = "lm", dl = NULL,
-  variation = TRUE, nPred = NULL, nComp = "boot",
-  bruteforce = FALSE, noisemethod = "residuals", noise = FALSE,
-  R = 10, correction = "normal", verbose = FALSE)
+imputeUDLs(
+  x,
+  maxit = 10,
+  eps = 0.1,
+  method = "lm",
+  dl = NULL,
+  variation = TRUE,
+  nPred = NULL,
+  nComp = "boot",
+  bruteforce = FALSE,
+  noisemethod = "residuals",
+  noise = FALSE,
+  R = 10,
+  correction = "normal",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{x}{data.frame or matrix}

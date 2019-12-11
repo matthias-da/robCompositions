@@ -21,7 +21,8 @@
 #' tabINT <- intTab(tab1prob, tab1)
 #' intArray(tabINT)
 intArray <- function(x){
-  stopifnot(class(x) == "intTab")
+  clInfo <- class(x)[1]
+  stopifnot(clInfo == "intTab")
   
   clr2 <- function(x){
     d <- dim(x)

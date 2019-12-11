@@ -1,5 +1,5 @@
 .onLoad <- function(lib, pkg) {
-#	library.dynam("robCompositions",pkg,lib)
+#library.dynam("robCompositions",pkg,lib)
 
 #	cat("\n ----------------------------------------------\n")	
 #    print(citation("robCompositions"))
@@ -23,5 +23,8 @@
 #cat("--------\n\n")  
 
 }
+
+.onUnload <- function(libpath)
+   library.dynam.unload("robCompositions",  libpath)
 
 robGUIenvir <- new.env()

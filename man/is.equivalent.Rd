@@ -26,6 +26,7 @@ is.equivalent(1:10, 1:10+1)
 data(expenditures)
 x <- expenditures
 is.equivalent(x, constSum(x))
+y <- x
 y[1,1] <- x[1,1]+1
 is.equivalent(y, constSum(x))
 

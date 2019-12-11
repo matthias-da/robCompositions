@@ -9,8 +9,14 @@
 \alias{pivotCoordInv}
 \title{Pivot coordinates and their inverse}
 \usage{
-pivotCoord(x, pivotvar = 1, fast = FALSE, method = "pivot",
-  base = exp(1), norm = "orthonormal")
+pivotCoord(
+  x,
+  pivotvar = 1,
+  fast = FALSE,
+  method = "pivot",
+  base = exp(1),
+  norm = "orthonormal"
+)
 
 isomLR(x, fast = FALSE, base = exp(1), norm = "sqrt((D-i)/(D-i+1))")
 

@@ -28,7 +28,8 @@
 #' 
 adjust <- function(x){
 	# x ... object from class "imp"
-	if(class(x) != "imp") stop("object x must be from class imp")
+  clInfo <- class(x)[1]
+	if(clInfo != "imp") stop("object x must be from class imp")
 	xneu=x$xImp
 	s1 <- rowSums(x$xOrig, na.rm=TRUE)
 	for(i in 1:nrow(x$xImp)){

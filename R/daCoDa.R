@@ -62,8 +62,9 @@
 #' }
 daCoDa <- function(x, grp, coda=TRUE, method = "classical", rule="linear", ...){
   ## some checks
-  if(!class(x) %in% c("matrix", "data.frame")) stop("x must be a matrix or data.frame")
-  if(class(x) == "data.frame") x <- as.matrix(x)
+  clInfo <- class(x)[1]
+  if(!clInfo %in% c("matrix", "data.frame")) stop("x must be a matrix or data.frame")
+  if(clInfo == "data.frame") x <- as.matrix(x)
   if(length(grp) != dim(x)[1]){
     stop(paste("grp must be of length", dim(x)[1]))
   }

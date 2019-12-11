@@ -4,8 +4,12 @@
 \alias{indTab}
 \title{Independence table}
 \usage{
-indTab(x, margin = c("gmean_sum", "sum"), frequency = c("relative",
-  "absolute"), pTabMethod = c("dirichlet", "half", "classical"))
+indTab(
+  x,
+  margin = c("gmean_sum", "sum"),
+  frequency = c("relative", "absolute"),
+  pTabMethod = c("dirichlet", "half", "classical")
+)
 }
 \arguments{
 \item{x}{an object of class table}

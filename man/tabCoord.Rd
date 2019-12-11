@@ -5,13 +5,29 @@
 \alias{tabCoordWrapper}
 \title{Coordinate representation of compositional tables and a sample of compositional tables}
 \usage{
-tabCoord(x = NULL, row.factor = NULL, col.factor = NULL,
-  value = NULL, SBPr = NULL, SBPc = NULL, pivot = FALSE,
-  print.res = FALSE)
+tabCoord(
+  x = NULL,
+  row.factor = NULL,
+  col.factor = NULL,
+  value = NULL,
+  SBPr = NULL,
+  SBPc = NULL,
+  pivot = FALSE,
+  print.res = FALSE
+)
 
-tabCoordWrapper(X, obs.ID = NULL, row.factor = NULL,
-  col.factor = NULL, value = NULL, SBPr = NULL, SBPc = NULL,
-  pivot = FALSE, test = FALSE, n.boot = 1000)
+tabCoordWrapper(
+  X,
+  obs.ID = NULL,
+  row.factor = NULL,
+  col.factor = NULL,
+  value = NULL,
+  SBPr = NULL,
+  SBPc = NULL,
+  pivot = FALSE,
+  test = FALSE,
+  n.boot = 1000
+)
 }
 \arguments{
 \item{x}{a data frame containing variables representing row and column factors of the respective compositional table and variable with the values of the composition.}
@@ -75,7 +91,7 @@ computed and using bootstrap an estimate of 95 \% confidence interval is given.
 ###################
 ### Coordinate representation of a CoDa Table
 
-# example from Fa\\v cevicov\\'a (2018):
+# example from Fa\\v cevicov\'a (2018):
 data(manu_abs)
 manu_USA <- manu_abs[which(manu_abs$country=='USA'),]
 manu_USA$output <- factor(manu_USA$output, levels=c('LAB', 'SUR', 'INP'))
@@ -91,12 +107,12 @@ tabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value', SB
 ###################
 ### Analysis of a sample of CoDa Tables
 
-# example from Fa\\v cevicov\\'a (2018):
+# example from Fa\\v cevicov\'a (2018):
 data(manu_abs)
 
 ### Compositional tables approach,
 ### analysis of the relative structure.
-### An example from Facevi\\v cov\\'a (2018)
+### An example from Facevi\\v cov\'a (2018)
 
 manu_abs$output <- factor(manu_abs$output, levels=c('LAB', 'SUR', 'INP'))
 

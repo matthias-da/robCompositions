@@ -20,3 +20,16 @@ citEntry(entry="Book",
                     " (2011). robCompositions: an R-package for robust statistical analysis of compositional data. In V. Pawlowsky-Glahn and A. Buccianti, editors, 
 Compositional Data Analysis. Theory and Applications, pp. 341-355, John Wiley & Sons, Chichester (UK) ",
                     ".", sep=""))
+                    
+citEntry(entry="Book",
+              title = "Applied Compositional Data Analysis. With Worked Examples in {R}",
+              author = personList(as.person("Peter Filzmoser, Karel Hron, Matthias Templ")),
+              publisher = "Springer International Publishing. Springer Nature Switzerland AG, Cham, Switzerland",
+              note = "Springer Series in Statistics",
+              isbn = "978-3-319-96420-1",
+	            year = "2018",
+              textVersion =
+              paste("Peter Filzmoser, Karel Hron, Matthias Templ",
+                    " (2018). Applied Compositional Data Analysis. With Worked Examples in R. Springer Series in Statistics. Springer International Publishing, Cham, Switzerland ",
+                    ".", sep=""))
+

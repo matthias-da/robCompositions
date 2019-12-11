@@ -1,16 +1,19 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.1.0
-Date: 2019-04-15
+Version: 2.2.0
+Date: 2019-12-12
 Depends:
     R (>= 3.0.0),
     robustbase,
     ggplot2,
     data.table,
     e1071,
-    pls
-LinkingTo: Rcpp
+    pls,
+    Rcpp (>= 0.12.16),
+    RcppEigen (>= 0.3.3.4.0)
+LinkingTo: Rcpp,
+	         RcppEigen (>= 0.3.3.4.0)
 Imports:
     car,
     cvTools,
@@ -30,7 +33,7 @@ Suggests:
     knitr
 VignetteBuilder: knitr
 Authors@R: c(
-  person("Matthias", "Templ", email="matthias.templ@gmail.com", role=c("aut", "cre")),
+  person("Matthias", "Templ", email="matthias.templ@gmail.com", role=c("aut", "cre"), comment=c(ORCID="0000-0002-8638-5276")),
   person("Karel", "Hron", email="Alexander.Kowarik@statistik.gv.at", role="aut"),
   person("Peter", "Filzmoser", email = "Bernhard.Meindl@statistik.gv.at", role="aut"),
   person("Kamila", "Facevicova", email="kamila.facevicova@gmail.com", role="ctb"),
@@ -38,14 +41,23 @@ Authors@R: c(
   person("Jan", "Walach", email ="walach.jan@gmail.com ", role="ctb"),
   person("Veronika", "Pintar", email ="vroni.pintar@gmx.at", role="ctb"),
   person("Jiajia", "Chen", email ="chenjiajia0401@163.com", role="ctb"),	
-  person("Dominika", "Miksova", email ="miksovadominika1@gmail.com", role="ctb"))
+  person("Dominika", "Miksova", email ="miksovadominika1@gmail.com", role="ctb"),
+  person("Alessia", "Di Blasi", email = "alessia.diblasi@mail.polimi.it", role="ctb"),
+  person("Federico", "Pavone", email = "federico.pavone@mail.polimi.it", role="ctb"),
+  person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"))
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust
-    methods, imputation, methods to replace rounded zeros, (robust) outlier
+    methods  (<doi:10.1007/978-3-319-96422-5>), imputation of missing values (<doi:10.1016/j.csda.2009.11.023>), methods to replace 
+    rounded zeros (<doi:10.1080/02664763.2017.1410524>, <doi:10.1016/j.chemolab.2016.04.011>, <doi:10.1016/j.csda.2012.02.012>), 
+    count zeros (<doi:10.1177/1471082X14535524>), 
+    methods to deal with essential zeros (<doi:10.1080/02664763.2016.1182135>), (robust) outlier
     detection for compositional data, (robust) principal component analysis for
     compositional data, (robust) factor analysis for compositional data, (robust)
     discriminant analysis for compositional data (Fisher rule), robust regression
-    with compositional predictors and (robust) Anderson-Darling normality tests for
+    with compositional predictors, functional data analysis and p-splines (<doi:10.1016/j.csda.2015.07.007>), 
+    contingency (<doi:10.1080/03610926.2013.824980>) 
+    and compositional tables (<doi:10.1111/sjos.12326>, <doi:10.1111/sjos.12223>, <doi:10.1080/02664763.2013.856871>) 
+    and (robust) Anderson-Darling normality tests for
     compositional data as well as popular log-ratio transformations (addLR, cenLR,
     isomLR, and their inverse transformations). In addition, visualisation and
     diagnostic tools are implemented as well as high and low-level plot functions
@@ -53,4 +65,4 @@ Description: Methods for analysis of compositional data including robust
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.0

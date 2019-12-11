@@ -110,7 +110,8 @@ function (x, ..., which=1, ord=1:ncol(x),
   smooth=FALSE
   reg.line=FALSE
   legend.plot=FALSE
-	if (class(x) != "imp") 
+  clInfo <- class(x)[1]
+	if (clInfo != "imp") 
 		stop("use only with objects of class \"imp\" ")
 	wind <- x$wind
 	x <- x$xImp  

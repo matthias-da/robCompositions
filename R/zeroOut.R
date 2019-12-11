@@ -31,7 +31,7 @@ zeroOut <- function(x, impute="knn"){
   xi <- cbind(xi, ID=1:nrow(x))
   
   ## make sure that xi is a data.frame:
-  if(class(xi)=="matrix") xi <- data.frame(xi)
+  if(class(xi)[1] == "matrix") xi <- data.frame(xi)
   w <- is.na(x[, ind])
   #    w <- apply(w, 2, as.integer)
   s <- apply(w, 1, paste, collapse=":")

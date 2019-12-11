@@ -4,10 +4,21 @@
 \alias{impRZilr}
 \title{EM-based replacement of rounded zeros in compositional data}
 \usage{
-impRZilr(x, maxit = 10, eps = 0.1, method = "pls", dl = rep(0.05,
-  ncol(x)), variation = FALSE, nComp = "boot", bruteforce = FALSE,
-  noisemethod = "residuals", noise = FALSE, R = 10,
-  correction = "normal", verbose = FALSE)
+impRZilr(
+  x,
+  maxit = 10,
+  eps = 0.1,
+  method = "pls",
+  dl = rep(0.05, ncol(x)),
+  variation = FALSE,
+  nComp = "boot",
+  bruteforce = FALSE,
+  noisemethod = "residuals",
+  noise = FALSE,
+  R = 10,
+  correction = "normal",
+  verbose = FALSE
+)
 }
 \arguments{
 \item{x}{data.frame or matrix}

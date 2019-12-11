@@ -44,7 +44,8 @@
 #' addLRinv(x.alr, ivar=2, useClassInfo=FALSE)
 #' 
 addLRinv <- function(x, cnames=NULL, ivar=NULL, useClassInfo=TRUE){
-	if(class(x) == "alr" & useClassInfo==TRUE){
+  clInfo <- class(x)[1]
+	if(clInfo == "alr" & useClassInfo==TRUE){
 	  if(!identical(x$base, exp(1))) warning("\n absolute values not preserved \n since base was different to exp(1)")
 		xalr <- x$x.alr
 		ivar <- x$ivar
@@ -59,7 +60,7 @@ addLRinv <- function(x, cnames=NULL, ivar=NULL, useClassInfo=TRUE){
 		}
 		colnames(dat) <- x$cnames
 		if(class(x$x.alr) == "data.frame") dat <- as.data.frame(dat)
-	} else if(class(x)=="alr" & useClassInfo == FALSE){
+	} else if(clInfo == "alr" & useClassInfo == FALSE){
 		if(is.null(ivar)) stop("object ivar must be provided \n because object x is not from class alr")
 		xalr <- x$x.alr
 		#if(is.null(cnames)) cnames <- c(colnames(x), "rat")
@@ -76,7 +77,7 @@ addLRinv <- function(x, cnames=NULL, ivar=NULL, useClassInfo=TRUE){
 			dat <- cbind(dat[,1:(ivar-1)], 1/rat, dat[,(ivar):(dim(xalr)[2])])
 		}
 		#colnames(dat) <- x$cnames
-	} else if(class(x) != "alr"){
+	} else if(clInfo != "alr"){
 		if(dim(x)[2] < 2) stop("data must be of dimension greater equal 2")
 		#if(useClassInfo) warning("x is not from class alr, absolute values are not preserved and column names may not be respected")
 		if(is.null(ivar)){ 

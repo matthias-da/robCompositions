@@ -19,15 +19,17 @@
 #' data(expenditures)
 #' x <- expenditures
 #' is.equivalent(x, constSum(x))
+#' y <- x
 #' y[1,1] <- x[1,1]+1
 #' is.equivalent(y, constSum(x))
 #' 
 is.equivalent <- function(x, y, tollerance = .Machine$double.eps ^ 0.5){
-	if(class(x) != "integer" & class(x) != "numeric" & class(x) != "data.frame"){
+  clInfo <- class(x)[1]
+	if(clInfo != "integer" & clInfo != "numeric" & clInfo != "data.frame"){
 	  stop("object x must be from class numeric or data.frame")
 	}
   # x is numeric, y is numeric
-  if((class(x) == "numeric" | class(x) == "integer") & (class(y) == "numeric" | class(y) == "integer")){
+  if((clInfo == "numeric" | clInfo == "integer") & (class(y) == "numeric" | class(y) == "integer")){
     x <- as.numeric(x)
     y <- as.numeric(y)
     fac <- x[1] / y[1]
@@ -36,7 +38,7 @@ is.equivalent <- function(x, y, tollerance = .Machine$double.eps ^ 0.5){
     if(!is.logical(test)) test <- FALSE
   }
   # x is a data.frame, y is a data.frame
-  if((any(class(x) == "data.frame")) & (any(class(x) == "data.frame"))){
+  if((any(clInfo == "data.frame")) & (any(clInfo == "data.frame"))){
     n <- nrow(x)
     test <- logical(n)
     for(i in 1:n){

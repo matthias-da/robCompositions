@@ -7,11 +7,18 @@
 \alias{plot.biomarker}
 \title{biomarker}
 \usage{
-biomarker(x, cut = qnorm(0.975, 0, 1), g1, g2, type = "tau",
-  diag = TRUE, plot = FALSE, diag.plot = FALSE)
+biomarker(
+  x,
+  cut = qnorm(0.975, 0, 1),
+  g1,
+  g2,
+  type = "tau",
+  diag = TRUE,
+  plot = FALSE,
+  diag.plot = FALSE
+)
 
-\method{plot}{biomarker}(x, cut = qnorm(0.975, 0, 1), type = "Vstar",
-  ...)
+\method{plot}{biomarker}(x, cut = qnorm(0.975, 0, 1), type = "Vstar", ...)
 
 \method{print}{biomarker}(x, ...)
 

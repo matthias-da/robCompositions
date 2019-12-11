@@ -30,6 +30,7 @@ compositional data. It measures the distance between two compositions if
 \code{y} are matrices or data frames. It computes a n times n distance matrix (with n
 the number of observations/compositions) if only \code{x} is provided.
 
+
 The underlying code is partly written in C and allows a fast computation also for
 large data sets whenever \code{y} is supplied.
 }

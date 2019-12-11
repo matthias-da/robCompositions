@@ -27,16 +27,16 @@
 #' head(cenLRinv(eclr$x.clr))
 #' 
 cenLRinv <- function(x, useClassInfo=TRUE){
-	
-	if(class(x) != "clr" & useClassInfo == TRUE) warning("useClassInfo was set to FALSE, because x is not from class clr")
-	if(!(class(x) %in% c("clr", "data.frame", "matrix"))) stop("class from x must be either clr, data.frame or matrix")
+	clInfo <- class(x)[1]
+	if(clInfo != "clr" & useClassInfo == TRUE) warning("useClassInfo was set to FALSE, because x is not from class clr")
+	if(!(clInfo %in% c("clr", "data.frame", "matrix"))) stop("class from x must be either clr, data.frame or matrix")
   # if(!is.null(x$base)){
   #   if(!identical(x$base, exp(1))) warning("\n absolute values currently not preserved \n since base was different to exp(1)")
   # }
-  if(class(x) == "clr") xclr <- x$x.clr
-	if(class(x) == "clr" & useClassInfo==TRUE){
+  if(clInfo == "clr") xclr <- x$x.clr
+	if(clInfo == "clr" & useClassInfo==TRUE){
 		dat <- exp(xclr)  * x$gm
-	} else if(class(x) != "clr" | useClassInfo==FALSE){
+	} else if(clInfo != "clr" | useClassInfo==FALSE){
 		dat <- exp(x)  		
 	}
 	return(dat)	
