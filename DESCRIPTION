@@ -4,7 +4,7 @@ Title: Compositional Data Analysis
 Version: 2.2.0
 Date: 2019-12-12
 Depends:
-    R (>= 3.0.0),
+    R (>= 3.0.2),
     robustbase,
     ggplot2,
     data.table,
@@ -24,13 +24,13 @@ Imports:
     kernlab,
     MASS,
     mclust,
-    Rcpp,
     sROC,
     tidyr,
     VIM,
     zCompositions
 Suggests:
-    knitr
+    knitr,
+    testthat
 VignetteBuilder: knitr
 Authors@R: c(
   person("Matthias", "Templ", email="matthias.templ@gmail.com", role=c("aut", "cre"), comment=c(ORCID="0000-0002-8638-5276")),
@@ -65,4 +65,5 @@ Description: Methods for analysis of compositional data including robust
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 7.0.0
+RoxygenNote: 7.0.2
+Encoding: UTF-8
