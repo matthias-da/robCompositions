@@ -31,7 +31,8 @@
 #' midy1 <- matrix(h1$density, nrow=1, ncol = length(h1$density), byrow=TRUE)
 #' knots <- 7
 #' sol1 <- smoothSplinesVal(k=3,l=2,alpha=10^seq(-4,4,by=1),midy1,midx1,knots,cores=1)
-#' @useDynLib splineDensity
+## @useDynLib splineDensity
+#' @useDynLib robCompositions
 #' @export
 #'
 

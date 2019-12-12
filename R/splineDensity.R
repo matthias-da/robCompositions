@@ -1,4 +1,6 @@
 #' Estimate density from histogram
+#' @rdname smoothSplines
+#' @name smoothSplines
 #' @import Rcpp RcppEigen
 #' @param k smoothing splines degree
 #' @param l order of derivative in the penalization term
@@ -49,8 +51,9 @@
 #' lines(density(iris1), col = "black", lwd = 1.5)
 #' xx1 <- seq(sol1$Xcp[1],tail(sol1$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol1$Y[1,], col = 'red', lwd = 2)
-#' @useDynLib splineDensity
 #' @export
+## @useDynLib splineDensity
+#' @useDynLib robCompositions
 #'
 
 smoothSplines <- function(k,l,alpha,data,xcp,knots,weights = matrix(1, dim(data)[1], dim(data)[2]),num_points = 100, prior = "default", cores = 1, fast = 0)
