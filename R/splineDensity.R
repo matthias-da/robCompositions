@@ -52,8 +52,7 @@
 #' xx1 <- seq(sol1$Xcp[1],tail(sol1$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol1$Y[1,], col = 'red', lwd = 2)
 #' @export
-## @useDynLib splineDensity
-#' @useDynLib robCompositions
+#' @useDynLib robCompositions, .registration = TRUE
 #'
 
 smoothSplines <- function(k,l,alpha,data,xcp,knots,weights = matrix(1, dim(data)[1], dim(data)[2]),num_points = 100, prior = "default", cores = 1, fast = 0)
@@ -88,13 +87,13 @@ smoothSplines <- function(k,l,alpha,data,xcp,knots,weights = matrix(1, dim(data)
 
 
   # Creating equispaced knots if not given
-  if( length(knots) == 1 )
-  {
+  if( length(knots) == 1) {
     u <- xcp[1]
     v <- utils::tail(xcp,n=1)
     size <- knots
     step <- (v - u)/(size-1)
     knots_ <- seq(u,v, by = step)
+  
     obj <- .Call("smoothingSplines_",as.integer(k),as.integer(l),alpha,
                  data,xcp,knots_,weights,as.integer(num_points),as.integer(prior_num), as.integer(cores), as.integer(fast))
   }
