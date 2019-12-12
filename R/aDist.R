@@ -21,7 +21,6 @@
 #' sets, or a distance matrix in case code{y} is not supplied.
 #' @author Matthias Templ, Bernhard Meindl
 #' @export
-#' @useDynLib robCompositions
 #' @seealso \code{\link{pivotCoord}}
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.

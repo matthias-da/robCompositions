@@ -32,10 +32,7 @@
 #' knots <- 7
 #' sol1 <- smoothSplinesVal(k=3,l=2,alpha=10^seq(-4,4,by=1),midy1,midx1,knots,cores=1)
 ## @useDynLib splineDensity
-#' @useDynLib robCompositions
 #' @export
-#'
-
 smoothSplinesVal <- function(k,l,alpha,data,xcp,knots, weights = matrix(1, dim(data)[1], dim(data)[2]), prior = "default",cores = 1)
 {
   # Checking if data is a matrix

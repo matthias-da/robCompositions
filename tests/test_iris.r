@@ -1,5 +1,3 @@
-library(splineDensity)
-
 SepalLengthCm <- iris$Sepal.Length
 Species <- iris$Species
  
