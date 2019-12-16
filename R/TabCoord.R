@@ -24,7 +24,7 @@
 #' from the simplex into a (IJ-1)-dimensional real space isometrically 
 #' with respect to its two-factorial nature. 
 #' The coordinate system is formed by two types of coordinates - balances and log odds-ratios.
-#' @keywords multivariate, coordinates
+#' @keywords multivariate
 #' @export
 #' @seealso 
 #' \code{\link{cubeCoord}} 

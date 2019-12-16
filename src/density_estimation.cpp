@@ -16,13 +16,21 @@ void
 parametersManager::readKnots
 (const double * inputKnots, const unsigned int & size)
 {
+
   // read knots by copy
   knots.clear();
   for(std::size_t i=0; i < size; i++)
     knots.push_back(inputKnots[i]);
 
   g = knots.size()-2;
-  G = g+k+1;
+  G = g+k+1; /* BERNHARD
+ Woher kommt k? Ist das das eigentliche 
+ Problem(?), weil folgende Warnings (nur in Linux gcc)
+ density_estimation.h:25:7: warning: ‘<anonymous>.parametersManager::G’ is used uninitialized in this function [-Wuninitialized]
+ density_estimation.h:25:7: warning: ‘*((void*)&<anonymous> +16)’ is used uninitialized in this function [-Wuninitialized]
+ density_estimation.h:25:7: warning: ‘<anonymous>.parametersManager::u’ is used uninitialized in this function [-Wuninitialized]
+ density_estimation.h:25:7: warning: ‘<anonymous>.parametersManager::v’ is used uninitialized in this function [-Wuninitialized]
+ */
   u = knots.front();
   v = knots.back();
 }

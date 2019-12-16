@@ -83,8 +83,8 @@ res.cla <- pfa(x, factors=1, robust=FALSE)
 
 ## the following produce always the same result:
 res1 <- pfa(x, factors=1, covmat="covMcd")
-res2 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x))$cov)
-res3 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x)))
+res2 <- pfa(x, factors=1, covmat=robustbase::covMcd(pivotCoord(x))$cov)
+res3 <- pfa(x, factors=1, covmat=robustbase::covMcd(pivotCoord(x)))
 
 }
 \references{

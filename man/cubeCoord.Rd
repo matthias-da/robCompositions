@@ -106,7 +106,7 @@ bootstrap an estimate of 95 \% confidence interval is given.
 ###################
 ### Coordinate representation of a CoDa Cube
 
-### example from Fa\v cevicov\'a (2019)
+### example from Fa\\v cevicov\'a (2019)
 data(employment2)
 CZE <- employment2[which(employment2$Country == 'CZE'), ]
 
@@ -124,11 +124,11 @@ cubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
 ###################
 ### Analysis of a sample of CoDa Cubes
 
-### example from Fa\v cevicov\'a (2019)
+### example from Fa\\v cevicov\'a (2019)
 data(employment2)
 ### Compositional tables approach,
 ### analysis of the relative structure.
-### An example from Facevi\v cov\'a (2019)
+### An example from Facevi\\v cov\'a (2019)
 
 # pivot coordinates
 cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  
@@ -170,5 +170,4 @@ Facevicova, K., Filzmoser, P. and K. Hron (2019) Compositional Cubes: Three-fact
 \author{
 Kamila Facevicova
 }
-\keyword{coordinates}
-\keyword{multivariate,}
+\keyword{multivariate}

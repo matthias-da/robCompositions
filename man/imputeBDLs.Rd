@@ -118,7 +118,8 @@ for(j in seq(1,col,2))
 
 for(j in 1:col)        
 {data[data[,j]<DL[j],j] <- 0}
-
+\dontrun{
+# under dontrun because of long exectution time
 imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="subPLS")
 imp
 imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="pls", variation = FALSE)
@@ -129,8 +130,6 @@ imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="lmrob")
 imp
 
 data(mcad)
-\dontrun{
-## longer computation times...
 ## generate rounded zeros artificially:
 x <- mcad
 x <- x[1:25, 2:ncol(x)]

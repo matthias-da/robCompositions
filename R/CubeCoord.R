@@ -26,7 +26,7 @@
 #' @param pivot logical, default is FALSE. If TRUE, or one of the SBPs is not defined, its pivot version is used.
 #' @param print.res logical, default is FALSE. If TRUE, the output is displayed in the Console.
 #' @details This transformation moves the IJK-part compositional cubes from the simplex into a (IJK-1)-dimensional real space isometrically with respect to its three-factorial nature.
-#' @keywords multivariate, coordinates
+#' @keywords multivariate
 #' @export
 #' @seealso 
 #' \code{\link{tabCoord}} 

@@ -1,5 +1,16 @@
+#' @rdname plot.smoothSpl
+#' @name plot.smoothSpl
+#' @title plot smoothSpl
+#' @description plot densities of objects of class smoothSpl
+#' @param x class smoothSpl object
+#' @param y ignored
+#' @param by stepsize
+#' @param n length of sequence to plot
+#' @param index optinally the sequence instead of by and n
+#' @param ... further arguments passed by
+#' @method plot smoothSpl
 #' @export
-plot.smoothSpl <- function(x, by = 1 , n = 10, index = NULL, ...){
+plot.smoothSpl <- function(x, y, ..., by = 1 , n = 10, index = NULL){
   xx <- seq(x$Xcp[1],utils::tail(x$Xcp,n=1),length.out = x$NumPoints)
   n <- min(n,dim(x$Y)[1])
   cols <- grDevices::rainbow(min(n,30))

@@ -6,7 +6,7 @@
 \title{production splitted by nationality on enterprise level}
 \format{A data frame with 535 rows and 9 variables}
 \source{
-statCube data base at \url{www.statistik.ac.at}. The product and all 
+statCube data base at the website of Statistics Austria. The product and all 
 material contained therein are protected by copyright with all rights 
 reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
 It is permitted to reproduce, distribute, make publicly available 

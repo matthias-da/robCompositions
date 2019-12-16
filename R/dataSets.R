@@ -1201,7 +1201,7 @@ NULL
 #' @docType data
 #' @usage data(payments)
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
+#' @source statCube data base at the website of Statistics Austria. The product and all 
 #' material contained therein are protected by copyright with all rights 
 #' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
 #' It is permitted to reproduce, distribute, make publicly available 
@@ -1325,7 +1325,7 @@ NULL
 #' @docType data
 #' @usage data(production)
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source statCube data base at \url{www.statistik.ac.at}. The product and all 
+#' @source statCube data base at the website of Statistics Austria. The product and all 
 #' material contained therein are protected by copyright with all rights 
 #' reserved by the Bundesanstalt Statistik Oesterreich (STATISTICS AUSTRIA). 
 #' It is permitted to reproduce, distribute, make publicly available 

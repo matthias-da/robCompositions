@@ -4,19 +4,15 @@ Title: Compositional Data Analysis
 Version: 2.2.0
 Date: 2019-12-12
 Depends:
-    R (>= 3.0.2),
-    robustbase,
+    R (>= 3.0.0),
     ggplot2,
-    data.table,
-    e1071,
     pls,
-    Rcpp (>= 0.12.16),
-    RcppEigen (>= 0.3.3.4.0)
-LinkingTo: Rcpp,
-	         RcppEigen (>= 0.3.3.4.0)
+    data.table
+LinkingTo: Rcpp, RcppEigen
 Imports:
     car,
     cvTools,
+    e1071,
     rrcov,
     cluster,
     fpc,
@@ -26,8 +22,11 @@ Imports:
     mclust,
     sROC,
     tidyr,
+    robustbase,
     VIM,
-    zCompositions
+    zCompositions,
+    Rcpp,
+    RcppEigen
 Suggests:
     knitr,
     testthat
@@ -65,5 +64,5 @@ Description: Methods for analysis of compositional data including robust
 License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
-RoxygenNote: 7.0.2
 Encoding: UTF-8
+RoxygenNote: 7.0.0

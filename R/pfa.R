@@ -51,6 +51,7 @@
 #' @keywords multivariate
 #' @export
 #' @importFrom MASS ginv
+#' @importFrom robustbase covMcd
 #' @examples
 #' 
 #' data(expenditures)
@@ -61,8 +62,8 @@
 #' 
 #' ## the following produce always the same result:
 #' res1 <- pfa(x, factors=1, covmat="covMcd")
-#' res2 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x))$cov)
-#' res3 <- pfa(x, factors=1, covmat=covMcd(pivotCoord(x)))
+#' res2 <- pfa(x, factors=1, covmat=robustbase::covMcd(pivotCoord(x))$cov)
+#' res3 <- pfa(x, factors=1, covmat=robustbase::covMcd(pivotCoord(x)))
 #' 
 pfa <-
 function (x, factors, robust=TRUE, data = NULL, covmat = NULL, n.obs = NA, 

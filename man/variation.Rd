@@ -20,7 +20,7 @@ Estimates the variation matrix with robust methods.
 \details{
 The variation matrix is estimated for a given compositional data set.
 Instead of using the classical standard deviations the miniminm covariance estimator
-is used (\code{\link[stats]{robustbase::covMcd}}) is used when parameter robust is set to TRUE.
+is used (\code{\link[robustbase]{covMcd}}) is used when parameter robust is set to TRUE.
 
 For method \code{robustPivot} forumala 5.8. of the book (see second reference) is used. Here 
 robust (mcd-based) covariance estimation is done on pivot coordinates. 

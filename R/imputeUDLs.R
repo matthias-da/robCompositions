@@ -39,7 +39,6 @@
 #' @importFrom cvTools cvFit 
 #' @importFrom zCompositions multRepl
 #' @importFrom fpc pamk
-#' @import pls
 #' @return 
 #' \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit

@@ -59,8 +59,28 @@ Evaluates basis splines which include x=t in the span and save values in N
 	double saved, temp;
 
 	// work space
+	/* BERNHARD: 
+	 * the following two lines results in 
+	 * Found the following significant warnings:
+	 bspline.cpp:62:9: warning: ISO C++ forbids variable length array ‘left’ [-Wvla]
+	 bspline.cpp:63:9: warning: ISO C++ forbids variable length array ‘right’ [-Wvla]
+	 */
 	double left[p+1];
-	double right[p+1];
+	double right[p+1]; 
+	
+	
+	/* statt dessen probiert:
+	 * (um dynamisch left und right zu erstellen)
+	 */
+	double *left = new double[p+1];
+	double *right = new double[p+1];
+	left = Rcpp::IntegerVector(p+1);
+	right = Rcpp::IntegerVector(p+1);
+
+  Rcpp::NumericVector left(p+1);
+  Rcpp::NumericVector right(p+1);
+	 */
+
 	if(i == p && t == U[i]){
 		N[0] = 1.0;
 	}
