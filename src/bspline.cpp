@@ -65,8 +65,11 @@ Evaluates basis splines which include x=t in the span and save values in N
 	 bspline.cpp:62:9: warning: ISO C++ forbids variable length array ‘left’ [-Wvla]
 	 bspline.cpp:63:9: warning: ISO C++ forbids variable length array ‘right’ [-Wvla]
 	 */
-	double left[p+1];
-	double right[p+1]; 
+	/*double left[p+1];
+	double right[p+1];*/ 
+	
+	double *left = (double*) calloc(p + 1, sizeof(double));
+	double *right = (double*) calloc(p + 1, sizeof(double));
 	
 	/* statt dessen probiert:
 	 * (um dynamisch left und right zu erstellen?)
@@ -104,5 +107,8 @@ Evaluates basis splines which include x=t in the span and save values in N
 			N[i - p + k] = P[k];
 		}
 	}
+	
+	free(left);
+	free(right);
 
 };	//basisfun

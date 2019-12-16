@@ -40,14 +40,14 @@ protected:
   /*! spline knots */
   std::vector<double> knots;
   /*! [u,v] support of splines */
-  double u,v;
+  double u, v;
   /*! control points */
   std::vector<double> xcp;
 
 public:
   parametersManager
   (const unsigned int kk, const unsigned int ll, const double opt_param):
-    k(kk), l(ll), alpha(opt_param) {};
+    k(kk), l(ll), alpha(opt_param), n(0), g(0), G(0), u(0), v(0) {};
 
   /*!
 	@brief Read knots from C-array style and store them in the std::vector<double> member

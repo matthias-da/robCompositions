@@ -16,14 +16,16 @@ void
 parametersManager::readKnots
 (const double * inputKnots, const unsigned int & size)
 {
-
+  
   // read knots by copy
   knots.clear();
   for(std::size_t i=0; i < size; i++)
     knots.push_back(inputKnots[i]);
+  
+/*  int k = 0; */
 
   g = knots.size()-2;
-  G = g+k+1;
+  G = g+k+1;    /*G = g+k+1;*/
   u = knots.front();
   v = knots.back();
   /*G = g+k+1;  BERNHARD
