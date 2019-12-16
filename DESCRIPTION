@@ -41,6 +41,7 @@ Authors@R: c(
   person("Veronika", "Pintar", email ="vroni.pintar@gmx.at", role="ctb"),
   person("Jiajia", "Chen", email ="chenjiajia0401@163.com", role="ctb"),	
   person("Dominika", "Miksova", email ="miksovadominika1@gmail.com", role="ctb"),
+  person("Bernhard", "Meindl", email ="bernhard.meindl@gmail.com", role="ctb"),
   person("Alessia", "Di Blasi", email = "alessia.diblasi@mail.polimi.it", role="ctb"),
   person("Federico", "Pavone", email = "federico.pavone@mail.polimi.it", role="ctb"),
   person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"))
