@@ -25,8 +25,7 @@ Imports:
     robustbase,
     VIM,
     zCompositions,
-    Rcpp,
-    RcppEigen
+    Rcpp
 Suggests:
     knitr,
     testthat

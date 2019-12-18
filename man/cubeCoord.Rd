@@ -105,8 +105,8 @@ bootstrap an estimate of 95 \% confidence interval is given.
 \examples{
 ###################
 ### Coordinate representation of a CoDa Cube
-
-### example from Fa\\v cevicov\'a (2019)
+\dontrun{
+### example from Fa\v cevicov\'a (2019)
 data(employment2)
 CZE <- employment2[which(employment2$Country == 'CZE'), ]
 
@@ -120,15 +120,16 @@ c <- t(c(1,-1))
 s <- rbind(c(1,-1,-1), c(0,1,-1))
 
 cubeCoord(CZE, "Sex", 'Contract', "Age", 'Value', r,c,s)
+}
 
 ###################
 ### Analysis of a sample of CoDa Cubes
-
-### example from Fa\\v cevicov\'a (2019)
+\dontrun{
+### example from Fa\v cevicov\'a (2019)
 data(employment2)
 ### Compositional tables approach,
 ### analysis of the relative structure.
-### An example from Facevi\\v cov\'a (2019)
+### An example from Facevi\v cov\'a (2019)
 
 # pivot coordinates
 cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract', 'Age', 'Value',  
@@ -146,11 +147,9 @@ res <- cubeCoordWrapper(employment2, 'Country', 'Sex', 'Contract',
 ### Classical approach,
 ### generalized linear mixed effect model.
 
-\dontrun{
 library(lme4)
 employment2$y <- round(employment2$Value*1000)
 glmer(y~Sex*Age*Contract+(1|Country),data=employment2,family=poisson)
-}
 
 ### other relations within cube (in the log-ratio form)
 ### e.g. ratio between women and man in the group FT, 15to24
@@ -158,7 +157,8 @@ glmer(y~Sex*Age*Contract+(1|Country),data=employment2,family=poisson)
 
 # transformation matrix
 T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
-T \%*\% t(res$Contrast.matrix) \%*\%res$Bootstrap[,1]
+T %*% t(res$Contrast.matrix) %*%res$Bootstrap[,1]
+}
 }
 \references{
 Facevicova, K., Filzmoser, P. and K. Hron (2019) Compositional Cubes: Three-factorial Compositional Data. Under review.
