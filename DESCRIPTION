@@ -25,6 +25,7 @@ Imports:
     robustbase,
     VIM,
     zCompositions,
+    reshape2,
     Rcpp
 Suggests:
     knitr,

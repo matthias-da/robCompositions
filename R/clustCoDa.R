@@ -54,9 +54,13 @@
 #'                  transformation = "identity")
 #' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
 #'                  transformation = "identity", scale = "none")
+#'                  
+#' \dontrun{
+#' require(reshape2)
 #' plot(rr)
 #' plot(rr, normalized = TRUE)
 #' plot(rr, normalized = TRUE, which.plot = "partMeans")
+#' }
 clustCoDa <- function(x, k=NULL, method="Mclust",
           scale = "robust", transformation = "pivotCoord",
           distMethod=NULL, iter.max=100, vals = TRUE, 
@@ -400,7 +404,7 @@ plot.clustCoDa <- function(x, y, ...,
     if( normalized ) centers <- scale(centers)
     #centers <- cbind("cluster" = rep(1:nrow(x$center), ncol(x$center)), centers)
     centers <- cbind("cluster" = 1:nrow(x$center), centers)
-    centers <- melt(centers, id = "cluster")
+    centers <- reshape2::melt(centers, id = "cluster")
     colnames(centers) <- c("cluster", "variable", "center")
     centers <- centers[!centers$variable == "cluster", ]
     annotations <- paste(measure, "=", round(x[[measure]], 5))    

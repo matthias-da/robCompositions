@@ -19,9 +19,12 @@
 #' data(expenditures) 
 #' x <- expenditures
 #' cl <- clustCoDa_qmode(x)
+#' \dontrun{
+#' require(reshape2)
 #' plot(cl)
 #' cl2 <- clustCoDa_qmode(x, method = "single")
 #' plot(cl2)
+#' }
 clustCoDa_qmode <- function(x, method="ward.D2"){
   d <- as.dist(variation(x))
   clust <- hclust(d, method) 
