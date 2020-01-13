@@ -8,7 +8,7 @@
  */
 
 /* .C calls */
-extern void da(void *, void *, void *, void *, void *, void *);
+extern void da(void *, void *, void *, void *, void *);
 
 /* .Call calls */
 extern SEXP smoothingSplines_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);

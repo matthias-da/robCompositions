@@ -13,6 +13,7 @@
 #' @param prior prior used for zero-replacements. This must be one of "perks", "jeffreys", "bayes_laplace", "sq" or "default"
 #' @param cores number of cores for parallel execution, if the option was enabled before installing the package
 #' @param fast 1 if maximal performance is required (print statements suppressed), 0 otherwise
+#' @author Alessia Di Blasi, Federico Pavone, Gianluca Zeni, Matthias Templ
 #' @return An object of class \code{smoothSpl}, containing among the other the following variables:
 #' \item{\code{bspline}}{each row is the vector of B-spline coefficients}
 #' \item{\code{Y}}{the values of the smoothed curve, for the grid given}

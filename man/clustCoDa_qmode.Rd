@@ -22,9 +22,12 @@ Clustering using the variation matrix of compositional parts
 data(expenditures) 
 x <- expenditures
 cl <- clustCoDa_qmode(x)
+\dontrun{
+require(reshape2)
 plot(cl)
 cl2 <- clustCoDa_qmode(x, method = "single")
 plot(cl2)
+}
 }
 \references{
 Filzmoser, P., Hron, K. Templ, M. (2018)

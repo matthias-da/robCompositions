@@ -9,6 +9,7 @@
 #' @param weights matrix of weights. If not gives, all data points will be weighted the same.
 #' @param prior prior used for zero-replacements. This must be one of "perks", "jeffreys", "bayes_laplace", "sq" or "default"
 #' @param cores number of cores for parallel execution
+#' @author Alessia Di Blasi, Federico Pavone, Gianluca Zeni, Matthias Templ
 #' @return A list of three objects:
 #' \item{\code{alpha}}{the values of \code{alpha}}
 #' \item{\code{J}}{the values of the functional evaluated in the minimizing}

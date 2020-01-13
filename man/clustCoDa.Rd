@@ -85,9 +85,13 @@ rr2 <- clustCoDa(x, k=6, distMethod = "Aitchison", scale = "none",
                  transformation = "identity")
 rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
                  transformation = "identity", scale = "none")
+                 
+\dontrun{
+require(reshape2)
 plot(rr)
 plot(rr, normalized = TRUE)
 plot(rr, normalized = TRUE, which.plot = "partMeans")
+}
 }
 \references{
 M. Templ, P. Filzmoser, C. Reimann.

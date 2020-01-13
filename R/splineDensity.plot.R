@@ -9,6 +9,7 @@
 #' @param index optinally the sequence instead of by and n
 #' @param ... further arguments passed by
 #' @method plot smoothSpl
+#' @author Alessia Di Blasi, Federico Pavone, Gianluca Zeni
 #' @export
 plot.smoothSpl <- function(x, y, ..., by = 1 , n = 10, index = NULL){
   xx <- seq(x$Xcp[1],utils::tail(x$Xcp,n=1),length.out = x$NumPoints)
