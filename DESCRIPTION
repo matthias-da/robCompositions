@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.2.0
-Date: 2019-12-12
+Version: 2.2.1
+Date: 2020-01-29
 Depends:
     R (>= 3.0.0),
     ggplot2,
@@ -33,8 +33,8 @@ Suggests:
 VignetteBuilder: knitr
 Authors@R: c(
   person("Matthias", "Templ", email="matthias.templ@gmail.com", role=c("aut", "cre"), comment=c(ORCID="0000-0002-8638-5276")),
-  person("Karel", "Hron", email="Alexander.Kowarik@statistik.gv.at", role="aut"),
-  person("Peter", "Filzmoser", email = "Bernhard.Meindl@statistik.gv.at", role="aut"),
+  person("Karel", "Hron", email="Alexander.Kowarik@statistik.gv.at", role="aut", comment = c(ORCID="0000-0002-1847-6598")),
+  person("Peter", "Filzmoser", email = "Bernhard.Meindl@statistik.gv.at", role="aut", comment = c(ORCID="0000-0002-8014-4682")),
   person("Kamila", "Facevicova", email="kamila.facevicova@gmail.com", role="ctb"),
   person("Petra", "Kynclova", email="kynclova.petra@gmail.com", role="ctb"),
   person("Jan", "Walach", email ="walach.jan@gmail.com ", role="ctb"),
@@ -42,6 +42,7 @@ Authors@R: c(
   person("Jiajia", "Chen", email ="chenjiajia0401@163.com", role="ctb"),	
   person("Dominika", "Miksova", email ="miksovadominika1@gmail.com", role="ctb"),
   person("Bernhard", "Meindl", email ="bernhard.meindl@gmail.com", role="ctb"),
+  person("Alessandra", "Menafoglio", email = "alessandra.menafoglio@polimi.it", role="ctb", comment = c(ORCID="0000-0003-0682-6412")),
   person("Alessia", "Di Blasi", email = "alessia.diblasi@mail.polimi.it", role="ctb"),
   person("Federico", "Pavone", email = "federico.pavone@mail.polimi.it", role="ctb"),
   person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"))

@@ -22,3 +22,6 @@
 \description{
 plot densities of objects of class smoothSpl
 }
+\author{
+Alessia Di Blasi, Federico Pavone, Gianluca Zeni
+}

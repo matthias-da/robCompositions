@@ -1,3 +1,6 @@
+Changes in robCompositions version 2.2.1
+  + encoding issues in data sets nutrients and nutrients_branded
+
 Changes in robCompositions version 2.2.0
   + spline density estimation, various functions 
 

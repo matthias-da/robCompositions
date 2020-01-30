@@ -44,6 +44,7 @@
 #' midx1 <- h1$mids
 #' midy1 <- matrix(h1$density, nrow=1, ncol = length(h1$density), byrow=TRUE)
 #' knots <- 7
+#' \dontrun{
 #' sol1 <- smoothSplines(k=3,l=2,alpha=1000,midy1,midx1,knots)
 #' plot(sol1)
 #' 
@@ -52,6 +53,7 @@
 #' lines(density(iris1), col = "black", lwd = 1.5)
 #' xx1 <- seq(sol1$Xcp[1],tail(sol1$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol1$Y[1,], col = 'red', lwd = 2)
+#' }
 #' @export
 #' @useDynLib robCompositions, .registration = TRUE
 #'

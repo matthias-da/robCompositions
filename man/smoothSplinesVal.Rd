@@ -66,3 +66,6 @@ J. Machalova, K. Hron & G.S. Monti (2016):
 Preprocessing of centred logratio transformed density functions
 using smoothing splines. Journal of Applied Statistics, 43:8, 1419-1435.
 }
+\author{
+Alessia Di Blasi, Federico Pavone, Gianluca Zeni, Matthias Templ
+}
