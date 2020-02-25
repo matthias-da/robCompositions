@@ -83,7 +83,8 @@ outCoDa <- function(x, quantile=0.975, method="robust",
 	cvc <- covEst(x, "standard")
 	dM <- sqrt(mahalanobis(x, center=cv$mean, cov=cv$varmat))
 	dMc <- sqrt(mahalanobis(x, center=cvc$mean, cov=cvc$varmat))
-	limit <- sqrt(qchisq(p=quantile, df=ncol(x)-1))
+#	limit <- sqrt(qchisq(p=quantile, df=ncol(x)-1))
+	limit <- sqrt(qchisq(p=quantile, df=ncol(x)))	
 	res <- list(mahalDist = dM, limit = limit, 
 			    outlierIndex = dM > limit, method=method, 
 			    om2 = dMc > limit,

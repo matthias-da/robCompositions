@@ -75,8 +75,8 @@ compareMahal <- function(x, imp="KNNa"){
       mahcorr <- mahcorr / sqrt(qchisq(0.975, ncol(xilr)))
     } else if(ncol(x) == 2){
       xilr <- pivotCoord(x)
-      covs <- covMcd(xilr)
-      zscore <- (as.numeric(unlist(xilr)) - covs$center) / sqrt(covs$cov) 
+      covs <- robustbase::covMcd(xilr)
+      zscore <- (as.numeric(unlist(xilr)) - covs$center) / c(sqrt(covs$cov)) 
       mahcorr <- abs(zscore) / qnorm(0.975)
     } else {
       mahcorr <- NA
