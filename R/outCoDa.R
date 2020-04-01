@@ -56,15 +56,15 @@
 #' oD <- outCoDa(expenditures, coda = log)
 #' 
 outCoDa <- function(x, quantile=0.975, method="robust", 
-                    h=1/2, coda = TRUE){
+                    h=0.5, coda = TRUE){
 	if(dim(x)[2] < 2) stop("need data with at least 2 variables")
-	
+	if(h < 0.5 | h > 1) stop("allowed values for h are between 0.5 and 1")
 	covEst <- function(x, type) {
 		standard <- function(x){
 				list(mean=colMeans(x, na.rm=TRUE), varmat=cov(x))  
 		}
 		robust <- function(x){
-				v <- robustbase::covMcd(x)
+				v <- robustbase::covMcd(x, alpha = h)
 				list(mean=v$center, varmat=v$cov)
 		}
 		switch(type,
