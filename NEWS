@@ -1,3 +1,6 @@
+Changes in robCompositions version 2.2.2
+  + outCoDa() now contains a parameter alpha instead of h
+
 Changes in robCompositions version 2.2.1
   + encoding issues in data sets nutrients and nutrients_branded
 

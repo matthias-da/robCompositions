@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.2.1
-Date: 2020-02-10
+Version: 2.2.2
+Date: 2020-04-01
 Depends:
     R (>= 3.5.0),
     ggplot2,

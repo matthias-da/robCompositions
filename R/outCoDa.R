@@ -24,9 +24,8 @@
 #' a cut-off value for outlier identification: observations with larger
 #' (squared) robust Mahalanobis distance are considered as potential outliers.
 #' @param method either \dQuote{robust} (default) or \dQuote{standard}
-#' @param h the size of the subsets for the robust covariance estimation
-#' according the MCD-estimator for which the determinant is minimized (the
-#' default is (n+p+1)/2).
+#' @param alpha the size of the subsets for the robust covariance estimation
+#' according the MCD-estimator for which the determinant is minimized, see \code{\link[robustbase]{covMcd}}.
 #' @param coda if TRUE, data transformed to coordinate representation before outlier detection. 
 #' @param y unused second plot argument for the plot method
 #' @param ... additional parameters for print and plot method passed through
@@ -56,15 +55,15 @@
 #' oD <- outCoDa(expenditures, coda = log)
 #' 
 outCoDa <- function(x, quantile=0.975, method="robust", 
-                    h=0.5, coda = TRUE){
+                    alpha = 0.5, coda = TRUE){
 	if(dim(x)[2] < 2) stop("need data with at least 2 variables")
-	if(h < 0.5 | h > 1) stop("allowed values for h are between 0.5 and 1")
+	if(alpha < 0.5 | alpha > 1) stop("allowed values for h are between 0.5 and 1")
 	covEst <- function(x, type) {
 		standard <- function(x){
 				list(mean=colMeans(x, na.rm=TRUE), varmat=cov(x))  
 		}
 		robust <- function(x){
-				v <- robustbase::covMcd(x, alpha = h)
+				v <- robustbase::covMcd(x, alpha = alpha)
 				list(mean=v$center, varmat=v$cov)
 		}
 		switch(type,
