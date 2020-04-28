@@ -54,6 +54,8 @@
 #'                  transformation = "identity")
 #' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
 #'                  transformation = "identity", scale = "none")
+#' rr <- clustCoDa(x, k=6, method="pam",
+#'                 scale = "robust", transformation = "pivotCoord")
 #'                  
 #' \dontrun{
 #' require(reshape2)
@@ -328,7 +330,8 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
                      row.names = paste(method, "-", distMethod, sep=""))
   }
   if( length(bic) > 0 ){
-    cl <- Mclust(x,k,k)
+    browser()
+    cl <- Mclust(x, G = k)
     bics <- vector()
     for(i in 1:k ){
       bics[i] <- min(mclustBIC(x[cl$class==i,], 1), na.rm=TRUE)
@@ -365,6 +368,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     clust$centerSimplex <- pivotCoordInv(clust$center)
     gmsc <- apply(clust$centerSimplex, 2, gm)
     di <- gms/gmsc
+    # di <- gms/clust$centerSimplex
     for(i in 1:ncol(clust$centerSimplex)){
       clust$centerSimplex[, i] <- clust$centerSimplex[, i] * di[i]
     }
