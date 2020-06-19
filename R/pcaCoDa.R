@@ -22,6 +22,7 @@
 #' @param mult_comp a list of numeric vectors holding the indices of linked
 #' compositions
 #' @param external external non-compositional variables
+#' @param solve eigen (as princomp does, i.e. eigenvalues of the covariance matrix) or svd (as prcomp does with single value decomposition instead of eigen). Only for method classical.
 #' @return \item{scores }{scores in clr space} \item{loadings }{loadings in clr
 #' space} \item{eigenvalues }{eigenvalues of the clr covariance matrix}
 #' \item{method }{method} \item{princompOutputClr }{output of \code{princomp}
@@ -50,7 +51,7 @@
 #' plot(res.rob)
 #' 
 #' ## classical estimation:
-#' res.cla <- pcaCoDa(arcticLake, method="classical")
+#' res.cla <- pcaCoDa(arcticLake, method="classical", solve = "eigen")
 #' biplot(res.cla)
 #' 
 #' ## just for illustration how to set the mult_comp argument:
@@ -68,7 +69,7 @@
 #' res
 #' biplot(res, scale=0)
 
-pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL) 
+pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL, solve = "eigen") 
 {
   if (is.vector(external) & length(external) != nrow(x)) {
     stop("external and x must have the same number of observations")
@@ -106,7 +107,12 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL)
     eigenvalues <- eigen(cv$cov)$values
   }
   else {
+    if(solve == "eigen"){
     pcaIlr <- princomp(xilr, cor = FALSE)
+    } else{
+      pcaIlr <- prcomp(xilr, scale = FALSE, center = FALSE)    
+      pcaIlr$loadings <- pcaIlr$rotation
+    }
     eigenvalues <- eigen(cov(xilr))$values
   }
   if (is.null(mult_comp)) {
@@ -168,7 +174,15 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL)
       dimnames(loadings)[[1]] <- colnames(x)[unlist(mult_comp)]
   }
   pcaClr <- pcaIlr
-  pcaClr$scores <- pcaIlr$scores
+  if(solve == "eigen"){
+    pcaClr$scores <- pcaIlr$scores
+  } else {
+    pcaClr$scores <- pcaIlr$x  
+    pcaClr$rotation <- loadings
+    pcaClr$loadings <- loadings
+    pcaClr$eigenvalues <- eigenvalues
+  }
+  rownames(loadings) <- colnames(x)
   pcaClr$loadings <- loadings
   res <- list(scores = pcaClr$scores, loadings = loadings, 
               eigenvalues = eigenvalues, method = method, princompOutputClr = pcaClr, 
