@@ -4,7 +4,9 @@
 \name{machineOperators}
 \alias{machineOperators}
 \title{machine operators}
-\format{A data frame with 27 observations on the following 4 variables.}
+\format{
+A data frame with 27 observations on the following 4 variables.
+}
 \usage{
 data(machineOperators)
 }

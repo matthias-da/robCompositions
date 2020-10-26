@@ -4,7 +4,9 @@
 \name{laborForce}
 \alias{laborForce}
 \title{labour force by status in employment}
-\format{A data set on 124 compositions on 9 variables.}
+\format{
+A data set on 124 compositions on 9 variables.
+}
 \source{
 \url{http://unstats.un.org/unsd/demographic/products/indwm/tab5c.htm}
 }

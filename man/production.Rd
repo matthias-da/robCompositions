@@ -4,7 +4,9 @@
 \name{production}
 \alias{production}
 \title{production splitted by nationality on enterprise level}
-\format{A data frame with 535 rows and 9 variables}
+\format{
+A data frame with 535 rows and 9 variables
+}
 \source{
 statCube data base at the website of Statistics Austria. The product and all 
 material contained therein are protected by copyright with all rights 

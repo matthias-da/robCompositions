@@ -4,7 +4,9 @@
 \name{alcohol}
 \alias{alcohol}
 \title{alcohol consumptions by country and type of alcohol}
-\format{A data frame with 193 rows and 6 variables}
+\format{
+A data frame with 193 rows and 6 variables
+}
 \source{
 Transfered from the World Health Organisation website.
 }

@@ -4,7 +4,9 @@
 \name{ageCatWorld}
 \alias{ageCatWorld}
 \title{child, middle and eldery population}
-\format{A data frame with 195 rows and 4 variables}
+\format{
+A data frame with 195 rows and 4 variables
+}
 \usage{
 data(ageCatWorld)
 }

@@ -4,7 +4,9 @@
 \name{nutrients}
 \alias{nutrients}
 \title{nutrient contents}
-\format{A data frame with 965 observations on the following 50 variables.}
+\format{
+A data frame with 965 observations on the following 50 variables.
+}
 \source{
 From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 }

@@ -157,7 +157,7 @@ glmer(y~Sex*Age*Contract+(1|Country),data=employment2,family=poisson)
 
 # transformation matrix
 T <- rbind(c(1,rep(0,5), -1, rep(0,5)), c(rep(c(1/4,0,-1/4), 4)))
-T %*% t(res$Contrast.matrix) %*%res$Bootstrap[,1]
+T \%*\% t(res$Contrast.matrix) \%*\%res$Bootstrap[,1]
 }
 }
 \references{

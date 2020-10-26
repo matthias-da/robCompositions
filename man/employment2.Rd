@@ -4,7 +4,9 @@
 \name{employment2}
 \alias{employment2}
 \title{Employment in different countries by Sex, Age, Contract, Value}
-\format{A data.frame with 504 rows and 5 columns.}
+\format{
+A data.frame with 504 rows and 5 columns.
+}
 \source{
 http://stats.oecd.org
 }

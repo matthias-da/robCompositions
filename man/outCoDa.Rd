@@ -6,7 +6,7 @@
 \alias{plot.outCoDa}
 \title{Outlier detection for compositional data}
 \usage{
-outCoDa(x, quantile = 0.975, method = "robust", h = 1/2, coda = TRUE)
+outCoDa(x, quantile = 0.975, method = "robust", alpha = 0.5, coda = TRUE)
 
 \method{print}{outCoDa}(x, ...)
 
@@ -21,9 +21,8 @@ a cut-off value for outlier identification: observations with larger
 
 \item{method}{either \dQuote{robust} (default) or \dQuote{standard}}
 
-\item{h}{the size of the subsets for the robust covariance estimation
-according the MCD-estimator for which the determinant is minimized (the
-default is (n+p+1)/2).}
+\item{alpha}{the size of the subsets for the robust covariance estimation
+according the MCD-estimator for which the determinant is minimized, see \code{\link[robustbase]{covMcd}}.}
 
 \item{coda}{if TRUE, data transformed to coordinate representation before outlier detection.}
 

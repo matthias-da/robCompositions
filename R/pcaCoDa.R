@@ -30,6 +30,7 @@
 #' @author Karel Hron, Peter Filzmoser, Matthias Templ and a contribution for dimnames in external variables by Amelia Landre.
 #' @seealso \code{\link{print.pcaCoDa}}, \code{\link{summary.pcaCoDa}}, \code{\link{biplot.pcaCoDa}}, \code{\link{plot.pcaCoDa}}
 #' @importFrom stats princomp
+#' @importFrom stats prcomp
 #' @references Filzmoser, P., Hron, K., Reimann, C. (2009) Principal component
 #' analysis for compositional data with outliers. \emph{Environmetrics},
 #' \bold{20}, 621-632.
@@ -182,7 +183,11 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL, so
     pcaClr$loadings <- loadings
     pcaClr$eigenvalues <- eigenvalues
   }
-  rownames(loadings) <- colnames(x)
+  if(is.null(external)){
+    rownames(loadings) <- colnames(x)
+  } else {
+    rownames(loadings) <- c(colnames(x), colnames(external))
+  }
   pcaClr$loadings <- loadings
   res <- list(scores = pcaClr$scores, loadings = loadings, 
               eigenvalues = eigenvalues, method = method, princompOutputClr = pcaClr, 

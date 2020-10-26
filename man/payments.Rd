@@ -4,7 +4,9 @@
 \name{payments}
 \alias{payments}
 \title{special payments}
-\format{A data frame with 535 rows and 11 variables}
+\format{
+A data frame with 535 rows and 11 variables
+}
 \source{
 statCube data base at the website of Statistics Austria. The product and all 
 material contained therein are protected by copyright with all rights 

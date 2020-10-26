@@ -4,7 +4,9 @@
 \name{manu_abs}
 \alias{manu_abs}
 \title{Distribution of manufacturing output}
-\format{A data frame with 630 observations of 4 variables.}
+\format{
+A data frame with 630 observations of 4 variables.
+}
 \source{
 Elaboration based on the INDSTAT 4 database (UNIDO 2012a), see also UNIDO, 2012b.
 UNIDO (2012a), INDSTAT 4 Industrial Statistics Database at 3- and 4-digit level of 

@@ -4,7 +4,9 @@
 \name{expenditures}
 \alias{expenditures}
 \title{synthetic household expenditures toy data set}
-\format{A data frame with 20 observations on the following 5 variables.}
+\format{
+A data frame with 20 observations on the following 5 variables.
+}
 \usage{
 data(expenditures)
 }

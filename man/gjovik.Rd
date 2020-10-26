@@ -4,7 +4,8 @@
 \name{gjovik}
 \alias{gjovik}
 \title{gjovik}
-\format{A data frame with 615 observations and 63 variables.
+\format{
+A data frame with 615 observations and 63 variables.
 \itemize{
 \item{\code{ID }}{a numeric vector}
 \item{\code{MAT }}{type of material}
@@ -69,7 +70,8 @@
 \item{\code{Y }}{a numeric vector}
 \item{\code{Zn }}{a numeric vector}
 \item{\code{Zr }}{a numeric vector}
-}}
+}
+}
 \description{
 Gjovik geochemical data set
 }

@@ -4,7 +4,9 @@
 \name{alcoholreg}
 \alias{alcoholreg}
 \title{regional alcohol per capita (15+) consumption by WHO region}
-\format{A data frame with 6 rows and 4 variables}
+\format{
+A data frame with 6 rows and 4 variables
+}
 \source{
 Transfered from the World Health Organisation website.
 }

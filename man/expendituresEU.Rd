@@ -4,7 +4,8 @@
 \name{expendituresEU}
 \alias{expendituresEU}
 \title{mean consumption expenditures data.}
-\format{A data frame with 27 observations on the following 12 variables.
+\format{
+A data frame with 27 observations on the following 12 variables.
 \itemize{ 
 \item{\code{Food}}{a numeric vector} 
 \item{\code{Alcohol}}{a numeric vector} 
@@ -18,7 +19,8 @@
 \item{\code{Education}}{a numeric vector} 
 \item{\code{Restaurants}}{a numeric vector} 
 \item{\code{Other}}{a numeric vector} 
-}}
+}
+}
 \source{
 Eurostat
 }

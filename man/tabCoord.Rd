@@ -91,7 +91,7 @@ computed and using bootstrap an estimate of 95 \% confidence interval is given.
 ###################
 ### Coordinate representation of a CoDa Table
 
-# example from Fa\\v cevicov\'a (2018):
+# example from Fa\v cevicov\'a (2018):
 data(manu_abs)
 manu_USA <- manu_abs[which(manu_abs$country=='USA'),]
 manu_USA$output <- factor(manu_USA$output, levels=c('LAB', 'SUR', 'INP'))
@@ -107,12 +107,12 @@ tabCoord(manu_USA, row.factor = 'output', col.factor = 'isic', value='value', SB
 ###################
 ### Analysis of a sample of CoDa Tables
 
-# example from Fa\\v cevicov\'a (2018):
+# example from Fa\v cevicov\'a (2018):
 data(manu_abs)
 
 ### Compositional tables approach,
 ### analysis of the relative structure.
-### An example from Facevi\\v cov\'a (2018)
+### An example from Facevi\v cov\'a (2018)
 
 manu_abs$output <- factor(manu_abs$output, levels=c('LAB', 'SUR', 'INP'))
 

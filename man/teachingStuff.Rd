@@ -4,13 +4,15 @@
 \name{teachingStuff}
 \alias{teachingStuff}
 \title{teaching stuff}
-\format{A (tidy) data frame with 1216 observations on the following 4 variables.
+\format{
+A (tidy) data frame with 1216 observations on the following 4 variables.
 \itemize{ 
 \item{\code{country }}{Country of origin}
 \item{\code{subject }}{school type: primary, lower secondary, higher secondary and tertiary } 
 \item{\code{year }}{Year} 
 \item{\code{value }}{Number of stuff}
-}}
+}
+}
 \source{
 OECD:
 \url{https://data.oecd.org/}

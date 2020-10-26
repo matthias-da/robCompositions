@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.2.2
-Date: 2020-04-01
+Version: 2.2.3
+Date: 2020-10-26
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -23,6 +23,7 @@ Imports:
     sROC,
     tidyr,
     robustbase,
+    splines,
     VIM,
     zCompositions,
     reshape2,
@@ -67,4 +68,4 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.0.0
+RoxygenNote: 7.1.1

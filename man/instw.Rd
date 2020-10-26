@@ -4,7 +4,9 @@
 \name{instw}
 \alias{instw}
 \title{value added, output and input for different ISIC codes and countries.}
-\format{A data.frame with 1555 rows and 7 columns.}
+\format{
+A data.frame with 1555 rows and 7 columns.
+}
 \usage{
 data(instw)
 }

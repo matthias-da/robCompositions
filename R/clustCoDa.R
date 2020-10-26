@@ -54,8 +54,6 @@
 #'                  transformation = "identity")
 #' rr3 <- clustCoDa(x, k=6, distMethod = "Aitchison", method = "single",
 #'                  transformation = "identity", scale = "none")
-#' rr <- clustCoDa(x, k=6, method="pam",
-#'                 scale = "robust", transformation = "pivotCoord")
 #'                  
 #' \dontrun{
 #' require(reshape2)

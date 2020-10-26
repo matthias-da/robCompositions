@@ -4,7 +4,9 @@
 \name{electionATbp}
 \alias{electionATbp}
 \title{Austrian presidential election data}
-\format{A data frame with 2202 observations and 10 variables}
+\format{
+A data frame with 2202 observations and 10 variables
+}
 \source{
 OpenData Austria, \url{https://www.data.gv.at/}
 }

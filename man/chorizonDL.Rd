@@ -4,7 +4,8 @@
 \name{chorizonDL}
 \alias{chorizonDL}
 \title{C-horizon of the Kola data with rounded zeros}
-\format{A data frame with 606 observations on the following 62 variables.
+\format{
+A data frame with 606 observations on the following 62 variables.
 \describe{ 
 \item{*ID }{a numeric vector} 
 \item{XCOO }{a numeric vector} 
@@ -68,7 +69,8 @@
 \item{*ASP }{a numeric vector} 
 \item{TOPC }{a numeric vector}
 \item{LITO }{information on lithography} 
-}}
+}
+}
 \source{
 Kola Project (1993-1998)
 }

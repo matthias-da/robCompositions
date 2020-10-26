@@ -4,7 +4,9 @@
 \name{mortality}
 \alias{mortality}
 \title{mortality and life expectancy in the EU}
-\format{A data frame with 60 observations and 12 variables}
+\format{
+A data frame with 60 observations and 12 variables
+}
 \usage{
 data(mortality)
 }

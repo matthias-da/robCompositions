@@ -4,7 +4,9 @@
 \name{employment}
 \alias{employment}
 \title{employment in different countries by gender and status.}
-\format{A three-dimensional table}
+\format{
+A three-dimensional table
+}
 \usage{
 data(employment)
 }

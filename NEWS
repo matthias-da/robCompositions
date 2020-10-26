@@ -1,3 +1,6 @@
+Changes in robCompositions version 2.2.3
+  + compositional splines added
+
 Changes in robCompositions version 2.2.2
   + outCoDa() now contains a parameter alpha instead of h
   + bic is now calculated in clustCoDa

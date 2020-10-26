@@ -4,7 +4,9 @@
 \name{cancer}
 \alias{cancer}
 \title{hospital discharges on cancer and distribution of age}
-\format{A data set on 24 compositions on 6 variables.}
+\format{
+A data set on 24 compositions on 6 variables.
+}
 \source{
 \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
 }

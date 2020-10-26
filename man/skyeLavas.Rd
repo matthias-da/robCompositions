@@ -4,7 +4,9 @@
 \name{skyeLavas}
 \alias{skyeLavas}
 \title{aphyric skye lavas data}
-\format{A data frame with 23 observations on the following 3 variables.}
+\format{
+A data frame with 23 observations on the following 3 variables.
+}
 \usage{
 data(skyeLavas)
 }

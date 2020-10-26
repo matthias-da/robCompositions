@@ -4,7 +4,8 @@
 \name{govexp}
 \alias{govexp}
 \title{government spending}
-\format{A (tidy) data frame with 5140 observations on the following 4 variables.
+\format{
+A (tidy) data frame with 5140 observations on the following 4 variables.
 \itemize{ 
 \item{\code{country }}{Country of origin}
 \item{\code{category }}{The COFOG expenditures are divided into 
@@ -15,7 +16,8 @@ health; recreation, culture and religion; education; and
 social protection. } 
 \item{\code{year }}{Year} 
 \item{\code{value }}{COFOG spendings/expenditures}
-}}
+}
+}
 \source{
 OECD:
 \url{https://data.oecd.org/}

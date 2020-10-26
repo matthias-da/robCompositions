@@ -4,7 +4,9 @@
 \name{election}
 \alias{election}
 \title{election data}
-\format{A data frame with 16 observations and 8 variables}
+\format{
+A data frame with 16 observations and 8 variables
+}
 \source{
 German Federal Statistical Office
 }

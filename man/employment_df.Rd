@@ -4,7 +4,9 @@
 \name{employment_df}
 \alias{employment_df}
 \title{Employment in different countries by gender and status.}
-\format{A data.frame with 132 rows and 4 columns.}
+\format{
+A data.frame with 132 rows and 4 columns.
+}
 \usage{
 data(employment_df)
 }

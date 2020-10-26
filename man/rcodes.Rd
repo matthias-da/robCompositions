@@ -4,7 +4,9 @@
 \name{rcodes}
 \alias{rcodes}
 \title{codes for UNIDO tables}
-\format{A data.frame with 2717 rows and 6 columns.}
+\format{
+A data.frame with 2717 rows and 6 columns.
+}
 \usage{
 data(rcodes)
 }

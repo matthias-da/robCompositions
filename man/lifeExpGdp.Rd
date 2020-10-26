@@ -4,7 +4,9 @@
 \name{lifeExpGdp}
 \alias{lifeExpGdp}
 \title{life expectancy and GDP (2008) for EU-countries}
-\format{A data set on 27 compositions on 9 variables.}
+\format{
+A data set on 27 compositions on 9 variables.
+}
 \source{
 \url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
 }

@@ -4,7 +4,9 @@
 \name{GDPsatis}
 \alias{GDPsatis}
 \title{GDP satisfaction}
-\format{A data frame with 31 observations and 8 variables}
+\format{
+A data frame with 31 observations and 8 variables
+}
 \source{
 from Eurostat,\url{http://ec.europa.eu/eurostat/}
 }

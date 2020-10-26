@@ -4,7 +4,9 @@
 \name{nutrients_branded}
 \alias{nutrients_branded}
 \title{nutrient contents (branded)}
-\format{A data frame with 9618 observations on the following 18 variables.}
+\format{
+A data frame with 9618 observations on the following 18 variables.
+}
 \source{
 From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 }

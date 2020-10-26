@@ -6,7 +6,13 @@
 \alias{summary.pcaCoDa}
 \title{Robust principal component analysis for compositional data}
 \usage{
-pcaCoDa(x, method = "robust", mult_comp = NULL, external = NULL)
+pcaCoDa(
+  x,
+  method = "robust",
+  mult_comp = NULL,
+  external = NULL,
+  solve = "eigen"
+)
 
 \method{print}{pcaCoDa}(x, ...)
 
@@ -21,6 +27,8 @@ pcaCoDa(x, method = "robust", mult_comp = NULL, external = NULL)
 compositions}
 
 \item{external}{external non-compositional variables}
+
+\item{solve}{eigen (as princomp does, i.e. eigenvalues of the covariance matrix) or svd (as prcomp does with single value decomposition instead of eigen). Only for method classical.}
 
 \item{...}{additional parameters for print method passed through}
 
@@ -61,7 +69,7 @@ summary(res.rob)
 plot(res.rob)
 
 ## classical estimation:
-res.cla <- pcaCoDa(arcticLake, method="classical")
+res.cla <- pcaCoDa(arcticLake, method="classical", solve = "eigen")
 biplot(res.cla)
 
 ## just for illustration how to set the mult_comp argument:

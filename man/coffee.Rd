@@ -4,7 +4,9 @@
 \name{coffee}
 \alias{coffee}
 \title{coffee data set}
-\format{A data frame with 30 observations and 7 variables.}
+\format{
+A data frame with 30 observations and 7 variables.
+}
 \usage{
 data(coffee)
 }

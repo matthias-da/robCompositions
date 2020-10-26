@@ -4,13 +4,15 @@
 \name{unemployed}
 \alias{unemployed}
 \title{unemployed of young people}
-\format{A (tidy) data frame with 1216 observations on the following 4 variables.
+\format{
+A (tidy) data frame with 1216 observations on the following 4 variables.
 \itemize{ 
 \item{\code{country }}{Country of origin}
 \item{\code{age }}{age group } 
 \item{\code{year }}{Year} 
 \item{\code{value }}{percentage of unemployed}
-}}
+}
+}
 \source{
 OECD:
 \url{https://data.oecd.org/}

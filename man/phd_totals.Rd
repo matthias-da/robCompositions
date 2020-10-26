@@ -4,7 +4,9 @@
 \name{phd_totals}
 \alias{phd_totals}
 \title{PhD students in the EU (totals)}
-\format{A data set on 29 compositions and 5 variables.}
+\format{
+A data set on 29 compositions and 5 variables.
+}
 \source{
 Eurostat
 }

@@ -4,7 +4,9 @@
 \name{mortality_tab}
 \alias{mortality_tab}
 \title{mortality table}
-\format{A table}
+\format{
+A table
+}
 \usage{
 data(mortality_tab)
 }

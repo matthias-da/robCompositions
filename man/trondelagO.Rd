@@ -4,7 +4,9 @@
 \name{trondelagO}
 \alias{trondelagO}
 \title{regional geochemical survey of soil O in Norway}
-\format{A data frame with 754 observations and 70 variables}
+\format{
+A data frame with 754 observations and 70 variables
+}
 \usage{
 data(trondelagO)
 }

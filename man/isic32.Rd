@@ -4,7 +4,9 @@
 \name{isic32}
 \alias{isic32}
 \title{ISIC codes by name}
-\format{A data.frame with 24 rows and 2 columns.}
+\format{
+A data.frame with 24 rows and 2 columns.
+}
 \usage{
 data(isic32)
 }
