@@ -792,7 +792,7 @@ NULL
 #' \item{\code{T }}{Near-Eastern, Egyptian, Ethiopian, Arabic} 
 #' }
 #' @source Eupedia:
-#' \url{http://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
+#' \url{https://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
 #' @keywords datasets
 #' @examples
 #' 
@@ -1128,9 +1128,8 @@ NULL
 #' @docType data
 #' @usage data(nutrients)
 #' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @source From the Swiss nutrition data base 2015 (second edition)
 #' @format A data frame with 965 observations on the following 50 variables.
-#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 #' @keywords data
 #' @examples 
 #' 
@@ -1168,9 +1167,8 @@ NULL
 #' @docType data
 #' @usage data(nutrients_branded)
 #' @author Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
-#' @source From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+#' @source From the Swiss nutrition data base 2015 (second edition)
 #' @format A data frame with 9618 observations on the following 18 variables.
-#' @references \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 #' @keywords data
 #' @examples 
 #' 

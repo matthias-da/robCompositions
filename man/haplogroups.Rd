@@ -23,7 +23,7 @@ A data frame with 38 observations on the following 12 variables.
 }
 \source{
 Eupedia:
-\url{http://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
+\url{https://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
 }
 \description{
 Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in

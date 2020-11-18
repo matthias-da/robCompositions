@@ -8,7 +8,7 @@
 A data frame with 965 observations on the following 50 variables.
 }
 \source{
-From the Swiss nutrition data base 2015 (second edition), see \url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
+From the Swiss nutrition data base 2015 (second edition)
 }
 \usage{
 data(nutrients)
@@ -75,9 +75,6 @@ Nutrients on more than 40 components and 965 generic food products
 data(nutrients)
 str(nutrients)
 head(nutrients[, 41:49])
-}
-\references{
-\url{ http://www.sge-ssn.ch/shop/produkt/schweizer-naehrwerttabelle/}
 }
 \author{
 Translated from the Swiss nutrion data base by Matthias Templ \email{matthias.templ@tuwien.ac.at}

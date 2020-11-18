@@ -1,44 +1,115 @@
-#' compositional spline
+#' Compositional spline
 #' 
 #' @rdname compositionalSpline
 #' @name compositionalSpline
-#' @param 
-#' @author J. Machalova \email{jitka.machalova@upol.cz}, R. Talska \email{talskarenata@seznam.cz}, K. Hron, A. Gaba
-#' @description This code implements the compositional smooting splines grounded on the theory of 
+#' @author J. Machalova \email{jitka.machalova@upol.cz}, R. Talska \email{talskarenata@seznam.cz}
+#' @description This code implements the compositional smoothing splines grounded on the theory of 
 #' Bayes spaces.
+#' @details The compositional splines enable to construct a spline basis in the centred logratio (clr) space of density 
+#' functions (ZB-spline basis) and consequently also in the original space of densities (CB-spline basis).The resulting 
+#' compositional splines in the clr space as well as the ZB-spline basis satisfy the zero integral constraint. 
+#' This enables to work with compositional splines consistently in the framework of the Bayes space methodology.
 #' @details Augmented knot sequence is obtained from the original knots by adding #(order-1) multiple endpoints.
 #' @importFrom splines splineDesign
 #' @importFrom graphics matplot matpoints
-#' @param knots sequence of knots
 #' @param t class midpoints
-#' @param clrf clr transformed values at class midpoints, i.e., clr(f(t))
+#' @param clrf clr transformed values at class midpoints, i.e., fcenLR(f(t))
+#' @param knots sequence of knots
 #' @param w weights
 #' @param order order of the spline (i.e., degree + 1)
 #' @param der lth derivation
 #' @param alpha smoothing parameter
-#' @param plot if TRUE, thre resulting spline is plotted
+#' @param spline.plot if TRUE, the resulting spline is plotted
+#' @param basis.plot if TRUE, the ZB-spline basis system is plotted 
 #' @return 
 #' \item{\code{J}}{value of the functional J}
 #' \item{\code{ZB_coef}}{ZB-spline basis coeffcients}
 #' \item{\code{CV}}{score of cross-validation}
 #' \item{\code{GCV}}{score of generalized cross-validation}
 #' @references Machalova, J., Talska, R., Hron, K. Gaba, A. Compositional splines for representation of density functions. \emph{Comput Stat} (2020). https://doi.org/10.1007/s00180-020-01042-7
+#' @export
 #' @examples
+#' # Example (Iris data):
 #' SepalLengthCm <- iris$Sepal.Length
 #' Species <- iris$Species
-#'
 #' iris1 <- SepalLengthCm[iris$Species==levels(iris$Species)[1]]
-#' h1 <- hist(iris1, nclass = 12, plot = FALSE)
-#'
+#' h1 <- hist(iris1, plot = FALSE)
 #' midx1 <- h1$mids
 #' midy1 <- matrix(h1$density, nrow=1, ncol = length(h1$density), byrow=TRUE)
-#' knots <- 7
-#' \dontrun{
-#' sol1 <- compositionalSpline(knots = 3, t = 2, clrf = , w =, order =, der = , alpha =)
-#' }
-compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
+#' clrf  <- cenLR(rbind(midy1,midy1))$x.clr[1,]
+#' knots <- seq(min(h1$breaks),max(h1$breaks),l=5)
+#' order <- 4
+#' der <- 2
+#' alpha <- 0.99
+#' \donttest{
+#' sol1 <- compositionalSpline(t = midx1, clrf = clrf, knots = knots, 
+#'   w = rep(1,length(midx1)), order = order, der = der, 
+#'   alpha = alpha, spline.plot = T)
+#' sol1$GCV
+#' ZB_coef <- sol1$ZB_coef
+#' t <- seq(min(knots),max(knots),l=500)
+#' t_step <- diff(t[1:2])
+#' ZB_base <- ZBsplineBasis(t=t,knots,order)$ZBsplineBasis
+#' sol1.t <- ZB_base%*%ZB_coef
+#' sol2.t <- fcenLRinv(t,t_step,sol1.t)
+#' h2 = hist(iris1,prob=T,las=1)
+#' points(midx1,midy1,pch=16)
+#' lines(t,sol2.t,col="darkred",lwd=2)
+#' # Example (normal distrubution):
+#' # generate n values from normal distribution
+#' set.seed(1)
+#' n = 1000; mean = 0; sd = 1.5
+#' raw_data = rnorm(n,mean,sd)
+#'   
+#' # number of classes according to Sturges rule
+#' n.class = round(1+1.43*log(n),0)
+#'   
+#' # Interval midpoints
+#' parnition = seq(-5,5,length=(n.class+1))
+#' t.mid = c(); for (i in 1:n.class){t.mid[i]=(parnition[i+1]+parnition[i])/2}
+#'   
+#' counts = table(cut(raw_data,parnition))
+#' prob = counts/sum(counts)                # probabilities
+#' dens.raw = prob/diff(parnition)          # raw density data
+#' clrf =  cenLR(rbind(dens.raw,dens.raw))$x.clr[1,]  # raw clr density data
+#'   
+#' # set the input parameters for smoothing 
+#' knots = seq(min(parnition),max(parnition),l=5)
+#' w = rep(1,length(clrf))
+#' order = 4
+#' der = 2
+#' alpha = 0.5
+#' spline = compositionalSpline(t = t.mid, clrf = clrf, knots = knots, 
+#'   w = w, order = order, der = der, alpha = alpha, 
+#'   spline.plot=TRUE, basis.plot=F)
+#'   
+#' # ZB-spline coefficients
+#' ZB_coef = spline$ZB_coef
+#'   
+#' # ZB-spline basis evaluated on the grid "t.fine"
+#' t.fine = seq(min(knots),max(knots),l=1000)
+#' ZB_base = ZBsplineBasis(t=t.fine,knots,order)$ZBsplineBasis
+#'   
+#' # Compositional spline in the clr space (evaluated on the grid t.fine)
+#' comp.spline.clr = ZB_base%*%ZB_coef
+#'   
+#' # Compositional spline in the Bayes space (evaluated on the grid t.fine)
+#' comp.spline = fcenLRinv(t.fine,diff(t.fine)[1:2],comp.spline.clr)
+#'   
+#' # Unit-integral representation of truncated true normal density function 
+#' dens.true = dnorm(t.fine, mean, sd)/trapzc(diff(t.fine)[1:2],dnorm(t.fine, mean, sd))
+#'   
+#' # Plot of compositional spline together with raw density data
+#' matplot(t.fine,comp.spline,type="l",
+#'     lty=1, las=1, col="darkblue", xlab="t", 
+#'     ylab="density",lwd=2,cex.axis=1.2,cex.lab=1.2,ylim=c(0,0.28))
+#' matpoints(t.mid,dens.raw,pch = 8, col="darkblue", cex=1.3)
+#'   
+#' # Add true normal density function
+#' matlines(t.fine,dens.true,col="darkred",lwd=2)
+compositionalSpline = function(t,clrf,knots,w,order,der,alpha,spline.plot = FALSE,basis.plot=FALSE){
   ## Comments from Matthias:
-  # 1. Why not giving as first argument some data, and do the clr(f(t)) within compositionalSpline()?
+  # 1. Why not giving as first argument some data, and do the fcenLR(f(t)) within compositionalSpline()?
   # This would be more userfriendly.
   # 2. Please provide executable examples for the users.
   # 3. I put all helper functions within compositionalSpline, but can 
@@ -47,74 +118,15 @@ compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
   # 4. I will add a comment like plot = FALSE, so that the plot is only done when the user decides for it.
   # Alternatively I also can implement a plot method.
   # 5. Which parameter values can be set to a sensible default value? E.g. order = 2
-  
-  # ---- LOAD FUNCTIONS-------------------------------------------------------------------------------------------
-  # Numerical integration via trapezoidal formula
-  # Input: c = grid evaluation of the function
-  #        step = step of the grid
-  SLP=function(step, c){
-    integral = step*(0.5*c[1]+sum(c[2:(length(c)-1)]) +0.5*c[length(c)])
-    return (integral)
-  }
-  # Numerical integration via trapezoidal formula
-  # Input: f = grid evaluation of the function
-  #        z_step = step of the grid
-  trapzc = function(step,f) 
-  {
-    int = step*(0.5*f[1]+sum(f[2:(length(f)-1)]) + 0.5*f[length(f)])
-    return (int)
-  }
-  
-  # clr[lambda] transformation: mapping from B2(lambda) into L2(lambda)
-  # Input: z = grid of point defining the abscissa 
-  #        z_step = step of the grid of the abscissa
-  #        density = grid evaluation of the lambda-density
-  # Output: grid evaluation of the lambda-density in L2(lambda)
-  
-  clr = function(z, z_step, density)
-  {
-    return(log(density)-trapzc(z_step,log(density))/(max(z)-min(z)))
-  }
-  
-  # clr[P] transformation: mapping from B2(P) into L2(P)
-  # Input: z = grid of point defining the abscissa 
-  #        z_step = step of the grid of the abscissa
-  #        density = grid evaluation of the P-density
-  #        p = density of reference measure P
-  #        P_omega = measure of the whole set (i.e. total)
-  # Output: grid evaluation of the P-density in L2(P)
-  clrp = function(z, z_step, density, p, P_omega) 
-  {
-    return(log(density)-trapzc(z_step,log(density)*p)/P_omega)
-  }
-  
-  # clr[u] transformation: mapping from B2(P) into unweigted L2(lambda)
-  # Input: z = grid of point defining the abscissa 
-  #        z_step = step of the grid of the abscissa
-  #        density = grid evaluation of the P-density
-  #        p = density of reference measure P
-  #        P_omega = measure of the whole set (i.e. total)
-  # Output: grid evaluation of the P-density in inweighted L2(lambda)
-  clru = function(z, z_step, density, p, P_omega) 
-  {
-    return(sqrt(p)*(log(density)-trapzc(z_step,log(density)*p)/P_omega))
-  }
-  
-  # Inverse of clr transformation
-  # Input: z = grid of point defining the abscissa 
-  #        z_step = step of the grid of the abscissa
-  #        clr = grid evaluation of (i)   clr[lambda] transformed lambda-density
-  #                                 (ii)  clr[u] transformed P-density
-  #                                 (iii) clr[P] transformed P-density
-  # Output: grid evaluation of (i)   lambda-density in B2(lambda)
-  #                            (ii)  P-density in unweighted B2(lambda)
-  #                            (iii) P-density in B2(P)
-  # By default, it returns a unit-integral representation of density.
-  clr2density = function(z, z_step, clr, k=1) 
-  {
-    return((exp(clr)/trapzc(z_step,exp(clr)))*k)
-  }
- 
+
+  ## Comments from Renata
+  # ad 1. The order of arguments was changed. We prefer to let the input data as clr.
+  # ad 2. The example based on iris1 data was expanded and one related to normal distribution was considered.
+  # ad 3. To run the code, only the function trapzc() is needed. 
+  #       Functions trapzc(), fcenLR(), fcenLRp(), fcenLRu(), fcenLRinv() are to be included in robCompositions.
+  # ad 4. Two more additional input paramaters were added to the function - spline.plot, basis.plot.
+  # ad 5. It is not necessary.
+    
   # Verification for parameter alpha
   if (alpha<=0 | alpha>1) stop ("parameter alpha must be from interval (0,1]")
   
@@ -158,7 +170,7 @@ compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
   if (der == 0){
     S = diag(1, c(N,N))
   }
-  if (der >= (k-1)) {stop ('Error. the lth derivation is not from the set {1,2,...,order-2}')
+  if (der >= (k-1)) {stop ('Error. The lth derivation is not from the set {1,2,...,order-2}.')
   } else {
     S_pom = diag(1,N,N)
     for (j in 1:der)
@@ -209,7 +221,7 @@ compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
       for (m in 1:length(Parnition)){
         if (soucin[m] != 0) {nenulove[m] = soucin[m]}
       }
-      M[i,j]=SLP(step, soucin)
+      M[i,j]=trapzc(step, soucin)
     }
   }
   
@@ -237,24 +249,32 @@ compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
   # vector of B-spline coefficients := z
   z = solve(GG)%*%gg
   
-  # CB-spline basis
+  # ZB-spline basis
   Zbasis = B%*%D%*%K
   
-  #matplot(parnition,Zbasis, type="l",lty=1,las=1, xlab="t", col = rainbow(dim(Bbasis)[2]))
-  #abline(v=knots, col="gray",lty=2)
+  # ZB-spline basis (evaluated on a grid finner grid)
+  Zbasis_finner = BB%*%D%*%K
+  
+  if (basis.plot == TRUE){
+    matplot(parnition,Zbasis_finner, type="l",lty=1,las=1, xlab="t", ylab="fcenLR(density)",col = rainbow(dim(Zbasis_finner)[2])
+            ,main="ZB-spline basis")
+    abline(v=knots, col="gray",lty=2)
+  }
   
   # Resulting compositional spline in L20
-  spline0 = (BB%*%D%*%K)%*%z
+  spline0 = Zbasis_finner%*%z
   
-  if(plot){
-    matplot(parnition,spline0, type="l",las=1,xlab="t",ylab="clr(density)",col="darkblue",lwd=2,cex.lab=1.2,cex.axis=1.2,
+  if (spline.plot==TRUE) {
+    matplot(parnition,spline0, type="l",las=1,xlab="t",ylab="fcenLR(density)",col="darkblue",lwd=2,cex.lab=1.2,cex.axis=1.2,
             ylim = c(min(c(min(clrf),min(spline0))),max(c(max(clrf),max(spline0)))),
             main = paste("Compositional spline of degree k =",k-1))
     matpoints(t,clrf, pch = 8, col="darkblue", cex=1.3)
     abline(h=0,col="red",lty=2,lwd=1)
+    abline(v=knots,col="gray",lty=2,lwd=1)
   }
   
   # CV
+  clrf = as.matrix(clrf)
   Hmat = (B%*%D%*%K)%*%solve(GG)%*%(alpha*t(K)%*%t(D)%*%t(B)%*%W)
   clrfhat = (B%*%D%*%K)%*%z
   reziduals = (clrf-clrfhat)
@@ -269,4 +289,10 @@ compositionalSpline = function(knots,t,clrf,w,order,der,alpha,plot = FALSE){
   J = (1-alpha)*t(z)%*%t(U)%*%t(S)%*%M%*%S%*%U%*%z + alpha*t(clrf-B%*%D%*%K%*%z)%*%W%*%(clrf-B%*%D%*%K%*%z)
   return(list(J=J, ZB_coef=z, CV=CV, GCV=GCV))
 }
+
+
+
+
+
+
 

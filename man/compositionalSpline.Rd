@@ -2,16 +2,26 @@
 % Please edit documentation in R/CompositionalSpline.R
 \name{compositionalSpline}
 \alias{compositionalSpline}
-\title{compositional spline}
+\title{Compositional spline}
 \usage{
-compositionalSpline(knots, t, clrf, w, order, der, alpha, plot = FALSE)
+compositionalSpline(
+  t,
+  clrf,
+  knots,
+  w,
+  order,
+  der,
+  alpha,
+  spline.plot = FALSE,
+  basis.plot = FALSE
+)
 }
 \arguments{
-\item{knots}{sequence of knots}
-
 \item{t}{class midpoints}
 
-\item{clrf}{clr transformed values at class midpoints, i.e., clr(f(t))}
+\item{clrf}{clr transformed values at class midpoints, i.e., fcenLR(f(t))}
+
+\item{knots}{sequence of knots}
 
 \item{w}{weights}
 
@@ -21,7 +31,9 @@ compositionalSpline(knots, t, clrf, w, order, der, alpha, plot = FALSE)
 
 \item{alpha}{smoothing parameter}
 
-\item{plot}{if TRUE, thre resulting spline is plotted}
+\item{spline.plot}{if TRUE, the resulting spline is plotted}
+
+\item{basis.plot}{if TRUE, the ZB-spline basis system is plotted}
 }
 \value{
 \item{\code{J}}{value of the functional J}
@@ -30,29 +42,20 @@ compositionalSpline(knots, t, clrf, w, order, der, alpha, plot = FALSE)
 \item{\code{GCV}}{score of generalized cross-validation}
 }
 \description{
-This code implements the compositional smooting splines grounded on the theory of 
+This code implements the compositional smoothing splines grounded on the theory of 
 Bayes spaces.
 }
 \details{
+The compositional splines enable to construct a spline basis in the centred logratio (clr) space of density 
+functions (ZB-spline basis) and consequently also in the original space of densities (CB-spline basis).The resulting 
+compositional splines in the clr space as well as the ZB-spline basis satisfy the zero integral constraint. 
+This enables to work with compositional splines consistently in the framework of the Bayes space methodology.
+
 Augmented knot sequence is obtained from the original knots by adding #(order-1) multiple endpoints.
-}
-\examples{
-SepalLengthCm <- iris$Sepal.Length
-Species <- iris$Species
-
-iris1 <- SepalLengthCm[iris$Species==levels(iris$Species)[1]]
-h1 <- hist(iris1, nclass = 12, plot = FALSE)
-
-midx1 <- h1$mids
-midy1 <- matrix(h1$density, nrow=1, ncol = length(h1$density), byrow=TRUE)
-knots <- 7
-\dontrun{
-sol1 <- compositionalSpline(knots = 3, t = 2, clrf = , w =, order =, der = , alpha =)
-}
 }
 \references{
 Machalova, J., Talska, R., Hron, K. Gaba, A. Compositional splines for representation of density functions. \emph{Comput Stat} (2020). https://doi.org/10.1007/s00180-020-01042-7
 }
 \author{
-J. Machalova \email{jitka.machalova@upol.cz}, R. Talska \email{talskarenata@seznam.cz}, K. Hron, A. Gaba
+J. Machalova \email{jitka.machalova@upol.cz}, R. Talska \email{talskarenata@seznam.cz}
 }
