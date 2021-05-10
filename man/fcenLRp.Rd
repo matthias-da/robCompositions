@@ -7,13 +7,13 @@
 fcenLRp(z, z_step, density, p)
 }
 \arguments{
-\item{z}{grid of point defining the abscissa}
+\item{z}{grid of points defining the abscissa}
 
 \item{z_step}{step of the grid of the abscissa}
 
 \item{density}{grid evaluation of the P-density}
 
-\item{p}{= density of reference measure P}
+\item{p}{density of the reference measure P}
 }
 \value{
 \item{\code{out}}{grid evaluation of the P-density in L2(P)}

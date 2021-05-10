@@ -9,7 +9,7 @@ trapzc(step, f)
 \arguments{
 \item{step}{step of the grid}
 
-\item{f}{density from fcenLR}
+\item{f}{grid evaluation of density}
 }
 \value{
 \item{\code{int}}{The value of integral computed numerically by trapezoidal formula.}
@@ -22,9 +22,9 @@ Numerical integration via trapezoidal formula.
 t = seq(-4.7,4.7, length = 1000)
 t_step = diff(t[1:2])
 mean = 0; sd = 1.5
-dens.true = dnorm(t, mean, sd)
-dens.true.l = fcenLR(t,t_step,dens.true)
-trapzc(t_step,dens.true.l)
+f = dnorm(t, mean, sd)
+f.fcenLR = fcenLR(t,t_step,f)
+trapzc(t_step,f.fcenLR)
 }
 \author{
 R. Talska\email{talskarenata@seznam.cz}, K. Hron\email{karel.hron@upol.cz}

@@ -7,7 +7,7 @@
 fcenLRinv(z, z_step, fcenLR, k = 1)
 }
 \arguments{
-\item{z}{grid of point defining the abscissa}
+\item{z}{grid of points defining the abscissa}
 
 \item{z_step}{step of the grid of the abscissa}
 
@@ -32,14 +32,19 @@ t = seq(-4.7,4.7, length = 1000)
 t_step = diff(t[1:2])
 
 mean = 0; sd = 1.5
-dens.true = dnorm(t, mean, sd)
+f = dnorm(t, mean, sd)
+f1 = f/trapzc(t_step,f)
 
-plot(t,dens.true, type="l",las=1, ylab="fcenLR(density)", 
+f.fcenLR = fcenLR(t,t_step,f) 
+f.fcenLRinv = fcenLRinv(t.fine,t_step,f.fcenLR)
+
+plot(t,f.fcenLR, type="l",las=1, ylab="fcenLR(density)", 
   cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2)
 abline(h=0, col="red")
-plot(t,fcenLRinv(t.fine,t_step,dens.true), type="l",
-  las=1, ylab="density",cex.lab=1.2,cex.axis=1.2, 
-  col="darkblue",lwd=2)
+
+plot(t,f.fcenLRinv, type="l",las=1, 
+  ylab="density",cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2,lty=1)
+lines(t,f1,lty=2,lwd=2,col="gold")  
 }
 \author{
 R. Talska\email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron\email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo

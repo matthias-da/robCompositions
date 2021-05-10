@@ -59,6 +59,11 @@
 #' impS <- sum(xi[1,-3])
 #' xi[,3] * s1/impS
 #' 
+#' # other methods
+#' impCoda(x, method = "lm")
+#' impCoda(x, method = "ltsReg")
+#' impCoda(x, method = 'classical')
+#' 
 `impCoda` <-
 function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE, 
 		init="KNN", k=5, dl=rep(0.05, ncol(x)), noise=0.1, bruteforce=FALSE){
@@ -229,8 +234,9 @@ function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE,
 			    #apply the PCA algorithm -> ximp
 			    ind <- cbind(w[, indM[i]], rep(FALSE, dim(w)[1]))
 			    if(method=="classical" | method =="mcd" | method == "gridMAD"){
-			      	xilr <- impPCA(xilr, indexMiss=ind, eps=1,
-			               indexObs=!ind, method=method)
+			      # 	xilr <- impPCA(xilr, indexMiss=ind, eps=1,
+			      #          indexObs=!ind, method=method)
+			      stop("currently not supported, please use method lm, ltsReg or ltsReg2")
 			    }
 			
 				#if( method == "em" ){

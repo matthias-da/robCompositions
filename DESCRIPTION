@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.2.4
-Date: 2020-10-26
+Version: 2.3.0
+Date: 2020-11-18
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -57,7 +57,7 @@ Description: Methods for analysis of compositional data including robust
     detection for compositional data, (robust) principal component analysis for
     compositional data, (robust) factor analysis for compositional data, (robust)
     discriminant analysis for compositional data (Fisher rule), robust regression
-    with compositional predictors, functional data analysis and p-splines (<doi:10.1016/j.csda.2015.07.007>), 
+    with compositional predictors, functional data analysis (<doi:10.1016/j.csda.2015.07.007>) and p-splines (<doi:10.1016/j.csda.2015.07.007>), 
     contingency (<doi:10.1080/03610926.2013.824980>) 
     and compositional tables (<doi:10.1111/sjos.12326>, <doi:10.1111/sjos.12223>, <doi:10.1080/02664763.2013.856871>) 
     and (robust) Anderson-Darling normality tests for

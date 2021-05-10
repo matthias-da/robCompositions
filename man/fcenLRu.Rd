@@ -7,16 +7,16 @@
 fcenLRu(z, z_step, density, p)
 }
 \arguments{
-\item{z}{grid of point defining the abscissa}
+\item{z}{grid of points defining the abscissa}
 
 \item{z_step}{step of the grid of the abscissa}
 
 \item{density}{grid evaluation of the P-density}
 
-\item{p}{= density of reference measure P}
+\item{p}{density of the reference measure P}
 }
 \value{
-\item{\code{out}}{grid evaluation of the P-density in inweighted L2(lambda)}
+\item{\code{out}}{grid evaluation of the P-density in unweighted L2(lambda)}
 }
 \description{
 fcenLR[u] transformation: mapping from B2(P) into unweigted L2(lambda)
@@ -46,7 +46,7 @@ text(4,0.22,"f",col="black")
 
 # Log-normal density w.r.t. exponential distribution in B2(P) 
 # (unit-integral representation)
-fp = (f/p_ref)/trapzc(t_step,f/p_ref)
+fp = (f/p)/trapzc(t_step,f/p)
 
 # Log-normal density w.r.t. exponential distribution in L2(P)
 fp.fcenLRp = fcenLRp(t,t_step,fp,p)
@@ -63,35 +63,29 @@ par(cex=1.1)
 
 plot(t, f.fcenLR, type='l', ylab=expression(fcenLR[lambda](f)), 
   xlab='t',las=1,ylim=c(-3,3),
-  main=expression(bold(atop(paste('(a) Representation of f 
-  in ', L^2, (lambda)),'[not weighted]'))))
+  main=expression(bold(atop(paste('(a) Representation of f in ', L^2, (lambda)),'[not weighted]'))))
 abline(h=0,col="red")
 
 plot(t, f, type='l', ylab=expression(f[lambda]), 
   xlab='t',las=1,ylim=c(0,0.4),
-  main=expression(bold(atop(paste('(b) Density f 
-    in ', B^2, (lambda)),'[not weighted]'))))
+  main=expression(bold(atop(paste('(b) Density f in ', B^2, (lambda)),'[not weighted]'))))
 
 plot(t, fp, type='l', ylab=expression(f[P]), xlab='t',
   las=1,ylim=c(0,0.4),
-  main=expression(bold(atop(paste('(c) Density f 
-  in ', B^2, (P)),'[weighted with P]'))))
+  main=expression(bold(atop(paste('(c) Density f in ', B^2, (P)),'[weighted with P]'))))
 
 plot(t, fp.fcenLRp, type='l', ylab=expression(fcenLR[P](f[P])), 
   xlab='t',las=1,ylim=c(-3,3), 
-  main=expression(bold(atop(paste('(d) Representation of f in ', 
-    L^2, (P)),'[weighted with P]'))))
+  main=expression(bold(atop(paste('(d) Representation of f in ', L^2, (P)),'[weighted with P]'))))
 abline(h=0,col="red")
 
 plot(t, fp.u, type='l', ylab=expression(paste(omega^(-1),(f[P]))), 
   xlab='t',las=1,ylim=c(0,0.4), 
-  main=expression(bold(atop(paste('(e) Representation of f in ', 
-  B^2, (lambda)),'[unweighted]'))))
+  main=expression(bold(atop(paste('(e) Representation of f in ', B^2, (lambda)),'[unweighted]'))))
 
 plot(t, fp.fcenLRu, type='l', ylab=expression(paste(fcenLR[u](f[P]))), 
   xlab='t',las=1,ylim=c(-3,3),
-  main=expression(bold(atop(paste('(f) Representation of f in ', 
-  L^2, (lambda)),'[unweighted]'))))
+  main=expression(bold(atop(paste('(f) Representation of f in ', L^2, (lambda)),'[unweighted]'))))
 abline(h=0,col="red")
 }
 \references{

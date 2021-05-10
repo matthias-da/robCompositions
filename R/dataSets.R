@@ -341,6 +341,53 @@ NULL
 #' str(educFM)
 NULL
 
+
+#' efsa nutrition consumption
+#' 
+#' Comprehensive European Food Consumption Database
+#' 
+#' The Comprehensive Food Consumption Database is a source of information on 
+#' food consumption across the European Union (EU). 
+#' The food consumption are reported in grams per day (g/day).
+#' 
+#' 
+#' @name efsa
+#' @docType data
+#' @format A data frame with 87 observations on the following 22 variables.
+#' \itemize{ 
+#' \item{\code{Country }}{country name}
+#' \item{\code{Pop.Class }}{population class}
+#' \item{\code{grains }}{Grains and grain-based products}
+#' \item{\code{vegetables }}{Vegetables and vegetable products (including fungi)}
+#' \item{\code{roots }}{Starchy roots and tubers}
+#' \item{\code{nuts }}{Legumes, nuts and oilseeds}
+#' \item{\code{fruit }}{Fruit and fruit products}
+#' \item{\code{meat }}{Meat and meat products (including edible offal)} 
+#' \item{\code{fish }}{Fish and other seafood (including amphibians, rept)} 
+#' \item{\code{milk }}{Milk and dairy products}
+#' \item{\code{eggs }}{Eggs and egg products}
+#' \item{\code{sugar }}{Sugar and confectionary} 
+#' \item{\code{fat }}{Animal and vegetable fats and oils} 
+#' \item{\code{juices }}{Fruit and vegetable juice} 
+#' \item{\code{nonalcoholic }}{Non-alcoholic beverages (excepting milk based beverages)} 
+#' \item{\code{alcoholic }}{Alcoholic beverages} 
+#' \item{\code{water }}{Drinking water (water without any additives)} 
+#' \item{\code{herbs }}{Herbs, spices and condiments} 
+#' \item{\code{small_children_food }}{Food for infants and small children} 
+#' \item{\code{special }}{Products for special nutritional use} 
+#' \item{\code{composite }}{Composite food (including frozen products)} 
+#' \item{\code{snacks }}{Snacks, desserts, and other foods} 
+#' }
+#' @source efsa
+#' @keywords datasets
+#' @examples
+#' 
+#' data(efsa)
+#' 
+NULL
+
+
+
 #' election data
 #' 
 #' Results of a election in Germany 2013 in different
@@ -799,6 +846,50 @@ NULL
 #' data(haplogroups)
 #' 
 NULL
+
+#' honey compositions
+#' 
+#' The contents of honey, syrup, and adulteration mineral elements.
+#' 
+#' Discrimination of honey and adulteration by elemental chemometrics profiling.
+#' 
+#' 
+#' @name honey
+#' @docType data
+#' @format A data frame with 429 observations on the following 17 variables.
+#' \itemize{ 
+#' \item{\code{class }}{adulterated honey, Honey or Syrup}
+#' \item{\code{group }}{group information}
+#' \item{\code{group3 }}{detailed group information}
+#' \item{\code{group1 }}{less detailed group information}
+#' \item{\code{region }}{region}
+#' \item{\code{Al }}{chemical element}
+#' \item{\code{B }}{chemical element}
+#' \item{\code{Ba }}{chemical element} 
+#' \item{\code{Ca }}{chemical element} 
+#' \item{\code{Fe }}{chemical element}
+#' \item{\code{K }}{chemical element}
+#' \item{\code{Mg }}{chemical element} 
+#' \item{\code{Mn}}{chemical element} 
+#' \item{\code{Na }}{chemical element} 
+#' \item{\code{P }}{chemical element} 
+#' \item{\code{Sr }}{chemical element} 
+#' \item{\code{Zn }}{chemical element} 
+#' }
+#' @source Mendeley Data, contributed by Liping Luo and translated to R by Matthias Templ
+#' @references Tao Liu, Kang Ming, Wei Wang, Ning Qiao, Shengrong Qiu, Shengxiang Yi, Xueyong Huang, Liping Luo,
+#' Discrimination of honey and syrup-based adulteration by mineral element chemometrics profiling,'
+#' Food Chemistry, Volume 343, 2021, \doi{10.1016/j.foodchem.2020.128455}.
+#' @note In the original paper, sparse PLS-DA were applied optimize the classify model 
+#' and test effectiveness. Classify accuracy were exceed 87.7 percent.
+#' @keywords datasets
+#' @examples
+#' 
+#' data(honey)
+#' 
+NULL
+
+
 
 #' value added, output and input for different ISIC codes and countries.
 #'
@@ -1363,6 +1454,64 @@ NULL
 #' data(rcodes)
 #' str(rcodes)
 NULL
+
+#' saffron compositions
+#' 
+#' Stable isotope ratio  and trace metal cncentration data for saffron samples.
+#' 
+#' @name saffron
+#' @docType data
+#' @format A data frame with 53 observations on the following 36 variables.
+#' \itemize{ 
+#' \item{\code{Sample }}{adulterated honey, Honey or Syrup}
+#' \item{\code{Country }}{group information}
+#' \item{\code{Batch }}{detailed group information}
+#' \item{\code{Region }}{less detailed group information}
+#' \item{\code{d2H }}{region}
+#' \item{\code{d13C }}{chemical element}
+#' \item{\code{d15N }}{chemical element}
+#' \item{\code{Li }}{chemical element} 
+#' \item{\code{B }}{chemical element} 
+#' \item{\code{Na }}{chemical element}
+#' \item{\code{Mg }}{chemical element}
+#' \item{\code{Al }}{chemical element} 
+#' \item{\code{K}}{chemical element} 
+#' \item{\code{Ca }}{chemical element} 
+#' \item{\code{V }}{chemical element} 
+#' \item{\code{Mn }}{chemical element} 
+#' \item{\code{Fe }}{chemical element} 
+#' \item{\code{Co }}{chemical element} 
+#' \item{\code{Ni }}{chemical element} 
+#' \item{\code{Cu }}{chemical element} 
+#' \item{\code{Zn }}{chemical element} 
+#' \item{\code{Ga }}{chemical element} 
+#' \item{\code{As }}{chemical element} 
+#' \item{\code{Rb }}{chemical element} 
+#' \item{\code{Sr }}{chemical element} 
+#' \item{\code{Y }}{chemical element} 
+#' \item{\code{Mo }}{chemical element} 
+#' \item{\code{Cd }}{chemical element} 
+#' \item{\code{Cs }}{chemical element} 
+#' \item{\code{Ba }}{chemical element} 
+#' \item{\code{Ce }}{chemical element} 
+#' \item{\code{Pr }}{chemical element} 
+#' \item{\code{Nd }}{chemical element} 
+#' \item{\code{Sm }}{chemical element} 
+#' \item{\code{Gd }}{chemical element} 
+#' \item{\code{Pb }}{chemical element} 
+#' }
+#' @source Mendeley Data, contributed by Russell Frew and translated to R by Matthias Templ
+#' @references Frew, Russell (2019), Data for: 
+#' CHEMICAL PROFILING OF SAFFRON FOR AUTHENTICATION OF ORIGIN, Mendeley Data, V1, 
+#' \doi{10.17632/5544tn9v6c.1}
+#' @note In the original paper, the authors applied lda for classifying the observations.
+#' @keywords datasets
+#' @examples
+#' 
+#' data(saffron)
+#' 
+NULL
+
 
 #' aphyric skye lavas data 
 #' 
