@@ -31,7 +31,7 @@ data(economy)
 str(economy)
 }
 \references{
-Eurostat, \url{http://ec.europa.eu/eurostat/data}
+Eurostat, \url{https://ec.europa.eu/eurostat/data}
 }
 \author{
 Peter Filzmoser, Matthias Templ \email{matthias.templ@tuwien.ac.at}

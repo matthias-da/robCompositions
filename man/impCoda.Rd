@@ -81,6 +81,11 @@ s1 <- sum(x[1,-3])
 impS <- sum(xi[1,-3])
 xi[,3] * s1/impS
 
+# other methods
+impCoda(x, method = "lm")
+impCoda(x, method = "ltsReg")
+impCoda(x, method = 'classical')
+
 }
 \references{
 Hron, K., Templ, M., Filzmoser, P. (2010) Imputation of

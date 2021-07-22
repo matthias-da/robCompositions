@@ -35,7 +35,7 @@ str(socExp)
 rowSums(socExp[, 3:ncol(socExp)])
 }
 \references{
-OECD, \url{http://www.oecd.org}
+OECD, \url{https://www.oecd.org}
 }
 \author{
 conversion to R by Karel Hron Karel Hron and modifications by Matthias Templ \email{matthias.templ@tuwien.ac.at}

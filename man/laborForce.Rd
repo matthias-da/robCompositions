@@ -8,7 +8,7 @@
 A data set on 124 compositions on 9 variables.
 }
 \source{
-\url{http://unstats.un.org/unsd/demographic/products/indwm/tab5c.htm}
+\url{https://unstats.un.org/unsd/demographic/products/indwm/default.htm}
 }
 \description{
 Labour force by status in employment for 124 countries, latest update: December 2009

@@ -46,7 +46,7 @@ data(election)
 str(election)
 }
 \references{
-Eurostat, \url{http://ec.europa.eu/eurostat/data}
+Eurostat, \url{https://ec.europa.eu/eurostat/data}
 }
 \author{
 Petra Klynclova, Matthias Templ

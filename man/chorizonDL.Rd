@@ -75,14 +75,14 @@ A data frame with 606 observations on the following 62 variables.
 Kola Project (1993-1998)
 }
 \description{
-This data set is almost the same as \code{\link[mvoutlier]{chorizon}} data set
+This data set is almost the same as the `chorizon` data set
 in package \code{mvoutlier} and \code{\link[VIM]{chorizonDL}}, except that values below the detection limit
 are coded as zeros, and detection limits provided as attributes to the data set and
 less variables are included.
 }
 \note{
 For a more detailed description of this data set, see
-\code{\link[mvoutlier]{chorizon}} in package \code{mvoutlier}.
+`chorizon` in package \code{mvoutlier}.
 }
 \examples{
 
@@ -97,6 +97,6 @@ Reimann, C., Filzmoser, P., Garrett, R.G. and Dutter, R. (2008)
 with R}. Wiley.
 }
 \seealso{
-\code{\link[mvoutlier]{chorizon}}, \code{\link[VIM]{chorizonDL}}
+`chorizon`, \code{\link[VIM]{chorizonDL}}
 }
 \keyword{datasets}

@@ -8,7 +8,7 @@
 A data set on 24 compositions on 6 variables.
 }
 \source{
-\url{http://www.ec.europa.eu/eurostat} and \url{http://unstats.un.org/unsd}
+\url{https://www.ec.europa.eu/eurostat} and \url{https://unstats.un.org/home/}
 }
 \description{
 Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure.

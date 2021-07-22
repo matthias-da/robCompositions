@@ -8,7 +8,7 @@
 A data frame with 31 observations and 8 variables
 }
 \source{
-from Eurostat,\url{http://ec.europa.eu/eurostat/}
+from Eurostat,\url{https://ec.europa.eu/eurostat/}
 }
 \usage{
 data(GDPsatis)

@@ -101,6 +101,6 @@ str(trondelagO)
 C.Reimann, J.Schilling, D.Roberts, K.Fabian. A regional-scale geochemical survey of soil C horizon samples in Nord-Trondelag, Central Norway. Geology and mineral potential, \emph{Applied Geochemistry} 61 (2015) 192-205.
 }
 \author{
-NGU, \url{http://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@tuwien.ac.at}
+NGU, \url{https://www.ngu.no}, transfered to R by Matthias Templ \email{matthias.templ@tuwien.ac.at}
 }
 \keyword{data}

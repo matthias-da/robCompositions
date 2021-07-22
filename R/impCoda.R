@@ -62,7 +62,6 @@
 #' # other methods
 #' impCoda(x, method = "lm")
 #' impCoda(x, method = "ltsReg")
-#' impCoda(x, method = 'classical')
 #' 
 `impCoda` <-
 function(x, maxit=10, eps=0.5, method="ltsReg", closed=FALSE, 
