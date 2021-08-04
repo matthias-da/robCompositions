@@ -84,7 +84,6 @@ xi[,3] * s1/impS
 # other methods
 impCoda(x, method = "lm")
 impCoda(x, method = "ltsReg")
-impCoda(x, method = 'classical')
 
 }
 \references{

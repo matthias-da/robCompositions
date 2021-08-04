@@ -56,7 +56,6 @@
 #' @seealso \code{\link{imputeBDLs}}
 #' @keywords manip multivariate
 #' @export
-#' @importFrom sROC kCDF
 #' @importFrom MASS rlm
 #' @examples
 #' 
@@ -429,8 +428,9 @@
                              yhat[w[, i]] - s*dnorm(ex[w[, i]])/pnorm(ex[w[, i]]),
                              yhat[w[, i]])
         } else if(correction=="density"){
-          den <- density(ex[w[,i]])
-          distr <- sROC::kCDF(ex[w,i])
+          stop("correction equals density is no longer be supported")
+          # den <- density(ex[w[,i]])
+          # distr <- sROC::kCDF(ex[w,i])
         }
         if(any(is.na(yhat)) || any(yhat=="Inf")) stop("Problems in ilr because of infinite or NA estimates")
         # check if we are under the DL:

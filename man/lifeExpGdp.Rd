@@ -8,7 +8,7 @@
 A data set on 27 compositions on 9 variables.
 }
 \source{
-\url{https://www.ec.europa.eu/eurostat} and \url{https://unstats.un.org/unsd}
+\url{https://www.ec.europa.eu/eurostat} and \url{https://unstats.un.org/home/}
 }
 \description{
 Social-economic data for compositional regression.

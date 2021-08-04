@@ -111,7 +111,7 @@ pcaCoDa <- function (x, method = "robust", mult_comp = NULL, external = NULL, so
     if(solve == "eigen"){
     pcaIlr <- princomp(xilr, cor = FALSE)
     } else{
-      pcaIlr <- prcomp(xilr, scale = FALSE, center = FALSE)    
+      pcaIlr <- prcomp(xilr, scale = FALSE, center = TRUE)    
       pcaIlr$loadings <- pcaIlr$rotation
     }
     eigenvalues <- eigen(cov(xilr))$values

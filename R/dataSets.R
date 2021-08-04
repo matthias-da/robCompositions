@@ -1006,7 +1006,7 @@ NULL
 #' @docType data
 #' @format A data set on 27 compositions on 9 variables.
 #' @source
-#' \url{https://www.ec.europa.eu/eurostat} and \url{https://unstats.un.org/unsd}
+#' \url{https://www.ec.europa.eu/eurostat} and \url{https://unstats.un.org/home/}
 #' @keywords datasets
 #' @author conversion to R by Karel Hron and Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
 #' @references K. Hron, P. Filzmoser, K. Thompson (2012). Linear regression with compositional explanatory variables. \emph{Journal of Applied Statistics}, Volume 39, Issue 5, 2012. 

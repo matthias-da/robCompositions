@@ -58,7 +58,6 @@
 #' @seealso \code{\link{imputeBDLs}}
 #' @keywords manip multivariate
 #' @export
-#' @importFrom sROC kCDF
 #' @importFrom MASS rlm
 #' @examples
 #' data(gemas)  # read data
@@ -251,9 +250,10 @@ imputeUDLs <-
                              yhat[w[, i]] + s * dnorm(ex[w[, i]])/(1 - pnorm(ex[w[,i]])), yhat[w[, i]])
         }
         else if (correction == "density") {
-          den <- density(ex[w[, i]])
-          ##PF# distr <- sROC::kCDF(ex[w, i])
-          distr <- sROC::kCDF(ex[w[, i]])
+          stop("correction equals density is no longer be supported")
+          # den <- density(ex[w[, i]])
+          # ##PF# distr <- sROC::kCDF(ex[w, i])
+          # distr <- sROC::kCDF(ex[w[, i]])
         }
         if (any(is.na(yhat)) || any(yhat == "Inf")) 
           stop("Problems in ilr because of infinite or NA estimates")
