@@ -18,6 +18,7 @@ Imports:
     cluster,
     fpc,
     GGally,
+    ggfortify,
     kernlab,
     MASS,
     mclust,

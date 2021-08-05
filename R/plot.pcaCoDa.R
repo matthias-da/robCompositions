@@ -6,6 +6,8 @@
 #' @param x object of class \sQuote{pcaCoDa}
 #' @param y ...
 #' @param \dots ...
+#' @param which scree (1), or biplot using stats biplot.prcomp function (2), or ggfortify's autoplot function.
+#' @param choices principal components to plot by number
 #' @return The robust compositional screeplot.
 #' @author M. Templ, K. Hron
 #' @seealso \code{\link{pcaCoDa}}, \code{\link{biplot.pcaCoDa}}
@@ -14,6 +16,7 @@
 #' 621--632.
 #' @keywords aplot
 #' @export
+#' @import ggfortify 
 #' @method plot pcaCoDa
 #' @examples
 #' 
@@ -23,8 +26,17 @@
 #' plot(p1, type="lines")
 #' 
 #' 
-plot.pcaCoDa <- function(x, y, ...){
-	beschx <- if(x$method == "robust") "PC1 (clr-robust)" else "PC1 (clr-standard)"
-	beschy <- if(x$method == "robust") "PC2 (clr-robust)" else "PC2 (clr-standard)"
+plot.pcaCoDa <- function(x, y, ..., which = 1, choices = 1:2){
+  if(which == 1){
 	screeplot(x$princompOutputClr, main="", ...)
+  } else if (which == 2) {
+    beschx <- if(x$method == "robust") "PC 1 (clr-robust)" else "PC 1 (clr-standard)"
+    beschy <- if(x$method == "robust") "PC 2 (clr-robust)" else "PC 2 (clr-standard)"
+    biplot(x, choices = choices)
+  } else {
+    dat <-  x$princompOutputClr
+    dat$scale <- c(dat$scale, 1)
+    dat$center <- c(dat$center, 0)
+    autoplot(dat, loadings=TRUE, loadings.label = TRUE, loadings.label.repel=TRUE, label=TRUE, label.repel=TRUE, x = choices[1], y = choices[2])
+  }
 }

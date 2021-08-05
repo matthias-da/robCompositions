@@ -4,7 +4,7 @@
 \alias{plot.pcaCoDa}
 \title{Plot method}
 \usage{
-\method{plot}{pcaCoDa}(x, y, ...)
+\method{plot}{pcaCoDa}(x, y, ..., which = 1, choices = 1:2)
 }
 \arguments{
 \item{x}{object of class \sQuote{pcaCoDa}}
@@ -12,6 +12,10 @@
 \item{y}{...}
 
 \item{\dots}{...}
+
+\item{which}{scree (1), or biplot using stats biplot.prcomp function (2), or ggfortify's autoplot function.}
+
+\item{choices}{principal components to plot by number}
 }
 \value{
 The robust compositional screeplot.
