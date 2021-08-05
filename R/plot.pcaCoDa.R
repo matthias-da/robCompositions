@@ -1,12 +1,12 @@
 #' Plot method
 #' 
-#' Provides a screeplot for (robust) compositional principal components analysis.
+#' Provides a screeplot and biplot for (robust) compositional principal components analysis.
 #' 
 #' 
 #' @param x object of class \sQuote{pcaCoDa}
 #' @param y ...
 #' @param \dots ...
-#' @param which scree (1), or biplot using stats biplot.prcomp function (2), or ggfortify's autoplot function.
+#' @param which an integer between 1 and 3. Produces a screeplot (1), or a biplot using stats biplot.prcomp function (2), or a biplot using ggfortify's autoplot function (3).
 #' @param choices principal components to plot by number
 #' @return The robust compositional screeplot.
 #' @author M. Templ, K. Hron
@@ -24,6 +24,8 @@
 #' p1 <- pcaCoDa(coffee[,-1])
 #' plot(p1)
 #' plot(p1, type="lines")
+#' plot(p1, which = 2)
+#' plot(p1, which = 3)
 #' 
 #' 
 plot.pcaCoDa <- function(x, y, ..., which = 1, choices = 1:2){
