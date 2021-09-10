@@ -2,7 +2,7 @@ Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
 Version: 2.3.1
-Date: 2021-08-03
+Date: 2021-09-02
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -24,6 +24,7 @@ Imports:
     mclust,
     tidyr,
     robustbase,
+    robustHD,
     splines,
     VIM,
     zCompositions,
@@ -47,6 +48,7 @@ Authors@R: c(
   person("Alessandra", "Menafoglio", email = "alessandra.menafoglio@polimi.it", role="ctb", comment = c(ORCID="0000-0003-0682-6412")),
   person("Alessia", "Di Blasi", email = "alessia.diblasi@mail.polimi.it", role="ctb"),
   person("Federico", "Pavone", email = "federico.pavone@mail.polimi.it", role="ctb"),
+  person("Nikola", "Stefelova", email = "Nikola.Stefelova@seznam.cz", role="ctb"),
   person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"))
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust

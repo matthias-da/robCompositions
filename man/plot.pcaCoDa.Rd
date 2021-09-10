@@ -13,7 +13,7 @@
 
 \item{\dots}{...}
 
-\item{which}{scree (1), or biplot using stats biplot.prcomp function (2), or ggfortify's autoplot function.}
+\item{which}{an integer between 1 and 3. Produces a screeplot (1), or a biplot using stats biplot.prcomp function (2), or a biplot using ggfortify's autoplot function (3).}
 
 \item{choices}{principal components to plot by number}
 }
@@ -21,14 +21,18 @@
 The robust compositional screeplot.
 }
 \description{
-Provides a screeplot for (robust) compositional principal components analysis.
+Provides a screeplot and biplot for (robust) compositional principal components analysis.
 }
 \examples{
 
 data(coffee)
+\dontrun{
 p1 <- pcaCoDa(coffee[,-1])
 plot(p1)
 plot(p1, type="lines")
+plot(p1, which = 2)
+plot(p1, which = 3)
+}
 
 
 }

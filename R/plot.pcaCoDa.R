@@ -21,11 +21,13 @@
 #' @examples
 #' 
 #' data(coffee)
+#' \dontrun{
 #' p1 <- pcaCoDa(coffee[,-1])
 #' plot(p1)
 #' plot(p1, type="lines")
 #' plot(p1, which = 2)
 #' plot(p1, which = 3)
+#' }
 #' 
 #' 
 plot.pcaCoDa <- function(x, y, ..., which = 1, choices = 1:2){
