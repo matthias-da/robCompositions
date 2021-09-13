@@ -1,13 +1,18 @@
 ### Weighted pivot coordinates
 ####################################################################################################################################################
-#' weightedPivotCoord
-#' 
 #' @name weightedPivotCoord
 #' @rdname weightedPivotCoord
 #' @title Weighted pivot coordinates
-#' @author Nikola.Stefelova
-#' @references XXX
-#' @description XXX
+#' @author Nikola Stefelova
+#' @references Hron K, Filzmoser P, de Caritat P, Fiserova E, Gardlo A (2017) 
+#' Weighted 'pivot coordinates for compositional data and their application to geochemical mapping.
+#' Mathematical Geosciences 49(6):797-814.
+#'  
+#' Stefelova N, Palarea-Albaladejo J, and Hron K (2021)
+#' Weighted pivot coordinates for PLS-based marker discovery in high-throughput compositional data.
+#' Statistical Analysis and Data Mining: The ASA Data Science Journal 14(4):315-330.
+#'  
+#' @description Weighted pivot coordinates as a special case of isometric logratio coordinates. 
 #' 
 #' @param x object of class `data.frame` or `matrix`; positive values only
 #' @param  pivotvar pivotal variable; if any other number than 1, the data are resorted in that sense that 
@@ -21,7 +26,9 @@
 #' if `option = "robust"`, robust estimation is applied;
 #' @param pow if `option = "var"`, power `pow` is applied on unnormalized weights; default is 1;
 #' @param yvar if `option = "cor"`, weights are based on correlation between logratios and variable specified in `yvar`;
-#' @details XXX
+#' @details Weighted pivot coordinates map D-part compositional data from the simplex into a (D-1)-dimensional real space isometrically.
+#'  The relevant relative information about one of parts is contained in the first coordinate.
+#'  Unlike in the (ordinary) pivot coordinates, the pairwise logratios aggregated into the first coordinate are weighted according to their relevance for the purpose of the analysis.
 #' @keywords multivariate
 #' @export
 #' @seealso 
@@ -34,11 +41,30 @@
 #' @importFrom stats integrate
 #' @examples 
 #' ###################
-#' ### XXX
+#' data(phd)
+#' x <- phd[, 7:ncol(phd)]
+#' # first variable as pivotal, weights based on variation matrix
+#' wpc_var <- weightedPivotCoord(x)
+#' coordinates <- wpc_var$WPC
+#' logcontrasts <- wpc_var$w
+#'
+#' # third variable as pivotal, weights based on variation matrix, 
+#' # robust estimation of variance, effect of weighting enhanced
+#' wpc_var <- weightedPivotCoord(x, pivotvar = 3, method = "robust", pow = 2)
+#' coordinates = wpc_var$WPC
+#' logcontrasts = wpc_var$w
+#'
+#' # first variable as pivotal, weights based on correlation between pairwise logratios and y
+#' wpc_cor <- weightedPivotCoord(x, option = "cor", yvar = phd$female)
+#' coordinates <- wpc_cor$WPC
+#' logcontrasts <- wpc_cor$w
+#'
+#'# fifth variable as pivotal, weights based on correlation between pairwise logratios 
+#'# and y, robust estimation of correlation
+#' wpc_cor <- weightedPivotCoord(x, pivotvar = 5, option = "cor", method = "robust", yvar = phd$female)
+#' coordinates <- wpc_cor$WPC
+#' logcontrasts <- wpc_cor$w
 #' 
-#' data(expenditures)
-#' w <- weightedPivotCoord(expenditures)
-#' w
 weightedPivotCoord <- function(x, pivotvar = 1, option = "var", method = "classical", 
                             pow = 1, yvar = NULL){
   

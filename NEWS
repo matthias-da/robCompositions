@@ -1,3 +1,7 @@
+Changes in robCompositions version 2.3.1
+  + weighted pivot coordinates included
+  + cut dependency to sRoc
+
 Changes in robCompositions version 2.3.0
   + new method for compositional splines added
 
