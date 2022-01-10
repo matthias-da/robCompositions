@@ -53,7 +53,11 @@
 #' oD
 #' ## providing a function:
 #' oD <- outCoDa(expenditures, coda = log)
-#' 
+#' ## providing a function:
+#' fun <- function(x){
+#'   robustbase::covOGK(x)
+#' }   
+#' oD <- outCoDa(expenditures, method = "robustHD")
 outCoDa <- function(x, quantile=0.975, method="robust", 
                     alpha = 0.5, coda = TRUE){
 	if(dim(x)[2] < 2) stop("need data with at least 2 variables")
@@ -66,9 +70,14 @@ outCoDa <- function(x, quantile=0.975, method="robust",
 				v <- robustbase::covMcd(x, alpha = alpha)
 				list(mean=v$center, varmat=v$cov)
 		}
+		robustHD <- function(x){
+		  v <- robustbase::covOGK(x, sigmamu = s_Qn)
+		  list(mean=v$center, varmat=v$cov)
+		}
 		switch(type,
 				standard = standard(x),
-				robust = robust(x))
+				robust = robust(x),
+				robustHD = robustHD(x))
 	}
 	if(!is.logical(coda) & !is.function(coda)){
 	  stop("coda must be logical or function")

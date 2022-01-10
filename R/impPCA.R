@@ -16,6 +16,7 @@ impPCA <- function(x, indexMiss, indexObs, method="classical", eps=0.5, all.obs=
 #w <- which(is.na(x), arr.ind=TRUE)
 cm <- colMeans(x, na.rm=TRUE)  ## fuers Ruecktransf.
 csd <- sd(x, na.rm=TRUE)   ## fuers Ruecktransf.
+xorig <- x
 x <- apply(x, 2, function(x) (x - mean(x, na.rm=TRUE))/sd(x, na.rm=TRUE))
 
 ### PCA, Iteration:

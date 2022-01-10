@@ -43,6 +43,10 @@
 #' ###################
 #' data(phd)
 #' x <- phd[, 7:ncol(phd)]
+#' x[x == 0] <- 0.1 # better: impute with one 
+#'                  # of the zero imputation methods 
+#'                  # from robCompositions
+#' 
 #' # first variable as pivotal, weights based on variation matrix
 #' wpc_var <- weightedPivotCoord(x)
 #' coordinates <- wpc_var$WPC

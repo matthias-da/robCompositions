@@ -46,30 +46,33 @@ Weighted pivot coordinates map D-part compositional data from the simplex into a
 }
 \examples{
 ###################
-require(MASS)
-x <- exp(mvrnorm(100, mu=rep(0,200), diag(200)))
-colnames(x) <- paste("V", 1:100, sep = "")
-y <- exp(rnorm(100))
+data(phd)
+x <- phd[, 7:ncol(phd)]
+x[x == 0] <- 0.1 # better: impute with one 
+                 # of the zero imputation methods 
+                 # from robCompositions
 
 # first variable as pivotal, weights based on variation matrix
-wpc_var = weightedPivotCoord(x)
-coordinates = wpc_var$WPC
-logcontrasts = wpc_var$w
+wpc_var <- weightedPivotCoord(x)
+coordinates <- wpc_var$WPC
+logcontrasts <- wpc_var$w
 
-# third variable as pivotal, weights based on variation matrix, robust estimation of variance, effect of weighting enhanced
-wpc_var = weightedPivotCoord(x, pivotvar = 3, method = "robust", pow = 2)
+# third variable as pivotal, weights based on variation matrix, 
+# robust estimation of variance, effect of weighting enhanced
+wpc_var <- weightedPivotCoord(x, pivotvar = 3, method = "robust", pow = 2)
 coordinates = wpc_var$WPC
 logcontrasts = wpc_var$w
 
 # first variable as pivotal, weights based on correlation between pairwise logratios and y
-wpc_cor = weightedPivotCoord(x, option = "cor", yvar = y)
-coordinates = wpc_cor$WPC
-logcontrasts = wpc_cor$w
+wpc_cor <- weightedPivotCoord(x, option = "cor", yvar = phd$female)
+coordinates <- wpc_cor$WPC
+logcontrasts <- wpc_cor$w
 
-# fifth variable as pivotal, weights based on correlation between pairwise logratios and y, robust estimation of correlation
-wpc_cor = weightedPivotCoord(x, pivotvar = 5, option = "cor", method = "robust", yvar = y)
-coordinates = wpc_cor$WPC
-logcontrasts = wpc_cor$w
+# fifth variable as pivotal, weights based on correlation between pairwise logratios 
+# and y, robust estimation of correlation
+wpc_cor <- weightedPivotCoord(x, pivotvar = 5, option = "cor", method = "robust", yvar = phd$female)
+coordinates <- wpc_cor$WPC
+logcontrasts <- wpc_cor$w
 
 }
 \references{
