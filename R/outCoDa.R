@@ -11,7 +11,9 @@
 #' If method \dQuote{robust} is chosen, the outlier detection is based on the
 #' homogeneous majority of the compositional data set. If method
 #' \dQuote{standard} is used, standard measures of location and scatter are
-#' applied during the outlier detection procedure.
+#' applied during the outlier detection procedure. Method \dQuote{robust}
+#' can be used if the number of variables is greater than the number
+#' of observations. Here the OGK estimator is chosen. 
 #' 
 #' plot method: the Mahalanobis distance are plotted against the index.
 #' The dashed line indicates the (1 - alpha) quantile of the chi-squared
@@ -53,10 +55,7 @@
 #' oD
 #' ## providing a function:
 #' oD <- outCoDa(expenditures, coda = log)
-#' ## providing a function:
-#' fun <- function(x){
-#'   robustbase::covOGK(x)
-#' }   
+#' ## for high-dimensional data:
 #' oD <- outCoDa(expenditures, method = "robustHD")
 outCoDa <- function(x, quantile=0.975, method="robust", 
                     alpha = 0.5, coda = TRUE){
