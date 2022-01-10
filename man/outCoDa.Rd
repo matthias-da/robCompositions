@@ -68,7 +68,11 @@ oD <- outCoDa(expenditures)
 oD
 ## providing a function:
 oD <- outCoDa(expenditures, coda = log)
-
+## providing a function:
+fun <- function(x){
+  robustbase::covOGK(x)
+}   
+oD <- outCoDa(expenditures, method = "robustHD")
 }
 \references{
 Egozcue J.J., Pawlowsky-Glahn, V., Mateu-Figueras, G.,

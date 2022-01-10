@@ -1,3 +1,8 @@
+Changes in robCompositions version 2.3.2
+  + impPCA to impute missing values with principal component analysis
+  + outCoDa now has a method for high-dimensional data
+  + weighted pivot coordinates
+
 Changes in robCompositions version 2.3.1
   + weighted pivot coordinates included
   + cut dependency to sRoc
