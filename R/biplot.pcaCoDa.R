@@ -27,6 +27,10 @@
 #' p1
 #' biplot(p1)
 #' 
+#' # exemplarly, showing the first and third PC
+#' a <- p1$princompOutputClr
+#' biplot(a, choices = c(1,3))
+#' 
 #' 
 #' ## with labels for the scores:
 #' data(arcticLake)
@@ -35,13 +39,13 @@
 #' pc <- pcaCoDa(arcticLake, method="classical")
 #' biplot(pc, xlabs=rownames(arcticLake))
 #' 
-#' 
+
 biplot.pcaCoDa <- function(x, y, ...){
   ## biplot
   #z <- list()
   #z$scores <- x$scores
-  #z$loadings <- x$loadings
-  beschx <- if(x$method == "robust") "PC1 (clr-robust)" else "PC1 (clr-classical)"
-  beschy <- if(x$method == "robust") "PC2 (clr-robust)" else "PC2 (clr-classical)"
+  p1$princompOutputClrz$loadings <- x$loadings
+    beschx <- if(x$method == "robust") paste0("PC", choices[1], "(clr-robust)") else "PC1 (clr-classical)"
+    beschy <- if(x$method == "robust") paste0("PC", choices[2], "(clr-robust)") else "PC2 (clr-classical)"
   biplot(x$princompOutputClr, xlab=beschx, ylab=beschy, ...)
 }
