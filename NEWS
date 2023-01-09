@@ -1,3 +1,6 @@
+Changes in robCompositions version 2.3.3
+  + New data set landcover
+
 Changes in robCompositions version 2.3.2
   + impPCA to impute missing values with principal component analysis
   + outCoDa now has a method for high-dimensional data

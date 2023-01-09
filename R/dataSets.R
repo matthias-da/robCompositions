@@ -985,6 +985,35 @@ NULL
 NULL
 
 
+#' European land cover
+#' 
+#' Land cover data from Eurostat (2015) extended with (log) population and (log) pollution
+#' 
+#' \itemize{
+#' \item{\code{Woodland }}{Coverage in km2}                            
+#' \item{\code{Cropland }}{Coverage in km2}                                      
+#' \item{\code{Grassland }}{Coverage in km2}                             
+#' \item{\code{Water }}{Coverage in km2}
+#' \item{\code{Artificial }}{Coverage in km2}                    
+#' \item{\code{Pollution }}{log(Pollution) values per country}
+#' \item{\code{PopDensity }}{log(PopDensity) values per country}               
+#' }
+#' 
+#' @name landcover
+#' @docType data
+#' @format A data set on 28 compositions on 7 variables.
+#' @author conversion to R by Karel Hron  
+#' @source
+#' Lucas land cover 
+#' @keywords datasets
+#' @examples
+#' 
+#' data(landcover)
+#' str(landcover)
+#' 
+NULL
+
+
 
 #' life expectancy and GDP (2008) for EU-countries
 #' 
