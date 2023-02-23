@@ -5,18 +5,35 @@
 \alias{ilrregression}
 \alias{robilrregression}
 \title{Classical and robust regression of non-compositional (real) response on
-compositional predictors}
+compositional and non-compositional predictors}
 \usage{
-lmCoDaX(y, X, method = "robust")
+lmCoDaX(
+  y,
+  X,
+  external = NULL,
+  method = "robust",
+  pivot_norm = "orthonormal",
+  max_refinement_steps = 200
+)
 }
 \arguments{
 \item{y}{The response which should be non-compositional}
 
-\item{X}{The compositional predictors as a matrix, data.frame or numeric
+\item{X}{The compositional and/or non-compositional predictors as a matrix, data.frame or numeric
 vector}
+
+\item{external}{Specify the columns name of the external variables. The name has to be introduced as follows:
+external = c("variable_name"). Multiple selection is supported for the external variable. Factor variables are
+automatically detected.}
 
 \item{method}{If robust, LTS-regression is applied, while with method equals
 \dQuote{classical}, the conventional least squares regression is applied.}
+
+\item{pivot_norm}{if FALSE then the normalizing constant is not used, if TRUE sqrt((D-i)/(D-i+1))
+is used (default). The user can also specify a self-defined constant.}
+
+\item{max_refinement_steps}{(for the fast-S algorithm): maximal number of refinement
+steps for the fully iterated best candidates.}
 }
 \value{
 An object of class \sQuote{lts} or \sQuote{lm} and two summary
@@ -24,13 +41,15 @@ objects.
 }
 \description{
 Delivers appropriate inference for regression of y on a compositional matrix
-X.
+X or and compositional and non-compositional combined predictors.
 }
 \details{
 Compositional explanatory variables should not be directly used in a linear
 regression model because any inference statistic can become misleading.
 While various approaches for this problem were proposed, here an approach
-based on the pivot coordinates is used.
+based on the pivot coordinates is used. Further these compositional explanatory 
+variables can be supplemented with external non-compositional data
+and factor variables.
 }
 \examples{
 
@@ -41,6 +60,20 @@ data(expendituresEU)
 y <- as.numeric(apply(expendituresEU,1,sum))
 lmCoDaX(y, expendituresEU, method="classical")
 lmCoDaX(y, expendituresEU, method="robust")
+
+## How the content of sand of the agricultural
+## and grazing land soils in Germany depend on
+## relative contributions of the main chemical trace elements,
+## their different soil types and the Annual mean temperature:
+data("gemas")
+gemas$COUNTRY <- as.factor(gemas$COUNTRY)
+gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'GER')
+y <- gemas_GER$sand
+X <- dplyr::select(gemas_GER, c(MeanTemp, soilclass, Al:Zr))
+lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
+method='classical', pivot_norm = 'orthonormal')
+lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
+method='robust', pivot_norm = 'orthonormal')
 }
 \references{
 Filzmoser, P., Hron, K., Thompsonc, K. (2012) Linear regression
@@ -51,6 +84,6 @@ Statistics}, 39, 1115-1128.
 \code{\link{lm}}
 }
 \author{
-Peter Filzmoser
+Peter Filzmoser, Roman Wiedemeier, Matthias Templ
 }
 \keyword{models}

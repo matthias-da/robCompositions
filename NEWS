@@ -1,3 +1,6 @@
+Changes in robCompositions version 2.3.4
+  + lmCoDaX now can use external non-compositional predictors as well
+
 Changes in robCompositions version 2.3.3
   + New data set landcover
 

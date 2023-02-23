@@ -116,8 +116,9 @@ DL <- matrix(rep(0),ncol=col,nrow=1)
 for(j in seq(1,col,2))
 {DL[j] <- quantile(data[,j],probs=0.06,na.rm=FALSE)}
 
-for(j in 1:col)        
-{data[data[,j]<DL[j],j] <- 0}
+for(j in 1:col){        
+  data[data[,j]<DL[j],j] <- 0
+}
 \dontrun{
 # under dontrun because of long exectution time
 imp <- imputeBDLs(data,dl=DL,maxit=10,eps=0.1,R=10,method="subPLS")

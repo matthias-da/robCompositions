@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.3.3
-Date: 2022-01-09
+Version: 2.3.4
+Date: 2023-02-24
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -29,7 +29,8 @@ Imports:
     VIM,
     zCompositions,
     reshape2,
-    Rcpp
+    Rcpp,
+    sjmisc
 Suggests:
     knitr,
     testthat
@@ -49,7 +50,8 @@ Authors@R: c(
   person("Alessia", "Di Blasi", email = "alessia.diblasi@mail.polimi.it", role="ctb"),
   person("Federico", "Pavone", email = "federico.pavone@mail.polimi.it", role="ctb"),
   person("Nikola", "Stefelova", email = "Nikola.Stefelova@seznam.cz", role="ctb"),
-  person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"))
+  person("Gianluca", "Zeni", email = "gianluca.zeni@mail.polimi.it", role="ctb"),
+  person("Roman", "Wiederkehr", email = "wiedemeier.roman@gmail.com", role="ctb"))
 Maintainer: Matthias Templ <matthias.templ@gmail.com>
 Description: Methods for analysis of compositional data including robust
     methods  (<doi:10.1007/978-3-319-96422-5>), imputation of missing values (<doi:10.1016/j.csda.2009.11.023>), methods to replace 
