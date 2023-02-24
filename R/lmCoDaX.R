@@ -1,6 +1,12 @@
 #' @importFrom stats lm
 #' @importFrom robustbase lmrob.control
 #' @importFrom sjmisc is_empty
+#' @importFrom magrittr %>%
+#' @importFrom dplyr select_if
+#' @importFrom dplyr all_of
+#' @importFrom dplyr relocate
+#' @importFrom dplyr rename_with
+#' @importFrom dplyr mutate_if
 NULL
 
 #' Classical and robust regression of non-compositional (real) response on
@@ -46,22 +52,23 @@ NULL
 #' data(expendituresEU)
 #' y <- as.numeric(apply(expendituresEU,1,sum))
 #' lmCoDaX(y, expendituresEU, method="classical")
-#' lmCoDaX(y, expendituresEU, method="robust")
 #' 
-#' ## How the content of sand of the agricultural
+#' ## How the relative content of sand of the agricultural
 #' ## and grazing land soils in Germany depend on
 #' ## relative contributions of the main chemical trace elements,
 #' ## their different soil types and the Annual mean temperature:
 #' data("gemas")
 #' gemas$COUNTRY <- as.factor(gemas$COUNTRY)
 #' gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'GER')
-#' y <- gemas_GER$sand
+#' ssc <- cenLR(gemas_GER[, c("sand", "silt", "clay")])$x.clr
+#' y <- ssc$sand
 #' X <- dplyr::select(gemas_GER, c(MeanTemp, soilclass, Al:Zr))
 #' lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
 #' method='classical', pivot_norm = 'orthonormal')
 #' lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
 #' method='robust', pivot_norm = 'orthonormal')
-lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'orthonormal', max_refinement_steps = 200) { # ltsReg mit lmrob ersetzen und dann sollte die Fehlermeldung verschwinden
+lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'orthonormal', 
+                     max_refinement_steps = 200) { # ltsReg mit lmrob ersetzen und dann sollte die Fehlermeldung verschwinden
   
   if (!is.null(external) & (typeof(external) != "character")) {
     stop("Invalid datatype for external")
@@ -75,11 +82,11 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
     n <- dim(dat_missing)[1]
     dat_new <- dat %>% filter(!is.na(y))
     
-    X <- dat_new %>% select(-c(y))
-    y <- dat_new %>% select(c(y))
+    X <- dat_new %>% dplyr::select(-c(y))
+    y <- dat_new %>% dplyr::select(c(y))
   }
   if (!is.null(external) & (any(sapply(X, function(x) is.numeric(x))))){
-    external_col <- X %>% select(all_of(external)) %>% select_if(is.numeric)
+    external_col <- X %>% dplyr::select(all_of(external)) %>% select_if(is.numeric)
     if (all(sapply(external_col, function(x) is.numeric(x)))){
       n_externals <- length(external_col)
     } else {
@@ -90,7 +97,7 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
   }
   if (!is.null(external) & (any(sapply(X, function(x) !is.numeric(x))))) {
     X <- X %>% mutate_if(sapply(X, is.character), as.factor)
-    factor_var <- X %>% select(all_of(external)) %>% select_if(is.factor)
+    factor_var <- X %>% dplyr::select(all_of(external)) %>% select_if(is.factor)
     factor_col <- factor_var[, 1]
     if (is.factor(factor_col) | is.character(factor_col)){
       n_levels <- length(unique(as.character(factor_col)))
@@ -102,6 +109,7 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
     }
   } else {
     factor_col = NULL
+    factor_var <- NULL
   }
   if (!is.null(factor_col) & length(factor_var) > 1) {
     stop("There are more than 1 factor variable defined")
@@ -110,10 +118,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
   ilrregression <- function(X, y, external, pivot_norm) {
     
     if (!is.null(factor_col) & !is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(factor_var), names(external_col)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- lm(y ~ ., data = ZV)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -163,10 +171,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (!is.null(factor_col) & is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(factor_var)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- lm(y ~ ., data = ZV)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -191,10 +199,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (is.null(factor_col) & !is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(external_col)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- lm(y ~ ., data = ZV)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -225,10 +233,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
     cont_lmrob <- lmrob.control(fast.s.large.n = Inf, k.max = max_refinement_steps)
     
     if (!is.null(factor_col) & !is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(factor_var), names(external_col)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- robustbase::lmrob(y ~ ., data = ZV, control = cont_lmrob)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -275,10 +283,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (!is.null(factor_col) & is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(factor_var)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- robustbase::lmrob(y ~ ., data = ZV, control = cont_lmrob)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -302,10 +310,10 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (is.null(factor_col) & !is.null(external_col)){
-      X_selected <- X %>% select(-all_of(c(external)))
+      X_selected <- X %>% dplyr::select(-all_of(c(external)))
       ZV <- data.frame(cbind(y, X %>% relocate(all_of(c(names(external_col)))) %>%
-                               rename_with(.cols = colnames(X %>% select(all_of(external))), function(x){paste0("External.", x)}) %>%
-                               rename_with(.cols = colnames(X %>% select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
+                               rename_with(.cols = colnames(X %>% dplyr::select(all_of(external))), function(x){paste0("External.", x)}) %>%
+                               rename_with(.cols = colnames(X %>% dplyr::select(-all_of(c(external)))), function(x){paste0("Internal.", x)})))
       lmcla <- robustbase::lmrob(y ~ ., data = ZV, control = cont_lmrob)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum

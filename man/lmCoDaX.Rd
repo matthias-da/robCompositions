@@ -59,16 +59,16 @@ and factor variables.
 data(expendituresEU)
 y <- as.numeric(apply(expendituresEU,1,sum))
 lmCoDaX(y, expendituresEU, method="classical")
-lmCoDaX(y, expendituresEU, method="robust")
 
-## How the content of sand of the agricultural
+## How the relative content of sand of the agricultural
 ## and grazing land soils in Germany depend on
 ## relative contributions of the main chemical trace elements,
 ## their different soil types and the Annual mean temperature:
 data("gemas")
 gemas$COUNTRY <- as.factor(gemas$COUNTRY)
 gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'GER')
-y <- gemas_GER$sand
+ssc <- cenLR(gemas_GER[, c("sand", "silt", "clay")])$x.clr
+y <- ssc$sand
 X <- dplyr::select(gemas_GER, c(MeanTemp, soilclass, Al:Zr))
 lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
 method='classical', pivot_norm = 'orthonormal')

@@ -16,6 +16,8 @@ Imports:
     fda,
     rrcov,
     cluster,
+    dplyr,
+    magrittr,
     fpc,
     GGally,
     ggfortify,
