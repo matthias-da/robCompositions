@@ -107,6 +107,7 @@
 #'   
 #' # Add true normal density function
 #' matlines(t.fine,dens.true,col="darkred",lwd=2)
+#' }
 compositionalSpline = function(t,clrf,knots,w,order,der,alpha,spline.plot = FALSE,basis.plot=FALSE){
   ## Comments from Matthias:
   # 1. Why not giving as first argument some data, and do the fcenLR(f(t)) within compositionalSpline()?

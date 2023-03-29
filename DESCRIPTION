@@ -75,4 +75,4 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3

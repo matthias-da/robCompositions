@@ -92,6 +92,4 @@ b <- biomarker(X, g1 = 1:20, g2 = 21:40, type = "tau")
 }
 \author{
 Jan Walach
-
-Jan Walach
 }

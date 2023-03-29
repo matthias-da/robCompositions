@@ -53,6 +53,87 @@ This enables to work with compositional splines consistently in the framework of
 
 Augmented knot sequence is obtained from the original knots by adding #(order-1) multiple endpoints.
 }
+\examples{
+# Example (Iris data):
+SepalLengthCm <- iris$Sepal.Length
+Species <- iris$Species
+iris1 <- SepalLengthCm[iris$Species==levels(iris$Species)[1]]
+h1 <- hist(iris1, plot = FALSE)
+midx1 <- h1$mids
+midy1 <- matrix(h1$density, nrow=1, ncol = length(h1$density), byrow=TRUE)
+clrf  <- cenLR(rbind(midy1,midy1))$x.clr[1,]
+knots <- seq(min(h1$breaks),max(h1$breaks),l=5)
+order <- 4
+der <- 2
+alpha <- 0.99
+\donttest{
+sol1 <- compositionalSpline(t = midx1, clrf = clrf, knots = knots, 
+  w = rep(1,length(midx1)), order = order, der = der, 
+  alpha = alpha, spline.plot = T)
+sol1$GCV
+ZB_coef <- sol1$ZB_coef
+t <- seq(min(knots),max(knots),l=500)
+t_step <- diff(t[1:2])
+ZB_base <- ZBsplineBasis(t=t,knots,order)$ZBsplineBasis
+sol1.t <- ZB_base\%*\%ZB_coef
+sol2.t <- fcenLRinv(t,t_step,sol1.t)
+h2 = hist(iris1,prob=T,las=1)
+points(midx1,midy1,pch=16)
+lines(t,sol2.t,col="darkred",lwd=2)
+# Example (normal distrubution):
+# generate n values from normal distribution
+set.seed(1)
+n = 1000; mean = 0; sd = 1.5
+raw_data = rnorm(n,mean,sd)
+  
+# number of classes according to Sturges rule
+n.class = round(1+1.43*log(n),0)
+  
+# Interval midpoints
+parnition = seq(-5,5,length=(n.class+1))
+t.mid = c(); for (i in 1:n.class){t.mid[i]=(parnition[i+1]+parnition[i])/2}
+  
+counts = table(cut(raw_data,parnition))
+prob = counts/sum(counts)                # probabilities
+dens.raw = prob/diff(parnition)          # raw density data
+clrf =  cenLR(rbind(dens.raw,dens.raw))$x.clr[1,]  # raw clr density data
+  
+# set the input parameters for smoothing 
+knots = seq(min(parnition),max(parnition),l=5)
+w = rep(1,length(clrf))
+order = 4
+der = 2
+alpha = 0.5
+spline = compositionalSpline(t = t.mid, clrf = clrf, knots = knots, 
+  w = w, order = order, der = der, alpha = alpha, 
+  spline.plot=TRUE, basis.plot=F)
+  
+# ZB-spline coefficients
+ZB_coef = spline$ZB_coef
+  
+# ZB-spline basis evaluated on the grid "t.fine"
+t.fine = seq(min(knots),max(knots),l=1000)
+ZB_base = ZBsplineBasis(t=t.fine,knots,order)$ZBsplineBasis
+  
+# Compositional spline in the clr space (evaluated on the grid t.fine)
+comp.spline.clr = ZB_base\%*\%ZB_coef
+  
+# Compositional spline in the Bayes space (evaluated on the grid t.fine)
+comp.spline = fcenLRinv(t.fine,diff(t.fine)[1:2],comp.spline.clr)
+  
+# Unit-integral representation of truncated true normal density function 
+dens.true = dnorm(t.fine, mean, sd)/trapzc(diff(t.fine)[1:2],dnorm(t.fine, mean, sd))
+  
+# Plot of compositional spline together with raw density data
+matplot(t.fine,comp.spline,type="l",
+    lty=1, las=1, col="darkblue", xlab="t", 
+    ylab="density",lwd=2,cex.axis=1.2,cex.lab=1.2,ylim=c(0,0.28))
+matpoints(t.mid,dens.raw,pch = 8, col="darkblue", cex=1.3)
+  
+# Add true normal density function
+matlines(t.fine,dens.true,col="darkred",lwd=2)
+}
+}
 \references{
 Machalova, J., Talska, R., Hron, K. Gaba, A. Compositional splines for representation of density functions. \emph{Comput Stat} (2020). https://doi.org/10.1007/s00180-020-01042-7
 }
