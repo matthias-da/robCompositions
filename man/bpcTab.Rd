@@ -63,8 +63,8 @@ Nesrstova, V., Jaskova, P., Pavlu, I., Hron, K., Palarea-Albaladejo, J., Gaba, A
 \seealso{
 \code{\link{bpc}} 
 \code{\link{bpcTabWrapper}} 
-\code{\link{bpcTabPca}}
-\code{\link{bpcTabReg}}
+\code{\link{bpcPcaTab}}
+\code{\link{bpcRegTab}}
 }
 \author{
 Kamila Facevicova

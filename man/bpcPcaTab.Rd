@@ -80,7 +80,7 @@ res.cla.select$loadings.clr
 
 # robust estimation with all pairwise balances and four-part ORs:
 res.rob <- bpcPcaTab(manu_abs, obs.ID = "country", row.factor = "output", 
-col.factor = "isic", value = "value", robust = T)
+col.factor = "isic", value = "value", robust = TRUE)
 summary(res.rob)
 biplot(res.rob)
 head(res.rob$scores)
@@ -93,7 +93,7 @@ Nesrstova, V., Jaskova, P., Pavlu, I., Hron, K., Palarea-Albaladejo, J., Gaba, A
 \seealso{
 \code{\link{bpcTabWrapper}} 
 \code{\link{bpcPca}}
-\code{\link{bpcTabReg}}
+\code{\link{bpcRegTab}}
 }
 \author{
 Kamila Facevicova

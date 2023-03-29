@@ -24,7 +24,7 @@
 #' @seealso 
 #' \code{\link{bpcTabWrapper}} 
 #' \code{\link{bpcPca}}
-#' \code{\link{bpcTabReg}}
+#' \code{\link{bpcRegTab}}
 #' @return 
 #' \item{scores}{array of scores.} 
 #' \item{loadings}{loadings related to the selected backwards coordinates. The names of the rows indicate the type of the respective coordinate 
@@ -62,7 +62,7 @@
 #' 
 #' # robust estimation with all pairwise balances and four-part ORs:
 #' res.rob <- bpcPcaTab(manu_abs, obs.ID = "country", row.factor = "output", 
-#' col.factor = "isic", value = "value", robust = T)
+#' col.factor = "isic", value = "value", robust = TRUE)
 #' summary(res.rob)
 #' biplot(res.rob)
 #' head(res.rob$scores)
@@ -70,7 +70,8 @@
 #' res.rob$loadings.clr
 
 bpcPcaTab <- function(X, obs.ID = NULL, row.factor = NULL, col.factor = NULL, 
-                      value = NULL, robust = FALSE, norm.cat.row = NULL, norm.cat.col = NULL)
+                      value = NULL, robust = FALSE, norm.cat.row = NULL, 
+                      norm.cat.col = NULL)
 {
   I <- nlevels(X[, row.factor])
   J <- nlevels(X[, col.factor])

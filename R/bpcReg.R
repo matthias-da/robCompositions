@@ -57,14 +57,14 @@
 #' # robust regression, with Food as the rationing category and logarithm of base 2
 #' # response is part of the data matrix X
 #' expendituresEU.y <- data.frame(expendituresEU, total = y)
-#' lm.rob <- bpcReg(expendituresEU.y, "total", norm.cat = "Food", robust = T, base = 2)
+#' lm.rob <- bpcReg(expendituresEU.y, "total", norm.cat = "Food", robust = TRUE, base = 2)
 #' lm.rob
 #' 
 #' ## Illustrative example with exports and imports (categorized) as non-compositional covariates
 #' data(economy)
 #' X.ext <- economy[!economy$country2 %in% c("HR", "NO", "CH"), c("exports", "imports")]
 #' X.ext$imports.cat <- cut(X.ext$imports, quantile(X.ext$imports, c(0, 1/3, 2/3, 1)), 
-#' labels = c("A", "B", "C"), include.lowest = T)
+#' labels = c("A", "B", "C"), include.lowest = TRUE)
 #' 
 #' X.y.ext <- data.frame(expendituresEU.y, X.ext[, c("exports", "imports.cat")])
 #' 
@@ -103,7 +103,7 @@ bpcReg <- function(X, y, external = NULL, norm.cat = NULL, robust = FALSE, base 
   X.init <- X[, order.init]
   system.init <- suppressMessages(bpc(X.init, base = base))
   
-  if(norm.const == T)
+  if(norm.const == TRUE)
     coords.init <- system.init$Coordinates else 
       coords.init <- system.init$Coordinates.ortg
   
@@ -112,7 +112,7 @@ bpcReg <- function(X, y, external = NULL, norm.cat = NULL, robust = FALSE, base 
     d <- data.frame(response, coords.init, X.ext) else 
       d <- data.frame(response, coords.init)
 
-  if(robust == T)
+  if(robust == TRUE)
   {
     set.seed(seed)
     lm.init <- robustbase::lmrob(resp ~ ., data = d)
@@ -136,7 +136,7 @@ bpcReg <- function(X, y, external = NULL, norm.cat = NULL, robust = FALSE, base 
     X.iter <- X[, order.iter]
     system.iter <- suppressMessages(bpc(X.iter, base = base))
     
-    if(norm.const == T)
+    if(norm.const == TRUE)
       coords.iter <- system.iter$Coordinates else 
         coords.iter <- system.iter$Coordinates.ortg
     
@@ -144,7 +144,7 @@ bpcReg <- function(X, y, external = NULL, norm.cat = NULL, robust = FALSE, base 
       d.iter <- data.frame(response, coords.iter, X.ext) else 
         d.iter <- data.frame(response, coords.iter)
     
-    if(robust == T)
+    if(robust == TRUE)
     {
       set.seed(seed)
       lm.iter <- robustbase::lmrob(resp ~ ., data = d.iter)
@@ -157,7 +157,7 @@ bpcReg <- function(X, y, external = NULL, norm.cat = NULL, robust = FALSE, base 
   }
   
   # the vector of normalising constants (if applicable)
-  if(norm.const == T)
+  if(norm.const == TRUE)
   {
     norm.const.values <- rep(sqrt(1/2), nrow(pairs))
     names(norm.const.values) <- rownames(lm.sum$coefficients)[-1]

@@ -12,6 +12,8 @@
 \item{y}{...}
 
 \item{\dots}{arguments passed to plot methods}
+
+\item{choices}{selection of two principal components by number. Default: c(1,2)}
 }
 \value{
 The robust compositional biplot.

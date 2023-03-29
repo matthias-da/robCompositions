@@ -31,7 +31,7 @@
 #' @export
 #' @seealso 
 #' \code{\link{bpcTabWrapper}} 
-#' \code{\link{bpcTabPca}}
+#' \code{\link{bpcPcaTab}}
 #' \code{\link{bpcReg}}
 #' @return A list containing:\describe{
 #' \item{Summary}{the summary object which collects results from all coordinate systems. The names of the coefficients indicate the type of the respective coordinate 
@@ -77,7 +77,7 @@
 #' rownames(resp.df) <- y$Country
 #' reg.rob <- bpcRegTab(table_data.y, y = resp.df, obs.ID = "Country", 
 #' row.factor = "Sex", col.factor = "Age", value = "Value",
-#' norm.cat.col = "55plus", robust = T, base = 2)
+#' norm.cat.col = "55plus", robust = TRUE, base = 2)
 #' reg.rob
 #' 
 #' # Illustrative example with non-compositional predictors and response as part of X
@@ -100,7 +100,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
   if(is.character(y))
   {
     response <- X[, c(obs.ID, y)] 
-    response <- dplyr::distinct(response, .keep_all = T) 
+    response <- dplyr::distinct(response, .keep_all = TRUE) 
     rownames(response) <- response[, obs.ID]
     response[, obs.ID] <- NULL
     colnames(response) <- c("resp")
@@ -117,7 +117,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
   if(!is.null(external))
   {
     X.ext <- X[, c(obs.ID, external)]
-    X.ext <- dplyr::distinct(X.ext, .keep_all = T) 
+    X.ext <- dplyr::distinct(X.ext, .keep_all = TRUE) 
     rownames(X.ext) <- X.ext[, obs.ID]
     X.ext[, obs.ID] <- NULL
     
@@ -202,7 +202,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
   
   system.init <- suppressMessages(bpcTabWrapper(X, obs.ID = obs.ID, row.factor = row.factor, col.factor = col.factor, value = value, base = base))
   
-  if(norm.const == T)
+  if(norm.const == TRUE)
     coords.init <- system.init$Coordinates else 
       coords.init <- system.init$Coordinates.ortg
 
@@ -223,7 +223,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
     d$Row.names <- NULL 
   }
   
-  if(robust == T)
+  if(robust == TRUE)
   {
     set.seed(seed)
     lm.init <- robustbase::lmrob(resp ~ ., data = d)
@@ -250,7 +250,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
     
     system.iter <- suppressMessages(bpcTabWrapper(X, obs.ID = obs.ID, row.factor = row.factor, col.factor = col.factor, value = value, base = base))
     
-    if(norm.const == T)
+    if(norm.const == TRUE)
       coords.iter <- system.iter$Coordinates else 
         coords.iter <- system.iter$Coordinates.ortg
     
@@ -270,7 +270,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
       d.iter$Row.names <- NULL 
     }
     
-    if(robust == T)
+    if(robust == TRUE)
     {
       set.seed(seed)
       lm.iter <- robustbase::lmrob(resp ~ ., data = d.iter)
@@ -291,7 +291,7 @@ bpcRegTab <- function(X, y, obs.ID = NULL, row.factor = NULL, col.factor = NULL,
   lm.sum$coefficients <- lm.sum$coefficients[order(rownames(lm.sum$coefficients)),]
   
   # the vector of normalising constants (if applicable)
-  if(norm.const == T)
+  if(norm.const == TRUE)
   {
     norm.const.values <- c(rep(sqrt(I/2), sum(grepl("cbpb", rownames(lm.sum$coefficients)))),
                            rep(sqrt(J/2), sum(grepl("rbpb", rownames(lm.sum$coefficients)))),  

@@ -24,8 +24,8 @@
 #' @seealso 
 #' \code{\link{bpc}} 
 #' \code{\link{bpcTabWrapper}} 
-#' \code{\link{bpcTabPca}}
-#' \code{\link{bpcTabReg}}
+#' \code{\link{bpcPcaTab}}
+#' \code{\link{bpcRegTab}}
 #' @return 
 #' \item{Coordinates}{array of orthonormal coordinates.} 
 #' \item{Coordinates.ortg}{array of orthogonal coordinates.} 

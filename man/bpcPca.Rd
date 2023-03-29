@@ -56,7 +56,7 @@ res.cla.clay <- bpcPca(arcticLake, norm.cat = "clay")
 biplot(res.cla.clay)
 
 # robust estimation with all pairwise logratios:
-res.rob <- bpcPca(arcticLake, robust = T)
+res.rob <- bpcPca(arcticLake, robust = TRUE)
 biplot(res.rob)
 
 }

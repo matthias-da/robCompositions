@@ -74,14 +74,14 @@ lm$ilr
 # robust regression, with Food as the rationing category and logarithm of base 2
 # response is part of the data matrix X
 expendituresEU.y <- data.frame(expendituresEU, total = y)
-lm.rob <- bpcReg(expendituresEU.y, "total", norm.cat = "Food", robust = T, base = 2)
+lm.rob <- bpcReg(expendituresEU.y, "total", norm.cat = "Food", robust = TRUE, base = 2)
 lm.rob
 
 ## Illustrative example with exports and imports (categorized) as non-compositional covariates
 data(economy)
 X.ext <- economy[!economy$country2 \%in\% c("HR", "NO", "CH"), c("exports", "imports")]
 X.ext$imports.cat <- cut(X.ext$imports, quantile(X.ext$imports, c(0, 1/3, 2/3, 1)), 
-labels = c("A", "B", "C"), include.lowest = T)
+labels = c("A", "B", "C"), include.lowest = TRUE)
 
 X.y.ext <- data.frame(expendituresEU.y, X.ext[, c("exports", "imports.cat")])
 

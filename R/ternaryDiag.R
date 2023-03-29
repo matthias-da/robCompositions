@@ -20,8 +20,7 @@
 #' @param tol if line equals \dQuote{ellipse}, it determines the parameter for
 #' the tolerance ellipse
 #' @param \dots further parameters, see, e.g., \code{par()}
-#' @author Peter Filzmoser <\email{P.Filzmoser@@tuwien.ac.at}>, Matthias Templ
-#' @seealso \code{\link[StatDA]{ternary}}
+#' @author Peter Filzmoser <\email{P.Filzmoser@@tuwien.ac.at}>, Matthias Templ <\email{matthias.templ@@fhnw.ch}>
 #' @references Reimann, C., Filzmoser, P., Garrett, R.G., Dutter, R. (2008)
 #' \emph{Statistical Data Analysis Explained. Applied Environmental Statistics with
 #' R}. John Wiley and Sons, Chichester.

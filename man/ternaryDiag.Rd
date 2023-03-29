@@ -74,11 +74,8 @@ Reimann, C., Filzmoser, P., Garrett, R.G., Dutter, R. (2008)
 \emph{Statistical Data Analysis Explained. Applied Environmental Statistics with
 R}. John Wiley and Sons, Chichester.
 }
-\seealso{
-\code{\link[StatDA]{ternary}}
-}
 \author{
-Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>, Matthias Templ
+Peter Filzmoser <\email{P.Filzmoser@tuwien.ac.at}>, Matthias Templ <\email{matthias.templ@fhnw.ch}>
 }
 \keyword{aplot}
 \keyword{multivariate}

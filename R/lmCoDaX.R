@@ -78,9 +78,9 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
   }
   if (any(is.na(y))){
     dat <- cbind(y, X)
-    dat_missing <- dat %>% filter(is.na(y))
+    dat_missing <- dat %>% dplyr::filter(is.na(y))
     n <- dim(dat_missing)[1]
-    dat_new <- dat %>% filter(!is.na(y))
+    dat_new <- dat %>% dplyr::filter(!is.na(y))
     
     X <- dat_new %>% dplyr::select(-c(y))
     y <- dat_new %>% dplyr::select(c(y))
@@ -147,7 +147,9 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (is.null(factor_col) & is.null(external_col)){
-      ZV <- data.frame(cbind(y, X %>% rename_with(.cols = everything(), function(x){paste0("Internal.", x)})))
+      # ZV <- data.frame(cbind(y, X %>% rename_with(.cols = tidyselect::everything(), function(x){paste0("Internal.", x)})))
+      ZV <- data.frame(y, X)
+      colnames(ZV)[2:ncol(ZV)] <- paste0("Internal.", colnames(ZV)[2:ncol(ZV)])
       lmcla <- lm(y ~ ., data = ZV)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum
@@ -260,7 +262,9 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
       }
     }
     if (is.null(factor_col) & is.null(external_col)){
-      ZV <- data.frame(cbind(y, X %>% rename_with(.cols = everything(), function(x){paste0("Internal.", x)})))
+      # ZV <- data.frame(cbind(y, X %>% rename_with(.cols = everything(), function(x){paste0("Internal.", x)})))
+      ZV <- data.frame(y, X)
+      colnames(ZV)[2:ncol(ZV)] <- paste0("Internal.", colnames(ZV)[2:ncol(ZV)])
       lmcla <- robustbase::lmrob(y ~ ., data = ZV, control = cont_lmrob)
       lmcla.sum <- summary(lmcla)
       ilr.sum <- lmcla.sum

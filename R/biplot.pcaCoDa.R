@@ -8,6 +8,7 @@
 #' @param x object of class \sQuote{pcaCoDa}
 #' @param y ...
 #' @param \dots arguments passed to plot methods
+#' @param choices selection of two principal components by number. Default: c(1,2)
 #' @return The robust compositional biplot.
 #' @author M. Templ, K. Hron
 #' @seealso \code{\link{pcaCoDa}}, \code{\link{plot.pcaCoDa}}

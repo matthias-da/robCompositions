@@ -45,7 +45,6 @@
 #' @importFrom e1071 cmeans bclust
 #' @importFrom kernlab specc
 #' @importFrom mclust mclustBIC
-#' @importFrom car box.cox box.cox.powers
 #' @examples
 #' data(expenditures)
 #' x <- expenditures
@@ -125,11 +124,11 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
       nonescale <- none <- identity <- function(x){ x }
       ### transformation:
       logarithm <- function(x){ log(x) }
-      boxcox <- function(x, powers){ box.cox(x, powers) }
-      bcOpt <- function(x){
-        b <- box.cox.powers(x)$lambda
-        box.cox(x, b)
-      }
+      # boxcox <- function(x, powers){ car::bcPower(x, powers) }
+      # bcOpt <- function(x){
+      #   b <- car::powerTransform(x)$lambda
+      #   car::bcPower(x, b)
+      # }
       nonetrans <- identity <- none <- function(x){ x }
       logcentered <- function(x){ 
         xgeom=10^apply(log10(x),1,mean)

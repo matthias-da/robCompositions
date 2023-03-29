@@ -69,7 +69,7 @@ alpha <- 0.99
 \donttest{
 sol1 <- compositionalSpline(t = midx1, clrf = clrf, knots = knots, 
   w = rep(1,length(midx1)), order = order, der = der, 
-  alpha = alpha, spline.plot = T)
+  alpha = alpha, spline.plot = TRUE)
 sol1$GCV
 ZB_coef <- sol1$ZB_coef
 t <- seq(min(knots),max(knots),l=500)
@@ -77,7 +77,7 @@ t_step <- diff(t[1:2])
 ZB_base <- ZBsplineBasis(t=t,knots,order)$ZBsplineBasis
 sol1.t <- ZB_base\%*\%ZB_coef
 sol2.t <- fcenLRinv(t,t_step,sol1.t)
-h2 = hist(iris1,prob=T,las=1)
+h2 = hist(iris1,prob=TRUE,las=1)
 points(midx1,midy1,pch=16)
 lines(t,sol2.t,col="darkred",lwd=2)
 # Example (normal distrubution):
@@ -106,7 +106,7 @@ der = 2
 alpha = 0.5
 spline = compositionalSpline(t = t.mid, clrf = clrf, knots = knots, 
   w = w, order = order, der = der, alpha = alpha, 
-  spline.plot=TRUE, basis.plot=F)
+  spline.plot=TRUE, basis.plot=FALSE)
   
 # ZB-spline coefficients
 ZB_coef = spline$ZB_coef

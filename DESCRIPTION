@@ -10,7 +10,6 @@ Depends:
     data.table
 LinkingTo: Rcpp, RcppEigen
 Imports:
-    car,
     cvTools,
     e1071,
     fda,

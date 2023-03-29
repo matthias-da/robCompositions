@@ -25,11 +25,12 @@
 #' 
 is.equivalent <- function(x, y, tollerance = .Machine$double.eps ^ 0.5){
   clInfo <- class(x)[1]
-	if(clInfo != "integer" & clInfo != "numeric" & clInfo != "data.frame"){
-	  stop("object x must be from class numeric or data.frame")
-	}
+  if(!(inherits(x, "numeric") | inherits(x, "integer") | inherits(x, "data.frame"))){
+    stop("object x must be from class numeric or data.frame")
+  }
   # x is numeric, y is numeric
-  if((clInfo == "numeric" | clInfo == "integer") & (class(y) == "numeric" | class(y) == "integer")){
+  if(inherits(x, "numeric") | inherits(x, "integer") & inherits(y, "numeric") | inherits(y, "integer")){ 
+  # if((clInfo == "numeric" | clInfo == "integer") & (class(y) == "numeric" | class(y) == "integer")){
     x <- as.numeric(x)
     y <- as.numeric(y)
     fac <- x[1] / y[1]
@@ -38,7 +39,8 @@ is.equivalent <- function(x, y, tollerance = .Machine$double.eps ^ 0.5){
     if(!is.logical(test)) test <- FALSE
   }
   # x is a data.frame, y is a data.frame
-  if((any(clInfo == "data.frame")) & (any(clInfo == "data.frame"))){
+  if(inherits(x, "data.frame") & inherits(y, "data.frame")){
+  # if((any(clInfo == "data.frame")) & (any(clInfo == "data.frame"))){
     n <- nrow(x)
     test <- logical(n)
     for(i in 1:n){

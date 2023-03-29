@@ -53,7 +53,7 @@
 #' biplot(res.cla.clay)
 #' 
 #' # robust estimation with all pairwise logratios:
-#' res.rob <- bpcPca(arcticLake, robust = T)
+#' res.rob <- bpcPca(arcticLake, robust = TRUE)
 #' biplot(res.rob)
 #' 
  
@@ -65,7 +65,7 @@ bpcPca <- function(X, robust = FALSE, norm.cat = NULL)
   # considered pairs of categories
   if(is.null(norm.cat))
     # pairs <- gtools::combinations(D, 2, components) else 
-      pairs <- t(combn(components, 2))
+      pairs <- t(combn(components, 2)) else
       pairs <- as.matrix(tidyr::expand_grid(norm.cat, components[components!= norm.cat]), colnames = NULL)
   
   # initialization

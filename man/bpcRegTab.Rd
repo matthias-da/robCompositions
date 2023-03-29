@@ -104,7 +104,7 @@ resp.df <- as.data.frame(y$unemployed)
 rownames(resp.df) <- y$Country
 reg.rob <- bpcRegTab(table_data.y, y = resp.df, obs.ID = "Country", 
 row.factor = "Sex", col.factor = "Age", value = "Value",
-norm.cat.col = "55plus", robust = T, base = 2)
+norm.cat.col = "55plus", robust = TRUE, base = 2)
 reg.rob
 
 # Illustrative example with non-compositional predictors and response as part of X
@@ -122,7 +122,7 @@ Nesrstova, V., Jaskova, P., Pavlu, I., Hron, K., Palarea-Albaladejo, J., Gaba, A
 }
 \seealso{
 \code{\link{bpcTabWrapper}} 
-\code{\link{bpcTabPca}}
+\code{\link{bpcPcaTab}}
 \code{\link{bpcReg}}
 }
 \author{

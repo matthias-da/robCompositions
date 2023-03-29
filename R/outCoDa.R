@@ -70,7 +70,7 @@ outCoDa <- function(x, quantile=0.975, method="robust",
 				list(mean=v$center, varmat=v$cov)
 		}
 		robustHD <- function(x){
-		  v <- robustbase::covOGK(x, sigmamu = s_Qn)
+		  v <- robustbase::covOGK(x, sigmamu = robustbase::s_Qn)
 		  list(mean=v$center, varmat=v$cov)
 		}
 		switch(type,

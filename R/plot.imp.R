@@ -138,7 +138,8 @@ function (x, ..., which=1, ord=1:ncol(x),
   } else if(length(pch) != 2){ 
 	  stop("'pch' must be a vector of length 1 or 2.")
   }
-  if(class(seg1) != "logical") stop("'seg1' must be logical")
+	if(!(inherits(seg1, "logical"))) stop("'seg1' must be logical")
+  # if(class(seg1) != "logical") stop("'seg1' must be logical")
   if(length(seg1) != 1) stop("'seg1' has to be a vector of length 1") 
   if(length(seg.l) != 1) stop("'seg.l' has to be a vector of length 1") 
   x <- as.data.frame(x)
