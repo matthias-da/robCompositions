@@ -1,6 +1,5 @@
 #' @importFrom stats lm
 #' @importFrom robustbase lmrob.control
-#' @importFrom sjmisc is_empty
 #' @importFrom magrittr %>%
 #' @importFrom dplyr select_if
 #' @importFrom dplyr all_of
@@ -59,10 +58,11 @@ NULL
 #' ## their different soil types and the Annual mean temperature:
 #' data("gemas")
 #' gemas$COUNTRY <- as.factor(gemas$COUNTRY)
-#' gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'GER')
+#' gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'POL')
 #' ssc <- cenLR(gemas_GER[, c("sand", "silt", "clay")])$x.clr
 #' y <- ssc$sand
 #' X <- dplyr::select(gemas_GER, c(MeanTemp, soilclass, Al:Zr))
+#' X$soilclass <- factor(X$soilclass)
 #' lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
 #' method='classical', pivot_norm = 'orthonormal')
 #' lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
@@ -104,8 +104,18 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
     } else {
       stop("Datatype of factor variable has to be factor or character")
     }
-    if (any(is_empty(unique(as.character(factor_col)), first.only = FALSE, all.na.empty = TRUE) == TRUE)){
-      stop("Dataset contains levels with empty strings or missing values. Specify factor name or drop these observations.")
+    # if (any(is_empty(unique(as.character(factor_col)), first.only = FALSE, all.na.empty = TRUE) == TRUE)){
+      empty_levels <- function(x){
+        e <- levels(x)[table(x) == 0]
+        # Print the empty levels (if any)
+        if (length(e) > 0) {
+          return(TRUE)
+        } else {
+          return(FALSE)
+        }
+      }
+    if(any(is.na(levels(factor_col))) | empty_levels(factor_col)){
+      stop("The factor variable provided contains levels with \nmissing values or empty levels. Please correct.")
     }
   } else {
     factor_col = NULL

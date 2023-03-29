@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.3.4
-Date: 2023-02-24
+Version: 2.3.5
+Date: 2023-03-29
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -30,8 +30,7 @@ Imports:
     VIM,
     zCompositions,
     reshape2,
-    Rcpp,
-    sjmisc
+    Rcpp
 Suggests:
     knitr,
     testthat

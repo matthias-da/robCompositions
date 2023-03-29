@@ -66,10 +66,11 @@ lmCoDaX(y, expendituresEU, method="classical")
 ## their different soil types and the Annual mean temperature:
 data("gemas")
 gemas$COUNTRY <- as.factor(gemas$COUNTRY)
-gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'GER')
+gemas_GER <- dplyr::filter(gemas, gemas$COUNTRY == 'POL')
 ssc <- cenLR(gemas_GER[, c("sand", "silt", "clay")])$x.clr
 y <- ssc$sand
 X <- dplyr::select(gemas_GER, c(MeanTemp, soilclass, Al:Zr))
+X$soilclass <- factor(X$soilclass)
 lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),
 method='classical', pivot_norm = 'orthonormal')
 lmCoDaX(y, X, external = c('MeanTemp', 'soilclass'),

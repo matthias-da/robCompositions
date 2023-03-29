@@ -1,3 +1,7 @@
+Changes in robCompositions version 2.4.0
+  + functions bpc, bpcPca, bpcPcaTab, bpcReg, bpcRegTab, bpcTab, bpcTabWrapper added
+  + got rid of dependencies to packages car and sjmisc
+
 Changes in robCompositions version 2.3.4
   + lmCoDaX now can use external non-compositional predictors as well
 
