@@ -27,7 +27,7 @@
 #' The summary therefore collects results from several regression models, each leading to the same overall model characteristics, like the F statistics or R^2. 
 #' In order to maintain consistency of the iterative results collected in the output, a seed is set before robust estimation of each of the models considered. Its specific value can be set via parameter seed.
 #' 
-#' @keywords multivariate, coordinates, regression
+#' @keywords regression
 #' @export
 #' @seealso 
 #' \code{\link{bpcTabWrapper}} 

@@ -605,7 +605,7 @@ NULL
 #' \item{\code{...}}{...}
 #' #' \item{\code{Alcohol - Non-Food}}{Food balance on alcohol}
 #' }
-#' @source \url{http://www.fao.org/home/en/}
+#' @source \url{https://www.fao.org/home/en/}
 #' @keywords datasets
 #' @examples
 #' 

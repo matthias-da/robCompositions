@@ -23,7 +23,7 @@
 #' The coordinates are structured as detailed in Nesrstova et al. (2023).
 #' In order to maintain consistency of the iterative results collected in the output, a seed is set before robust estimation of each of the models considered. Its specific value can be set via parameter seed.
 #'
-#' @keywords multivariate, coordinates, regression
+#' @keywords regression
 #' @export
 #' @seealso 
 #' \code{\link{bpc}} 

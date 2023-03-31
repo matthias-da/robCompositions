@@ -22,7 +22,7 @@
 #' The first table backwards pivot coordinate, has form of a four-part log odds-ratio (again related to the first two levels of the row and column factors) and quantifies the relations between factors.
 #' All coordinates are structured as detailed in Nesrstova et al. (2023). 
 #' 
-#' @keywords multivariate, coordinates
+#' @keywords multivariate
 #' @export
 #' @seealso 
 #' \code{\link{bpc}} 

@@ -19,7 +19,7 @@
 #' More specifically, the first two levels of the considered factor are compared in the ratio, while the first level plays the role of the rationing category (denominator of the ratio) and the second level is treated as the normalized category (numerator of the ratio). All categories of the complementary factor are aggregated with the geometric mean.
 #' The first table backwards pivot coordinate, has form of a four-part log odds-ratio (again related to the first two levels of the row and column factors) and quantifies the relations between factors.
 #' All coordinates are structured as detailed in Nesrstova et al. (2023).
-#' @keywords multivariate, coordinates
+#' @keywords multivariate
 #' @export
 #' @seealso 
 #' \code{\link{bpc}} 

@@ -11,7 +11,7 @@
 #'
 #' @details Backwards pivot coordinates map D-part compositional data from the simplex into a (D-1)-dimensional real space isometrically. The first coordinate has form of pairwise logratio log(x2/x1) and serves as an alternative to additive logratio transformation with part x1 being the rationing element. The remaining coordinates are structured as detailed in Nesrstova et al. (2023). 
 #' Consequently, when a specific pairwise logratio is of the main interest, the respective columns have to be placed at the first (the compositional part in denominator of the logratio, the rationing element) and the second position (the compositional part in numerator) in the data matrix X.   
-#' @keywords multivariate, coordinates
+#' @keywords multivariate coordinates
 #' @export
 #' @seealso 
 #' \code{\link{bpcTab}} 

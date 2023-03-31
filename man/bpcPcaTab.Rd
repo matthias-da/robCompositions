@@ -98,6 +98,4 @@ Nesrstova, V., Jaskova, P., Pavlu, I., Hron, K., Palarea-Albaladejo, J., Gaba, A
 \author{
 Kamila Facevicova
 }
-\keyword{PCA}
-\keyword{coordinates,}
-\keyword{multivariate,}
+\keyword{multivariate}

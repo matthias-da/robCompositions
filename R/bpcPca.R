@@ -15,7 +15,7 @@
 #' @details The compositional data set is repeatedly expressed in a set of backwards logratio coordinates, when each set highlights one pairwise logratio (or one pairwise logratio with the selected rationing category). 
 #' For each set, robust or classical principal component analysis is performed and loadings respective to the first backwards pivot coordinate are stored. 
 #' The procedure results in matrix of scores (invariant to the specific coordinate system), clr loading matrix and matrix with loadings respective to pairwise logratios.
-#' @keywords multivariate, coordinates, PCA
+#' @keywords multivariate 
 #' @export
 #' @seealso 
 #' \code{\link{bpc}} 

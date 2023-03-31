@@ -19,7 +19,7 @@
 #' when each set highlights different combination of pairs of row and column factor categories, as detailed in Nesrstova et al. (2023). 
 #' For each set, robust or classical principal component analysis is performed and loadings respective to the first row, column and odds-ratio backwards pivot coordinates are stored. 
 #' The procedure results in matrix of scores (invariant to the specific coordinate system), clr loading matrix and matrix with loadings related to the selected backwards coordinates.
-#' @keywords multivariate, coordinates, PCA
+#' @keywords multivariate 
 #' @export
 #' @seealso 
 #' \code{\link{bpcTabWrapper}} 

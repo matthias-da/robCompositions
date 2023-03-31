@@ -101,6 +101,4 @@ Nesrstova, V., Jaskova, P., Pavlu, I., Hron, K., Palarea-Albaladejo, J., Gaba, A
 \author{
 Kamila Facevicova
 }
-\keyword{coordinates,}
-\keyword{multivariate,}
 \keyword{regression}
