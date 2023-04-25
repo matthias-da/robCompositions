@@ -33,7 +33,7 @@ head(cenLRinv(eclr$x.clr))
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
-Chapman \& Hall Ltd., London (UK). 416p.
+Chapman and Hall Ltd., London (UK). 416p.
 }
 \seealso{
 \code{\link{cenLR}}, \code{\link{addLR}}, \code{\link{pivotCoord}},

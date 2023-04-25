@@ -65,7 +65,7 @@ ggmap(map) + geom_point(aes(x=longitude, y=latitude), data=gemas, size=0.8)
 }
 }
 \references{
-Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. \& O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part A: Methodology and interpretation of the GEMAS data set. Geologisches Jahrbuch (Reihe B 102), Schweizerbarth, Hannover, 528 pp. + DVD 
+Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. and O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part A: Methodology and interpretation of the GEMAS data set. Geologisches Jahrbuch (Reihe B 102), Schweizerbarth, Hannover, 528 pp. + DVD 
 Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. & O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part B: General background information and further analysis of the GEMAS data set. Geologisches Jahrbuch (Reihe B 103), Schweizerbarth, Hannover, 352 pp.
 }
 \author{

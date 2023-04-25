@@ -66,7 +66,7 @@ of certain goodness-of-fit criteria based on stochastic processes} Annals of
 Mathematical Statistics, \bold{23} 193-212.
 
 Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data}
-Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd.,
+Monographs on Statistics and Applied Probability. Chapman and Hall Ltd.,
 London (UK). 416p.
 }
 \seealso{

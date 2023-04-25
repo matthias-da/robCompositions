@@ -54,7 +54,7 @@ addLRinv(x.alr, ivar=2, useClassInfo=FALSE)
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
-Chapman \& Hall Ltd., London (UK). 416p.
+Chapman and Hall Ltd., London (UK). 416p.
 }
 \seealso{
 \code{\link{addLRinv}}, \code{\link{pivotCoord}}

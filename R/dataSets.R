@@ -93,7 +93,7 @@ NULL
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @details The rows sum up to 100, except for rounding errors. 
 #' @format A data frame with 39 rows and 3 variables
-#' @references Aitchison, J. (1986). \emph{The Statistical Analysis of Compositional Data}. Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @references Aitchison, J. (1986). \emph{The Statistical Analysis of Compositional Data}. Monographs on Statistics and Applied Probability. Chapman and Hall Ltd., London (UK). 416p. 
 #' @keywords data
 #' @examples 
 #' 
@@ -152,8 +152,7 @@ NULL
 #' @docType data
 #' @details The data are obtained from the OECD website.
 #' @format A data set on 35 compositional tables on 4 parts (row-wise sorted cells) and 5 variables.
-#' @source
-#' \url{https://www.oecd.org}
+#' @source From OECD website
 #' @keywords datasets
 #' @author conversion to R by Karel Hron and intergration by Matthias Templ \email{matthias.templ@@tuwien.ac.at} 
 #' @examples
@@ -547,7 +546,7 @@ NULL
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}, Karel Hron
 #' @details This data set contains household expenditures on five commodity groups of 20 single men. The variables represent housing (including fuel and light), foodstuff, alcohol and tobacco, other goods (including clothing, footwear and durable goods) and services (including transport and vehicles). Thus they represent the ratios of the men's income spent on the mentioned expenditures. 
 #' @format A data frame with 20 observations on the following 5 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman and Hall Ltd., London (UK). 416p. 
 #' @keywords data
 #' @examples 
 #' 
@@ -684,7 +683,7 @@ NULL
 #' @usage data(gemas)
 #' @author GEMAS is a cooperation project between the EuroGeoSurveys Geochemistry Expert Group and Eurometaux. Integration in R, Peter Filzmoser and Matthias Templ.
 #' @format A data frame with 2108 observations and 30 variables
-#' @references Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. \& O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part A: Methodology and interpretation of the GEMAS data set. Geologisches Jahrbuch (Reihe B 102), Schweizerbarth, Hannover, 528 pp. + DVD 
+#' @references Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. and O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part A: Methodology and interpretation of the GEMAS data set. Geologisches Jahrbuch (Reihe B 102), Schweizerbarth, Hannover, 528 pp. + DVD 
 #' Reimann, C., Birke, M., Demetriades, A., Filzmoser, P. & O'Connor, P. (Editors), 2014. Chemistry of Europe's agricultural soils - Part B: General background information and further analysis of the GEMAS data set. Geologisches Jahrbuch (Reihe B 103), Schweizerbarth, Hannover, 352 pp. 
 #' @details The sampling, at a density of 1 site/2500 sq. km, was completed at the beginning of 2009 by collecting 2211 samples of agricultural soil (Ap-horizon, 0-20 cm, regularly ploughed fields), and 2118 samples from land under permanent grass cover (grazing land soil, 0-10 cm), according to an agreed field protocol.
 #' All GEMAS project samples were shipped to Slovakia for sample preparation, where they were air dried, sieved to <2 mm using a nylon screen, homogenised and split to subsamples for analysis. They were analysed for a large number of chemical elements. In this sample, the main elements by X-ray fluorescence are included as well as the composition on sand, silt, clay.
@@ -1063,7 +1062,7 @@ NULL
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @details The data set from Aitchison (1986), p. 382, contains compositions of eight-hour shifts of 27 machine operators. The parts represent proportions of shifts in each activity:  high-quality production, low-quality production, machine setting and machine repair.
 #' @format A data frame with 27 observations on the following 4 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman and Hall Ltd., London (UK). 416p. 
 #' @keywords data
 #' @examples 
 #' 
@@ -1578,7 +1577,7 @@ NULL
 #' @usage data(skyeLavas)
 #' @author Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @format A data frame with 23 observations on the following 3 variables.
-#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p. 
+#' @references Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman and Hall Ltd., London (UK). 416p. 
 #' @keywords data
 #' @examples 
 #' 
@@ -1612,7 +1611,7 @@ NULL
 #' @usage data(socExp)
 #' @author conversion to R by Karel Hron Karel Hron and modifications by Matthias Templ \email{matthias.templ@@tuwien.ac.at}
 #' @format A data frame with 20 observations on the following 8 variables (country + currency + row-wise sorted cells of 2x3 compositional table).
-#' @references OECD, \url{https://www.oecd.org}
+#' @references OECD
 #' @keywords data
 #' @examples 
 #' 

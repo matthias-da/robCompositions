@@ -135,7 +135,7 @@ plot(xi, which=3, seg1=FALSE)
 \references{
 Aitchison, J. (1986) \emph{The Statistical Analysis of
 Compositional Data} Monographs on Statistics and Applied Probability.
-Chapman \& Hall Ltd., London (UK). 416p.
+Chapman and Hall Ltd., London (UK). 416p.
 
 Wegman, E. J. (1990) \emph{Hyperdimensional data analysis using parallel
 coordinates} Journal of the American Statistical Association 85, 664--675.

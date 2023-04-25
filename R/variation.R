@@ -19,7 +19,7 @@
 #' @author Karel Hron, Matthias Templ
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
-#' Chapman \& Hall Ltd., London (UK). 416p.
+#' Chapman and Hall Ltd., London (UK). 416p.
 #' 
 #' #' Filzmoser, P., Hron, K., Templ, M. (2018) \emph{Applied Compositional Data Analysis}.
 #' Springer, Cham.

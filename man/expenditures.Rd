@@ -33,7 +33,7 @@ expenditures[1,3] <- NA
 impKNNa(expenditures)$xImp[1,3]
 }
 \references{
-Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman \& Hall Ltd., London (UK). 416p.
+Aitchison, J. (1986) \emph{The Statistical Analysis of Compositional Data} Monographs on Statistics and Applied Probability. Chapman and Hall Ltd., London (UK). 416p.
 }
 \author{
 Matthias Templ \email{matthias.templ@tuwien.ac.at}, Karel Hron

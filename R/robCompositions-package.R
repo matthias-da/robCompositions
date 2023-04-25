@@ -20,7 +20,7 @@
 #' Maintainer: Matthias Templ <templ@@tuwien.ac.at>
 #' @references Aitchison, J. (1986) \emph{The Statistical Analysis of
 #' Compositional Data} Monographs on Statistics and Applied Probability.
-#' Chapman \& Hall Ltd., London (UK). 416p. \
+#' Chapman and Hall Ltd., London (UK). 416p. 
 #' 
 #' Filzmoser, P., and Hron, K. (2008) Outlier detection for compositional data
 #' using robust methods. \emph{Math. Geosciences}, \bold{40} 233-248.

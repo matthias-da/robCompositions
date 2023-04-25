@@ -6,7 +6,7 @@ if(!exists("meta") || is.null(meta)){
 year <- sub(".*(2[[:digit:]]{3})-.*", "\\1", meta$Date)
 vers <- paste("R package version", meta$Version)
      
-citEntry(entry="Book",
+bibentry(bibtype="Book",
               title = "rob{C}ompositions: an R-package for robust statistical analysis of compositional data",
               author = c(as.person("Matthias Templ, Karel Hron, Peter Filzmoser")),
               publisher = "{J}ohn {W}iley and {S}ons",
@@ -14,19 +14,20 @@ citEntry(entry="Book",
               booktitle = "{C}ompositional {D}ata {A}nalysis: {T}heory and {A}pplications",
 	          year = "2011",
               pages = "341--355",
-     
+              doi = "10.1002/9781119976462.ch25",
               textVersion =
               paste("Matthias Templ, Karel Hron, Peter Filzmoser",
                     " (2011). robCompositions: an R-package for robust statistical analysis of compositional data. In V. Pawlowsky-Glahn and A. Buccianti, editors, 
 Compositional Data Analysis. Theory and Applications, pp. 341-355, John Wiley & Sons, Chichester (UK) ",
                     ".", sep=""))
                     
-bibEntry(entry="Book",
+bibentry(entry="Book",
               title = "Applied Compositional Data Analysis. With Worked Examples in {R}",
               author = personList(as.person("Peter Filzmoser, Karel Hron, Matthias Templ")),
               publisher = "Springer International Publishing. Springer Nature Switzerland AG, Cham, Switzerland",
               note = "Springer Series in Statistics",
               isbn = "978-3-319-96420-1",
+              doi = "10.1007/978-3-319-96422-5",
 	            year = "2018",
               textVersion =
               paste("Peter Filzmoser, Karel Hron, Matthias Templ",

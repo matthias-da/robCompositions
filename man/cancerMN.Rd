@@ -8,7 +8,7 @@
 A data set on 35 compositional tables on 4 parts (row-wise sorted cells) and 5 variables.
 }
 \source{
-\url{https://www.oecd.org}
+From OECD website
 }
 \description{
 Two main types of malignant neoplasms cancer affecting colon and lung, respectively, in male and female populations. 
