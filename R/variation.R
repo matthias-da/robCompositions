@@ -8,6 +8,7 @@
 #' 
 #' @param x data frame or matrix with positive entries
 #' @param method method used for estimating covariances. See details.
+#' @param algorithm kind of robust estimator (MCD or MM)
 #' @details For method \code{robustPivot} forumala 5.8. of the book (see second reference) is used. Here 
 #' robust (mcd-based) covariance estimation is done on pivot coordinates. 
 #' Method \code{robustPairwise} uses a mcd covariance estimation on pairwise log-ratios.
@@ -25,6 +26,7 @@
 #' Springer, Cham.
 #' @keywords multivariate robust
 #' @export
+#' @importFrom rrcov CovMMest
 #' @examples
 #' 
 #' data(expenditures)
@@ -34,14 +36,20 @@
 #' variation(expenditures, method = "Pairwise") # same results as Pivot
 #' 
 `variation` <-
-  function(x, method = "robustPivot"){
+  function(x, method = "robustPivot", algorithm = "MCD"){
     stopifnot(method %in% c("robustPivot","Pivot","robustPairwise","Pairwise"))
     if(method == "robustPivot" | method == "Pivot"){
       n <- nrow(x)
       D <- ncol(x)
       z <- pivotCoord(x)
       if(method == "robustPivot"){
-        CV <- covMcd(z)$cov
+        if(algorithm == "MCD"){
+          CV <- robustbase::covMcd(z)$cov         
+        }
+        if(algorithm == "MM"){
+          CV <- rrcov::CovMMest(z)$cov
+        }
+
       } 
       if(method == "Pivot"){
         CV <- cov(z)
@@ -58,7 +66,12 @@
         for( j in 1:ncol(x)){
           if( i < j ){
              #rvars[i,j] <- (mad(log(x[,i]/x[,j])))^2
-            rvars[i,j] <- robustbase::covMcd(log(x[,i]/x[,j]))$cov
+            if(algorithm == "MCD"){
+              rvars[i,j] <- robustbase::covMcd(log(x[,i]/x[,j]))$cov             
+            }
+            if(algorithm == "MM"){
+              rvars[i,j] <- rrcov::CovMMest(log(x[,i]/x[,j]))$cov               
+            }
             rvars[j,i] <- rvars[i,j]
           }
         }

@@ -8,7 +8,7 @@ vers <- paste("R package version", meta$Version)
      
 bibentry(bibtype="Book",
               title = "rob{C}ompositions: an R-package for robust statistical analysis of compositional data",
-              author = c(as.person("Matthias Templ, Karel Hron, Peter Filzmoser")),
+              author = c("Matthias Templ", "Karel Hron", "Peter Filzmoser"),
               publisher = "{J}ohn {W}iley and {S}ons",
               isbn = "978-0-470-71135-4",
               booktitle = "{C}ompositional {D}ata {A}nalysis: {T}heory and {A}pplications",
@@ -21,9 +21,9 @@ bibentry(bibtype="Book",
 Compositional Data Analysis. Theory and Applications, pp. 341-355, John Wiley & Sons, Chichester (UK) ",
                     ".", sep=""))
                     
-bibentry(entry="Book",
+bibentry(bibtype="Book",
               title = "Applied Compositional Data Analysis. With Worked Examples in {R}",
-              author = personList(as.person("Peter Filzmoser, Karel Hron, Matthias Templ")),
+              author = c("Peter Filzmoser", "Karel Hron", "Matthias Templ"),
               publisher = "Springer International Publishing. Springer Nature Switzerland AG, Cham, Switzerland",
               note = "Springer Series in Statistics",
               isbn = "978-3-319-96420-1",

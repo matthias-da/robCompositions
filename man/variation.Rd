@@ -4,12 +4,14 @@
 \alias{variation}
 \title{Robust and classical variation matrix}
 \usage{
-variation(x, method = "robustPivot")
+variation(x, method = "robustPivot", algorithm = "MCD")
 }
 \arguments{
 \item{x}{data frame or matrix with positive entries}
 
 \item{method}{method used for estimating covariances. See details.}
+
+\item{algorithm}{kind of robust estimator (MCD or MM)}
 }
 \value{
 The (robust) variation matrix.
