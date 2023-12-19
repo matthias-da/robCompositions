@@ -350,7 +350,7 @@ lmCoDaX <- function (y, X, external = NULL, method = "robust", pivot_norm = 'ort
         }
       }
     }
-    list(lm = lmcla, lm = lmcla.sum, ilr = ilr.sum)
+    list(lm = lmcla, lmsum = lmcla.sum, ilr = ilr.sum)
   }
   
   if (method == "classical") {
