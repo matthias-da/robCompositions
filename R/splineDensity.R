@@ -55,10 +55,10 @@
 #' xx1 <- seq(sol1$Xcp[1],tail(sol1$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol1$Y[1,], col = 'red', lwd = 2)
 #' 
-#' sol2 <- smoothSplines(k=3,l=2,alpha=1000,midy1,midx1,
-#'           knots = seq(4.3, 6, length.out = 7))
+#' sol2 <- smoothSplines(k=3, l=2, alpha=1000, data = midy1, xcp = midx1,
+#'           knots = seq(4.33, 5.76, length.out = 7))
 #' plot(sol2)
-#' h1 <- hist(iris1, freq = FALSE, nclass = 9, xlab = "Sepal Length [cm]", main = "Iris setosa")
+#' h1 <- hist(iris1, freq = FALSE, nclass = 12, xlab = "Sepal Length [cm]", main = "Iris setosa")
 #' lines(density(iris1), col = "black", lwd = 1.5)
 #' xx1 <- seq(sol2$Xcp[1],tail(sol2$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol2$Y[1,], col = 'red', lwd = 2)
@@ -91,7 +91,7 @@ smoothSplines <- function(k,l,alpha,data,xcp,knots,weights = matrix(1, dim(data)
   }
   
   if(length(knots) > 1){
-    if(min(knots) <= min(data) | max(knots) >= max(data))
+    if(min(knots) >= min(xcp) | max(knots) <= max(xcp))
     {
       err <- simpleError("Outer two Knots must be outside the data range.")
       stop(err)
