@@ -7,7 +7,8 @@
 #' @param alpha weight for penalization
 #' @param data an object of class "matrix" containing data to be smoothed, row by row
 #' @param xcp vector of control points
-#' @param knots either vector of knots for the splines or a integer for the number of equispaced knots
+#' @param knots either vector of knots for the splines or a integer for the number of equispaced knots. 
+#' The inner and outer knot must be outside the data range.
 #' @param weights matrix of weights. If not given, all data points will be weighted the same.
 #' @param num_points number of points of the grid where to evaluate the density estimated
 #' @param prior prior used for zero-replacements. This must be one of "perks", "jeffreys", "bayes_laplace", "sq" or "default"
@@ -48,11 +49,19 @@
 #' sol1 <- smoothSplines(k=3,l=2,alpha=1000,midy1,midx1,knots)
 #' plot(sol1)
 #' 
-#' h1 <- hist(iris1, freq = FALSE, nclass = 12, xlab = "Sepal Length     [cm]", main = "Iris setosa")
+#' h1 <- hist(iris1, freq = FALSE, nclass = 9, xlab = "Sepal Length [cm]", main = "Iris setosa")
 #' # black line: kernel method; red line: smoothSplines result
 #' lines(density(iris1), col = "black", lwd = 1.5)
 #' xx1 <- seq(sol1$Xcp[1],tail(sol1$Xcp,n=1),length.out = sol1$NumPoints)
 #' lines(xx1,sol1$Y[1,], col = 'red', lwd = 2)
+#' 
+#' sol2 <- smoothSplines(k=3,l=2,alpha=1000,midy1,midx1,
+#'           knots = seq(4.3, 6, length.out = 7))
+#' plot(sol2)
+#' h1 <- hist(iris1, freq = FALSE, nclass = 9, xlab = "Sepal Length [cm]", main = "Iris setosa")
+#' lines(density(iris1), col = "black", lwd = 1.5)
+#' xx1 <- seq(sol2$Xcp[1],tail(sol2$Xcp,n=1),length.out = sol1$NumPoints)
+#' lines(xx1,sol2$Y[1,], col = 'red', lwd = 2)
 #' }
 #' @export
 #' @useDynLib robCompositions, .registration = TRUE
@@ -79,6 +88,14 @@ smoothSplines <- function(k,l,alpha,data,xcp,knots,weights = matrix(1, dim(data)
   {
     err <- simpleError("weights size must be equal to data size.")
     stop(err)
+  }
+  
+  if(length(knots) > 1){
+    if(min(knots) <= min(data) | max(knots) >= max(data))
+    {
+      err <- simpleError("Outer two Knots must be outside the data range.")
+      stop(err)
+    }
   }
 
   # Converting prior to numeric type

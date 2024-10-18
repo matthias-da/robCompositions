@@ -21,7 +21,6 @@ parametersManager::readKnots
   knots.clear();
   for(std::size_t i=0; i < size; i++)
     knots.push_back(inputKnots[i]);
-  
 /*  int k = 0; */
 
   g = knots.size()-2;
