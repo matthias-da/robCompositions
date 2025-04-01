@@ -41,6 +41,8 @@
 #' x <- xOrig <- expenditures
 #' ## Aitchison distance between two 2 observations:
 #' aDist(x[1, ], x[2, ])
+#' aDist(as.numeric(x[1, ]), as.numeric(x[2, ]))
+#' 
 #' 
 #' ## Aitchison distance of x:
 #' aDist(x)
@@ -55,48 +57,72 @@
 #' ## calculate the relative Aitchsion distance between xOrig and xImp:
 #' aDist(xOrig, xImp)
 #' 
-`aDist` <-
-  function(x, y = NULL){
-    if(!is.null(y)){
-      if(is.vector(x)) x <- matrix(x, ncol=length(x))
-  	  if(is.vector(y)) y <- matrix(y, ncol=length(y))	  
-  	  n <- dim(x)[1]
-  	  p <- D <- dim(x)[2]
-  	  rn <- rownames(x)
-  	  matOrig <- as.numeric(t(x))
-  	  matImp <- as.numeric(t(y))
-  	  dims <- as.integer(c(n, p))
-  	  rowDists <-  as.numeric(rep(0.0, n))
-  	  distance <- as.numeric(0.0)
-  	  out <- .C("da", 
-  				  matOrig,
-  				  matImp,
-  				  dims,
-  				  rowDists,
-  				  distance,
-  				  PACKAGE="robCompositions", NUOK=TRUE
-  		  )[[5]]
-  #     } else if(is.null(y) & method == "R"){
-  #       out <- matrix(, ncol = n, nrow = n)
-  #       gms <- apply(x, 1, function(x) gm(as.numeric(x)))
-  #       for(i in 1:(n-1)){
-  #         for(j in (i+1):n){
-  #           out[i, j] <- out[j, i] <- 
-  #             sqrt(sum((log(as.numeric(x[i, ]) / gms[i]) - 
-  #                        log(as.numeric(x[j, ]) / gms[j]))^2))
-  #         }
-  #       }
-  #       diag(out) <- 0
-  #       rownames(out) <- colnames(out) <- rn
-    } else {
-      if(is.vector(x)) x <- matrix(x, ncol=length(x))
-      n <- dim(x)[1]
-      p <- D <- dim(x)[2]
-      rn <- rownames(x)
-      out <- dist(cenLR(x)$x.clr)
+aDist <- function(x, y = NULL) {
+  names_x <- NULL
+  names_y <- NULL
+  
+  if (!is.null(y)) {
+    # Handle naming for vectors and data.frames
+    if (is.vector(x) && is.vector(y)) {
+      names_x <- names(x)
+      names_y <- names(y)
     }
-	  return(out)
-}	  
+    if (is.data.frame(x) && is.data.frame(y)) {
+      if (nrow(x) == 1 && nrow(y) == 1) {
+        names_x <- rownames(x)
+        names_y <- rownames(y)
+      }
+    }
+    
+    # Convert to matrix if vector
+    if (is.vector(x)) {
+      x <- matrix(x, ncol = length(x))
+    }
+    if (is.vector(y)) {
+      y <- matrix(y, ncol = length(y))
+    }
+    
+    n <- dim(x)[1]
+    p <- D <- dim(x)[2]
+    matOrig <- as.numeric(t(x))
+    matImp <- as.numeric(t(y))
+    dims <- as.integer(c(n, p))
+    rowDists <- as.numeric(rep(0.0, n))
+    distance <- as.numeric(0.0)
+    
+    out <- .C("da",
+              matOrig,
+              matImp,
+              dims,
+              rowDists,
+              distance,
+              PACKAGE = "robCompositions", NUOK = TRUE
+    )[[5]]
+  } else {
+    # Only one input (distance matrix of x)
+    if (is.vector(x)) x <- matrix(x, ncol = length(x))
+    out <- dist(cenLR(x)$x.clr)
+  }
+  
+  # Assign dimnames if possible
+  if (!is.null(names_x) && !is.null(names_y)) {
+    if (length(out) == 1) {
+      # Scalar output (1x1 matrix) — apply names only if length matches
+      if (length(names_x) == 1 && length(names_y) == 1) {
+        out <- matrix(out, nrow = 1, ncol = 1)
+        dimnames(out) <- list(names_x, names_y)
+      }
+    } else {
+      out_dim <- sqrt(length(out))
+      if (length(names_x) == out_dim && length(names_y) == out_dim) {
+        out <- matrix(out, nrow = out_dim)
+        dimnames(out) <- list(names_x, names_y)
+      }
+    }
+  }
+  
+  return(out)
+}
 
 #' @rdname aDist
 #' @export
