@@ -11,7 +11,7 @@ A data.frame with 132 rows and 4 columns.
 data(employment_df)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{gender}}{factor}
  \item{\code{status}}{factor, defining if part or full time work}
  \item{\code{country}}{country}

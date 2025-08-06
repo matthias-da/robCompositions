@@ -15,7 +15,7 @@ Household and government consumptions, gross captial formation and import and ex
 and services.
 }
 \details{
-\itemize{
+\describe{
  \item{\code{country }}{country name}
  \item{\code{country2 }}{country name, short version}
  \item{\code{HHconsumption }}{Household and NPISH final consumption expenditure}

@@ -18,7 +18,7 @@
 #' @param x a vector, matrix or data.frame
 #' @param y a vector, matrix or data.frame with equal dimension as \code{x} or NULL.
 #' @return The Aitchison distance between two compositions or between two data
-#' sets, or a distance matrix in case code{y} is not supplied.
+#' sets, or a distance matrix in case \code{y} is not supplied.
 #' @author Matthias Templ, Bernhard Meindl
 #' @export
 #' @seealso \code{\link{pivotCoord}}

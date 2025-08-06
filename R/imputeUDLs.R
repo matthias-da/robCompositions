@@ -38,7 +38,6 @@
 #' @param verbose additional print output during calculations.
 #' @importFrom cvTools cvFit 
 #' @importFrom zCompositions multRepl
-#' @importFrom fpc pamk
 #' @return 
 #' \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit

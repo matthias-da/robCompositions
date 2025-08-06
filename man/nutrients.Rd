@@ -17,7 +17,7 @@ data(nutrients)
 Nutrients on more than 40 components and 965 generic food products
 }
 \details{
-\itemize{
+\describe{
 \item{\code{ID }}{ID, for internal use}
 \item{\code{ID_V4 }}{ID V4, for internal use}
 \item{\code{ID_SwissFIR }}{ID, for internal use}

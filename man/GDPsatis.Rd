@@ -17,7 +17,7 @@ data(GDPsatis)
 Satisfaction of GDP in 31 countries. The GDP is measured per capita from the year 2012.
 }
 \details{
-\itemize{
+\describe{
  \item{\code{country }}{community code}
  \item{\code{gdp }}{GDP per capita in 2012}
  \item{\code{very.bad }}{satisfaction very bad}

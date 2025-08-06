@@ -14,7 +14,7 @@ data(machineOperators)
 Compositions of eight-hour shifts of 27 machine operators
 }
 \details{
-\itemize{
+\describe{
 \item{\code{hqproduction }}{high-quality production}
 \item{\code{lqproduction }}{low-quality production}
 \item{\code{setting }}{machine settings}

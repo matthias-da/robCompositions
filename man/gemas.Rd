@@ -14,7 +14,7 @@ data(gemas)
 Geochemical data set on agricultural and grazing land soil
 }
 \details{
-\itemize{
+\describe{
  \item{\code{COUNTRY }}{country name}
  \item{\code{longitude }}{longitude in WGS84}
  \item{\code{latitude }}{latitude in WGS84}

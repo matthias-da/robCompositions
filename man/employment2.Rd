@@ -27,7 +27,7 @@ employment structure, not just from the perspective of each factor separately, b
 also from the perspective of the relations/interactions between them. 
 Thorough analysis of the sample is described in Facevicova (2019).
 
-\itemize{
+\describe{
  \item{\code{Country}}{Country}
  \item{\code{Sex}}{gender, males (M) and females (F)}
  \item{\code{Age}}{age class, young (category 15 - 24), middle-aged (25 - 54) and older

@@ -14,7 +14,7 @@ data(trondelagC)
 A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
 }
 \details{
-\itemize{
+\describe{
  \item{\code{X.S_ID }}{ID}
  \item{\code{X.Loc_ID }}{ID}
  \item{\code{longitude }}{longitude in WGS84}

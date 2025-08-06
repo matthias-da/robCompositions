@@ -1,6 +1,3 @@
-#' @importFrom e1071 matchClasses
-NULL
-
 #' Discriminant analysis by Fisher Rule.
 #' 
 #' Discriminant analysis by Fishers rule using the logratio approach to compositional data.
@@ -28,7 +25,6 @@ NULL
 #' @param method \dQuote{classical} or \dQuote{robust} estimation.
 #' @param plotScore TRUE, if the scores should be plotted automatically.
 #' @param ... additional arguments for the print method passed through
-#' @importFrom e1071 matchClasses
 #' @return an object of class \dQuote{daFisher} including the following
 #' elements 
 #' \item{B }{Between variance of the groups} 
@@ -201,7 +197,10 @@ daFisher <- function(x, grp, coda=TRUE,
   
   ## misclassification rate:
   mc <- table(grp, grppred)
-  mc <- mc[, matchClasses(mc, method = "exact")]
+  if (!requireNamespace("e1071", quietly = TRUE)) {
+    stop("Package 'e1071' is required for this function. Please install it.")
+  }
+  mc <- mc[, e1071::matchClasses(mc, method = "exact")]
   rate <- 1 - sum(diag(mc)) / sum(mc)
   
   fdiscr <- scale(x,meanov,FALSE)%*%V[,1:2] # discriminant scores

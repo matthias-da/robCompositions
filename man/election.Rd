@@ -27,7 +27,7 @@ parties participated in the elections (other parties). The votes are examined in
 values (number of valid votes). The unemployment in the federal states is reported in
 percentages, and the average monthly income in Euros.
 
-\itemize{
+\describe{
  \item{\code{CDU_CSU }}{Christian Democratic Union and Christian Social Union of Bavaria, also
 called The Union}
  \item{\code{SDP }}{Social Democratic Party}

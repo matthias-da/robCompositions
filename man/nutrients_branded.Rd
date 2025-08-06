@@ -17,7 +17,7 @@ data(nutrients_branded)
 Nutrients on more than 10 components and 9618 branded food products
 }
 \details{
-\itemize{
+\describe{
 \item{\code{name_D }}{name (in German)}
 \item{\code{category_D }}{factor specifying the category names}
 \item{\code{category_F }}{factor specifying the category names}

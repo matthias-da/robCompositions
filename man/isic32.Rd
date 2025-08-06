@@ -11,7 +11,7 @@ A data.frame with 24 rows and 2 columns.
 data(isic32)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{code}}{ISIC code, Rev 3.2}
  \item{\code{description}}{Description of ISIC codes}
 }

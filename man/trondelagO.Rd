@@ -14,7 +14,7 @@ data(trondelagO)
 A regional-scale geochemical survey of O horizon samples in Nord-Trondelag, Central Norway
 }
 \details{
-\itemize{
+\describe{
  \item{\code{X.Loc_ID }}{ID}
  \item{\code{LITHO }}{Rock type}
  \item{\code{longitude }}{langitude in WGS84}

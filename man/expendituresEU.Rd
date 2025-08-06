@@ -6,7 +6,7 @@
 \title{mean consumption expenditures data.}
 \format{
 A data frame with 27 observations on the following 12 variables.
-\itemize{ 
+\describe{ 
 \item{\code{Food}}{a numeric vector} 
 \item{\code{Alcohol}}{a numeric vector} 
 \item{\code{Clothing}}{a numeric vector}

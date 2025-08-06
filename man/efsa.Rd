@@ -6,7 +6,7 @@
 \title{efsa nutrition consumption}
 \format{
 A data frame with 87 observations on the following 22 variables.
-\itemize{ 
+\describe{ 
 \item{\code{Country }}{country name}
 \item{\code{Pop.Class }}{population class}
 \item{\code{grains }}{Grains and grain-based products}

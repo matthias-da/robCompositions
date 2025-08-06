@@ -15,7 +15,7 @@ rSDev.test(x, R = 999, method = "multinom")
 }
 \value{
 A list with class  \dQuote{htest} containing the following components:
-\itemize{
+\describe{
   \item{statistic}{the value of the relative simplicial deviance (test statistic).}
   \item{method}{a character string indicating what type of rSDev.test was performed.}
   \item{p.value}{the p-value for the test.}

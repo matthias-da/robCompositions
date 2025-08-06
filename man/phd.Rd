@@ -17,7 +17,7 @@ by different kind of studies (given as percentages).
 \details{
 Due to unknown reasons the rowSums of the percentages is not always 100.
 
-\itemize{
+\describe{
 \item{\code{country }}{country of origin (German)}  
 \item{\code{countryEN }}{country of origin (English)}    
 \item{\code{country2 }}{country of origin, 2-digits}   

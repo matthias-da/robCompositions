@@ -18,7 +18,7 @@ Education level of father (F) and mother (M) in percentages of low
 (l), medium (m), and high (h) of 31 countries in Europe.
 }
 \details{
-\itemize{
+\describe{
  \item{\code{country }}{community code}
  \item{\code{F.l }}{percentage of females with low edcuation level}
  \item{\code{F.m }}{percentage of females with medium edcuation level}

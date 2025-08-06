@@ -14,7 +14,7 @@ Transfered from the World Health Organisation website.
 data(alcoholreg)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{country }}{Country}
  \item{\code{year }}{Year}
  \item{\code{recorded }}{Recorded alcohol consumption}

@@ -1,8 +1,8 @@
 Package: robCompositions
 Type: Package
 Title: Compositional Data Analysis
-Version: 2.4.1
-Date: 2023-08-21
+Version: 2.4.2
+Date: 2025-08-06
 Depends:
     R (>= 3.5.0),
     ggplot2,
@@ -11,13 +11,11 @@ Depends:
 LinkingTo: Rcpp, RcppEigen
 Imports:
     cvTools,
-    e1071,
     fda,
     rrcov,
     cluster,
     dplyr,
     magrittr,
-    fpc,
     GGally,
     ggfortify,
     kernlab,
@@ -26,12 +24,15 @@ Imports:
     tidyr,
     robustbase,
     robustHD,
+    sparsepca,
     splines,
     VIM,
     zCompositions,
     reshape2,
     Rcpp
 Suggests:
+    e1071,
+    fpc,
     knitr,
     testthat
 VignetteBuilder: knitr
@@ -73,4 +74,4 @@ License: GPL (>= 2)
 LazyLoad: yes
 LazyData: true
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

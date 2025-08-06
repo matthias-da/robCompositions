@@ -23,7 +23,7 @@ The output, given in national currencies, is structured according to the
 Thorough analysis of the sample is described in Facevicova (2018).
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{Country}
 \item{\code{isic }}{3-digit ISIC category. The categories are 
 151 processed meat, fish, fruit, vegetables, fats; 

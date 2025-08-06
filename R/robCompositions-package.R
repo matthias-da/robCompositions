@@ -11,7 +11,6 @@
 #' 
 #' @name robCompositions-package
 #' @aliases robCompositions-package robCompositions
-#' @docType package
 #' @author Matthias Templ, Peter Filzmoser, Karel Hron,
 #' 
 #' Maintainer: Matthias Templ <templ@@tuwien.ac.at>
@@ -101,6 +100,7 @@
 #' Sigma <- matrix(c(5.05,4.95,4.95,5.05), ncol=2, byrow=TRUE)
 #' z <- pivotCoordInv(mvrnorm(100, mu=c(0,2), Sigma=Sigma))
 #' 
+"_PACKAGE"
 NULL
 
 

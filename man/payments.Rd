@@ -27,7 +27,7 @@ data(payments)
 Payments splitted by different NACE categories and kind of employment in Austria 2004
 }
 \details{
-\itemize{
+\describe{
  \item{\code{nace }}{NACE classification, 2 digits}
  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
  \item{\code{year }}{year}

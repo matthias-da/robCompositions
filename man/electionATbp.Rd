@@ -19,7 +19,7 @@ Results the Austrian presidential election in October 2016.
 \details{
 Votes for the candidates Hofer and Van der Bellen.
 
-\itemize{
+\describe{
  \item{\code{GKZ }}{Community code}
  \item{\code{Name }}{Name of the community}
  \item{\code{Eligible }}{eligible votes}

@@ -15,7 +15,7 @@ Two main types of malignant neoplasms cancer affecting colon and lung, respectiv
 For this purpose population data (2012) from 35 OECD countries were collected.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{country}                                  
 \item{\code{females-colon }}{number of colon cancer cases in female population}                       
 \item{\code{females-lung }}{number of lung cancer cases in female population}                    

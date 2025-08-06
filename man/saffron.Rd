@@ -6,7 +6,7 @@
 \title{saffron compositions}
 \format{
 A data frame with 53 observations on the following 36 variables.
-\itemize{ 
+\describe{ 
 \item{\code{Sample }}{adulterated honey, Honey or Syrup}
 \item{\code{Country }}{group information}
 \item{\code{Batch }}{detailed group information}

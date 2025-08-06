@@ -18,7 +18,7 @@ Rows represent patients and controls and columns represent chemical
 entities with their quantity.
 }
 \details{
-\itemize{
+\describe{
  \item{\code{group }}{patient group}
  \item{\code{... }}{the remaining variables columns are represented by m/z which are chemical characterizations of individual chemical components on exact mass measurements..}
 }

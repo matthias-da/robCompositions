@@ -6,7 +6,7 @@
 \title{government spending}
 \format{
 A (tidy) data frame with 5140 observations on the following 4 variables.
-\itemize{ 
+\describe{ 
 \item{\code{country }}{Country of origin}
 \item{\code{category }}{The COFOG expenditures are divided into 
 in the following ten categories: general public services; 

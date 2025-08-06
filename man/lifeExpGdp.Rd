@@ -14,7 +14,7 @@ A data set on 27 compositions on 9 variables.
 Social-economic data for compositional regression.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{country}                                   
 \item{\code{agriculture }}{GDP on agriculture, hunting, forestry, fishing (ISIC A-B, x1)}               
 \item{\code{manufacture }}{GDP on mining, manufacturing, utilities (ISIC C-E, x2)}

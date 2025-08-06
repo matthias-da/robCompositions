@@ -14,7 +14,7 @@ data(mortality_tab)
 Mortality data by gender, unknown year
 }
 \details{
-\itemize{
+\describe{
  \item{\code{female}}{mortality rates for females by age groups}
  \item{\code{male}}{mortality rates for males by age groups}
 }

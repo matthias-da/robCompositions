@@ -17,7 +17,7 @@ selected OECD countries in 2010. Expenditures are always provided
 in the respective currency.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{Country of origin}
 \item{\code{currency }}{Currency unit (in Million)}
 \item{\code{health-public }}{Health from the public}

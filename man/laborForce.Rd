@@ -14,7 +14,7 @@ from UNSTATS website
 Labour force by status in employment for 124 countries, latest update: December 2009
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{country}                            
 \item{\code{year }}{year}                                      
 \item{\code{employeesW }}{percentage female employees}                             

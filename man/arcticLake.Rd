@@ -15,7 +15,7 @@ Sand, silt, clay compositions of 39 sediment samples at different water depths i
 This data set can be found on page 359 of the Aitchison book (see reference).
 }
 \details{
-\itemize{
+\describe{
  \item{\code{sand }}{numeric vector of percentages of sand}
  \item{\code{silt }}{numeric vector of percentages of silt}
  \item{\code{clay }}{numeric vector of percentages of clay}

@@ -14,7 +14,7 @@ data(coffee)
 30 commercially available coffee samples of different origins.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{sort }}{sort of coffee}
 \item{\code{acit }}{acetic acid }
 \item{\code{metpyr }}{methylpyrazine}

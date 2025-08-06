@@ -16,7 +16,7 @@ iprod(x, y)
 }
 \value{
 The Aitchison distance between two compositions or between two data
-sets, or a distance matrix in case code{y} is not supplied.
+sets, or a distance matrix in case \code{y} is not supplied.
 }
 \description{
 Computes the Aitchison distance between two observations, between two data
@@ -40,6 +40,8 @@ data(expenditures)
 x <- xOrig <- expenditures
 ## Aitchison distance between two 2 observations:
 aDist(x[1, ], x[2, ])
+aDist(as.numeric(x[1, ]), as.numeric(x[2, ]))
+
 
 ## Aitchison distance of x:
 aDist(x)

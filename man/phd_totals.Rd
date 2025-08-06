@@ -14,7 +14,7 @@ Eurostat
 PhD students in Europe by different kind of studies.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{technical }}{phd students in natural and technical sciences}
 \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
 \item{\code{human }}{phd students in human sciences including teaching}

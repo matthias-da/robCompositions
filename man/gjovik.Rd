@@ -6,7 +6,7 @@
 \title{gjovik}
 \format{
 A data frame with 615 observations and 63 variables.
-\itemize{
+\describe{
 \item{\code{ID }}{a numeric vector}
 \item{\code{MAT }}{type of material}
 \item{\code{mE32wgs }}{longitude} 

@@ -11,7 +11,7 @@ A data.frame with 2717 rows and 6 columns.
 data(rcodes)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{ISOCN}}{ISOCN codes}
  \item{\code{OPERATOR}}{Operator}
  \item{\code{ADESC}}{Country}

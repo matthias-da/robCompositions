@@ -19,10 +19,12 @@ weightedPivotCoord(
 \item{pivotvar}{pivotal variable; if any other number than 1, the data are resorted in that sense that 
 pivotvar is shifted to the first part}
 
-\item{option}{option for the choice of weights. If `option = "var"` (default), weights are based on variation matrix elements: 
-`(1/t_{1j})^pow`, if `option = "cor"`, weights are based on correlations between variable specified in yvar and logratios and its distribution:
-`|integral_{0}^{r_{j}} f(x) dx|`, `f(x)...` Kernel density estimator for `s_{j}; s_{j}=0 if |r_{j}|<cut` otherwise `s_{j}=r_{j}`,
-`cut = min(#r_{j}=>0/#r_{j}, #r_{j}<0/#r_{j}`, with Gaussian Kernel function and bandwidth `h=0.05`.}
+\item{option}{Option for the choice of weights. If \code{option = "var"} (default), weights are based on variation matrix elements: 
+\eqn{(1 / t_{1j})^{\mathrm{pow}}}. If \code{option = "cor"}, weights are based on correlations between the variable specified in \code{yvar} and the logratios:
+\eqn{\left| \int_0^{r_j} f(x) \, dx \right|}, where \eqn{f(x)} is the kernel density estimator for \eqn{s_j}; \eqn{s_j = 0} if \eqn{|r_j| < \mathrm{cut}}, 
+otherwise \eqn{s_j = r_j}. The cutoff is calculated as: 
+\deqn{\mathrm{cut} = \min\left( \frac{\#r_j \ge 0}{\#r_j}, \frac{\#r_j < 0}{\#r_j} \right)}{cut = min( (#rj >= 0)/#rj , (#rj < 0)/#rj )}
+using a Gaussian kernel function with bandwidth \eqn{h = 0.05}.}
 
 \item{method}{method for estimation of variation/correlation,
 if `option = "classical"` (default), classical estimation is applied,

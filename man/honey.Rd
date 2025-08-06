@@ -6,7 +6,7 @@
 \title{honey compositions}
 \format{
 A data frame with 429 observations on the following 17 variables.
-\itemize{ 
+\describe{ 
 \item{\code{class }}{adulterated honey, Honey or Syrup}
 \item{\code{group }}{group information}
 \item{\code{group3 }}{detailed group information}

@@ -6,7 +6,7 @@
 \title{unemployed of young people}
 \format{
 A (tidy) data frame with 1216 observations on the following 4 variables.
-\itemize{ 
+\describe{ 
 \item{\code{country }}{Country of origin}
 \item{\code{age }}{age group } 
 \item{\code{year }}{Year} 

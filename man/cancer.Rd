@@ -14,7 +14,7 @@ A data set on 24 compositions on 6 variables.
 Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{country }}{country}                            
 \item{\code{year }}{year}                                      
 \item{\code{p1 }}{percentage of population with age below 15}                       

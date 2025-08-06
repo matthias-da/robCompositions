@@ -14,7 +14,7 @@ Lucas land cover
 Land cover data from Eurostat (2015) extended with (log) population and (log) pollution
 }
 \details{
-\itemize{
+\describe{
 \item{\code{Woodland }}{Coverage in km2}                            
 \item{\code{Cropland }}{Coverage in km2}                                      
 \item{\code{Grassland }}{Coverage in km2}                             

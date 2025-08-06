@@ -24,7 +24,7 @@ show data was extracted or adapted.
 data(production)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{nace }}{NACE classification, 2 digits}
  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
  \item{\code{year }}{year}

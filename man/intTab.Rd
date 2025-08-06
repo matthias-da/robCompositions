@@ -14,7 +14,7 @@ intTab(x, y, frequencies = c("relative", "absolute"))
 \item{frequencies}{indicates whether absolute or relative frequencies should be computed.}
 }
 \value{
-\itemize{
+\describe{
   \item{intTab}{The interaction table(s) with either relative or absolute frequencies.}
   \item{signs}{The sign illustrates if there is an excess of probability (plus), or a 
 deficit (minus) regarding to the estimated probability table and the independece table in the clr space.}

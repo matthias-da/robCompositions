@@ -6,11 +6,123 @@
 \title{country food balances}
 \format{
 A data frame with 115 observations on the following 116 variables.
-\itemize{ 
-\item{\code{country}}{country} 
-\item{\code{Cereals - Excluding Beer}}{Food balance on cereals} 
-\item{\code{...}}{...}
-#' \item{\code{Alcohol - Non-Food}}{Food balance on alcohol}
+\describe{ 
+  \item{\code{country}}{Country name} 
+  \item{\code{Cereals - Excluding Beer}}{Food balance on cereals} 
+  \item{\code{Wheat and products}}{Wheat-based products}
+  \item{\code{Rice and products}}{Rice and rice-based products}
+  \item{\code{Barley and products}}{Barley and barley-based products}
+  \item{\code{Maize and products}}{Maize and maize-based products}
+  \item{\code{Rye and products}}{Rye and rye-based products}
+  \item{\code{Oats}}{Oats}
+  \item{\code{Millet and products}}{Millet and millet-based products}
+  \item{\code{Cereals, Other}}{Other cereals}
+  \item{\code{Starchy Roots}}{Starchy roots group}
+  \item{\code{Cassava and products}}{Cassava and derivatives}
+  \item{\code{Potatoes and products}}{Potatoes and related products}
+  \item{\code{Sweet potatoes}}{Sweet potatoes}
+  \item{\code{Roots, Other}}{Other root crops}
+  \item{\code{Sugar Crops}}{Sugar crops group}
+  \item{\code{Sugar cane}}{Sugar cane}
+  \item{\code{Sugar & Sweeteners}}{Sugar and sweeteners group}
+  \item{\code{Sugar (Raw Equivalent)}}{Raw equivalent sugar content}
+  \item{\code{Sweeteners, Other}}{Other sweeteners}
+  \item{\code{Honey}}{Honey}
+  \item{\code{Pulses}}{Pulses group}
+  \item{\code{Beans}}{Beans}
+  \item{\code{Peas}}{Peas}
+  \item{\code{Pulses, Other and products}}{Other pulses and products}
+  \item{\code{Treenuts}}{Tree nuts group}
+  \item{\code{Nuts and products}}{Nuts and their products}
+  \item{\code{Oilcrops}}{Oilcrops group}
+  \item{\code{Soyabeans}}{Soybeans}
+  \item{\code{Groundnuts}}{Groundnuts}
+  \item{\code{Rape and Mustardseed}}{Rape and mustard seed}
+  \item{\code{Coconuts - Incl Copra}}{Coconuts including copra}
+  \item{\code{Sesame seed}}{Sesame seeds}
+  \item{\code{Olives (including preserved)}}{Olives including preserved}
+  \item{\code{Vegetable Oils}}{Vegetable oils group}
+  \item{\code{Soyabean Oil}}{Soybean oil}
+  \item{\code{Groundnut Oil}}{Groundnut oil}
+  \item{\code{Sunflowerseed Oil}}{Sunflower seed oil}
+  \item{\code{Rape and Mustard Oil}}{Rape and mustard oil}
+  \item{\code{Cottonseed Oil}}{Cottonseed oil}
+  \item{\code{Palmkernel Oil}}{Palm kernel oil}
+  \item{\code{Palm Oil}}{Palm oil}
+  \item{\code{Coconut Oil}}{Coconut oil}
+  \item{\code{Sesameseed Oil}}{Sesame seed oil}
+  \item{\code{Olive Oil}}{Olive oil}
+  \item{\code{Ricebran Oil}}{Rice bran oil}
+  \item{\code{Maize Germ Oil}}{Maize germ oil}
+  \item{\code{Oilcrops Oil, Other}}{Other oilcrops oils}
+  \item{\code{Vegetables}}{Vegetables group}
+  \item{\code{Tomatoes and products}}{Tomatoes and products}
+  \item{\code{Onions}}{Onions}
+  \item{\code{Vegetables, Other}}{Other vegetables}
+  \item{\code{Fruits - Excluding Wine}}{Fruits group, excluding wine}
+  \item{\code{Oranges, Mandarines}}{Oranges and mandarins}
+  \item{\code{Lemons, Limes and products}}{Lemons, limes and products}
+  \item{\code{Grapefruit and products}}{Grapefruits and products}
+  \item{\code{Citrus, Other}}{Other citrus fruits}
+  \item{\code{Bananas}}{Bananas}
+  \item{\code{Plantains}}{Plantains}
+  \item{\code{Apples and products}}{Apples and products}
+  \item{\code{Pineapples and products}}{Pineapples and products}
+  \item{\code{Dates}}{Dates}
+  \item{\code{Grapes and products (excl wine)}}{Grapes and non-wine products}
+  \item{\code{Fruits, Other}}{Other fruits}
+  \item{\code{Stimulants}}{Stimulants group}
+  \item{\code{Coffee and products}}{Coffee and products}
+  \item{\code{Cocoa Beans and products}}{Cocoa beans and products}
+  \item{\code{Tea (including mate)}}{Tea including mate}
+  \item{\code{Spices}}{Spices group}
+  \item{\code{Pepper}}{Pepper}
+  \item{\code{Pimento}}{Pimento}
+  \item{\code{Cloves}}{Cloves}
+  \item{\code{Spices, Other}}{Other spices}
+  \item{\code{Alcoholic Beverages}}{Alcoholic beverages group}
+  \item{\code{Wine}}{Wine}
+  \item{\code{Beer}}{Beer}
+  \item{\code{Beverages, Fermented}}{Fermented beverages}
+  \item{\code{Beverages, Alcoholic}}{Alcoholic beverages (other)}
+  \item{\code{Meat}}{Meat group}
+  \item{\code{Bovine Meat}}{Beef and veal}
+  \item{\code{Mutton & Goat Meat}}{Mutton and goat meat}
+  \item{\code{Pigmeat}}{Pork}
+  \item{\code{Poultry Meat}}{Poultry}
+  \item{\code{Meat, Other}}{Other meats}
+  \item{\code{Offals}}{Offals group}
+  \item{\code{Offals, Edible}}{Edible offals}
+  \item{\code{Animal fats}}{Animal fats}
+  \item{\code{Butter, Ghee}}{Butter and ghee}
+  \item{\code{Cream}}{Cream}
+  \item{\code{Fats, Animals, Raw}}{Raw animal fats}
+  \item{\code{Eggs}}{Eggs}
+  \item{\code{Milk - Excluding Butter}}{Milk excluding butter}
+  \item{\code{Fish, Seafood}}{Fish and seafood group}
+  \item{\code{Freshwater Fish}}{Freshwater fish}
+  \item{\code{Miscellaneous}}{Miscellaneous group}
+  \item{\code{Infant food}}{Infant food}
+  \item{\code{Fish, Body Oil}}{Fish body oil}
+  \item{\code{Fish, Liver Oil}}{Fish liver oil}
+  \item{\code{Demersal Fish}}{Demersal fish}
+  \item{\code{Pelagic Fish}}{Pelagic fish}
+  \item{\code{Marine Fish, Other}}{Other marine fish}
+  \item{\code{Crustaceans}}{Crustaceans}
+  \item{\code{Cephalopods}}{Cephalopods}
+  \item{\code{Molluscs, Other}}{Other molluscs}
+  \item{\code{Aquatic Products, Other}}{Other aquatic products}
+  \item{\code{Aquatic Animals, Others}}{Other aquatic animals}
+  \item{\code{Aquatic Plants}}{Aquatic plants}
+  \item{\code{Sorghum and products}}{Sorghum and its products}
+  \item{\code{Oilcrops, Other}}{Other oilcrops}
+  \item{\code{Sugar beet}}{Sugar beet}
+  \item{\code{Yams}}{Yams}
+  \item{\code{Sunflower seed}}{Sunflower seed}
+  \item{\code{Sugar non-centrifugal}}{Non-centrifugal sugar}
+  \item{\code{Meat, Aquatic Mammals}}{Meat from aquatic mammals}
+  \item{\code{Palm kernels}}{Palm kernels}
+  \item{\code{value.Alcohol, Non-Food}}{Non-food alcohol (value)}
 }
 }
 \source{
@@ -20,8 +132,6 @@ A data frame with 115 observations on the following 116 variables.
 Food balance in each country (2018)
 }
 \examples{
-
 data(foodbalance)
-
 }
 \keyword{datasets}

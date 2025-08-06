@@ -11,7 +11,7 @@ A data frame with 60 observations and 12 variables
 data(mortality)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{country }}{country name}
  \item{\code{country2 }}{country name, short version}
  \item{\code{sex }}{gender}

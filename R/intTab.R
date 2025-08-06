@@ -9,7 +9,7 @@
 #' be estimated using geometric marginals.
 #' @author Matthias Templ
 #' @return 
-#' \itemize{
+#' \describe{
 #'   \item{intTab}{The interaction table(s) with either relative or absolute frequencies.}
 #'   \item{signs}{The sign illustrates if there is an excess of probability (plus), or a 
 #' deficit (minus) regarding to the estimated probability table and the independece table in the clr space.}

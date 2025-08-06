@@ -14,7 +14,7 @@ data(expenditures)
 This data set from Aitchison (1986), p. 395, describes household expenditures (in former Hong Kong dollars) on five commundity groups.
 }
 \details{
-\itemize{
+\describe{
 \item{\code{housing }}{housing (including fuel and light)}
 \item{\code{foodstuffs }}{foodstuffs}
 \item{\code{alcohol }}{alcohol and tobacco}

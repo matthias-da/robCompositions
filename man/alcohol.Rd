@@ -14,7 +14,7 @@ Transfered from the World Health Organisation website.
 data(alcohol)
 }
 \description{
-\itemize{
+\describe{
  \item{\code{country }}{Country}
  \item{\code{year }}{Year}
  \item{\code{beer }}{Consumption of pure alcohol on beer (in percentages)}

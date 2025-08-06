@@ -38,7 +38,6 @@
 #' @param test an internal test situation (this parameter will be deleted soon)
 #' @importFrom cvTools cvFit 
 #' @importFrom zCompositions multRepl
-#' @importFrom fpc pamk
 #' @import pls
 #' @return \item{x }{imputed data} \item{criteria }{change between last and
 #' second last iteration} \item{iter }{number of iterations} \item{maxit
@@ -178,7 +177,16 @@
       indexFinalCheck <- x == 0
       mulzero <- zCompositions::multRepl(x,label=0,dl=dl)
       dd <- as.dist(robCompositions::variation(mulzero))
-      g <- fpc::pamk(dd)$nc
+      myClusterFunction <- function(x) {
+        if (!requireNamespace("fpc", quietly = TRUE)) {
+          stop("Package 'fpc' is required for this function. Please install it.")
+        }
+        if (requireNamespace("fpc", quietly = TRUE)) {
+          res <- fpc::pamk(x)
+        }
+        return(res)
+      }
+      g <- myClusterFunction(dd)$nc
       pos <- as.matrix(cutree(hclust(dd, method="ward.D"),g))
       indNA <- apply(x,2,function(x){any(x==0)})
       gz <- intersect(order(-table(pos[indNA])),which(table(pos)>1))
@@ -241,7 +249,14 @@
     #   indexFinalCheck <- x == 0
     #   mulzero <- zCompositions::multRepl(x,label=0,dl=dl)
     #   dd <- as.dist(robCompositions::variation(mulzero))
-    #   g <- fpc::pamk(dd)$nc
+    # myClusterFunction <- function(x) {
+    #   if (!requireNamespace("fpc", quietly = TRUE)) {
+    #     stop("Package 'fpc' is required for this function. Please install it.")
+    #   }
+    #   res <- fpc::pamk(x)
+    #   return(res)
+    # }
+    # g <- myClusterFunction(dd)$nc
     #   pos <- as.matrix(cutree(hclust(dd, method="ward.D"),g))
     #   indNA <- apply(x,2,function(x){any(x==0)})
     #   gz <- intersect(order(-table(pos[indNA])),which(table(pos)>1))

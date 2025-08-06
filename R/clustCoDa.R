@@ -39,10 +39,7 @@
 #' @importFrom stats kmeans
 #' @import mclust
 #' @importFrom mclust Mclust 
-#' @importFrom fpc cluster.stats
 #' @importFrom cluster pam fanny 
-#' @import e1071
-#' @importFrom e1071 cmeans bclust
 #' @importFrom kernlab specc
 #' @importFrom mclust mclustBIC
 #' @examples
@@ -197,7 +194,10 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     clust$size <- a$size
   }
   if( method == "cmeansUfcl" ){
-    a <- cmeans(d, k, method="ufcl")
+    if (!requireNamespace("e1071", quietly = TRUE)) {
+      stop("Package 'e1071' is required for this function. Please install it.")
+    }
+    a <- e1071::cmeans(d, k, method="ufcl")
     clust$cluster <- a$cluster
     clust$centers <- a$centers
     clust$membership <- a$membership
@@ -222,13 +222,29 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     clust$membership <- a$mem
   }
   if( method == "bclust" ){
-    a <- bclust(d, k)
+    if (!requireNamespace("e1071", quietly = TRUE)) {
+      stop("Package 'e1071' is required for this function. Please install it.")
+    }
+    a <- e1071::bclust(d, k)
     clust$cluster <- a$cluster
     clust$center <- a$centers
     clust$size <- table(a$cluster)
   }
-  if( method == "cmeans" || method == "cshell" ){
-    a <- get(method)(d, k)
+  if( method == "cmeans" ){
+    if (!requireNamespace("e1071", quietly = TRUE)) {
+      stop("Package 'e1071' is required for this function. Please install it.")
+    }
+    a <- e1071::cmeans(d, k)
+    clust$cluster <- a$cluster
+    clust$centers <- a$centers
+    clust$size <- a$size
+    clust$membership <- a$membership
+  }
+  if( method == "cshell" ){
+    if (!requireNamespace("e1071", quietly = TRUE)) {
+      stop("Package 'e1071' is required for this function. Please install it.")
+    }
+    a <- e1071::cshell(d, k)
     clust$cluster <- a$cluster
     clust$centers <- a$centers
     clust$size <- a$size
@@ -282,6 +298,9 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
   if( method == "speccSplinedot" ){
     a <- specc(as.matrix(x),centers=k, kernel="splinedot")
   }
+  if (!requireNamespace("fpc", quietly = TRUE)) {
+    stop("Package 'fpc' is required for this function. Please install it.")
+  }
   if(substr(method, 1, 5) == "specc"){
     clust$cluster <- a@.Data
     clust$center <- a@centers
@@ -304,7 +323,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
   }
   if( vals == FALSE ) clust.val <- m <- NA
   if( vals == TRUE && length(alt) > 1){
-    clust.val <- cluster.stats(as.dist(d), clust$cluster, as.numeric(alt))
+    clust.val <- fpc::cluster.stats(as.dist(d), clust$cluster, as.numeric(alt))
     m <- data.frame( average.between = round(clust.val$average.between, 3), 
                      average.within = round(clust.val$average.within, 3),
                      avg.silwidth = round(clust.val$avg.silwidth, 3), 
@@ -316,7 +335,7 @@ clustCoDa <- function(x, k=NULL, method="Mclust",
     
   }
   if( vals == TRUE && length(alt) == 0){
-    clust.val <- cluster.stats(as.dist(d), clust$cluster)
+    clust.val <- fpc::cluster.stats(as.dist(d), clust$cluster)
     m <- data.frame( average.between = round(clust.val$average.between, 3), 
                      average.within = round(clust.val$average.within, 3),
                      avg.silwidth = round(clust.val$avg.silwidth, 3), 

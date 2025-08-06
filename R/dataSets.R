@@ -2,7 +2,7 @@
 #' 
 #' Percentages of childs, middle generation and eldery population in 195 countries.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{<15 }}{Percentage of people with age below 15}
 #'  \item{\code{15-60 }}{Percentage of people with age between 15 and 60}
 #'  \item{\code{60+ }}{Percentage of people with age above 60}
@@ -30,7 +30,7 @@ NULL
 
 #' regional alcohol per capita (15+) consumption by WHO region
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{Country}
 #'  \item{\code{year }}{Year}
 #'  \item{\code{recorded }}{Recorded alcohol consumption}
@@ -53,7 +53,7 @@ NULL
 
 #' alcohol consumptions by country and type of alcohol
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{Country}
 #'  \item{\code{year }}{Year}
 #'  \item{\code{beer }}{Consumption of pure alcohol on beer (in percentages)}
@@ -81,7 +81,7 @@ NULL
 #' Sand, silt, clay compositions of 39 sediment samples at different water depths in an Arctic lake.
 #' This data set can be found on page 359 of the Aitchison book (see reference).
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{sand }}{numeric vector of percentages of sand}
 #'  \item{\code{silt }}{numeric vector of percentages of silt}
 #'  \item{\code{clay }}{numeric vector of percentages of clay}
@@ -110,7 +110,7 @@ NULL
 #' 
 #' Hospital discharges of in-patients on neoplasms (cancer) per 100.000 inhabitants (year 2007) and population age structure. 
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{country}                            
 #' \item{\code{year }}{year}                                      
 #' \item{\code{p1 }}{percentage of population with age below 15}                       
@@ -140,7 +140,7 @@ NULL
 #' Two main types of malignant neoplasms cancer affecting colon and lung, respectively, in male and female populations. 
 #' For this purpose population data (2012) from 35 OECD countries were collected.
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{country}                                  
 #' \item{\code{females-colon }}{number of colon cancer cases in female population}                       
 #' \item{\code{females-lung }}{number of lung cancer cases in female population}                    
@@ -259,7 +259,7 @@ NULL
 #' 
 #' 30 commercially available coffee samples of different origins.
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{sort }}{sort of coffee}
 #' \item{\code{acit }}{acetic acid }
 #' \item{\code{metpyr }}{methylpyrazine}
@@ -289,7 +289,7 @@ NULL
 #' Household and government consumptions, gross captial formation and import and exports of goods 
 #' and services.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{country name}
 #'  \item{\code{country2 }}{country name, short version}
 #'  \item{\code{HHconsumption }}{Household and NPISH final consumption expenditure}
@@ -317,7 +317,7 @@ NULL
 #' Education level of father (F) and mother (M) in percentages of low
 #' (l), medium (m), and high (h) of 31 countries in Europe.
 #' 
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{community code}
 #'  \item{\code{F.l }}{percentage of females with low edcuation level}
 #'  \item{\code{F.m }}{percentage of females with medium edcuation level}
@@ -353,7 +353,7 @@ NULL
 #' @name efsa
 #' @docType data
 #' @format A data frame with 87 observations on the following 22 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{Country }}{country name}
 #' \item{\code{Pop.Class }}{population class}
 #' \item{\code{grains }}{Grains and grain-based products}
@@ -401,7 +401,7 @@ NULL
 #' values (number of valid votes). The unemployment in the federal states is reported in
 #' percentages, and the average monthly income in Euros.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{CDU_CSU }}{Christian Democratic Union and Christian Social Union of Bavaria, also
 #' called The Union}
 #'  \item{\code{SDP }}{Social Democratic Party}
@@ -434,7 +434,7 @@ NULL
 #' 
 #' Votes for the candidates Hofer and Van der Bellen.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{GKZ }}{Community code}
 #'  \item{\code{Name }}{Name of the community}
 #'  \item{\code{Eligible }}{eligible votes}
@@ -476,7 +476,7 @@ NULL
 
 #' Employment in different countries by gender and status.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{gender}}{factor}
 #'  \item{\code{status}}{factor, defining if part or full time work}
 #'  \item{\code{country}}{country}
@@ -505,7 +505,7 @@ NULL
 #' also from the perspective of the relations/interactions between them. 
 #' Thorough analysis of the sample is described in Facevicova (2019).
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{Country}}{Country}
 #'  \item{\code{Sex}}{gender, males (M) and females (F)}
 #'  \item{\code{Age}}{age class, young (category 15 - 24), middle-aged (25 - 54) and older
@@ -532,7 +532,7 @@ NULL
 #' 
 #' This data set from Aitchison (1986), p. 395, describes household expenditures (in former Hong Kong dollars) on five commundity groups. 
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{housing }}{housing (including fuel and light)}
 #' \item{\code{foodstuffs }}{foodstuffs}
 #' \item{\code{alcohol }}{alcohol and tobacco}
@@ -568,7 +568,7 @@ NULL
 #' @name expendituresEU
 #' @docType data
 #' @format A data frame with 27 observations on the following 12 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{Food}}{a numeric vector} 
 #' \item{\code{Alcohol}}{a numeric vector} 
 #' \item{\code{Clothing}}{a numeric vector}
@@ -594,29 +594,138 @@ NULL
 #' 
 #' Food balance in each country (2018)
 #' 
-#' 
 #' @name foodbalance
 #' @docType data
 #' @format A data frame with 115 observations on the following 116 variables.
-#' \itemize{ 
-#' \item{\code{country}}{country} 
-#' \item{\code{Cereals - Excluding Beer}}{Food balance on cereals} 
-#' \item{\code{...}}{...}
-#' #' \item{\code{Alcohol - Non-Food}}{Food balance on alcohol}
+#' \describe{ 
+#'   \item{\code{country}}{Country name} 
+#'   \item{\code{Cereals - Excluding Beer}}{Food balance on cereals} 
+#'   \item{\code{Wheat and products}}{Wheat-based products}
+#'   \item{\code{Rice and products}}{Rice and rice-based products}
+#'   \item{\code{Barley and products}}{Barley and barley-based products}
+#'   \item{\code{Maize and products}}{Maize and maize-based products}
+#'   \item{\code{Rye and products}}{Rye and rye-based products}
+#'   \item{\code{Oats}}{Oats}
+#'   \item{\code{Millet and products}}{Millet and millet-based products}
+#'   \item{\code{Cereals, Other}}{Other cereals}
+#'   \item{\code{Starchy Roots}}{Starchy roots group}
+#'   \item{\code{Cassava and products}}{Cassava and derivatives}
+#'   \item{\code{Potatoes and products}}{Potatoes and related products}
+#'   \item{\code{Sweet potatoes}}{Sweet potatoes}
+#'   \item{\code{Roots, Other}}{Other root crops}
+#'   \item{\code{Sugar Crops}}{Sugar crops group}
+#'   \item{\code{Sugar cane}}{Sugar cane}
+#'   \item{\code{Sugar & Sweeteners}}{Sugar and sweeteners group}
+#'   \item{\code{Sugar (Raw Equivalent)}}{Raw equivalent sugar content}
+#'   \item{\code{Sweeteners, Other}}{Other sweeteners}
+#'   \item{\code{Honey}}{Honey}
+#'   \item{\code{Pulses}}{Pulses group}
+#'   \item{\code{Beans}}{Beans}
+#'   \item{\code{Peas}}{Peas}
+#'   \item{\code{Pulses, Other and products}}{Other pulses and products}
+#'   \item{\code{Treenuts}}{Tree nuts group}
+#'   \item{\code{Nuts and products}}{Nuts and their products}
+#'   \item{\code{Oilcrops}}{Oilcrops group}
+#'   \item{\code{Soyabeans}}{Soybeans}
+#'   \item{\code{Groundnuts}}{Groundnuts}
+#'   \item{\code{Rape and Mustardseed}}{Rape and mustard seed}
+#'   \item{\code{Coconuts - Incl Copra}}{Coconuts including copra}
+#'   \item{\code{Sesame seed}}{Sesame seeds}
+#'   \item{\code{Olives (including preserved)}}{Olives including preserved}
+#'   \item{\code{Vegetable Oils}}{Vegetable oils group}
+#'   \item{\code{Soyabean Oil}}{Soybean oil}
+#'   \item{\code{Groundnut Oil}}{Groundnut oil}
+#'   \item{\code{Sunflowerseed Oil}}{Sunflower seed oil}
+#'   \item{\code{Rape and Mustard Oil}}{Rape and mustard oil}
+#'   \item{\code{Cottonseed Oil}}{Cottonseed oil}
+#'   \item{\code{Palmkernel Oil}}{Palm kernel oil}
+#'   \item{\code{Palm Oil}}{Palm oil}
+#'   \item{\code{Coconut Oil}}{Coconut oil}
+#'   \item{\code{Sesameseed Oil}}{Sesame seed oil}
+#'   \item{\code{Olive Oil}}{Olive oil}
+#'   \item{\code{Ricebran Oil}}{Rice bran oil}
+#'   \item{\code{Maize Germ Oil}}{Maize germ oil}
+#'   \item{\code{Oilcrops Oil, Other}}{Other oilcrops oils}
+#'   \item{\code{Vegetables}}{Vegetables group}
+#'   \item{\code{Tomatoes and products}}{Tomatoes and products}
+#'   \item{\code{Onions}}{Onions}
+#'   \item{\code{Vegetables, Other}}{Other vegetables}
+#'   \item{\code{Fruits - Excluding Wine}}{Fruits group, excluding wine}
+#'   \item{\code{Oranges, Mandarines}}{Oranges and mandarins}
+#'   \item{\code{Lemons, Limes and products}}{Lemons, limes and products}
+#'   \item{\code{Grapefruit and products}}{Grapefruits and products}
+#'   \item{\code{Citrus, Other}}{Other citrus fruits}
+#'   \item{\code{Bananas}}{Bananas}
+#'   \item{\code{Plantains}}{Plantains}
+#'   \item{\code{Apples and products}}{Apples and products}
+#'   \item{\code{Pineapples and products}}{Pineapples and products}
+#'   \item{\code{Dates}}{Dates}
+#'   \item{\code{Grapes and products (excl wine)}}{Grapes and non-wine products}
+#'   \item{\code{Fruits, Other}}{Other fruits}
+#'   \item{\code{Stimulants}}{Stimulants group}
+#'   \item{\code{Coffee and products}}{Coffee and products}
+#'   \item{\code{Cocoa Beans and products}}{Cocoa beans and products}
+#'   \item{\code{Tea (including mate)}}{Tea including mate}
+#'   \item{\code{Spices}}{Spices group}
+#'   \item{\code{Pepper}}{Pepper}
+#'   \item{\code{Pimento}}{Pimento}
+#'   \item{\code{Cloves}}{Cloves}
+#'   \item{\code{Spices, Other}}{Other spices}
+#'   \item{\code{Alcoholic Beverages}}{Alcoholic beverages group}
+#'   \item{\code{Wine}}{Wine}
+#'   \item{\code{Beer}}{Beer}
+#'   \item{\code{Beverages, Fermented}}{Fermented beverages}
+#'   \item{\code{Beverages, Alcoholic}}{Alcoholic beverages (other)}
+#'   \item{\code{Meat}}{Meat group}
+#'   \item{\code{Bovine Meat}}{Beef and veal}
+#'   \item{\code{Mutton & Goat Meat}}{Mutton and goat meat}
+#'   \item{\code{Pigmeat}}{Pork}
+#'   \item{\code{Poultry Meat}}{Poultry}
+#'   \item{\code{Meat, Other}}{Other meats}
+#'   \item{\code{Offals}}{Offals group}
+#'   \item{\code{Offals, Edible}}{Edible offals}
+#'   \item{\code{Animal fats}}{Animal fats}
+#'   \item{\code{Butter, Ghee}}{Butter and ghee}
+#'   \item{\code{Cream}}{Cream}
+#'   \item{\code{Fats, Animals, Raw}}{Raw animal fats}
+#'   \item{\code{Eggs}}{Eggs}
+#'   \item{\code{Milk - Excluding Butter}}{Milk excluding butter}
+#'   \item{\code{Fish, Seafood}}{Fish and seafood group}
+#'   \item{\code{Freshwater Fish}}{Freshwater fish}
+#'   \item{\code{Miscellaneous}}{Miscellaneous group}
+#'   \item{\code{Infant food}}{Infant food}
+#'   \item{\code{Fish, Body Oil}}{Fish body oil}
+#'   \item{\code{Fish, Liver Oil}}{Fish liver oil}
+#'   \item{\code{Demersal Fish}}{Demersal fish}
+#'   \item{\code{Pelagic Fish}}{Pelagic fish}
+#'   \item{\code{Marine Fish, Other}}{Other marine fish}
+#'   \item{\code{Crustaceans}}{Crustaceans}
+#'   \item{\code{Cephalopods}}{Cephalopods}
+#'   \item{\code{Molluscs, Other}}{Other molluscs}
+#'   \item{\code{Aquatic Products, Other}}{Other aquatic products}
+#'   \item{\code{Aquatic Animals, Others}}{Other aquatic animals}
+#'   \item{\code{Aquatic Plants}}{Aquatic plants}
+#'   \item{\code{Sorghum and products}}{Sorghum and its products}
+#'   \item{\code{Oilcrops, Other}}{Other oilcrops}
+#'   \item{\code{Sugar beet}}{Sugar beet}
+#'   \item{\code{Yams}}{Yams}
+#'   \item{\code{Sunflower seed}}{Sunflower seed}
+#'   \item{\code{Sugar non-centrifugal}}{Non-centrifugal sugar}
+#'   \item{\code{Meat, Aquatic Mammals}}{Meat from aquatic mammals}
+#'   \item{\code{Palm kernels}}{Palm kernels}
+#'   \item{\code{value.Alcohol, Non-Food}}{Non-food alcohol (value)}
 #' }
 #' @source \url{https://www.fao.org/home/en/}
 #' @keywords datasets
 #' @examples
-#' 
 #' data(foodbalance)
-#' 
 NULL
 
 #' GDP satisfaction 
 #' 
 #' Satisfaction of GDP in 31 countries. The GDP is measured per capita from the year 2012.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{community code}
 #'  \item{\code{gdp }}{GDP per capita in 2012}
 #'  \item{\code{very.bad }}{satisfaction very bad}
@@ -644,7 +753,7 @@ NULL
 #'
 #' Geochemical data set on agricultural and grazing land soil
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{COUNTRY }}{country name}
 #'  \item{\code{longitude }}{longitude in WGS84}
 #'  \item{\code{latitude }}{latitude in WGS84}
@@ -717,7 +826,7 @@ NULL
 #' @name gjovik
 #' @docType data
 #' @format A data frame with 615 observations and 63 variables.
-#' \itemize{
+#' \describe{
 #' \item{\code{ID }}{a numeric vector}
 #' \item{\code{MAT }}{type of material}
 #' \item{\code{mE32wgs }}{longitude} 
@@ -811,7 +920,7 @@ NULL
 #' @name govexp
 #' @docType data
 #' @format A (tidy) data frame with 5140 observations on the following 4 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{country }}{Country of origin}
 #' \item{\code{category }}{The COFOG expenditures are divided into 
 #' in the following ten categories: general public services; 
@@ -833,38 +942,35 @@ NULL
 NULL
 
 
-#' haplogroups data.
-#' 
+#' haplogroups data
+#'
 #' Distribution of European Y-chromosome DNA (Y-DNA) haplogroups by region in
 #' percentage.
-#' 
-#' Human Y-chromosome DNA can be divided in genealogical groups sharing a
+#'
+#' Human Y-chromosome DNA can be divided into genealogical groups sharing a
 #' common ancestor, called haplogroups.
-#' 
+#'
 #' @name haplogroups
 #' @docType data
-#' @format A data frame with 38 observations on the following 12 variables.
-#' \itemize{ 
-#' \item{\code{I1 }}{pre-Germanic (Nordic)}
-#' \item{\code{I2b }}{pre-Celto-Germanic} 
-#' \item{\code{I2a1 }}{Sardinian, Basque} 
-#' \item{\code{I2a2 }}{Dinaric, Danubian}
-#' \item{\code{N1c1 }}{Uralo-Finnic, Baltic, Siberian}
-#' \item{\code{R1a }}{Balto-Slavic, Mycenaean Greek, Macedonia}
-#' \item{\code{R1b }}{Italic, Celtic, Germanic; Hitite, Armenian}
-#' \item{\code{G2a }}{Caucasian, Greco-Anatolien} 
-#' \item{\code{E1b1b }}{North and Eastern Afrika, Near Eastern, Balkanic} 
-#' \item{\code{J2 }}{Mesopotamian, Minoan Greek, Phoenician} 
-#' \item{\code{J1 }}{Semitic (Arabic, Jewish)}
-#' \item{\code{T }}{Near-Eastern, Egyptian, Ethiopian, Arabic} 
+#' @format A data frame with 38 observations on the following 12 variables:
+#' \describe{
+#'   \item{\code{I1}}{pre-Germanic (Nordic)}
+#'   \item{\code{I2b}}{pre-Celto-Germanic}
+#'   \item{\code{I2a1}}{Sardinian, Basque}
+#'   \item{\code{I2a2}}{Dinaric, Danubian}
+#'   \item{\code{N1c1}}{Uralo-Finnic, Baltic, Siberian}
+#'   \item{\code{R1a}}{Balto-Slavic, Mycenaean Greek, Macedonia}
+#'   \item{\code{R1b}}{Italic, Celtic, Germanic; Hittite, Armenian}
+#'   \item{\code{G2a}}{Caucasian, Greco-Anatolian}
+#'   \item{\code{E1b1b}}{North and Eastern Africa, Near Eastern, Balkanic}
+#'   \item{\code{J2}}{Mesopotamian, Minoan Greek, Phoenician}
+#'   \item{\code{J1}}{Semitic (Arabic, Jewish)}
+#'   \item{\code{T}}{Near-Eastern, Egyptian, Ethiopian, Arabic}
 #' }
-#' @source Eupedia:
-#' \url{https://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
+#' @source Eupedia: \url{https://www.eupedia.com/europe/european_y-dna_haplogroups.shtml}
 #' @keywords datasets
 #' @examples
-#' 
 #' data(haplogroups)
-#' 
 NULL
 
 #' honey compositions
@@ -877,7 +983,7 @@ NULL
 #' @name honey
 #' @docType data
 #' @format A data frame with 429 observations on the following 17 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{class }}{adulterated honey, Honey or Syrup}
 #' \item{\code{group }}{group information}
 #' \item{\code{group3 }}{detailed group information}
@@ -912,8 +1018,9 @@ NULL
 
 
 #' value added, output and input for different ISIC codes and countries.
-#'
-#' \itemize{
+#' 
+#' @format A data.frame with 1555 rows and 7 columns:
+#' \describe{
 #'  \item{\code{ct}}{ct}
 #'  \item{\code{isic}}{ISIC classification, Rev 3.2}
 #'  \item{\code{VA}}{value added}
@@ -935,7 +1042,7 @@ NULL
 
 #' ISIC codes by name
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{code}}{ISIC code, Rev 3.2}
 #'  \item{\code{description}}{Description of ISIC codes}
 #' }
@@ -956,7 +1063,7 @@ NULL
 #' 
 #' Labour force by status in employment for 124 countries, latest update: December 2009
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{country}                            
 #' \item{\code{year }}{year}                                      
 #' \item{\code{employeesW }}{percentage female employees}                             
@@ -988,7 +1095,7 @@ NULL
 #' 
 #' Land cover data from Eurostat (2015) extended with (log) population and (log) pollution
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{Woodland }}{Coverage in km2}                            
 #' \item{\code{Cropland }}{Coverage in km2}                                      
 #' \item{\code{Grassland }}{Coverage in km2}                             
@@ -1018,7 +1125,7 @@ NULL
 #' 
 #' Social-economic data for compositional regression.
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{country}                                   
 #' \item{\code{agriculture }}{GDP on agriculture, hunting, forestry, fishing (ISIC A-B, x1)}               
 #' \item{\code{manufacture }}{GDP on mining, manufacturing, utilities (ISIC C-E, x2)}
@@ -1049,7 +1156,7 @@ NULL
 #' 
 #' Compositions of eight-hour shifts of 27 machine operators
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{hqproduction }}{high-quality production}
 #' \item{\code{lqproduction }}{low-quality production}
 #' \item{\code{setting }}{machine settings}
@@ -1079,7 +1186,7 @@ NULL
 #' 3-digit ISIC category and its components. 
 #' Thorough analysis of the sample is described in Facevicova (2018).
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{Country}
 #' \item{\code{isic }}{3-digit ISIC category. The categories are 
 #' 151 processed meat, fish, fruit, vegetables, fats; 
@@ -1134,7 +1241,7 @@ NULL
 #' Rows represent patients and controls and columns represent chemical 
 #' entities with their quantity.  
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{group }}{patient group}
 #'  \item{\code{... }}{the remaining variables columns are represented by m/z which are chemical characterizations of individual chemical components on exact mass measurements..}
 #' }
@@ -1155,7 +1262,7 @@ NULL
 #' mortality and life expectancy in the EU
 #' 
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{country }}{country name}
 #'  \item{\code{country2 }}{country name, short version}
 #'  \item{\code{sex }}{gender}
@@ -1190,7 +1297,7 @@ NULL
 #' 
 #' Mortality data by gender, unknown year
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{female}}{mortality rates for females by age groups}
 #'  \item{\code{male}}{mortality rates for males by age groups}
 #' }
@@ -1211,7 +1318,7 @@ NULL
 #' 
 #' Nutrients on more than 40 components and 965 generic food products
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{ID }}{ID, for internal use}
 #' \item{\code{ID_V4 }}{ID V4, for internal use}
 #' \item{\code{ID_SwissFIR }}{ID, for internal use}
@@ -1282,7 +1389,7 @@ NULL
 #' 
 #' Nutrients on more than 10 components and 9618 branded food products
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{name_D }}{name (in German)}
 #' \item{\code{category_D }}{factor specifying the category names}
 #' \item{\code{category_F }}{factor specifying the category names}
@@ -1321,7 +1428,7 @@ NULL
 #' 
 #' Payments splitted by different NACE categories and kind of employment in Austria 2004
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{nace }}{NACE classification, 2 digits}
 #'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
 #'  \item{\code{year }}{year}
@@ -1367,7 +1474,7 @@ NULL
 #' 
 #' Due to unknown reasons the rowSums of the percentages is not always 100.
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{country of origin (German)}  
 #' \item{\code{countryEN }}{country of origin (English)}    
 #' \item{\code{country2 }}{country of origin, 2-digits}   
@@ -1398,7 +1505,7 @@ NULL
 #' 
 #' PhD students in Europe by different kind of studies.
 #' 
-#' \itemize{
+#' \describe{
 #' \item{\code{technical }}{phd students in natural and technical sciences}
 #' \item{\code{socio-economic-low }}{phd students in social sciences, economic sciences and law sciences}                    
 #' \item{\code{human }}{phd students in human sciences including teaching}
@@ -1423,7 +1530,7 @@ NULL
 #' 
 #' table containing counts for 24-hour precipitation for season at the rain-gouge.
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{spring}}{numeric vector on counts for different level of precipitation}
 #'  \item{\code{summer}}{numeric vector on counts for different level of precipitation}
 #'  \item{\code{autumn}}{numeric vector on counts for different level of precipitation}
@@ -1447,7 +1554,7 @@ NULL
 
 #' production splitted by nationality on enterprise level
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{nace }}{NACE classification, 2 digits}
 #'  \item{\code{oenace_2008 }}{Corresponding Austrian NACE classification (in German)}
 #'  \item{\code{year }}{year}
@@ -1485,7 +1592,7 @@ NULL
 
 #' codes for UNIDO tables
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{ISOCN}}{ISOCN codes}
 #'  \item{\code{OPERATOR}}{Operator}
 #'  \item{\code{ADESC}}{Country}
@@ -1511,7 +1618,7 @@ NULL
 #' @name saffron
 #' @docType data
 #' @format A data frame with 53 observations on the following 36 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{Sample }}{adulterated honey, Honey or Syrup}
 #' \item{\code{Country }}{group information}
 #' \item{\code{Batch }}{detailed group information}
@@ -1566,7 +1673,7 @@ NULL
 #' 
 #' AFM compositions of 23 aphyric Skye lavas. This data set can be found on page 360 of the Aitchison book (see reference).
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{sodium-potassium }}{a numeric vector of percentages of Na2O\eqn{+}K2O}
 #' \item{\code{iron }}{a numeric vector of percentages of Fe2O3}
 #' \item{\code{magnesium }}{a numeric vector of percentages of MgO}
@@ -1595,7 +1702,7 @@ NULL
 #' selected OECD countries in 2010. Expenditures are always provided 
 #' in the respective currency.
 #'
-#' \itemize{
+#' \describe{
 #' \item{\code{country }}{Country of origin}
 #' \item{\code{currency }}{Currency unit (in Million)}
 #' \item{\code{health-public }}{Health from the public}
@@ -1649,7 +1756,7 @@ NULL
 #' @name teachingStuff
 #' @docType data
 #' @format A (tidy) data frame with 1216 observations on the following 4 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{country }}{Country of origin}
 #' \item{\code{subject }}{school type: primary, lower secondary, higher secondary and tertiary } 
 #' \item{\code{year }}{Year} 
@@ -1671,7 +1778,7 @@ NULL
 #' 
 #' A regional-scale geochemical survey of C horizon samples in Nord-Trondelag, Central Norway
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{X.S_ID }}{ID}
 #'  \item{\code{X.Loc_ID }}{ID}
 #'  \item{\code{longitude }}{longitude in WGS84}
@@ -1763,7 +1870,7 @@ NULL
 #' 
 #' A regional-scale geochemical survey of O horizon samples in Nord-Trondelag, Central Norway
 #'
-#' \itemize{
+#' \describe{
 #'  \item{\code{X.Loc_ID }}{ID}
 #'  \item{\code{LITHO }}{Rock type}
 #'  \item{\code{longitude }}{langitude in WGS84}
@@ -1880,7 +1987,7 @@ NULL
 #' @name unemployed
 #' @docType data
 #' @format A (tidy) data frame with 1216 observations on the following 4 variables.
-#' \itemize{ 
+#' \describe{ 
 #' \item{\code{country }}{Country of origin}
 #' \item{\code{age }}{age group } 
 #' \item{\code{year }}{Year} 

@@ -5,13 +5,8 @@
 \alias{instw}
 \title{value added, output and input for different ISIC codes and countries.}
 \format{
-A data.frame with 1555 rows and 7 columns.
-}
-\usage{
-data(instw)
-}
-\description{
-\itemize{
+A data.frame with 1555 rows and 7 columns:
+\describe{
  \item{\code{ct}}{ct}
  \item{\code{isic}}{ISIC classification, Rev 3.2}
  \item{\code{VA}}{value added}
@@ -20,6 +15,14 @@ data(instw)
  \item{\code{IS03}}{country code}
  \item{\code{mht}}{mht}
 }
+
+A data.frame with 1555 rows and 7 columns.
+}
+\usage{
+data(instw)
+}
+\description{
+value added, output and input for different ISIC codes and countries.
 }
 \examples{
 data(instw)

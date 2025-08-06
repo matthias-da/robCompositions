@@ -14,7 +14,7 @@ data(precipitation)
 table containing counts for 24-hour precipitation for season at the rain-gouge.
 }
 \details{
-\itemize{
+\describe{
  \item{\code{spring}}{numeric vector on counts for different level of precipitation}
  \item{\code{summer}}{numeric vector on counts for different level of precipitation}
  \item{\code{autumn}}{numeric vector on counts for different level of precipitation}
