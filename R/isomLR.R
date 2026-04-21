@@ -125,8 +125,8 @@ pivotCoordInv <- function(x, norm = "orthonormal"){
   for (i in 2:(ncol(y)-1)){
     y[,i]=y[,i] - x[,i] * if(norm =="orthonormal") sqrt((D-i)/(D-i+1)) else 1
   }
-  yexp=exp(y)
-  x.back=yexp/apply(yexp,1,sum) # * rowSums(derOriginaldaten)
+  yexp=exp(y - apply(y, 1, max))
+  x.back = yexp / apply(yexp, 1, sum) # * rowSums(derOriginaldaten)
   if(is.data.frame(x)) x.back <- data.frame(x.back)
   return(x.back)
   #return(yexp)
