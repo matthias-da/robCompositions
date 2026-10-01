@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <functional>
 #include <numeric>
+#include <cassert>
 #include "zeros.h"
 
 std::vector<double>
