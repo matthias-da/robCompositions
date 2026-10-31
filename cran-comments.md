@@ -11,7 +11,8 @@ maintenance release was prepared but never submitted, so its fixes are included
   Aitchison geometry), and missing values/zeros/cell weights via the available
   pairwise log-ratios. It is now computed in R from clr coordinates; the only
   `.C()` routine (`src/robCompositions.c`) was removed. Results for the
-  default arguments are unchanged.
+  default arguments are unchanged; `aDist(x)` for one data set is still
+  `dist(cenLR(x)$x.clr)`, including for incomplete data.
 * New function `aDistDens()`: Aitchison distance between densities in the
   Bayes space.
 * `aDist(x, y)` checks that `x` and `y` have the same dimensions (before, a

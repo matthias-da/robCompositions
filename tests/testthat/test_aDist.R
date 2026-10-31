@@ -81,7 +81,7 @@ test_that("na.rm uses the available log-ratios", {
   Xm <- X
   Xm[1, 2] <- NA; Xm[2, c(1, 4)] <- 0; Xm[3, ] <- NA; Xm[3, 1:2] <- 1
   expect_error(aDist(Xm, Y), "missing or infinite")
-  expect_error(aDist(Xm), "missing or infinite")
+  expect_error(aDist(Xm, weights = rep(1, 6)), "missing or infinite")
   expect_error(aDist(replace(X, 1, Inf), Y), "missing or infinite")
   d <- aDist(Xm, Y, type = "rows", na.rm = TRUE)
   ok <- is.finite(Xm) & Xm > 0
@@ -110,7 +110,7 @@ test_that("zero or negative values give NaN with a warning (as before 2.7.0)", {
   expect_equal(d[-c(2, 5)], aDist(X, Y, type = "rows")[-c(2, 5)])
   expect_warning(s <- aDist(Xz, Y), "zero or negative")
   expect_true(is.nan(s))
-  expect_warning(dm <- as.matrix(aDist(Xz)), "zero or negative")
+  expect_warning(dm <- as.matrix(aDist(Xz, weights = rep(1, 6))), "zero or negative")
   expect_true(all(is.nan(dm[c(2, 5), -c(2, 5)])) && is.nan(dm[2, 5]))   # diagonal of as.matrix(dist) is 0
   expect_equal(dm[-c(2, 5), -c(2, 5)], as.matrix(aDist(X))[-c(2, 5), -c(2, 5)])
   expect_warning(dc <- aDist(X[1:3, ], Xz, type = "cross"), "zero or negative")
@@ -138,6 +138,44 @@ test_that("cell weights generalise na.rm and combine with part weights", {
                sapply(1:10, function(i) bf_dist(X[i, ], Y[i, ], v = W[i, ] * Wy[i, ])))
   expect_error(aDist(X, Y, cellweights = W[, 1:5]), "same dimensions")
   expect_error(aDist(X, Y, cellweights = -W), "non-negative")
+})
+
+test_that("aDist(x) without options is dist(cenLR(x)), also for incomplete data", {
+  Xm <- X; Xm[1, 2] <- NA; Xm[2, 3] <- -1
+  d <- suppressWarnings(aDist(Xm))
+  expect_equal(as.matrix(d), as.matrix(suppressWarnings(dist(cenLR(Xm)$x.clr))))
+  expect_true(all(is.finite(as.matrix(d)[3:10, 3:10])))
+  expect_equal(as.matrix(d)[3:10, 3:10], as.matrix(aDist(X))[3:10, 3:10])
+  expect_s3_class(d, "dist")
+  # clustering on incomplete data keeps working
+  Xn <- X; Xn[1, 2] <- NA
+  expect_false(anyNA(aDist(Xn)))
+})
+
+test_that("cell weights may be a data frame; lists need names x and y", {
+  W <- matrix(runif(60), 10, 6)
+  expect_equal(aDist(X, Y, cellweights = as.data.frame(W)), aDist(X, Y, cellweights = W))
+  expect_equal(as.matrix(aDist(as.data.frame(X), cellweights = as.data.frame(W))),
+               as.matrix(aDist(X, cellweights = W)))
+  expect_equal(aDist(X, Y, cellweights = list(x = as.data.frame(W))),
+               aDist(X, Y, cellweights = list(x = W)))
+  expect_error(aDist(X, Y, cellweights = list(W, W)), "'x' and 'y'")
+})
+
+test_that("one-row input and the distance matrix in the general path", {
+  p <- c(2, 1, 0.5, 1, 3, 1)
+  expect_length(aDist(X[1, , drop = FALSE], weights = p), 0)
+  expect_length(aDist(X[1, , drop = FALSE], na.rm = TRUE), 0)
+  expect_length(aDist(X[1, ], cellweights = matrix(1, 1, 6)), 0)
+  expect_s3_class(aDist(c(1, NA, 3, 4), na.rm = TRUE), "dist")
+  # general path (cell weights): all pairs against the definition
+  W <- matrix(runif(60), 10, 6)
+  m <- as.matrix(aDist(X, cellweights = W, weights = p))
+  expect_equal(dimnames(m), list(letters[1:10], letters[1:10]))
+  for (i in c(1, 4, 9)) for (j in c(2, 3, 10))
+    expect_equal(m[i, j], bf_dist(X[i, ], X[j, ], p, W[i, ] * W[j, ]))
+  # named vectors give a plain number, one-row data frames a 1 x 1 matrix
+  expect_null(dim(aDist(c(a = 1, b = 2, c = 3), c(a = 2, b = 1, c = 1))))
 })
 
 ## ---- aDistDens ------------------------------------------------------------------
@@ -174,4 +212,9 @@ test_that("aDistDens handles several densities", {
   expect_error(aDistDens(tt^3, st, f1, f2), "equidistant")
   expect_error(aDistDens(tt, st, replace(f1, 1, 0), f2), "strictly positive")
   expect_error(aDistDens(tt, st, f1[-1], f2), "one value per grid point")
+})
+
+test_that("aDistDens with a single density returns an empty dist", {
+  expect_length(aDistDens(tt, st, f1), 0)
+  expect_s3_class(aDistDens(tt, st, f1), "dist")
 })

@@ -14,10 +14,15 @@ Changes in robCompositions version 2.7.0
   + aDist() is now computed from clr coordinates in R instead of C: 25 to 100
     times faster for larger data, same results up to rounding (relative
     differences around 1e-16). The C routine has been removed.
-  + aDist() now stops with an informative error for missing or infinite values
-    (before, a generic error from the C call). Distances involving rows with
-    zero or negative values are NaN, now with a warning that points to
+  + aDist(x, y) now stops with an informative error for missing or infinite
+    values (before, a generic error from the C call). Distances involving rows
+    with zero or negative values are NaN, now with a warning that points to
     na.rm = TRUE (before, NaN or Inf without a warning).
+  + aDist(x) for a single data set, without weights, cellweights and na.rm, is
+    unchanged: dist(cenLR(x)$x.clr), which tolerates missing cells (and is
+    used by clustCoDa(distMethod = "Aitchison")).
+  + the weighted distance matrix (y = NULL) is computed in one vectorised step
+    from the weighted clr coordinates.
   + new function aDistDens() for the Aitchison distance between densities in
     the Bayes space, optionally with respect to a reference measure P.
 

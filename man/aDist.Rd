@@ -33,18 +33,20 @@ weights of one.}
 \item{na.rm}{logical. If \code{TRUE}, missing, zero and negative values are
 left out and the distance is computed from the remaining log-ratios. If
 \code{FALSE} (default), missing or infinite values give an error and
-distances involving rows with zero or negative values are \code{NaN}.}
+distances involving rows with zero or negative values are \code{NaN}
+(except for \code{y = NULL} without \code{weights} and \code{cellweights};
+see Details).}
 
 \item{cellweights}{optional non-negative cell weights: a matrix with the
-dimensions of \code{x}, which then also applies to \code{y} if \code{y} is
-\code{NULL}, or a list with elements \code{x} and \code{y} giving weight
-matrices for both data sets (either may be \code{NULL} for weights of one).}
+dimensions of \code{x} (a matrix or data frame), which then also applies to
+\code{y} if \code{y} is \code{NULL}, or a list with elements \code{x} and
+\code{y} giving weight matrices for both data sets (either may be
+\code{NULL} for weights of one).}
 }
 \value{
 For \code{y = NULL}, an object of class \code{"dist"}. Otherwise,
-  depending on \code{type}: a single number (\code{"sum"}; for two named
-  single compositions or two one-row data frames a 1 x 1 matrix with their
-  names as dimnames), a vector with one distance per row (\code{"rows"}), or
+  depending on \code{type}: a single number (\code{"sum"}; for two one-row
+  data frames a 1 x 1 matrix with their row names as dimnames), a vector with one distance per row (\code{"rows"}), or
   a matrix with \code{nrow(x)} rows and \code{nrow(y)} columns
   (\code{"cross"}). Distances are \code{NA} where fewer than two parts are
   available, and \code{NaN} for rows with zero or negative values if
@@ -102,8 +104,14 @@ counterpart of \code{\link{fcenLRp}} for densities.
 \strong{Missing values, zeros and cell weights.} By default all values must be
 strictly positive and finite: missing or infinite values give an error, and
 every distance that involves a row with a zero or negative value is
-\code{NaN} (with a warning). With \code{na.rm = TRUE}, cells that are missing,
-zero or negative are left out. With \code{cellweights}, each cell gets a weight
+\code{NaN} (with a warning). The one exception is the distance matrix of a
+single data set (\code{y = NULL}) without \code{weights}, \code{cellweights}
+and \code{na.rm}: as in earlier versions it is \code{dist(cenLR(x)$x.clr)}.
+Missing or negative cells are then left out of the geometric mean, and
+\code{\link[stats]{dist}} leaves coordinate pairs with such cells out and
+rescales; no error or warning is given (zeros give \code{Inf} or \code{NaN}).
+With \code{na.rm = TRUE}, cells that are missing,
+zero or negative are left out of the log-ratios instead. With \code{cellweights}, each cell gets a weight
 \eqn{w \ge 0}, for example a weight from a cellwise-robust method that
 down-weights outlying cells. For a comparison of two rows the parts receive
 the weights \eqn{v_j = w^x_j w^y_j} (0 for a cell left out), each log-ratio
