@@ -1,3 +1,31 @@
+Changes in robCompositions version 2.7.0
+  + aDist() gains new options (defaults unchanged):
+    - type = "rows" returns the distance for each pair of corresponding rows,
+      type = "cross" the matrix of distances between all rows of x and all rows
+      of y (y may have any number of rows).
+    - weights: weighted Aitchison distance (part weights via a change of the
+      reference measure, Egozcue and Pawlowsky-Glahn 2016); unit weights give
+      the ordinary Aitchison distance.
+    - na.rm = TRUE: missing, zero and negative cells are left out and the
+      distance is computed from the available pairwise log-ratios, scaled to
+      all log-ratios (Gower-type).
+    - cellweights: non-negative cell weights, e.g. from a cellwise-robust
+      method; na.rm is the special case of weights 0 and 1.
+  + aDist() is now computed from clr coordinates in R instead of C: 25 to 100
+    times faster for larger data, same results up to rounding (relative
+    differences around 1e-16). The C routine has been removed.
+  + aDist(x, y) now stops with an informative error for missing or infinite
+    values (before, a generic error from the C call). Distances involving rows
+    with zero or negative values are NaN, now with a warning that points to
+    na.rm = TRUE (before, NaN or Inf without a warning).
+  + aDist(x) for a single data set, without weights, cellweights and na.rm, is
+    unchanged: dist(cenLR(x)$x.clr), which tolerates missing cells (and is
+    used by clustCoDa(distMethod = "Aitchison")).
+  + the weighted distance matrix (y = NULL) is computed in one vectorised step
+    from the weighted clr coordinates.
+  + new function aDistDens() for the Aitchison distance between densities in
+    the Bayes space, optionally with respect to a reference measure P.
+
 Changes in robCompositions version 2.6.1
   + src/zeros.cpp now includes <cassert> explicitly, needed to build against
     Eigen 5.0.1 (RcppEigen). Thanks to Dirk Eddelbuettel.

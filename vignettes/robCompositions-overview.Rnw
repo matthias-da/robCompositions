@@ -191,8 +191,14 @@ compositions) are implemented in the package. The most important are:\\
 \begin{tabular}{p{4.5cm}p{11cm}}
 %\begin{description}
   \texttt{aDist(x, y)} & Computes the Aitchison distance between two
-  observations or between two data sets. The underlying code is written in
-  \texttt{C} and allows a fast computation also for large data sets. \\ 
+  observations, between the rows of two data sets (summed, row by row, or
+  all pairs) or within one data set. Optionally with part weights (weighted
+  Aitchison distance), and for incomplete data or cell weights based on the
+  available log-ratios. \\ 
+  \hline
+  \texttt{aDistDens(z, z\_step, f, g)} & Aitchison distance between
+  densities in the Bayes space, optionally with respect to a reference
+  measure. \\ 
   \hline
   \texttt{constSum(x, const=1)} & Closes compositions to sum up to a given
   constant (default 1). \\
