@@ -9,6 +9,13 @@ Changes in robCompositions version 2.6.1
     grid, strictly positive density), correct return values, cross-references,
     and examples that no longer refer to an undefined object (t.fine).
   + new tests for the functional clr transformations.
+  + aDist(x, y), and hence ced(), now stops with an error if x and y do not have
+    the same dimensions. Before, a different number of columns silently gave a
+    wrong distance, and fewer rows in y made the C code read beyond the data.
+    Results for valid input are unchanged. The registration of the internal C
+    routine has been corrected (a misspelled NAOK argument was passed on to it).
+  + the help page of ced() has been rewritten (definition, input requirements,
+    return value, DOIs) and tests for aDist() and ced() have been added.
 
 Changes in robCompositions version 2.6.0
   + new function cellNetCoDa() for cellwise-robust network (Gaussian graphical

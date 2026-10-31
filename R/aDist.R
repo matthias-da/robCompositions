@@ -16,7 +16,8 @@
 #' 
 #' @aliases aDist iprod
 #' @param x a vector, matrix or data.frame
-#' @param y a vector, matrix or data.frame with equal dimension as \code{x} or NULL.
+#' @param y a vector, matrix or data.frame with the same dimensions as \code{x}
+#' (an error is raised otherwise), or NULL.
 #' @return The Aitchison distance between two compositions or between two data
 #' sets, or a distance matrix in case \code{y} is not supplied.
 #' @author Matthias Templ, Bernhard Meindl
@@ -58,70 +59,39 @@
 #' aDist(xOrig, xImp)
 #' 
 aDist <- function(x, y = NULL) {
-  names_x <- NULL
-  names_y <- NULL
-  
-  if (!is.null(y)) {
-    # Handle naming for vectors and data.frames
-    if (is.vector(x) && is.vector(y)) {
-      names_x <- names(x)
-      names_y <- names(y)
-    }
-    if (is.data.frame(x) && is.data.frame(y)) {
-      if (nrow(x) == 1 && nrow(y) == 1) {
-        names_x <- rownames(x)
-        names_y <- rownames(y)
-      }
-    }
-    
-    # Convert to matrix if vector
-    if (is.vector(x)) {
-      x <- matrix(x, ncol = length(x))
-    }
-    if (is.vector(y)) {
-      y <- matrix(y, ncol = length(y))
-    }
-    
-    n <- dim(x)[1]
-    p <- D <- dim(x)[2]
-    matOrig <- as.numeric(t(x))
-    matImp <- as.numeric(t(y))
-    dims <- as.integer(c(n, p))
-    rowDists <- as.numeric(rep(0.0, n))
-    distance <- as.numeric(0.0)
-    
-    out <- .C("da",
-              matOrig,
-              matImp,
-              dims,
-              rowDists,
-              distance,
-              PACKAGE = "robCompositions", NUOK = TRUE
-    )[[5]]
-  } else {
-    # Only one input (distance matrix of x)
+  if (is.null(y)) {
+    # distance matrix between the observations of x
     if (is.vector(x)) x <- matrix(x, ncol = length(x))
-    out <- dist(cenLR(x)$x.clr)
+    return(dist(cenLR(x)$x.clr))
   }
   
-  # Assign dimnames if possible
-  if (!is.null(names_x) && !is.null(names_y)) {
-    if (length(out) == 1) {
-      # Scalar output (1x1 matrix) — apply names only if length matches
-      if (length(names_x) == 1 && length(names_y) == 1) {
-        out <- matrix(out, nrow = 1, ncol = 1)
-        dimnames(out) <- list(names_x, names_y)
-      }
-    } else {
-      out_dim <- sqrt(length(out))
-      if (length(names_x) == out_dim && length(names_y) == out_dim) {
-        out <- matrix(out, nrow = out_dim)
-        dimnames(out) <- list(names_x, names_y)
-      }
-    }
+  # two single compositions (named vectors or one-row data frames) keep their
+  # names as dimnames of a 1 x 1 result
+  labels <- NULL
+  if (is.vector(x) && is.vector(y)) {
+    labels <- list(names(x), names(y))
+  } else if (is.data.frame(x) && is.data.frame(y)) {
+    labels <- list(rownames(x), rownames(y))
   }
   
-  return(out)
+  if (is.vector(x)) x <- matrix(x, ncol = length(x))
+  if (is.vector(y)) y <- matrix(y, ncol = length(y))
+  if (!identical(dim(x), dim(y)))
+    stop("'x' and 'y' must have the same dimensions")
+  
+  # sum of the row-wise Aitchison distances (C expects row-major data)
+  out <- .C("da",
+            as.numeric(t(x)),
+            as.numeric(t(y)),
+            as.integer(dim(x)),
+            numeric(nrow(x)),
+            0,
+            PACKAGE = "robCompositions")[[5]]
+  
+  if (identical(lengths(labels), c(1L, 1L))) {
+    out <- matrix(out, nrow = 1, ncol = 1, dimnames = labels)
+  }
+  out
 }
 
 #' @rdname aDist

@@ -15,7 +15,7 @@ extern SEXP smoothingSplines_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SE
 extern SEXP smoothingSplinesValidation_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CMethodDef CEntries[] = {
-  {"da", (DL_FUNC) &da, 6},
+  {"da", (DL_FUNC) &da, 5},
   {NULL, NULL, 0}
 };
 

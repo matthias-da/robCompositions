@@ -9,6 +9,11 @@ This is a maintenance release:
   more points are unchanged.
 * Rewritten help pages for the functional clr transformations (`fcenLR()`
   family, `trapzc()`), plus new tests.
+* `aDist(x, y)` (and `ced()`, which calls it) now checks that `x` and `y`
+  have the same dimensions. Previously a `y` with fewer rows made the C code
+  read beyond the end of the array. The `.C()` registration of this routine
+  was corrected from 6 to 5 arguments (a misspelled `NAOK` argument had been
+  passed through). Results for valid input are unchanged.
 
 ## Test environments
 
@@ -26,5 +31,6 @@ This is a maintenance release:
 ## Downstream dependencies
 
 The reverse dependencies (`baker`, `CMMs`, `classmap`) are unaffected: they do
-not call `trapzc()` or the `fcenLR()` family, and the header include in
-compiled code changes no R-level behaviour.
+not call `trapzc()`, the `fcenLR()` family or `ced()`, and none of them calls
+`aDist()` (`baker` imports only `cenLR()`; its single `aDist()` reference is
+commented out). The header include in compiled code changes no R-level behaviour.

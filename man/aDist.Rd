@@ -12,7 +12,8 @@ iprod(x, y)
 \arguments{
 \item{x}{a vector, matrix or data.frame}
 
-\item{y}{a vector, matrix or data.frame with equal dimension as \code{x} or NULL.}
+\item{y}{a vector, matrix or data.frame with the same dimensions as \code{x}
+(an error is raised otherwise), or NULL.}
 }
 \value{
 The Aitchison distance between two compositions or between two data
