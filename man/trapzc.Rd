@@ -2,30 +2,41 @@
 % Please edit documentation in R/Transformations.R
 \name{trapzc}
 \alias{trapzc}
-\title{Trapezoidal formula for numerical integration}
+\title{Trapezoidal rule for numerical integration on an equidistant grid}
 \usage{
 trapzc(step, f)
 }
 \arguments{
-\item{step}{step of the grid}
+\item{step}{spacing \eqn{h} of the (equidistant) grid.}
 
-\item{f}{grid evaluation of density}
+\item{f}{numeric vector of at least two function values on the grid, e.g. a
+density or a clr-transformed density.}
 }
 \value{
-\item{\code{int}}{The value of integral computed numerically by trapezoidal formula.}
+A single number: the approximate value of the integral.
 }
 \description{
-Numerical integration via trapezoidal formula.
+Approximates the integral of a function from its values on an
+equidistant grid by the composite trapezoidal rule,
+\deqn{\int_a^b f(t)\,dt \approx h\left(\frac{f_1}{2} + f_2 + \dots + f_{n-1} + \frac{f_n}{2}\right),}{integral f(t) dt ~ h * (f[1]/2 + f[2] + ... + f[n-1] + f[n]/2),}
+where \eqn{h} is the grid spacing. It is the integration routine used by
+\code{\link{fcenLR}}, \code{\link{fcenLRp}}, \code{\link{fcenLRu}},
+\code{\link{fcenLRinv}} and \code{\link{compositionalSpline}}.
 }
 \examples{
-# Example (zero-integral of fcenLR density)
-t = seq(-4.7,4.7, length = 1000)
-t_step = diff(t[1:2])
-mean = 0; sd = 1.5
-f = dnorm(t, mean, sd)
-f.fcenLR = fcenLR(t,t_step,f)
-trapzc(t_step,f.fcenLR)
+t <- seq(-4.7, 4.7, length = 1000)
+t_step <- diff(t[1:2])
+f <- dnorm(t, mean = 0, sd = 1.5)
+
+# integral of the density over the grid (close to 1)
+trapzc(t_step, f)
+
+# the clr transform of a density integrates to zero
+trapzc(t_step, fcenLR(t, t_step, f))
+}
+\seealso{
+\code{\link{fcenLR}}, \code{\link{fcenLRinv}}
 }
 \author{
-R. Talska\email{talskarenata@seznam.cz}, K. Hron\email{karel.hron@upol.cz}
+R. Talska \email{talskarenata@seznam.cz}, K. Hron \email{karel.hron@upol.cz}
 }

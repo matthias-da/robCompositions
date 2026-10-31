@@ -1,63 +1,30 @@
-## Submission of robCompositions 2.6.0
+## Submission of robCompositions 2.6.1
 
-This is a feature release. Version 2.5.0 was prepared but never submitted to
-CRAN; its changes are rolled into this 2.6.0 submission, so the list below
-covers all changes since 2.4.2 (the current CRAN version).
+This is a maintenance release:
 
-### Main changes since 2.4.2 (current CRAN version)
-
-* New function `cellNetCoDa()` for cellwise-robust network (Gaussian graphical
-  model) estimation of compositional data, with `print`/`summary`/`plot`
-  methods. Cellwise outliers are detected and down-weighted before a sparse
-  graph is fitted by neighbourhood selection (`"mb"`) or the graphical lasso on
-  the centred-logratio covariance (`"glasso"`); the penalty is chosen by StARS.
-  The two back-end packages `glmnet` and `glasso` are in `Suggests` and used
-  conditionally via `requireNamespace()` (in the function, examples and tests).
-* New function `cellPcaCoDa()` for cellwise-robust principal component analysis
-  of compositional data, with `print`/`summary`/`plot` methods, implementing
-  Templ (2026, *Advances in Data Analysis and Classification*).
-* New function `contaminate_simplex()` to generate cellwise-contaminated
-  compositions for stress-testing robust estimators.
-* `imputeBDLs()` has been renamed to `imputeBDL()`. `imputeBDLs()` and
-  `impRZilr()` are kept as deprecated aliases (via `.Deprecated()`) that forward
-  to it, so existing code keeps working. A latent bug was fixed so that values
-  below the detection limit supplied as small positive numbers (rather than
-  exact zeros) are now imputed; results for the documented usage (rounded zeros
-  pre-coded as 0) are unchanged.
-* Dependency cleanup: `ggplot2`, `pls` and `data.table` moved from `Depends` to
-  `Imports`.
-* See NEWS for the full list.
+* `src/zeros.cpp` now includes `<cassert>` explicitly, needed to compile
+  against Eigen 5.0.1 (the upcoming RcppEigen release); patch contributed by
+  Dirk Eddelbuettel.
+* `trapzc()` gave a wrong result for a two-point grid; results for three or
+  more points are unchanged.
+* Rewritten help pages for the functional clr transformations (`fcenLR()`
+  family, `trapzc()`), plus new tests.
 
 ## Test environments
 
-* local: macOS 26 (aarch64-apple-darwin20), R 4.5.2 -- 0 errors | 0 warnings | 1 note
-* win-builder R-release and R-devel (checked separately)
+* local: macOS 26 (aarch64-apple-darwin20), R 4.5.2
 
 ## R CMD check results
 
-`R CMD check --as-cran` gives **0 ERRORs, 0 WARNINGs**. The single remaining NOTE
-is local-only and does not occur on the CRAN check infrastructure:
+0 errors | 0 warnings | 1 note
 
-* **HTML manual / HTML Tidy** -- "Skipping checking HTML validation: 'tidy'
-  doesn't look like recent enough HTML Tidy." This reflects the local macOS
-  system `tidy` version only; CRAN's machines have a current HTML Tidy.
-
-(On some local runs an additional transient "unable to verify current time" NOTE
-appears when the check machine cannot reach its time server; it is unrelated to
-the package.)
-
-Note on URLs: documentation and vignette links use the canonical https form or
-DOIs.
+* The NOTE flags https://www.eupedia.com/europe/european_y-dna_haplogroups.shtml
+  (data source in `?haplogroups`) as "403 Forbidden". The URL is valid and
+  opens normally in a browser (HTTP 200); the site rejects automated requests
+  from the URL checker.
 
 ## Downstream dependencies
 
-This version has three reverse dependencies on CRAN: `baker` and `CMMs`
-(Imports) and `classmap` (Suggests). They use only robCompositions functions
-and data that are unchanged in this release -- `aDist()` and `cenLR()` (baker),
-`pivotCoord()` (CMMs), and the `nutrients_branded` data set (classmap) -- and
-each declares `ggplot2` itself, so the earlier move of `ggplot2`/`pls`/
-`data.table` from `Depends` to `Imports` does not affect them. The 2.6.0 changes
-are additive (new `cellNetCoDa()`, `cellPcaCoDa()`, `contaminate_simplex()`)
-apart from a fix confined to the deprecated `imputeBDL` family (`imputeBDLs()`
-and `impRZilr()` remain available as aliases), which no reverse dependency
-calls. No reverse dependencies are broken by this release.
+The reverse dependencies (`baker`, `CMMs`, `classmap`) are unaffected: they do
+not call `trapzc()` or the `fcenLR()` family, and the header include in
+compiled code changes no R-level behaviour.

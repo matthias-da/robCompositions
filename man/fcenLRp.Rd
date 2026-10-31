@@ -2,28 +2,48 @@
 % Please edit documentation in R/Transformations.R
 \name{fcenLRp}
 \alias{fcenLRp}
-\title{fcenLRp transformation (functional)}
+\title{Functional clr transformation of a density with respect to a reference measure P}
 \usage{
 fcenLRp(z, z_step, density, p)
 }
 \arguments{
-\item{z}{grid of points defining the abscissa}
+\item{z}{numeric vector, equidistant grid of points on the domain.}
 
-\item{z_step}{step of the grid of the abscissa}
+\item{z_step}{spacing of the grid \code{z}.}
 
-\item{density}{grid evaluation of the P-density}
+\item{density}{numeric vector of the same length as \code{z}: strictly positive
+values of the \eqn{P}-density on the grid.}
 
-\item{p}{density of the reference measure P}
+\item{p}{numeric vector of the same length as \code{z}: density of the reference
+measure \eqn{P} with respect to the Lebesgue measure.}
 }
 \value{
-\item{\code{out}}{grid evaluation of the P-density in L2(P)}
+A numeric vector of the same length as \code{density}: the
+\eqn{P}-weighted clr transform evaluated on the grid (an element of \eqn{L^2(P)}).
 }
 \description{
-fcenLR[P] transformation: mapping from B2(P) into L2(P)
+Maps a \eqn{P}-density from the weighted Bayes space \eqn{B^2(P)}
+to the weighted space \eqn{L^2(P)}, where the reference measure \eqn{P} has
+density \eqn{p} with respect to the Lebesgue measure,
+\deqn{\mathrm{fcenLR}_P(f)(z) = \log f(z) - \frac{1}{P(\Omega)}\int_\Omega \log f(t)\,p(t)\,dt.}{fcenLR_P(f)(z) = log f(z) - 1/P(Omega) * integral log f(t) p(t) dt.}
+With \eqn{p} constant this reduces to \code{\link{fcenLR}}.
+}
+\details{
+Integrals are approximated by \code{\link{trapzc}}, so \code{z} must be
+an equidistant grid with spacing \code{z_step}. All values of \code{density}
+must be strictly positive. The result is centred with respect to \eqn{P}: the
+integral of \code{fcenLRp(...) * p} is zero. A worked example covering
+\code{fcenLR}, \code{fcenLRp} and \code{fcenLRu} is given in \code{\link{fcenLRu}}.
 }
 \references{
-Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020). Weighting the domain of probability densities in functional data analysis.\emph{Stat}(2020). https://doi.org/10.1002/sta4.283
+Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020).
+Weighting the domain of probability densities in functional data analysis.
+\emph{Stat}. \doi{10.1002/sta4.283}
+}
+\seealso{
+\code{\link{fcenLR}}, \code{\link{fcenLRu}}, \code{\link{fcenLRinv}},
+\code{\link{trapzc}}
 }
 \author{
-R. Talska\email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron\email{karel.hron@upol.cz}, J.J. Egozcue, J. Palarea-Albaladejo
+R. Talska \email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron \email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
 }

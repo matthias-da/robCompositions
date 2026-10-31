@@ -1,3 +1,15 @@
+Changes in robCompositions version 2.6.1
+  + src/zeros.cpp now includes <cassert> explicitly, needed to build against
+    Eigen 5.0.1 (RcppEigen). Thanks to Dirk Eddelbuettel.
+  + trapzc() returned a wrong value for a grid of only two points (the end
+    points were counted twice); results for three or more points are unchanged.
+    It now stops with an error for fewer than two points.
+  + the help pages of fcenLR(), fcenLRp(), fcenLRu(), fcenLRinv() and trapzc()
+    have been rewritten: defining formulas, input requirements (equidistant
+    grid, strictly positive density), correct return values, cross-references,
+    and examples that no longer refer to an undefined object (t.fine).
+  + new tests for the functional clr transformations.
+
 Changes in robCompositions version 2.6.0
   + new function cellNetCoDa() for cellwise-robust network (Gaussian graphical
     model) estimation of compositional data, with print/summary/plot methods.

@@ -2,46 +2,77 @@
 % Please edit documentation in R/Transformations.R
 \name{fcenLR}
 \alias{fcenLR}
-\title{fcenLR transformation (functional)}
+\title{Functional centred log-ratio (clr) transformation of a density}
 \usage{
 fcenLR(z, z_step, density)
 }
 \arguments{
-\item{z}{grid of points defining the abscissa}
+\item{z}{numeric vector, equidistant grid of points on the domain \eqn{[a, b]}.}
 
-\item{z_step}{step of the grid of the abscissa}
+\item{z_step}{spacing of the grid \code{z}, typically \code{diff(z[1:2])}.}
 
-\item{density}{grid evaluation of the lambda-density}
+\item{density}{numeric vector of the same length as \code{z}: strictly positive
+values of the density on the grid.}
 }
 \value{
-\item{\code{out}}{grid evaluation of the lambda-density in L^2(lambda)}
+A numeric vector of the same length as \code{density}: the clr
+transform evaluated on the grid. It integrates to zero over the domain.
 }
 \description{
-fcenLR[lambda] transformation: mapping from B^2(lambda) into L^2(lambda)
+Maps a density from the Bayes space \eqn{B^2(\lambda)} (densities
+with respect to the Lebesgue measure \eqn{\lambda} on a bounded interval
+\eqn{[a, b]}) to the space \eqn{L^2(\lambda)} of square-integrable functions,
+\deqn{\mathrm{fcenLR}_\lambda(f)(z) = \log f(z) - \frac{1}{b-a}\int_a^b \log f(t)\,dt.}{fcenLR(f)(z) = log f(z) - 1/(b-a) * integral_a^b log f(t) dt.}
+This is the functional counterpart of the clr transformation (\code{\link{cenLR}})
+for compositions. The result integrates to zero over \eqn{[a, b]}, so densities
+can then be analysed with standard methods of functional data analysis.
+}
+\details{
+The integral is approximated by the trapezoidal rule (\code{\link{trapzc}})
+with spacing \code{z_step}, so \code{z} must be an equidistant grid with that
+spacing; the domain length \eqn{b-a} is taken as \code{max(z) - min(z)}.
+
+Densities are scale invariant in the Bayes space: \code{density} does not need
+to integrate to one, and \code{fcenLR(z, z_step, c * density)} equals
+\code{fcenLR(z, z_step, density)} for any \eqn{c > 0}. All values of
+\code{density} must be strictly positive; a zero anywhere on the grid makes the
+whole result \code{NaN}.
+
+Use \code{\link{fcenLRinv}} for the back-transformation, and \code{\link{fcenLRp}}
+or \code{\link{fcenLRu}} for densities with respect to a reference measure
+\eqn{P} other than the Lebesgue measure.
 }
 \examples{
-# Example (normal density)
-t = seq(-4.7,4.7, length = 1000)
-t_step = diff(t[1:2])
+# normal density on a grid
+t <- seq(-4.7, 4.7, length = 1000)
+t_step <- diff(t[1:2])
+f <- dnorm(t, mean = 0, sd = 1.5)
 
-mean = 0; sd = 1.5
-f = dnorm(t, mean, sd)
-f1 = f/trapzc(t_step,f)
+f.fcenLR <- fcenLR(t, t_step, f)
+trapzc(t_step, f.fcenLR)          # zero integral
 
-f.fcenLR = fcenLR(t,t_step,f) 
-f.fcenLRinv = fcenLRinv(t.fine,t_step,f.fcenLR)
+# the back-transformation returns the unit-integral version of f
+f.back <- fcenLRinv(t, t_step, f.fcenLR)
+f1 <- f / trapzc(t_step, f)
+all.equal(f.back, f1)
 
-plot(t,f.fcenLR, type="l",las=1, ylab="fcenLR(density)", 
-  cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2)
-abline(h=0, col="red")
+plot(t, f.fcenLR, type = "l", las = 1, ylab = "fcenLR(density)",
+  col = "darkblue", lwd = 2)
+abline(h = 0, col = "red")
 
-plot(t,f.fcenLRinv, type="l",las=1, 
-  ylab="density",cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2,lty=1)
-lines(t,f1,lty=2,lwd=2,col="gold")   
+plot(t, f.back, type = "l", las = 1, ylab = "density",
+  col = "darkblue", lwd = 2)
+lines(t, f1, lty = 2, lwd = 2, col = "gold")
 }
 \references{
-Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020). Weighting the domain of probability densities in functional data analysis.\emph{Stat}(2020). https://doi.org/10.1002/sta4.283
+Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020).
+Weighting the domain of probability densities in functional data analysis.
+\emph{Stat}. \doi{10.1002/sta4.283}
+}
+\seealso{
+\code{\link{fcenLRinv}}, \code{\link{fcenLRp}}, \code{\link{fcenLRu}},
+\code{\link{trapzc}}, \code{\link{cenLR}}
 }
 \author{
-R. Talska\email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron\email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
+R. Talska \email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron \email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
 }

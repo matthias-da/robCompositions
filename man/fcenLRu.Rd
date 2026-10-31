@@ -2,24 +2,39 @@
 % Please edit documentation in R/Transformations.R
 \name{fcenLRu}
 \alias{fcenLRu}
-\title{fcenLRu transformation (functional)}
+\title{Unweighted functional clr transformation of a density with respect to a reference measure P}
 \usage{
 fcenLRu(z, z_step, density, p)
 }
 \arguments{
-\item{z}{grid of points defining the abscissa}
+\item{z}{numeric vector, equidistant grid of points on the domain.}
 
-\item{z_step}{step of the grid of the abscissa}
+\item{z_step}{spacing of the grid \code{z}.}
 
-\item{density}{grid evaluation of the P-density}
+\item{density}{numeric vector of the same length as \code{z}: strictly positive
+values of the \eqn{P}-density on the grid.}
 
-\item{p}{density of the reference measure P}
+\item{p}{numeric vector of the same length as \code{z}: density of the reference
+measure \eqn{P} with respect to the Lebesgue measure.}
 }
 \value{
-\item{\code{out}}{grid evaluation of the P-density in unweighted L2(lambda)}
+A numeric vector of the same length as \code{density}: the unweighted
+clr transform evaluated on the grid (an element of \eqn{L^2(\lambda)}).
 }
 \description{
-fcenLR[u] transformation: mapping from B2(P) into unweigted L2(lambda)
+Maps a \eqn{P}-density from the weighted Bayes space \eqn{B^2(P)}
+to the unweighted space \eqn{L^2(\lambda)} by multiplying the
+\eqn{P}-weighted clr transform (\code{\link{fcenLRp}}) by \eqn{\sqrt{p}},
+\deqn{\mathrm{fcenLR}_u(f)(z) = \sqrt{p(z)}\;\mathrm{fcenLR}_P(f)(z).}{fcenLR_u(f)(z) = sqrt(p(z)) * fcenLR_P(f)(z).}
+This moves the weighting from the measure into the function, so that methods
+for unweighted \eqn{L^2} data (e.g. functional PCA) can be applied.
+}
+\details{
+Integrals are approximated by \code{\link{trapzc}}, so \code{z} must be
+an equidistant grid with spacing \code{z_step}. All values of \code{density}
+must be strictly positive. Back-transforming the result with
+\code{\link{fcenLRinv}} gives the representation of the density in the
+unweighted Bayes space \eqn{B^2(\lambda)}.
 }
 \examples{
 # Common example for all transformations - fcenLR, fcenLRp, fcenLRu 
@@ -89,8 +104,14 @@ plot(t, fp.fcenLRu, type='l', ylab=expression(paste(fcenLR[u](f[P]))),
 abline(h=0,col="red")
 }
 \references{
-Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020). Weighting the domain of probability densities in functional data analysis.\emph{Stat}(2020). https://doi.org/10.1002/sta4.283
+Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020).
+Weighting the domain of probability densities in functional data analysis.
+\emph{Stat}. \doi{10.1002/sta4.283}
+}
+\seealso{
+\code{\link{fcenLR}}, \code{\link{fcenLRp}}, \code{\link{fcenLRinv}},
+\code{\link{trapzc}}
 }
 \author{
-R. Talska\email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron\email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
+R. Talska \email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron \email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
 }

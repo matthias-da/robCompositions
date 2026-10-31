@@ -13,3 +13,6 @@
 ^data-raw$
 ^.*\.tar\.gz$
 ^.*\.Rcheck$
+^\.agents$
+^\.codex$
+^AGENTS\.md$

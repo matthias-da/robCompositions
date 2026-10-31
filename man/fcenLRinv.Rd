@@ -2,50 +2,69 @@
 % Please edit documentation in R/Transformations.R
 \name{fcenLRinv}
 \alias{fcenLRinv}
-\title{Inverse of fcenLR transformations (functional)}
+\title{Inverse of the functional clr transformations}
 \usage{
 fcenLRinv(z, z_step, fcenLR, k = 1)
 }
 \arguments{
-\item{z}{grid of points defining the abscissa}
+\item{z}{numeric vector, the grid on which \code{fcenLR} is evaluated. It is
+currently not used in the computation and kept for consistency with the other
+functions of the family.}
 
-\item{z_step}{step of the grid of the abscissa}
+\item{z_step}{spacing of the (equidistant) grid.}
 
-\item{fcenLR}{grid evaluation of (i) fcenLR[lambda] transformed lambda-density,
-(ii) fcenLR[u] transformed P-density, (iii) fcenLR[P] transformed P-density}
+\item{fcenLR}{numeric vector, a clr-transformed density on the grid, as returned
+by \code{\link{fcenLR}}, \code{\link{fcenLRp}} or \code{\link{fcenLRu}}.}
 
-\item{k}{value of the integral of density; if k=1 it returns a unit-integral representation of density}
+\item{k}{positive number, the value the returned density should integrate to;
+the default \code{k = 1} gives a probability density.}
 }
 \value{
-\code{out} ... grid evaluation of (i) lambda-density in B2(lambda), 
-(ii) P-density in unweighted B2(lambda), (iii) P-density in B2(P)
+A numeric vector of the same length as \code{fcenLR}: the density
+evaluated on the grid, integrating to \code{k}.
 }
 \description{
-Inverse of fcenLR transformations
+Maps a clr-transformed function back to a density,
+\deqn{f(z) = k\,\frac{\exp(g(z))}{\int \exp(g(t))\,dt},}{f(z) = k * exp(g(z)) / integral exp(g(t)) dt,}
+where \eqn{g} is the output of \code{\link{fcenLR}}, \code{\link{fcenLRp}} or
+\code{\link{fcenLRu}}. Because densities in the Bayes space are scale invariant,
+the result is only defined up to a constant; \code{k} fixes it so that the
+returned density integrates to \code{k}.
 }
 \details{
-By default, it returns a unit-integral representation of density.
+The integral is approximated by \code{\link{trapzc}} with spacing
+\code{z_step}. Depending on the input, the result is (i) the
+\eqn{\lambda}-density in \eqn{B^2(\lambda)} for \code{fcenLR} output, (ii) the
+\eqn{P}-density in \eqn{B^2(P)} for \code{fcenLRp} output, or (iii) the
+representation of the \eqn{P}-density in the unweighted space
+\eqn{B^2(\lambda)} for \code{fcenLRu} output.
 }
 \examples{
-# Example (normal density)
-t = seq(-4.7,4.7, length = 1000)
-t_step = diff(t[1:2])
+t <- seq(-4.7, 4.7, length = 1000)
+t_step <- diff(t[1:2])
+f <- dnorm(t, mean = 0, sd = 1.5)
 
-mean = 0; sd = 1.5
-f = dnorm(t, mean, sd)
-f1 = f/trapzc(t_step,f)
+f.fcenLR <- fcenLR(t, t_step, f)
 
-f.fcenLR = fcenLR(t,t_step,f) 
-f.fcenLRinv = fcenLRinv(t.fine,t_step,f.fcenLR)
+# back to a unit-integral density ...
+f.back <- fcenLRinv(t, t_step, f.fcenLR)
+trapzc(t_step, f.back)
 
-plot(t,f.fcenLR, type="l",las=1, ylab="fcenLR(density)", 
-  cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2)
-abline(h=0, col="red")
+# ... or to a density integrating to 100
+trapzc(t_step, fcenLRinv(t, t_step, f.fcenLR, k = 100))
 
-plot(t,f.fcenLRinv, type="l",las=1, 
-  ylab="density",cex.lab=1.2,cex.axis=1.2, col="darkblue",lwd=2,lty=1)
-lines(t,f1,lty=2,lwd=2,col="gold")  
+plot(t, f.back, type = "l", las = 1, ylab = "density",
+  col = "darkblue", lwd = 2)
+}
+\references{
+Talska, R., Menafoglio, A., Hron, K., Egozcue, J. J., Palarea-Albaladejo, J. (2020).
+Weighting the domain of probability densities in functional data analysis.
+\emph{Stat}. \doi{10.1002/sta4.283}
+}
+\seealso{
+\code{\link{fcenLR}}, \code{\link{fcenLRp}}, \code{\link{fcenLRu}},
+\code{\link{trapzc}}, \code{\link{cenLRinv}}
 }
 \author{
-R. Talska\email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron\email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
+R. Talska \email{talskarenata@seznam.cz}, A. Menafoglio, K. Hron \email{karel.hron@upol.cz}, J. J. Egozcue, J. Palarea-Albaladejo
 }
