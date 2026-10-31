@@ -80,8 +80,9 @@ test_that("weighted distance matches the definition and its properties", {
 test_that("na.rm uses the available log-ratios", {
   Xm <- X
   Xm[1, 2] <- NA; Xm[2, c(1, 4)] <- 0; Xm[3, ] <- NA; Xm[3, 1:2] <- 1
-  expect_error(aDist(Xm, Y), "na.rm = TRUE")
-  expect_error(aDist(Xm), "na.rm = TRUE")
+  expect_error(aDist(Xm, Y), "missing or infinite")
+  expect_error(aDist(Xm), "missing or infinite")
+  expect_error(aDist(replace(X, 1, Inf), Y), "missing or infinite")
   d <- aDist(Xm, Y, type = "rows", na.rm = TRUE)
   ok <- is.finite(Xm) & Xm > 0
   ref <- sapply(1:10, function(i) bf_dist(Xm[i, ], Y[i, ], v = ok[i, ] * 1))
@@ -100,6 +101,26 @@ test_that("na.rm uses the available log-ratios", {
   dm <- aDist(Xs, na.rm = TRUE)
   expect_s3_class(dm, "dist")
   expect_equal(as.matrix(dm)[1, 2], sqrt(5 / 4) * aDist(X[1, -3], X[2, -3]))
+})
+
+test_that("zero or negative values give NaN with a warning (as before 2.7.0)", {
+  Xz <- X; Xz[2, 4] <- 0; Xz[5, 1] <- -1
+  expect_warning(d <- aDist(Xz, Y, type = "rows"), "zero or negative")
+  expect_true(all(is.nan(d[c(2, 5)])))
+  expect_equal(d[-c(2, 5)], aDist(X, Y, type = "rows")[-c(2, 5)])
+  expect_warning(s <- aDist(Xz, Y), "zero or negative")
+  expect_true(is.nan(s))
+  expect_warning(dm <- as.matrix(aDist(Xz)), "zero or negative")
+  expect_true(all(is.nan(dm[c(2, 5), -c(2, 5)])) && is.nan(dm[2, 5]))   # diagonal of as.matrix(dist) is 0
+  expect_equal(dm[-c(2, 5), -c(2, 5)], as.matrix(aDist(X))[-c(2, 5), -c(2, 5)])
+  expect_warning(dc <- aDist(X[1:3, ], Xz, type = "cross"), "zero or negative")
+  expect_true(all(is.nan(dc[, c(2, 5)])))
+  expect_equal(dc[, -c(2, 5)], aDist(X[1:3, ], X, type = "cross")[, -c(2, 5)])
+  # mixed-sign vectors, e.g. riskutility::ait() on rnorm() data: NaN, no error
+  expect_warning(v <- aDist(c(-1, 2, 3), c(1, 2, 3)), "zero or negative")
+  expect_true(is.nan(v))
+  # na.rm = TRUE still uses the available parts
+  expect_false(anyNA(aDist(Xz, Y, type = "rows", na.rm = TRUE)))
 })
 
 test_that("cell weights generalise na.rm and combine with part weights", {

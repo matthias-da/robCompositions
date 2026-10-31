@@ -32,7 +32,8 @@ weights of one.}
 
 \item{na.rm}{logical. If \code{TRUE}, missing, zero and negative values are
 left out and the distance is computed from the remaining log-ratios. If
-\code{FALSE} (default), such values give an error.}
+\code{FALSE} (default), missing or infinite values give an error and
+distances involving rows with zero or negative values are \code{NaN}.}
 
 \item{cellweights}{optional non-negative cell weights: a matrix with the
 dimensions of \code{x}, which then also applies to \code{y} if \code{y} is
@@ -46,7 +47,8 @@ For \code{y = NULL}, an object of class \code{"dist"}. Otherwise,
   names as dimnames), a vector with one distance per row (\code{"rows"}), or
   a matrix with \code{nrow(x)} rows and \code{nrow(y)} columns
   (\code{"cross"}). Distances are \code{NA} where fewer than two parts are
-  available.
+  available, and \code{NaN} for rows with zero or negative values if
+  \code{na.rm = FALSE}.
 }
 \description{
 Computes the Aitchison distance between two compositions, between the
@@ -98,7 +100,9 @@ soft version of dropping it from the composition. This is the discrete
 counterpart of \code{\link{fcenLRp}} for densities.
 
 \strong{Missing values, zeros and cell weights.} By default all values must be
-strictly positive and finite. With \code{na.rm = TRUE}, cells that are missing,
+strictly positive and finite: missing or infinite values give an error, and
+every distance that involves a row with a zero or negative value is
+\code{NaN} (with a warning). With \code{na.rm = TRUE}, cells that are missing,
 zero or negative are left out. With \code{cellweights}, each cell gets a weight
 \eqn{w \ge 0}, for example a weight from a cellwise-robust method that
 down-weights outlying cells. For a comparison of two rows the parts receive

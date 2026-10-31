@@ -14,9 +14,10 @@ Changes in robCompositions version 2.7.0
   + aDist() is now computed from clr coordinates in R instead of C: 25 to 100
     times faster for larger data, same results up to rounding (relative
     differences around 1e-16). The C routine has been removed.
-  + aDist() now stops with an informative error for missing, zero, negative or
-    infinite values (unless na.rm = TRUE). Before, missing values gave a
-    generic error and zeros silently returned Inf or NaN.
+  + aDist() now stops with an informative error for missing or infinite values
+    (before, a generic error from the C call). Distances involving rows with
+    zero or negative values are NaN, now with a warning that points to
+    na.rm = TRUE (before, NaN or Inf without a warning).
   + new function aDistDens() for the Aitchison distance between densities in
     the Bayes space, optionally with respect to a reference measure P.
 

@@ -1,19 +1,26 @@
-## Submission of robCompositions 2.6.1
+## Submission of robCompositions 2.7.0
 
-This is a maintenance release:
+Minor release with new functionality for the Aitchison distance. A 2.6.1
+maintenance release was prepared but never submitted, so its fixes are included
+(see NEWS):
 
 * `src/zeros.cpp` now includes `<cassert>` explicitly, needed to compile
   against Eigen 5.0.1 (the upcoming RcppEigen release); patch contributed by
   Dirk Eddelbuettel.
-* `trapzc()` gave a wrong result for a two-point grid; results for three or
-  more points are unchanged.
-* Rewritten help pages for the functional clr transformations (`fcenLR()`
-  family, `trapzc()`), plus new tests.
-* `aDist(x, y)` (and `ced()`, which calls it) now checks that `x` and `y`
-  have the same dimensions. Previously a `y` with fewer rows made the C code
-  read beyond the end of the array. The `.C()` registration of this routine
-  was corrected from 6 to 5 arguments (a misspelled `NAOK` argument had been
-  passed through). Results for valid input are unchanged.
+* `aDist()` gains row-wise and cross distances, weighted parts (weighted
+  Aitchison geometry), and missing values/zeros/cell weights via the available
+  pairwise log-ratios. It is now computed in R from clr coordinates; the only
+  `.C()` routine (`src/robCompositions.c`) was removed. Results for the
+  default arguments are unchanged.
+* New function `aDistDens()`: Aitchison distance between densities in the
+  Bayes space.
+* `aDist(x, y)` checks that `x` and `y` have the same dimensions (before, a
+  `y` with fewer rows made the C code read beyond the end of the array).
+* `trapzc()` gave a wrong result for a two-point grid.
+* Rewritten help pages for `aDist()`, `ced()`, the `fcenLR()` family and
+  `trapzc()`; new tests.
+* Two outdated URLs in the imputation vignette (a retired page of the Swiss
+  Federal Statistical Office and a `dx.doi.org` link) were removed.
 
 ## Test environments
 
@@ -30,7 +37,14 @@ This is a maintenance release:
 
 ## Downstream dependencies
 
-The reverse dependencies (`baker`, `CMMs`, `classmap`) are unaffected: they do
-not call `trapzc()`, the `fcenLR()` family or `ced()`, and none of them calls
-`aDist()` (`baker` imports only `cenLR()`; its single `aDist()` reference is
-commented out). The header include in compiled code changes no R-level behaviour.
+There are 5 reverse dependencies: `baker`, `classmap`, `CMMs`, `deepImp` and
+`riskutility`.
+
+* `classmap`, `CMMs`, `deepImp` and `riskutility` were checked with
+  `R CMD check` against this version: no new problems.
+* `baker` could not be checked locally (it needs JAGS via `R2jags`). It imports
+  only `cenLR()`, which is unchanged.
+* `deepImp` and `riskutility` call `aDist()` with the default arguments. For
+  data with zero or negative values, `aDist()` returns `NaN` as before, now
+  with a warning, so the example of `riskutility::ait()` on normally
+  distributed data still runs.
