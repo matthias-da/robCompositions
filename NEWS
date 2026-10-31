@@ -38,6 +38,8 @@ Changes in robCompositions version 2.6.1
     routine has been corrected (a misspelled NAOK argument was passed on to it).
   + the help page of ced() has been rewritten (definition, input requirements,
     return value, DOIs) and tests for aDist() and ced() have been added.
+  + the imputation vignette no longer links to a report on a retired web page
+    of the Swiss Federal Statistical Office (the URL now returns 404).
 
 Changes in robCompositions version 2.6.0
   + new function cellNetCoDa() for cellwise-robust network (Gaussian graphical
