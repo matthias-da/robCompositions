@@ -27,3 +27,130 @@ test_that("ced is aDist divided by ni", {
   expect_equal(ced(x, x, ni = 1), 0)
   expect_error(ced(x, xi[, 1:4], ni = 2), "same dimensions")
 })
+
+## ---- 2.7.0: type = "rows"/"cross", weights, na.rm, cellweights -----------------
+
+# brute force from the definition: weighted mean over the available pairwise
+# log-ratios, scaled to all D(D-1)/2 log-ratios (see ?aDist)
+bf_dist <- function(x, y, p = rep(1, length(x)), v = rep(1, length(x))) {
+  D <- length(x); num <- den <- 0; allp <- 0
+  for (j in 1:(D - 1)) for (k in (j + 1):D) {
+    allp <- allp + p[j] * p[k]
+    w <- p[j] * v[j] * p[k] * v[k]
+    if (w > 0) {
+      num <- num + w * (log(x[j] / x[k]) - log(y[j] / y[k]))^2
+      den <- den + w
+    }
+  }
+  if (den == 0) return(NA_real_)
+  sqrt(as.numeric(allp * num / den / sum(p)))
+}
+
+set.seed(123)
+X <- matrix(exp(rnorm(60)), 10, 6, dimnames = list(letters[1:10], paste0("p", 1:6)))
+Y <- X * exp(rnorm(60, sd = 0.4))
+
+test_that("type = 'rows' and 'cross' agree with single-composition distances", {
+  r <- aDist(X, Y, type = "rows")
+  expect_named(r, letters[1:10])
+  expect_equal(unname(r), sapply(1:10, function(i) aDist(X[i, ], Y[i, ])))
+  expect_equal(sum(r), aDist(X, Y))
+  cr <- aDist(X, Y[1:4, ], type = "cross")
+  expect_equal(dim(cr), c(10L, 4L))
+  for (i in c(1, 7)) for (j in 1:4) expect_equal(cr[i, j], aDist(X[i, ], Y[j, ]))
+  expect_equal(unname(aDist(X, X, type = "cross")), unname(as.matrix(aDist(X))))
+  expect_error(aDist(X, Y[, 1:5], type = "cross"), "same number of columns")
+})
+
+test_that("weighted distance matches the definition and its properties", {
+  p <- c(2, 1, 0.5, 1, 3, 1)
+  d <- aDist(X, Y, type = "rows", weights = p)
+  expect_equal(unname(d), sapply(1:10, function(i) bf_dist(X[i, ], Y[i, ], p)))
+  expect_equal(aDist(X, Y, weights = rep(1, 6)), aDist(X, Y))
+  expect_equal(aDist(X, Y, type = "rows", weights = 4 * p), 2 * d)       # sqrt(c) scaling
+  expect_true(all(aDist(X, Y, type = "rows", weights = p / 2) <= d))      # monotone in weights
+  expect_equal(aDist(X * 3, Y / 2, type = "rows", weights = p), d)        # scale invariance
+  dm <- aDist(X, weights = p)
+  expect_s3_class(dm, "dist")
+  expect_equal(as.matrix(dm)[2, 5], bf_dist(X[2, ], X[5, ], p))
+  expect_error(aDist(X, Y, weights = 1:5), "6 positive numbers")
+  expect_error(aDist(X, Y, weights = c(0, 1, 1, 1, 1, 1)), "positive")
+})
+
+test_that("na.rm uses the available log-ratios", {
+  Xm <- X
+  Xm[1, 2] <- NA; Xm[2, c(1, 4)] <- 0; Xm[3, ] <- NA; Xm[3, 1:2] <- 1
+  expect_error(aDist(Xm, Y), "na.rm = TRUE")
+  expect_error(aDist(Xm), "na.rm = TRUE")
+  d <- aDist(Xm, Y, type = "rows", na.rm = TRUE)
+  ok <- is.finite(Xm) & Xm > 0
+  ref <- sapply(1:10, function(i) bf_dist(Xm[i, ], Y[i, ], v = ok[i, ] * 1))
+  expect_equal(unname(d[-3]), ref[-3])
+  expect_equal(unname(d[3]), ref[3])            # two parts left: still defined
+  Xm[4, -1] <- NA
+  expect_true(is.na(aDist(Xm, Y, type = "rows", na.rm = TRUE)[4]))   # one part left
+  # complete data: na.rm = TRUE changes nothing
+  expect_identical(aDist(X, Y, na.rm = TRUE), aDist(X, Y))
+  expect_identical(aDist(X, na.rm = TRUE), aDist(X))
+  # a part missing everywhere = scaled distance of the subcomposition
+  Xs <- X; Xs[, 3] <- NA
+  expect_equal(aDist(Xs, Y, type = "rows", na.rm = TRUE),
+               sqrt(5 / 4) * aDist(X[, -3], Y[, -3], type = "rows"))
+  # distance matrix of incomplete data
+  dm <- aDist(Xs, na.rm = TRUE)
+  expect_s3_class(dm, "dist")
+  expect_equal(as.matrix(dm)[1, 2], sqrt(5 / 4) * aDist(X[1, -3], X[2, -3]))
+})
+
+test_that("cell weights generalise na.rm and combine with part weights", {
+  W <- matrix(runif(60), 10, 6)
+  p <- c(2, 1, 0.5, 1, 3, 1)
+  d <- aDist(X, Y, type = "rows", cellweights = W, weights = p)
+  expect_equal(unname(d), sapply(1:10, function(i) bf_dist(X[i, ], Y[i, ], p, W[i, ])))
+  expect_equal(aDist(X, Y, cellweights = matrix(1, 10, 6)), aDist(X, Y))
+  W01 <- matrix(1, 10, 6); W01[1, 2] <- 0
+  Xm <- X; Xm[1, 2] <- NA
+  expect_equal(aDist(X, Y, type = "rows", cellweights = W01),
+               aDist(Xm, Y, type = "rows", na.rm = TRUE))
+  Wy <- matrix(runif(60), 10, 6)
+  expect_equal(unname(aDist(X, Y, type = "rows", cellweights = list(x = W, y = Wy))),
+               sapply(1:10, function(i) bf_dist(X[i, ], Y[i, ], v = W[i, ] * Wy[i, ])))
+  expect_error(aDist(X, Y, cellweights = W[, 1:5]), "same dimensions")
+  expect_error(aDist(X, Y, cellweights = -W), "non-negative")
+})
+
+## ---- aDistDens ------------------------------------------------------------------
+
+tt <- seq(-4.7, 4.7, length = 1000)
+st <- diff(tt[1:2])
+f1 <- dnorm(tt, 0, 1.5); f2 <- dnorm(tt, 1, 1.5)
+
+test_that("aDistDens is the L2 distance of the clr transforms", {
+  d <- aDistDens(tt, st, f1, f2)
+  expect_equal(d, sqrt(trapzc(st, (fcenLR(tt, st, f1) - fcenLR(tt, st, f2))^2)))
+  # analytic: clr difference of two normals with equal sd is linear in t
+  expect_equal(d, sqrt((2 * 4.7)^3 / 12) / 1.5^2, tolerance = 1e-5)
+  expect_equal(aDistDens(tt, st, 7 * f1, f2), d)
+  expect_equal(aDistDens(tt, st, f1, f1), 0)
+})
+
+test_that("aDistDens with a reference measure matches fcenLRp", {
+  p <- dnorm(tt, sd = 2) / trapzc(st, dnorm(tt, sd = 2))
+  d <- aDistDens(tt, st, f1 / p, f2 / p, p = p)
+  expect_equal(d, sqrt(trapzc(st, (fcenLRp(tt, st, f1 / p, p) -
+                                     fcenLRp(tt, st, f2 / p, p))^2 * p)))
+})
+
+test_that("aDistDens handles several densities", {
+  dens <- t(sapply(c(0, 0.5, 1, 2), function(m) dnorm(tt, mean = m, sd = 1.5)))
+  dm <- aDistDens(tt, st, dens)
+  expect_s3_class(dm, "dist")
+  expect_equal(as.matrix(dm)[1, 3], aDistDens(tt, st, f1, f2))
+  expect_equal(aDistDens(tt, st, dens, dens[4:1, ]),
+               c(as.matrix(dm)[1, 4], as.matrix(dm)[2, 3], as.matrix(dm)[3, 2],
+                 as.matrix(dm)[4, 1]))
+  expect_equal(dim(aDistDens(tt, st, dens, dens[1:2, ], type = "cross")), c(4L, 2L))
+  expect_error(aDistDens(tt^3, st, f1, f2), "equidistant")
+  expect_error(aDistDens(tt, st, replace(f1, 1, 0), f2), "strictly positive")
+  expect_error(aDistDens(tt, st, f1[-1], f2), "one value per grid point")
+})

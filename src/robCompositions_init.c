@@ -7,17 +7,9 @@
  Check these declarations against the C/Fortran source code.
  */
 
-/* .C calls */
-extern void da(void *, void *, void *, void *, void *);
-
 /* .Call calls */
 extern SEXP smoothingSplines_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP smoothingSplinesValidation_(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-
-static const R_CMethodDef CEntries[] = {
-  {"da", (DL_FUNC) &da, 5},
-  {NULL, NULL, 0}
-};
 
 static const R_CallMethodDef CallEntries[] = {
   {"smoothingSplines_",           (DL_FUNC) &smoothingSplines_,           11},
@@ -27,6 +19,6 @@ static const R_CallMethodDef CallEntries[] = {
 
 void R_init_robCompositions(DllInfo *dll)
 {
-  R_registerRoutines(dll, CEntries, CallEntries, NULL, NULL);
+  R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
 }

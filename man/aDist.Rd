@@ -5,58 +5,150 @@
 \alias{iprod}
 \title{Aitchison distance}
 \usage{
-aDist(x, y = NULL)
+aDist(
+  x,
+  y = NULL,
+  type = c("sum", "rows", "cross"),
+  weights = NULL,
+  na.rm = FALSE,
+  cellweights = NULL
+)
 
 iprod(x, y)
 }
 \arguments{
-\item{x}{a vector, matrix or data.frame}
+\item{x}{a vector (one composition), matrix or data frame with the
+compositions in the rows.}
 
-\item{y}{a vector, matrix or data.frame with the same dimensions as \code{x}
-(an error is raised otherwise), or NULL.}
+\item{y}{\code{NULL}, or a vector, matrix or data frame of compositions to
+compare with \code{x}; see Details for the required dimensions.}
+
+\item{type}{character, one of \code{"sum"} (default), \code{"rows"} or
+\code{"cross"}; see Details. Ignored if \code{y} is \code{NULL}.}
+
+\item{weights}{optional vector of \eqn{D} positive part weights for the
+weighted Aitchison distance; see Details. \code{NULL} (default) means equal
+weights of one.}
+
+\item{na.rm}{logical. If \code{TRUE}, missing, zero and negative values are
+left out and the distance is computed from the remaining log-ratios. If
+\code{FALSE} (default), such values give an error.}
+
+\item{cellweights}{optional non-negative cell weights: a matrix with the
+dimensions of \code{x}, which then also applies to \code{y} if \code{y} is
+\code{NULL}, or a list with elements \code{x} and \code{y} giving weight
+matrices for both data sets (either may be \code{NULL} for weights of one).}
 }
 \value{
-The Aitchison distance between two compositions or between two data
-sets, or a distance matrix in case \code{y} is not supplied.
+For \code{y = NULL}, an object of class \code{"dist"}. Otherwise,
+  depending on \code{type}: a single number (\code{"sum"}; for two named
+  single compositions or two one-row data frames a 1 x 1 matrix with their
+  names as dimnames), a vector with one distance per row (\code{"rows"}), or
+  a matrix with \code{nrow(x)} rows and \code{nrow(y)} columns
+  (\code{"cross"}). Distances are \code{NA} where fewer than two parts are
+  available.
 }
 \description{
-Computes the Aitchison distance between two observations, between two data
-sets or within observations of one data set.
+Computes the Aitchison distance between two compositions, between the
+corresponding rows of two data sets, between all rows of two data sets, or
+within the observations of one data set. Parts can be weighted (weighted
+Aitchison geometry), and missing values, zeros and cell weights (e.g. from a
+cellwise-robust estimator) can be taken into account via the available
+pairwise log-ratios.
 }
 \details{
-This distance measure accounts for the relative scale property of
-compositional data. It measures the distance between two compositions if
-\code{x} and \code{y} are vectors. It evaluates the sum of the distances between
-\code{x} and \code{y} for each row of \code{x} and \code{y} if \code{x} and
-\code{y} are matrices or data frames. It computes a n times n distance matrix (with n
-the number of observations/compositions) if only \code{x} is provided.
+The Aitchison distance between two compositions \eqn{x} and \eqn{y} with
+\eqn{D} parts is the Euclidean distance of their clr coordinates,
+\deqn{d_a(x, y)^2 = \sum_{j=1}^D \left(\mathrm{clr}(x)_j - \mathrm{clr}(y)_j\right)^2
+  = \frac{1}{D}\sum_{j<k}\left(\ln\frac{x_j}{x_k} - \ln\frac{y_j}{y_k}\right)^2.}{%
+  d_a(x, y)^2 = sum_j (clr(x)_j - clr(y)_j)^2 = 1/D * sum_{j<k} (ln(x_j/x_k) - ln(y_j/y_k))^2.}
+It accounts for the relative scale of compositional data: it does not change
+if a composition is multiplied by a positive constant.
 
+\strong{Output types.} If \code{y} is \code{NULL}, the distance matrix
+between all observations of \code{x} is returned as a \code{"dist"} object
+and \code{type} is ignored. Otherwise \code{type} selects the output:
+\describe{
+  \item{\code{"sum"}}{(default) the sum of the distances between the
+    corresponding rows of \code{x} and \code{y}; for two single
+    compositions this is simply their distance.}
+  \item{\code{"rows"}}{the vector of distances between the corresponding
+    rows of \code{x} and \code{y}, e.g. to see which observations were imputed
+    badly.}
+  \item{\code{"cross"}}{the \eqn{n \times m}{n x m} matrix of distances
+    between every row of \code{x} and every row of \code{y}; \code{y} may have
+    any number of rows, e.g. to find nearest neighbours of new observations in
+    a reference data set.}
+}
+For \code{"sum"} and \code{"rows"}, \code{x} and \code{y} must have the same
+dimensions; for \code{"cross"} the same number of columns.
 
-The underlying code is partly written in C and allows a fast computation also for
-large data sets whenever \code{y} is supplied.
+\strong{Weighted parts.} With \code{weights} \eqn{p = (p_1, \dots, p_D)},
+the parts get different importance through a change of the reference measure
+of the simplex (Egozcue and Pawlowsky-Glahn, 2016; Hron et al., 2022):
+\deqn{d_p(x, y)^2 = \sum_{j=1}^D p_j \left(u_j - \bar u_p\right)^2,
+  \qquad u = \ln x - \ln y, \quad \bar u_p = \frac{\sum_j p_j u_j}{\sum_j p_j},}{%
+  d_p(x, y)^2 = sum_j p_j (u_j - ubar_p)^2, u = ln x - ln y, ubar_p = sum_j p_j u_j / sum_j p_j,}
+i.e. the weighted Euclidean distance of the weighted clr coordinates. The
+weights are not normalised: \eqn{p = (1, \dots, 1)} gives the ordinary
+Aitchison distance, and multiplying all weights by \eqn{c} multiplies the
+distance by \eqn{\sqrt{c}}. Reducing weights never increases the distance
+(Egozcue and Pawlowsky-Glahn, 2016), so down-weighting a part acts like a
+soft version of dropping it from the composition. This is the discrete
+counterpart of \code{\link{fcenLRp}} for densities.
+
+\strong{Missing values, zeros and cell weights.} By default all values must be
+strictly positive and finite. With \code{na.rm = TRUE}, cells that are missing,
+zero or negative are left out. With \code{cellweights}, each cell gets a weight
+\eqn{w \ge 0}, for example a weight from a cellwise-robust method that
+down-weights outlying cells. For a comparison of two rows the parts receive
+the weights \eqn{v_j = w^x_j w^y_j} (0 for a cell left out), each log-ratio
+between parts \eqn{j} and \eqn{k} the weight \eqn{v_j v_k}, and the sum of
+squared log-ratio differences is estimated by the weighted mean over the
+available log-ratios times the number of all \eqn{D(D-1)/2} log-ratios,
+as in Gower's distance for incomplete data (Gower, 1971). Without part
+weights, and with \eqn{u = \ln x - \ln y} and \eqn{V = \sum_j v_j}, this gives
+\deqn{d^2 = (D-1)\,\frac{V \sum_j v_j (u_j - \bar u_v)^2}{V^2 - \sum_j v_j^2},
+  \qquad \bar u_v = \frac{1}{V}\sum_j v_j u_j.}{%
+  d^2 = (D-1) * V * sum_j v_j (u_j - ubar)^2 / (V^2 - sum_j v_j^2), ubar = sum_j v_j u_j / V.}
+With all weights equal to one this is exactly the Aitchison distance; with
+\eqn{a} available parts and the others left out it is
+\eqn{\frac{D-1}{a-1}\sum_{j \in A}(u_j - \bar u_A)^2}{(D-1)/(a-1) * sum_{j in A} (u_j - ubar_A)^2},
+the Aitchison distance of the available subcomposition scaled up to \eqn{D}
+parts. If fewer than two parts carry weight, the distance is \code{NA}.
+Together with part weights \eqn{p}, the log-ratio weights are
+\eqn{p_j v_j p_k v_k} and the estimate is scaled to the weighted distance
+\eqn{d_p}; with all cell weights equal to one it is exactly \eqn{d_p}.
 }
 \examples{
-
 data(expenditures)
 x <- xOrig <- expenditures
-## Aitchison distance between two 2 observations:
+## Aitchison distance between two observations:
 aDist(x[1, ], x[2, ])
 aDist(as.numeric(x[1, ]), as.numeric(x[2, ]))
-
-
-## Aitchison distance of x:
+## distance matrix of x:
 aDist(x)
 
-## Example of distances between matrices:
-## set some missing values:
+## distance between an original and an imputed data set:
 x[1,3] <- x[3,5] <- x[2,4] <- x[5,3] <- x[8,3] <- NA
-
-## impute the missing values:
 xImp <- impCoda(x, method="ltsReg")$xImp
-
-## calculate the relative Aitchsion distance between xOrig and xImp:
 aDist(xOrig, xImp)
+## ... and per observation: which rows were imputed worst?
+round(aDist(xOrig, xImp, type = "rows"), 3)
 
+## distances of three new observations to all observations of a data set
+aDist(xOrig[1:3, ] * 1.1, xOrig, type = "cross")[, 1:6]
+
+## weighted Aitchison distance: give the first part (housing) double weight
+aDist(xOrig[1, ], xOrig[2, ], weights = c(2, 1, 1, 1, 1))
+
+## incomplete data: use the available log-ratios
+aDist(x[1:4, ], na.rm = TRUE)
+
+## down-weight a suspicious cell (weight 0 = leave it out)
+w <- matrix(1, nrow(xOrig), ncol(xOrig))
+w[1, 2] <- 0
+aDist(xOrig[1:2, ], xImp[1:2, ], type = "rows", cellweights = w[1:2, ])
 data("expenditures") 
 aDist(expenditures)  
 x <- expenditures[, 1]
@@ -73,13 +165,26 @@ Aitchison, J. and Barcelo-Vidal, C. and Martin-Fernandez, J.A. and
 Pawlowsky-Glahn, V. (2000) Logratio analysis and compositional distance.
 \emph{Mathematical Geology}, \bold{32}, 271-275.
 
+Egozcue, J.J. and Pawlowsky-Glahn, V. (2016) Changing the reference measure
+in the simplex and its weighting effects. \emph{Austrian Journal of
+Statistics}, \bold{45} (4), 25-44. \doi{10.17713/ajs.v45i4.126}
+
+Gower, J.C. (1971) A general coefficient of similarity and some of its
+properties. \emph{Biometrics}, \bold{27} (4). \doi{10.2307/2528823}
+
 Hron, K. and Templ, M. and Filzmoser, P. (2010) Imputation of missing values
-for compositional data using classical and robust methods
-\emph{Computational Statistics and Data Analysis}, vol 54 (12), pages
-3095-3107.
+for compositional data using classical and robust methods.
+\emph{Computational Statistics and Data Analysis}, \bold{54} (12),
+3095-3107. \doi{10.1016/j.csda.2009.11.023}
+
+Hron, K., Menafoglio, A., Palarea-Albaladejo, J., Filzmoser, P., Talska, R.
+and Egozcue, J.J. (2022) Weighting of parts in compositional data analysis:
+advances and applications. \emph{Mathematical Geosciences}, \bold{54} (1),
+71-93. \doi{10.1007/s11004-021-09952-y}
 }
 \seealso{
-\code{\link{pivotCoord}}
+\code{\link{cenLR}}, \code{\link{pivotCoord}}, \code{\link{ced}},
+  \code{\link{aDistDens}}, \code{\link{cellPcaCoDa}}
 }
 \author{
 Matthias Templ, Bernhard Meindl
